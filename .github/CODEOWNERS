@@ -1,4 +1,4 @@
 # CODEOWNERS
-*.js @js-owner
+
 solala-app/ @jordandrako
 * @leejmorel

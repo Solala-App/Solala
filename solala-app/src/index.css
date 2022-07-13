@@ -1,13 +1,270 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/** {
+    margin: 0;
+    padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#page-text {
+    padding-top: 70px;
+}
+
+
+nav {
+    background-color: #EFC8C3;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    cursor: pointer;
+    background-color: #EFC8C3;
+}
+
+.background {
+    background: rgb(255, 255, 255);
+    background-blend-mode: darken;
+    background-size: cover;
+}
+
+#footer {
+    position: relative;
+    height: 194px;
+    background: #CB7236;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-list {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    background-color: #EFC8C3;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px;
+    padding-top: 5px;
+}
+
+
+    .logo img {
+        width: 100px;
+    }
+
+.nav-list li {
+    list-style: none;
+    padding: 26px 30px;
+}
+
+    .nav-list li a {
+        text-decoration: none;
+        color: #000;
+    }
+
+        .nav-list li a:hover {
+            color: grey;
+        }
+
+#main-page {
+    display: flex;
+    flex-direction: row;
+}
+
+
+#coming {
+    height: 200px;
+    background-color: #E3FFEB;
+    font-size: 60px;
+    color: #126760;
+}
+
+#intro {
+    height: 200px;
+    background-color: #E3FFEB;
+    font-size: 16px;
+}
+
+#page-text {
+    padding-top: 200px;
+    padding-bottom: 200px;
+    padding-left: 100px;
+}
+
+#paragraph {
+    width: 50em;
+    word-wrap: break-word;
+    font-size: 16px;
+}
+
+
+#form {
+    padding-bottom: 60px;
+}
+
+body {
+    background-color: #E3FFEB;
+}
+
+section {
+    padding-left: 20px;
+}
+
+.text-footer {
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    color: #fff;
+}
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#menu {
+    /* Menu Bubble */
+
+    position: absolute;
+    height: 116px;
+    left: 53px;
+    right: 89px;
+    top: 306px;
+    width: 500px;
+    height: 350px;
+    background: #7AB9A1;
+    border-radius: 30px;
+    opacity: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 10px 10px 20px 0px #000000;
+}
+
+#menu-header {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    font-size: 30px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: bold;
+    /*font-family: 'Courgette', cursive;*/
+    color: white;
+    position: absolute;
+    height: 116px;
+    width: 500px;
+    border-radius: 30px;
+    height: 60px;
+    background-color: #126760;
+    opacity: 70%
+}
+
+#buttons {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 220px;
+    width: 500px;
+    align-items: center;
+    padding-top: 70px;
+}
+
+.menu-bubble {
+    background-color: #E3FFEB;
+    width: 400px;
+    border-radius: 30px;
+    height: 20px;
+    padding: 20px;
+    font-size: 24px;
+    color: #126760;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: bold;
+}
+
+.time {
+    padding-right: 50px;
+}
+
+#scroll-down {
+    height: 30px;
+    width: 50px;
+    align-content: center;
+    padding-top: 10px;
+    padding-right: 15px;
+}
+
+#add-button {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    left: 430px;
+}
+
+
+
+
+
+
+
+
+#footer {
+    /*width: 100%;*/
+    width: 1000px;
+    height: 100px;
+    background-color: #CB7236;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+}
+
+    #footer img, #overall-window img {
+        height: 80px;
+        width: 80px;
+    }
+
+
+
+body {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+
+
+
+
+
+
+#overall-window {
+    background-color: black;
+    opacity: 50%;
+    height: 700px;
+    width: 300px;
+    left: 53px;
+    right: 89px;
+    bottom: 200px;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
 }

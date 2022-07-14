@@ -1,4 +1,4 @@
 # CODEOWNERS
 
-solala-app/ @jordandrako
+solala-app/* @jordandrako
 * @leejmorel

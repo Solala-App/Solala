@@ -59,18 +59,14 @@ returner.render(Footer());
 function PopUp() {
     return (
         <div id="overall-window">
-            <img src="https://cdn.discordapp.com/attachments/886880496200609802/996898390401093712/unknown.png" alt="water plant image"></img>
-            <div>
-                <span>
-                    You completed the task
-                    <strong>Water the Plants</strong>
-                </span>
-                Great Job!
-                You earned vitamins for <strong>Bob</strong>
-
-                <span>
-                </span>
-            </div>
+            <img id="test"  src="https://cdn.discordapp.com/attachments/886880496200609802/996898390401093712/unknown.png" alt="water plant image"></img>
+            <section id="popup-text">
+                <span className="sentence">You completed the task 
+                    <strong> Water the Plants</strong></span>
+                <p></p>
+                <span className="sentence">Great Job!
+                   You earned vitamins for <strong>Bob</strong> </span>
+            </section>
         </div>
     );
 }

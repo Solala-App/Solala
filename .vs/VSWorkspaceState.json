@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\solala-app",
+    "\\solala-app\\public",
+    "\\solala-app\\src"
   ],
-  "SelectedNode": "\\C:\\Users\\chris\\Source\\Repos\\Solala-work",
+  "SelectedNode": "\\solala-app\\src\\index.js",
   "PreviewInSolutionExplorer": false
 }

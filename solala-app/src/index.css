@@ -264,7 +264,24 @@ body {
     right: 89px;
     bottom: 200px;
     display: flex;
-    align-content: center;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    color: white;
+    font-size: 30px;
+}
+
+#popup-text {
+    padding-top: 60px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 35px;
+}
+
+
+
+#overall-window img {
+    padding-top: 40px;
+    padding-bottom: 60px;
 }

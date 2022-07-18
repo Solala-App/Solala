@@ -1,4 +1,6 @@
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import AppLoading from "expo-app-loading";
+import { useFonts } from "expo-font";
 
 const colorPalette = {
   mint: "#E3FFEB",
@@ -13,10 +15,14 @@ const colorPalette = {
   white: "#FFFFFF",
 };
 
-const fonts = {
-  primary: "Courgette",
-  secondary: "Montserrat Alternates",
-};
+const fonts = useFonts({
+  Courgette: require("../../assets/fonts/Courgette-Regular.ttf"),
+  Montserrat_Alt_Black: require("../../assets/fonts/MontserratAlternates-Black.ttf"),
+  Montserrat_Alt_Bold: require("../../assets/fonts/MontserratAlternates-Bold.ttf"),
+  Montserrat_Alt_Medium: require("../../assets/fonts/MontserratAlternates-Medium.ttf"),
+  Montserrat_Alt_Regular: require("../../assets/fonts/MontserratAlternates-Regular.ttf"),
+  Montserrat_Alt_Light: require("../../assets/fonts/MontserratAlternates-Light.ttf"),
+});
 
 export const theme = {
   colors: {
@@ -39,8 +45,7 @@ export const theme = {
   text: {
     h1: {
       fontSize: RFValue(30),
-      fontFamily: fonts.secondary,
-      fontWeight: "bold",
+      fontFamily: fonts.Montserrat_Alt_Bold,
     },
   },
 };

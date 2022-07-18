@@ -9,29 +9,6 @@ export default StyleSheet.create({
     textAlign: "center",
   },
 
-  shadowProp: {
-    /* Apply to add a shadow to an object */
-    shadowColor: "#141414",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
-  },
-
-  card: {
-    /* green bubble for menus */
-    backgroundColor: "#7AB9A1",
-    borderRadius: 8,
-    padding: 20,
-    width: "100%",
-    marginVertical: 10,
-    flexDirection: "column",
-    alignItems: "center",
-    borderRadius: 30,
-    opacity: 70,
-    display: "flex",
-  },
-
   cardHeader: {
     display: "flex",
     justifyContent: "center",

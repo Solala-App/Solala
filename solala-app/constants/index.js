@@ -48,4 +48,12 @@ export const theme = {
       fontFamily: fonts.Montserrat_Alt_Bold,
     },
   },
+  shadowProp: {
+    /* Apply to add a shadow to an object */
+    shadowColor: "#141414",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+  },
 };

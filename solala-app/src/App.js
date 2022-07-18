@@ -1,9 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import classNames from "classnames";
+import useDarkMode from "some-dark-mode-lib";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
+  const [darkMode] = useDarkMode();
   return (
-    <div className="App">
+    <div className={classNames("App", darkMode && "dark")}>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

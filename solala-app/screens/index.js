@@ -1,4 +1,4 @@
-import homepage from "./homepage";
-import test from "./test";
+import Homepage from "./Homepage";
+import Test from "./Test";
 
-export { homepage, test };
+export { Homepage, Test };

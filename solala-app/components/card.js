@@ -9,76 +9,106 @@ const { colors, size, text, shadowProp } = theme;
 const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.light.secondary,
-    padding: RFValue(20),
-    width: "100%",
-    marginVertical: RFValue(10),
     flexDirection: "column",
     alignItems: "center",
     borderRadius: size.borderRadius,
     opacity: 70,
-    display: "flex",
+    flex: 1,
+    paddingBottom: size.padding,
     ...shadowProp,
   },
 
   cardHeader: {
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "row",
-    alignItems: "center",
-    fontSize: 30,
-    fontFamily: "Montserrat Alternates",
-    fontWeight: "bold",
-    /*font-family: 'Courgette', cursive,*/
-    color: "white",
-    position: "absolute",
-    borderRadius: 30,
-    backgroundColor: "#126760",
+    flex: 1,
+    ...text.h1,
+    fontColor: colors.light.textPrimary,
+    borderRadius: size.borderRadius,
+    backgroundColor: colors.light.primary,
     opacity: 70,
+    justifyContent: "center",
   },
 
   cardItem: {
-    backgroundColor: "#E3FFEB",
-    width: 400,
-    borderRadius: 30,
-    height: 20,
-    padding: 20,
-    fontSize: 24,
-    color: "#126760",
-    fontFamily: "Montserrat Alternates",
-    fontWeight: "bold",
+    flex: 1,
+    paddingVertical: size.innerPadding,
+    paddingRight: size.innerPadding,
+    marginHorizontal: size.margin,
+    marginTop: size.margin,
+    backgroundColor: colors.light.primary,
+    borderRadius: size.borderRadius,
+    padding: size.padding,
+    ...text.h1,
+    fontColor: colors.light.textPrimary,
   },
 
   button: {
     display: "flex",
     justifyContent: "space-around",
     flexDirection: "column",
-    height: 220,
-    width: 500,
     alignItems: "center",
-    paddingTop: 70,
+    paddingTop: RFValue(70),
   },
 
   cardObjectLeft: {
     /*checkbox bubble, time, reset, ect */
-    paddingRight: 50,
+    flex: 1,
+    width: 80,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   scrollDown: {
-    height: 30,
-    width: 50,
+    flex: 1,
     alignContent: "center",
-    paddingTop: 10,
-    paddingRight: 15,
-  },
-
-  addButton: {
-    height: 50,
-    width: 50,
-    position: "absolute",
-    left: 430,
+    paddingTop: RFValue(10),
+    paddingRight: RFValue(15),
   },
 });
 
-export default function homepage() {
-  return <View style={styles.card}></View>;
+export default function card() {
+  return (
+    <View style={styles.card}>
+      //Card Header
+      <View style={styles.cardHeader}>
+        //left margin
+        <View
+          style={{
+            flex: 1,
+          }}
+        />
+        //textbox
+        <View
+          style={{
+            flex: 10,
+          }}
+        />
+        //add items or right margin
+        <View
+          style={{
+            flex: 1,
+          }}
+        />
+      </View>
+      //Items for Card
+      <View style={styles.cardItem}>
+        //checkbox/time/reset....
+        <View style={styles.cardObjectLeft} />
+        //text
+        <View
+          style={{
+            flex: 10,
+          }}
+        />
+      </View>
+      //arrow to scroll
+      <View
+        style={{
+          justifyContent: "center",
+          position: "absolute",
+          bottom: 10,
+        }}
+      />
+    </View>
+  );
 }

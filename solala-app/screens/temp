@@ -1,0 +1,17 @@
+    <View>
+      <View style={styles.header}></View>
+      <View style={styles.mainView}>
+        <View style={styles.eventView}>
+          <View style={styles.card}></View>
+          <View style={styles.card}></View>
+        </View>
+
+        <View style={styles.solalaView}></View>
+
+        <View style={styles.healthView}>
+          <View style={styles.card}></View>
+          <View style={styles.card}></View>
+        </View>
+      </View>
+      <View style={styles.footer}></View>
+    </View>

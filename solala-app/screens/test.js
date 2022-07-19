@@ -1,7 +1,10 @@
 import React from "react";
 import { View, Text } from "react-native";
-import style from "./Style";
 
-export default function test() {
-  return <View></View>;
-}
+export const Test = () => {
+  return (
+    <View>
+      <Text>Stuff</Text>
+    </View>
+  );
+};

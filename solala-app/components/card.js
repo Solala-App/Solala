@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function card() {
+export default function Card() {
   return (
     <View style={styles.card}>
       //Card Header

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import Footer from "../components/Footer.js";
+import Footer, { footerStyles } from "../components/Footer.js";
 
 export default function Homepage() {
   return (
@@ -19,9 +19,7 @@ export default function Homepage() {
           <View style={styles.card}></View>
         </View>
       </View>
-      <View style={styles.footer}>
-        <Footer />
-      </View>
+      <Footer />
     </View>
   );
 }
@@ -47,16 +45,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#E3FFEB",
     alignItems: "center",
     width: "100%",
-  },
-  footer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    width: "100%",
-    height: 100,
-    bottom: 0,
-    position: "absolute",
-    backgroundColor: "#CB7236",
   },
   eventView: {
     display: "flex",

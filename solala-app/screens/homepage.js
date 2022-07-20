@@ -11,7 +11,6 @@ export default function Homepage() {
                     <Text>Hello WOOORRRLLLDDDD</Text>
                     <View style={styles.card}></View>
                 </View>
-
                 <View style={styles.solalaView}></View>
 
                 <View style={styles.healthView}>

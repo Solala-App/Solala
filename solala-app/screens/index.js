@@ -1,4 +1,3 @@
-import Homepage from "./Homepage";
-import Test from "./Test";
+import Homepage from "./homepage.js";
 
-export { Homepage, Test };
+export { Homepage };

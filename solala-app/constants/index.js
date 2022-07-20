@@ -35,7 +35,11 @@ export const theme = {
       primary: colorPalette.mint,
       secondary: colorPalette.jade,
       accent: colorPalette.forest,
-    },
+        },
+        header: {
+            primary: colorPalette.terracotta,
+            sun: colorPalette.goldenrod,
+     },
   },
   size: {
     padding: RFValue(19),

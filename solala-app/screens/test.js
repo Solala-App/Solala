@@ -1,7 +1,18 @@
 import React from "react";
 import { View, Text } from "react-native";
-import style from "./Style";
 
 export default function test() {
-  return <View></View>;
+    return (
+        <View>
+            <Text>Hello, I am...</Text>
+            <TextInput
+                style={{
+                    height: 40,
+                    borderColor: 'gray',
+                    borderWidth: 1
+                }}
+                defaultValue="Name me!"
+            />
+        </View>
+    );
 }

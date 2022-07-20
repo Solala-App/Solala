@@ -1,10 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\assets",
     "\\solala-app",
-    "\\solala-app\\public",
-    "\\solala-app\\src"
+    "\\solala-app\\components",
+    "\\solala-app\\constants",
+    "\\solala-app\\screens"
   ],
-  "SelectedNode": "\\solala-app\\src\\index.js",
+  "SelectedNode": "\\App.tsx",
   "PreviewInSolutionExplorer": false
 }

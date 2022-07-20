@@ -13,8 +13,15 @@ const colorPalette = {
   white: "#FFFFFF",
 };
 
+const fonts = {
+  title: "'Courgette', sans-serif",
+  body: "'Monsterrat_Alt_Regular', sans-serif",
+  h1: "'Monsterrat_Alt_Black', sans-serif",
+};
+
 export const theme = {
   colorPalette,
+  fonts,
   dark: {
     primary: colorPalette.forest,
     secondary: colorPalette.jade,
@@ -37,11 +44,20 @@ export const theme = {
     margin: RFValue(20),
     borderRadius: 30,
     textBoxRadius: 30,
+    icon_size_sm: RFValue(20),
   },
   text: {
+    title: {
+      fontSize: RFValue(30),
+      fontFamily: fonts.title,
+    },
     h1: {
       fontSize: RFValue(30),
-      //fontFamily: fonts.Montserrat_Alt_Bold,
+      fontFamily: fonts.h1,
+    },
+    body: {
+      fontSize: RFValue(25),
+      fontFamily: fonts.body,
     },
   },
   shadowProp: {

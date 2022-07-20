@@ -14,7 +14,7 @@ export default function Homepage() {
         </View>
 
         <View style={styles.solalaView}></View>
-
+        <Card />
         <View style={styles.healthView}>
           <View style={styles.card}></View>
         </View>

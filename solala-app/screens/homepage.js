@@ -2,6 +2,9 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import * as Components from "../components";
 
+import { theme } from "../constants";
+const { light } = theme;
+
 export default function Homepage() {
   return (
     <View style={styles.container}>
@@ -26,8 +29,7 @@ export default function Homepage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 400,
-    backgroundColor: "#E3FFEB",
+    backgroundColor: light.primary,
   },
   header: {
     display: "flex",

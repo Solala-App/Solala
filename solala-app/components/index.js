@@ -1,3 +1,4 @@
 import Card from "./Card";
+import Footer from "./Footer";
 
-export { Card };
+export { Card, Footer };

@@ -4,6 +4,10 @@ import { View, StyleSheet, TouchableOpacity, Platform } from "react-native";
 import GreenHouse from "../../assets/favicons_light/greenhouse.svg";
 import Calendar from "../../assets/favicons_light/calendar.svg";
 import ToDoList from "../../assets/favicons_light/to-do-list.svg";
+import { theme } from "../constants";
+
+const { colorPalette } = theme;
+
 const Footer = () => {
   const handleGreenHousePress = () => {
     console.log("Navigate to Green House Page");
@@ -52,7 +56,7 @@ const Footer = () => {
 const icon_size = 75;
 export const footerStyles = StyleSheet.create({
   box: {
-    backgroundColor: "#CB7236",
+    backgroundColor: colorPalette.terracotta,
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",

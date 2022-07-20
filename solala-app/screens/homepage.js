@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Footer, { footerStyles } from "../components/Footer.js";
+import Card, { cardStyles } from "../components/Card.js";
 
 export default function Homepage() {
   return (
@@ -15,7 +16,6 @@ export default function Homepage() {
         <View style={styles.solalaView}></View>
 
         <View style={styles.healthView}>
-          <View style={styles.card}></View>
           <View style={styles.card}></View>
         </View>
       </View>

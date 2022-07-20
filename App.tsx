@@ -6,7 +6,5 @@ import { Card } from "./solala-app/components";
 
 export default function App() {
   //add a splashscreen
-    return (
-        <Homepage/>
-  );
+  return <Homepage />;
 }

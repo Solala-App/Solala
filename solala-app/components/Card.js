@@ -49,6 +49,11 @@ const Card = () => {
     console.log("Add todo or event");
   };
 
+  //reaserch needed...we also need a scroll up...how do these arrows work with flatbox?
+  const scrollsDown = () => {
+    console.log("Scrolls Down");
+  };
+
   return (
     <SafeAreaView style={cardStyles.card}>
       <View style={cardStyles.cardHeader}>
@@ -62,7 +67,7 @@ const Card = () => {
               handleAddObject;
             }}
           >
-            <Text>stuff</Text>
+            <Favicon.Plus style={{ height: 88, width: 88 }} />
           </Pressable>
         </View>
       </View>
@@ -74,10 +79,10 @@ const Card = () => {
           keyExtractor={(item) => item.id}
         />
       </View>
-      <View style={cardStyles.scrollDown}>
+      <View style={cardStyles.scrollsDown}>
         <Pressable
           onPress={() => {
-            handleAddObject;
+            scrollsDown;
           }}
         >
           <Favicon.ScrollDown style={{ height: 88, width: 88 }} />
@@ -121,6 +126,11 @@ export const cardStyles = StyleSheet.create({
 
   cardHeaderRight: {
     flex: 1,
+    paddingTop: size.innerPadding,
+    paddingBottom: size.innerPadding,
+    paddingRight: size.innerPadding,
+    paddingLeft: size.innerPadding,
+    alignItems: "flex-end",
   },
 
   cardHeaderText: {

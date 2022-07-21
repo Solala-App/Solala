@@ -5,23 +5,17 @@ import * as Components from "../components";
 import { theme } from "../constants";
 const { light } = theme;
 
-/*<Components.Header
-        url="./Rain.png"
-        time="Good Morning, Bring Your Umbrella Today!"
-        announcement="It's Neha's Birthday Today!"
-      />*/
-
 export default function Homepage() {
   return (
     <View style={styles.container}>
+          <Components.Header greeting="Good Morning, Bring Your Umbrella Today!" announcement="It's Neha's Birthday Today!" />
       <View style={styles.mainView}>
         <View style={styles.eventView}>
           <View style={styles.card}></View>
           <View style={styles.card}></View>
         </View>
-
+              <Components.Card />
         <View style={styles.solalaView}></View>
-        <Components.Card />
         <View style={styles.healthView}>
           <View style={styles.card}></View>
         </View>

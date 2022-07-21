@@ -4,9 +4,8 @@
     "\\solala-app",
     "\\solala-app\\components",
     "\\solala-app\\constants",
-    "\\solala-app\\screens",
-    "\\solala-app\\src"
+    "\\solala-app\\screens"
   ],
-  "SelectedNode": "\\solala-app\\screens\\homepage.js",
+  "SelectedNode": "\\solala-app\\components\\Header.js",
   "PreviewInSolutionExplorer": false
 }

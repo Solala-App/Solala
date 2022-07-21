@@ -67,7 +67,7 @@ const Card = () => {
               handleAddObject;
             }}
           >
-            <Favicon.Plus style={{ height: 88, width: 88 }} />
+            <Favicon.Plus style={{ width: 44 }} />
           </Pressable>
         </View>
       </View>
@@ -79,20 +79,20 @@ const Card = () => {
           keyExtractor={(item) => item.id}
         />
       </View>
+
       <View style={cardStyles.scrollsDown}>
         <Pressable
           onPress={() => {
             scrollsDown;
           }}
         >
-          <Favicon.ScrollDown style={{ height: 88, width: 88 }} />
+          <Favicon.ScrollDown style={{ width: 44 }} />
         </Pressable>
       </View>
     </SafeAreaView>
   );
 };
 
-const icon_size = 75;
 export const cardStyles = StyleSheet.create({
   card: {
     backgroundColor: light.secondary,
@@ -101,9 +101,8 @@ export const cardStyles = StyleSheet.create({
     borderRadius: size.borderRadius,
     opacity: 0.7,
     flex: 1,
-    paddingBottom: size.padding,
+    paddingBottom: size.innerPadding,
     ...shadowProp,
-    marginTop: StatusBar.currentHeight || 0,
   },
 
   cardHeader: {
@@ -114,6 +113,7 @@ export const cardStyles = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "row",
     textAlign: "center",
+    marginBottom: size.margin,
   },
 
   cardHeaderLeft: {
@@ -139,13 +139,12 @@ export const cardStyles = StyleSheet.create({
   },
 
   cardItem: {
-    paddingVertical: size.innerPadding,
-    paddingRight: size.innerPadding,
+    padding: size.innerPadding,
     marginHorizontal: size.margin,
-    marginTop: size.margin,
+
+    marginBottom: size.margin,
     backgroundColor: light.primary,
     borderRadius: size.borderRadius,
-    padding: size.padding,
     justifyContent: "space-between",
     flexDirection: "row",
     textAlign: "center",
@@ -161,7 +160,7 @@ export const cardStyles = StyleSheet.create({
   },
 
   cardObjectRight: {
-    flex: 8,
+    flex: 3,
     alignItems: "flex-start",
     justifyContent: "center",
   },
@@ -172,9 +171,8 @@ export const cardStyles = StyleSheet.create({
   },
 
   scrollDown: {
-    alignItems: "center",
+    alignSelf: "flex-end",
     justifyContent: "center",
-    paddingTop: size.padding,
   },
 
   button: {

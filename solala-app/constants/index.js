@@ -41,22 +41,22 @@ export const theme = {
   size: {
     padding: RFValue(19),
     innerPadding: RFValue(5),
-    margin: RFValue(20),
+    margin: RFValue(10),
     borderRadius: 30,
     textBoxRadius: 30,
     icon_size_sm: RFValue(20),
   },
   text: {
     title: {
-      fontSize: RFValue(30),
+      fontSize: RFValue(20),
       fontFamily: fonts.title,
     },
     h1: {
-      fontSize: RFValue(30),
+      fontSize: RFValue(20),
       fontFamily: fonts.h1,
     },
     body: {
-      fontSize: RFValue(25),
+      fontSize: RFValue(14),
       fontFamily: fonts.body,
     },
   },

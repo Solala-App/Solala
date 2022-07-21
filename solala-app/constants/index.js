@@ -40,7 +40,7 @@ export const theme = {
   },
   size: {
     padding: RFValue(19),
-    innerPadding: RFValue(5),
+    innerPadding: RFValue(4),
     margin: RFValue(10),
     borderRadius: 30,
     textBoxRadius: 30,
@@ -48,11 +48,11 @@ export const theme = {
   },
   text: {
     title: {
-      fontSize: RFValue(20),
+      fontSize: RFValue(18),
       fontFamily: fonts.title,
     },
     h1: {
-      fontSize: RFValue(20),
+      fontSize: RFValue(18),
       fontFamily: fonts.h1,
     },
     body: {

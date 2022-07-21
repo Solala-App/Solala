@@ -74,7 +74,8 @@ const Card = () => {
 
       <View style={{ alignSelf: "stretch" }}>
         <FlatList
-          data={DATA}
+          data={DATA.slice(0, 2)}
+          maxToRenderPerBatch={2}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
@@ -100,7 +101,6 @@ export const cardStyles = StyleSheet.create({
     alignItems: "center",
     borderRadius: size.borderRadius,
     opacity: 0.7,
-    flex: 1,
     paddingBottom: size.innerPadding,
     ...shadowProp,
   },

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
+import * as Weather from "../../assets/favicons_weather";
 
 export default function Header(props) {
   let staticImage = require("./Rain.png");
@@ -23,27 +24,13 @@ export default function Header(props) {
         <View style={styles.headerSun}>
           <Text style={styles.textBubble}>{props.time}</Text>
 
-          <Image
-            style={{
-              top: RFValue(75),
-              left: RFValue(25),
-              width: RFValue(50),
-              height: RFValue(50),
-            }}
-            source={require("./Rain.png")}
-          />
+          <Weather.Rain />
 
           <Text style={styles.announcement}>{props.announcement}</Text>
         </View>
 
         <TouchableOpacity>
-          <Image
-            style={{
-              width: RFValue(25),
-              height: RFValue(25),
-            }}
-            source={require("./TODO.png")}
-          />
+          <Favicon.ToDoList />
         </TouchableOpacity>
       </View>
     );
@@ -51,15 +38,7 @@ export default function Header(props) {
     <View style={styles.headerSun}>
       <Text style={styles.textBubble}>{props.time}</Text>
 
-      <Image
-        style={{
-          top: RFValue(75),
-          left: RFValue(25),
-          width: RFValue(50),
-          height: RFValue(50),
-        }}
-        source={require("./Rain.png")}
-      />
+      <Weather.Rain />
 
       <Text style={styles.announcement}>{props.announcement}</Text>
     </View>;

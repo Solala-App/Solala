@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\solala-app",
+    "\\solala-app\\components",
+    "\\solala-app\\constants",
+    "\\solala-app\\screens"
   ],
-  "SelectedNode": "\\C:\\Users\\chris\\Source\\Repos\\Newer",
+  "SelectedNode": "\\solala-app\\components\\Header.js",
   "PreviewInSolutionExplorer": false
 }

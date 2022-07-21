@@ -72,23 +72,20 @@ const Card = () => {
           data={DATA}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
-          ListFooterComponent={
-            <View style={cardStyles.scrollDown}>
-              <Pressable
-                onPress={() => {
-                  handleAddObject;
-                }}
-              >
-                <Favicon.ScrollDown />
-              </Pressable>
-            </View>
-          }
         />
+      </View>
+      <View style={cardStyles.scrollDown}>
+        <Pressable
+          onPress={() => {
+            handleAddObject;
+          }}
+        >
+          <Favicon.ScrollDown style={{ height: 88, width: 88 }} />
+        </Pressable>
       </View>
     </SafeAreaView>
   );
 };
-//F
 
 const icon_size = 75;
 export const cardStyles = StyleSheet.create({

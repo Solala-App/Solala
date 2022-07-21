@@ -9,8 +9,6 @@ export default function Homepage() {
   return (
     <View style={styles.container}>
           <Components.Header greeting="Good Morning, Bring Your Umbrella Today!" announcement="It's Neha's Birthday Today!" />
-
-          
       <View style={styles.mainView}>
         <View style={styles.eventView}>
           <View style={styles.card}></View>

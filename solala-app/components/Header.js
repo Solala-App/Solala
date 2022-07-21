@@ -7,6 +7,7 @@ import ToDoList from "../../assets/favicons_light/to-do-list.svg";
 import { theme, fonts } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
+import * as Weather from "../../assets/favicons_weather";
 
 const { colorPalette } = theme;
 

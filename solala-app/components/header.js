@@ -1,71 +1,92 @@
-import React, { useState } from "react";
-import { Text, View, TextInput, Button, Platform } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { RFValue } from "react-native-responsive-fontsize";
+import React from "react";
+import { Text, View, StyleSheet, TouchableOpacity, Platform } from "react-native";
+
+import GreenHouse from "../../assets/favicons_light/greenhouse.svg";
+import Calendar from "../../assets/favicons_light/calendar.svg";
+import ToDoList from "../../assets/favicons_light/to-do-list.svg";
 import { theme } from "../constants";
+import { RFValue } from "react-native-responsive-fontsize";
 
 
-const { colors, size, text, shadowProp } = theme;
 
-export default function header() {
+const { colorPalette } = theme;
 
-    if (Platform.OS === 'android') {
-        //phone screen
-        return (<View>
-            <StatusBar
-                animated={true}
-                backgroundColor="#61dafb"
-                barStyle={statusBarStyle}
-                showHideTransition={statusBarTransition} />
+const Header = () => {
+
+    return (
+
+        <View style={styles.header}>
+            <View style={styles.placeholder}></View>
+
             <View style={styles.headerSun}>
-                <Text>{this.props.timeOfDay} {this.props.message}</Text>
-                <Text>{this.props.notification}</Text>
+                <Text style={styles.textBubble}>"Good Morning, Bring Your Umbrella Today!</Text>
+                <View style={styles.placeholderWeather}></View>
+                <Text style={styles.announcement}>It's Neha's birthday Today!</Text>
+
             </View>
-        </View>);
-    } else {
-        //desktop screen
 
-        return (<View style={styles.desktopHeader}>
-            <View style={styles.headerSun}>
-                <Text>{this.props.timeOfDay} {this.props.message}</Text>
-                <Text>{this.props.notification}</Text>
-            </View>
-        </View>);
-    }
-}
+            <View style={styles.placeholder}></View>
 
+        </View>
+    );
+};
 
-const styles = StyleSheet.create({
-    desktopHeader: {
-        backgroundColor: colors.header.primary,
+const icon_size = 75;
+export const styles = StyleSheet.create({
+    header: {
+        flex: "1",
+        flexDirection: "row",
+        backgroundColor: "#EFC8C3",
+        alignItems: "center",
+        justifyContent: "center",
         width: "100%",
-        display: flex,
-        alignItems: center,
-        justifyContent: center,
-        height: 75,
-
-
+        height: RFValue(30),
+        position: "absolute",
     },
 
-    phoneHeader: {
-        backgroundColor: colors.header.primary,
-        width: "100%",
-        display: flex,
-        alignItems: center,
-        justifyContent: center,
-        height: 75,
-    },
 
     headerSun: {
-
-        width: 100,
-        height: 100,
+        display: "flex",
+        flexDirection: "",
+        backgroundColor: "#E1AD01",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        flexWrap: "wrap",
+        width: RFValue(250),
+        height: RFValue(250),
         borderRadius: "50%",
-        backgroundColor: colors.header.sun,
-        fontSize: RFValue(18),
+        bottom: RFValue(10),
+    },
+    textBubble: {
+        width: RFValue(150),
+        height: RFValue(100),
+        fontSize: RFValue(12),
+        flexWrap: "wrap",
+        paddingTop: RFValue(120),
+        paddingLeft: RFValue(10),
 
-        //To display image as a circle using CSS, Set width and height properties for image
-        //with same CSS length value.Refer CSS Length Units.Set border-radius property with a value of 50%.
+    },
+    announcement: {
+        width: RFValue(200),
+        height: RFValue(100),
+        fontSize: RFValue(12),
+        paddingTop: RFValue(40),
+        paddingLeft: RFValue(30),
+
+    },
+    placeholderWeather: {
+        backgroundColor: "black",
+        width: RFValue(50),
+        height: RFValue(50),
+        top: RFValue(80),
+    },
+    placeholder: {
+        backgroundColor: "black",
+        width: RFValue(20),
+        height: RFValue(20),
+
     }
-
 });
+
+export default Header;

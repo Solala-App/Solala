@@ -2,11 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import React from "react";
-import { Text, View } from "react-native";
 import * as Screens from "./solala-app/screens";
-import { theme } from "./solala-app/constants";
-
-const { fonts } = theme;
 
 export default function App() {
   let [fontsLoaded] = useFonts({

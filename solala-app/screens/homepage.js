@@ -3,21 +3,32 @@ import { View, Text, StyleSheet } from "react-native";
 import * as Components from "../components";
 
 import { theme } from "../constants";
-const { light } = theme;
+const { light, size } = theme;
 
 export default function Homepage() {
   return (
     <View style={styles.container}>
-          <Components.Header greeting="Good Morning, Bring Your Umbrella Today!" announcement="It's Neha's Birthday Today!" />
+      <Components.Header
+        greeting="Good Morning, Bring Your Umbrella Today!"
+        announcement="It's Neha's Birthday Today!"
+      />
       <View style={styles.mainView}>
-        <View style={styles.eventView}>
-          <View style={styles.card}></View>
-          <View style={styles.card}></View>
+        <View style={styles.column1}>
+          <View style={styles.card}>
+            <Components.Card />
+          </View>
+          <View style={styles.card}>
+            <Components.Card />
+          </View>
         </View>
-              <Components.Card />
-        <View style={styles.solalaView}></View>
-        <View style={styles.healthView}>
-          <View style={styles.card}></View>
+        <View style={styles.column2} />
+        <View style={styles.column3}>
+          <View style={styles.card}>
+            <Components.Card />
+          </View>
+          <View style={styles.card}>
+            <Components.Card />
+          </View>
         </View>
       </View>
       <Components.Footer />
@@ -30,41 +41,29 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: light.primary,
   },
-  header: {
-    display: "flex",
-    flexDirection: "row",
-    JustifyContent: "space-between",
-    backgroundColor: "#EFC8C3",
-    alignItems: "center",
-    width: "100%",
-  },
   mainView: {
-    display: "flex",
+    flex: 1,
     flexDirection: "row",
-    JustifyContent: "space-between",
-    backgroundColor: "#E3FFEB",
+    justifyContent: "space-between",
     alignItems: "center",
-    width: "100%",
+    paddingLeft: size.padding,
+    paddingRight: size.padding,
+    paddingBottom: size.padding,
   },
-  eventView: {
-    display: "flex",
+  column1: {
+    flex: 1,
     flexDirection: "column",
-    JustifyContent: "space-between",
-    backgroundColor: "#CB7236",
-    alignItems: "center",
   },
-  solalaView: {
-    display: "flex",
+  column2: {
+    flex: 1,
     flexDirection: "column",
-    JustifyContent: "space-between",
-    backgroundColor: "#CB7236",
-    alignItems: "center",
   },
-  healthView: {
-    display: "flex",
+  column3: {
+    flex: 1,
     flexDirection: "column",
-    JustifyContent: "space-between",
-    backgroundColor: "#CB7236",
-    alignItems: "center",
+  },
+  card: {
+    flex: 1,
+    marginBottom: size.margin,
   },
 });

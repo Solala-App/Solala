@@ -11,4 +11,10 @@ const SvgScrollDown = (props) => (
   </svg>
 );
 
+const Wrapped = () => (
+  <View style={{ aspectRatio: 1 }}>
+    <SvgScrollDown />
+  </View>
+);
+
 export default SvgScrollDown;

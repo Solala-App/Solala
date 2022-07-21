@@ -8,7 +8,11 @@ const { light } = theme;
 export default function Homepage() {
   return (
     <View style={styles.container}>
-      <View style={styles.header}></View>
+      <Components.Header
+        url="./Rain.png"
+        time="Good Morning, Bring Your Umbrella Today!"
+        announcement="It's Neha's Birthday Today!"
+      />
       <View style={styles.mainView}>
         <View style={styles.eventView}>
           <View style={styles.card}></View>

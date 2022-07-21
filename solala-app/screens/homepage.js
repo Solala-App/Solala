@@ -8,14 +8,15 @@ const { light } = theme;
 export default function Homepage() {
   return (
     <View style={styles.container}>
-              <Components.Header />
+          <Components.Header greeting="Good Morning, Bring Your Umbrella Today!" announcement="It's Neha's Birthday Today!" />
+
           
       <View style={styles.mainView}>
         <View style={styles.eventView}>
           <View style={styles.card}></View>
           <View style={styles.card}></View>
         </View>
-
+              <Components.Card />
         <View style={styles.solalaView}></View>
         <View style={styles.healthView}>
           <View style={styles.card}></View>

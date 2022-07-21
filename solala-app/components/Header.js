@@ -4,41 +4,74 @@ import { Text, View, StyleSheet, TouchableOpacity, Platform } from "react-native
 import GreenHouse from "../../assets/favicons_light/greenhouse.svg";
 import Calendar from "../../assets/favicons_light/calendar.svg";
 import ToDoList from "../../assets/favicons_light/to-do-list.svg";
-import { theme } from "../constants";
+import { theme, fonts } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
 
 const { colorPalette } = theme;
 
-const Header = () => {
+const Header = (props) => {
 
 
-    return (
-        <View style={styles.header}>
+    
+    const CalendarPressEvent = () => {
+        console.log("Temp calendar navigation");
+    };
+    const ToDoPressEvent = () => {
+        console.log("Temp TODO navigation");
+    };
 
-            <TouchableOpacity>
-                <View style={styles.placeholder}></View>
-            </TouchableOpacity>
 
-            <View style={styles.headerSun}>
-                <Text style={styles.textBubble}>"Good Morning, Bring Your Umbrella Today!</Text>
-                <View style={styles.placeholderWeather}></View>
-                <Text style={styles.announcement}> "It's Neha's Birthday Today!"</Text>
+
+    if (Platform.OS === "android" || Platform.OS === "IOS") {
+
+        return (
+           
+            <View style={styles.headerBox}>
+                <View style={styles.header}>
+
+                    <View style={styles.headerSun}>
+                        <Text style={styles.textBubble}>{props.greeting}</Text>
+                        <View style={styles.placeholderWeather}></View>
+                        <Text style={styles.announcement}>{props.announcement}</Text>
+                    </View>
+
+                </View>
             </View>
+                 );
+       
+    } else {
+        return (
 
-            <TouchableOpacity>
-                <View style={styles.placeholder}></View>
-            </TouchableOpacity>
+            <View style={styles.headerBox}>
+                
+                <View style={styles.header}>
 
-        </View>
-    );
+                    <TouchableOpacity onPress={CalendarPressEvent}>
+                        <View style={styles.placeholder}></View>
+                    </TouchableOpacity>
+
+                    <View style={styles.headerSun}>
+                        <Text style={styles.textBubble}>{props.greeting}</Text>
+                        <View style={styles.placeholderWeather}></View>
+                        <Text style={styles.announcement}>{props.announcement}</Text>
+                    </View>
+
+                    <TouchableOpacity onPress={ToDoPressEvent}>
+                        <View style={styles.placeholder}></View>
+                    </TouchableOpacity>
+
+                </View>
+            </View>
+         );
+    }
 };
 
 const styles = StyleSheet.create({
     header: {
         display: "flex",
         flexDirection: "row",
-        backgroundColor: "#EFC8C3",
+        backgroundColor: theme.colorPalette.pink,
         alignItems: "center",
         justifyContent: "center",
         width: "100%",
@@ -47,7 +80,7 @@ const styles = StyleSheet.create({
     headerSun: {
         display: "flex",
         flexDirection: "",
-        backgroundColor: "#E1AD01",
+        backgroundColor: theme.colorPalette.goldenrod,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "flex-start",
@@ -57,6 +90,10 @@ const styles = StyleSheet.create({
         borderRadius: "50%",
         bottom: RFValue(10),
     },
+    headerBox: {
+        height: RFValue(120),
+        width: "100%",
+    },
     textBubble: {
         width: RFValue(150),
         height: RFValue(100),
@@ -64,26 +101,26 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         paddingTop: RFValue(100),
         paddingLeft: RFValue(10),
+        fontFamily: theme.fonts.title,
     },
     announcement: {
         width: RFValue(200),
         height: RFValue(100),
         fontSize: RFValue(10),
         paddingTop: RFValue(40),
-        paddingLeft: RFValue(30),
+        paddingLeft: RFValue(15),
+        fontFamily: theme.fonts.body,
     },
 
     placeholderWeather: {
-
-        backgroundColor: "#29E0CC",
+        backgroundColor: theme.colorPalette.teal,
         width: RFValue(30),
         height: RFValue(30),
         top: 170,
-
     },
 
     placeholder: {
-        backgroundColor: "#29E0CC",
+        backgroundColor: theme.colorPalette.teal,
         width: RFValue(30),
         height: RFValue(30),
     },

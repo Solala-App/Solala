@@ -18,5 +18,5 @@ export default function App() {
     return <AppLoading />;
   }
   //add a splashscreen
-  return <Screens.Homepage />;
+  return <Screens.App.Homepage />;
 }

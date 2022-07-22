@@ -1,3 +1,4 @@
-import Homepage from "./homepage.js";
+import * as App from "./app";
+import * as Website from "./website";
 
-export { Homepage };
+export { App, Website };

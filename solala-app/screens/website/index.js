@@ -1,2 +1,2 @@
-export { default as Landing } from "./landing";
-export { default as Profile } from "./profile";
+export { default as Landing } from "./home";
+export { default as Profile } from "./about";

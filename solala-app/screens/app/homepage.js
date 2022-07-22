@@ -7,31 +7,19 @@ const { light, size } = theme;
 
 export default function Homepage() {
   return (
-    <View style={styles.container}>
-      <Components.Header
-        greeting="Good Morning, Bring Your Umbrella Today!"
-        announcement="It's Neha's Birthday Today!"
-      />
-      <View style={styles.mainView}>
-        <View style={styles.column1}>
-          <View style={styles.card}>
-            <Components.Card />
-          </View>
-          <View style={styles.card}>
-            <Components.Card />
-          </View>
-        </View>
-        <View style={styles.column2} />
-        <View style={styles.column3}>
-          <View style={styles.card}>
-            <Components.Card />
-          </View>
-          <View style={styles.card}>
-            <Components.Card />
-          </View>
-        </View>
-      </View>
-      <Components.Footer />
+      //Takes either a component or text as the header prop and displays that at the top of the component. Completion and congratulations props simply serve
+      //as added input for describing what task was completed and a message.
+      <View style={styles.container}>
+
+          <Components.Zoom
+              header={<Favicon.CheckLeaf style={{
+                  width: RFValue(70),
+                  height: RFValue(70),
+                  opacity: "70%",
+              }} />}
+
+              completion="You Completed the Task Water Plants" congratulation="Great Job! You earned Vitamins for Bob!"
+          />
     </View>
   );
 }

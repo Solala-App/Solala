@@ -5,7 +5,7 @@ import * as Components from "../../components";
 import { theme } from "../../constants";
 const { light, size } = theme;
 
-export default function Landing() {
+export default function Todo() {
   return (
     <View style={styles.container}>
       <Components.Header

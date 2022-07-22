@@ -7,19 +7,22 @@ const { light, size } = theme;
 
 export default function Homepage() {
   return (
-      //Takes either a component or text as the header prop and displays that at the top of the component. Completion and congratulations props simply serve
-      //as added input for describing what task was completed and a message.
-      <View style={styles.container}>
-
-          <Components.Zoom
-              header={<Favicon.CheckLeaf style={{
-                  width: RFValue(70),
-                  height: RFValue(70),
-                  opacity: "70%",
-              }} />}
-
-              completion="You Completed the Task Water Plants" congratulation="Great Job! You earned Vitamins for Bob!"
+    //Takes either a component or text as the header prop and displays that at the top of the component. Completion and congratulations props simply serve
+    //as added input for describing what task was completed and a message.
+    <View style={styles.container}>
+      <Components.Zoom
+        header={
+          <Favicon.CheckLeaf
+            style={{
+              width: RFValue(70),
+              height: RFValue(70),
+              opacity: "70%",
+            }}
           />
+        }
+        completion="You Completed the Task Water Plants"
+        congratulation="Great Job! You earned Vitamins for Bob!"
+      />
     </View>
   );
 }

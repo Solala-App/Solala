@@ -9,16 +9,15 @@ import {
   StatusBar,
   TouchableOpacity,
   Modal,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import Slider from '@react-native-community/slider';
-import { Dropdown } from 'react-native-element-dropdown';
+import Slider from "@react-native-community/slider";
+import { Dropdown } from "react-native-element-dropdown";
 import * as Favicon from "../../assets/favicons_js";
-import AddTaskPopup from './AddTaskPopup.js'
+import AddTaskPopup from "./AddTaskPopup.js";
 import { theme } from "../constants";
 const { light, size, text, shadowProp } = theme;
-
 
 // npm install @react-native-community/slider --save
 // yarn add react-native-select-dropdown
@@ -51,12 +50,11 @@ const Item = ({ title }) => (
 
 /* green bubble for menus */
 const Card = () => {
-    const renderItem = ({ item }) => <Item title={item.title} />;
-    const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const renderItem = ({ item }) => <Item title={item.title} />;
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
 
-
-    const handleAddObject = () => {
-        setIsModalVisible(() => !isModalVisible);      
+  const handleAddObject = () => {
+    setIsModalVisible(() => !isModalVisible);
   };
 
   //reaserch needed...we also need a scroll up...how do these arrows work with flatbox?
@@ -71,15 +69,15 @@ const Card = () => {
         <View style={cardStyles.cardHeaderCenter}>
           <Text style={cardStyles.cardHeaderText}>Hello</Text>
         </View>
-          <View style={cardStyles.cardHeaderRight}>
-                  <TouchableOpacity onPress={handleAddObject}>
-                      <Favicon.Plus style={{ width: 44 }} />
-              </TouchableOpacity>
+        <View style={cardStyles.cardHeaderRight}>
+          <TouchableOpacity onPress={handleAddObject}>
+            <Favicon.Plus style={{ width: 44 }} />
+          </TouchableOpacity>
 
-                  <Modal visible={isModalVisible} transparent={true}>
-                      <AddTaskPopup isModalVisible={handleAddObject} />
-                </Modal>
-          </View>
+          <Modal visible={isModalVisible} transparent={true}>
+            <AddTaskPopup isModalVisible={handleAddObject} />
+          </Modal>
+        </View>
       </View>
 
       <View style={{ alignSelf: "stretch" }}>
@@ -177,7 +175,7 @@ export const cardStyles = StyleSheet.create({
 
   cardObjectText: {
     ...text.body,
-    fontColor: light.textSecondary,
+    color: light.textSecondary,
   },
 
   scrollDown: {
@@ -189,13 +187,13 @@ export const cardStyles = StyleSheet.create({
     justifyContent: "space-around",
     flexDirection: "column",
     alignItems: "center",
-    },
+  },
 
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    }
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 export default Card;

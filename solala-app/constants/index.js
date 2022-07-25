@@ -17,11 +17,11 @@ const colorPalette = {
 const fonts = async () => {
   await Font.loadAsync({
     Courgette: require("../../assets/fonts/Courgette-Regular.ttf"),
-    Montserrat_Alt_Black: require("../../assets/fonts/MontserratAlternates-Black.ttf"),
-    Montserrat_Alt_Bold: require("../../assets/fonts/MontserratAlternates-Bold.ttf"),
-    Montserrat_Alt_Medium: require("../../assets/fonts/MontserratAlternates-Medium.ttf"),
-    Montserrat_Alt_Regular: require("../../assets/fonts/MontserratAlternates-Regular.ttf"),
-    Montserrat_Alt_Light: require("../../assets/fonts/MontserratAlternates-Light.ttf"),
+    MontserratAltBlack: require("../../assets/fonts/MontserratAlternates-Black.ttf"),
+    MontserratAltBold: require("../../assets/fonts/MontserratAlternates-Bold.ttf"),
+    MontserratAltMedium: require("../../assets/fonts/MontserratAlternates-Medium.ttf"),
+    MontserratAltRegular: require("../../assets/fonts/MontserratAlternates-Regular.ttf"),
+    MontserratAltLight: require("../../assets/fonts/MontserratAlternates-Light.ttf"),
   });
 };
 
@@ -58,15 +58,15 @@ export const theme = {
   text: {
     title: {
       fontSize: RFValue(18),
-      fontFamily: fonts.title,
+      fontFamily: "Courgette",
     },
     h1: {
       fontSize: RFValue(18),
-      fontFamily: fonts.h1,
+      fontFamily: "MontserratAltBlack",
     },
     body: {
       fontSize: RFValue(14),
-      fontFamily: fonts.body,
+      fontFamily: "MontserratAltRegular",
     },
   },
   shadowProp: {

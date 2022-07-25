@@ -3,7 +3,6 @@ import React, { useState, useCallback, useEffect } from "react";
 import * as Screens from "./solala-app/screens";
 import { View, Text } from "react-native";
 import fonts from "./solala-app/constants";
-import AppLoading from "expo-app-loading";
 import * as SplashScreen from "expo-splash-screen";
 
 export default function App() {
@@ -13,7 +12,7 @@ export default function App() {
     async function prepare() {
       try {
         // Pre-load fonts, make any API calls you need to do here
-        await fonts;
+        await fonts();
       } catch (e) {
         console.warn(e);
       } finally {
@@ -24,6 +23,7 @@ export default function App() {
 
     prepare();
   }, []);
+  console.log({ appIsReady });
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {

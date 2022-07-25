@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import * as Screens from "./solala-app/screens";
 import { View, Text } from "react-native";
 import fonts from "./solala-app/constants";
+import AppLoading from "expo-app-loading";
 
 export default function App() {
   const [IsReady, SetIsReady] = useState(false);
@@ -13,9 +14,11 @@ export default function App() {
 
   if (!IsReady) {
     return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
+      <AppLoading
+        startAsync={LoadFontsAndRestoreToken}
+        onFinish={() => SetIsReady(true)}
+        onError={() => {}}
+      />
     );
   }
   //add a splashscreen

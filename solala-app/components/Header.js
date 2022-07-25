@@ -10,12 +10,12 @@ import {
 import GreenHouse from "../../assets/favicons_light/greenhouse.svg";
 import Calendar from "../../assets/favicons_light/calendar.svg";
 import ToDoList from "../../assets/favicons_light/to-do-list.svg";
-import { theme, fonts } from "../constants";
+import { theme } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
 import * as Weather from "../../assets/favicons_weather";
 
-const { colorPalette } = theme;
+const { colorPalette, text } = theme;
 
 const Header = (props) => {
   const CalendarPressEvent = () => {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   header: {
     display: "flex",
     flexDirection: "row",
-    backgroundColor: theme.colorPalette.pink,
+    backgroundColor: colorPalette.pink,
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   headerSun: {
     display: "flex",
     flexDirection: "",
-    backgroundColor: theme.colorPalette.goldenrod,
+    backgroundColor: colorPalette.goldenrod,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     paddingTop: RFValue(100),
     paddingLeft: RFValue(10),
-    fontFamily: theme.fonts.title,
+    ...text.title,
   },
   announcement: {
     width: RFValue(200),
@@ -102,18 +102,18 @@ const styles = StyleSheet.create({
     fontSize: RFValue(10),
     paddingTop: RFValue(40),
     paddingLeft: RFValue(15),
-    fontFamily: theme.fonts.body,
+    ...text.body,
   },
 
   placeholderWeather: {
-    backgroundColor: theme.colorPalette.teal,
+    backgroundColor: colorPalette.teal,
     width: RFValue(30),
     height: RFValue(30),
     top: 170,
   },
 
   placeholder: {
-    backgroundColor: theme.colorPalette.teal,
+    backgroundColor: colorPalette.teal,
     width: RFValue(30),
     height: RFValue(30),
   },

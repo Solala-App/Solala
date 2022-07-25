@@ -1,4 +1,5 @@
 import { RFValue } from "react-native-responsive-fontsize";
+import * as Font from "expo-font";
 
 const colorPalette = {
   mint: "#E3FFEB",
@@ -13,13 +14,21 @@ const colorPalette = {
   white: "#FFFFFF",
 };
 
-const fonts = {
-  title: "'Courgette', sans-serif",
-  body: "'Monsterrat_Alt_Regular', sans-serif",
-  h1: "'Monsterrat_Alt_Black', sans-serif",
+const fonts = async () => {
+  await Font.loadAsync({
+    Courgette: require("../../assets/fonts/Courgette-Regular.ttf"),
+    Montserrat_Alt_Black: require("../../assets/fonts/MontserratAlternates-Black.ttf"),
+    Montserrat_Alt_Bold: require("../../assets/fonts/MontserratAlternates-Bold.ttf"),
+    Montserrat_Alt_Medium: require("../../assets/fonts/MontserratAlternates-Medium.ttf"),
+    Montserrat_Alt_Regular: require("../../assets/fonts/MontserratAlternates-Regular.ttf"),
+    Montserrat_Alt_Light: require("../../assets/fonts/MontserratAlternates-Light.ttf"),
+  });
 };
 
+export default fonts;
+
 export const theme = {
+  fonts,
   colorPalette,
   fonts,
   dark: {

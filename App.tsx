@@ -1,20 +1,17 @@
 import { StatusBar } from "expo-status-bar";
-import { useFonts } from "expo-font";
-import React from "react";
+import React, { useState } from "react";
 import * as Screens from "./solala-app/screens";
 import { View, Text } from "react-native";
+import fonts from "./solala-app/constants";
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
-    Courgette: require("./assets/fonts/Courgette-Regular.ttf"),
-    Montserrat_Alt_Black: require("./assets/fonts/MontserratAlternates-Black.ttf"),
-    Montserrat_Alt_Bold: require("./assets/fonts/MontserratAlternates-Bold.ttf"),
-    Montserrat_Alt_Medium: require("./assets/fonts/MontserratAlternates-Medium.ttf"),
-    Montserrat_Alt_Regular: require("./assets/fonts/MontserratAlternates-Regular.ttf"),
-    Montserrat_Alt_Light: require("./assets/fonts/MontserratAlternates-Light.ttf"),
-  });
+  const [IsReady, SetIsReady] = useState(false);
 
-  if (!fontsLoaded) {
+  const LoadFontsAndRestoreToken = async () => {
+    await fonts();
+  };
+
+  if (!IsReady) {
     return (
       <View>
         <Text>Loading...</Text>

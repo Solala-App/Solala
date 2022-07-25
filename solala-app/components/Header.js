@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     width: RFValue(200),
     height: RFValue(200),
-    borderRadius: "50%",
+    borderRadius: 50,
     bottom: RFValue(10),
   },
   headerBox: {

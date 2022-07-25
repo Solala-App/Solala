@@ -6,10 +6,8 @@ import {
   Pressable,
   FlatList,
   SafeAreaView,
-  StatusBar,
   TouchableOpacity,
   Modal,
-  ScrollView,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import Slider from "@react-native-community/slider";

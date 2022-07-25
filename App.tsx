@@ -1,8 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
-import AppLoading from "expo-app-loading";
 import React from "react";
 import * as Screens from "./solala-app/screens";
+import { View, Text } from "react-native";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -15,7 +15,11 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
   }
   //add a splashscreen
   return <Screens.App.Homepage />;

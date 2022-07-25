@@ -1,11 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\assets",
+    "\\assets\\favicons_js",
+    "\\assets\\favicons_light",
     "\\solala-app",
     "\\solala-app\\components",
     "\\solala-app\\constants",
     "\\solala-app\\screens"
   ],
-  "SelectedNode": "\\solala-app\\components\\Header.js",
   "PreviewInSolutionExplorer": false
 }

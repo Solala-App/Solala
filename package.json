@@ -11,6 +11,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/slider": "^4.2.4",
     "expo": "^45.0.6",
     "expo-app-loading": "~2.0.0",
     "expo-font": "~10.1.0",
@@ -19,7 +20,9 @@
     "react": "^17.0.2",
     "react-dom": "17.0.2",
     "react-native": "0.68.2",
+    "react-native-element-dropdown": "^2.0.0",
     "react-native-responsive-fontsize": "^0.5.1",
+    "react-native-select-dropdown": "^2.0.4",
     "react-native-svg": "12.3.0",
     "react-native-svg-transformer": "^1.0.0",
     "react-native-web": "0.17.7",

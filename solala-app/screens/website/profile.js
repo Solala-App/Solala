@@ -13,7 +13,6 @@ import {
 
 import { theme, fonts } from "../../constants";
 import { RFValue } from "react-native-responsive-fontsize";
-import { StackActions } from '@react-navigation/native';
 
 import Christoph from "../../../assets/volunteers/christoph.jpg";
 import Christopher from "../../../assets/volunteers/christopher.jpg";

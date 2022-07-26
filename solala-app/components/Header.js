@@ -18,7 +18,7 @@ import * as Favicon from "../../assets/favicons_js";
 import * as Weather from "../../assets/favicons_weather";
 import Rain from "../../assets/favicons_weather/rain.png";
 
-const { colorPalette, textWeb, size, text } = theme;
+const { colorPalette, size, text } = theme;
 
 const SvgSun = (props) => (
   <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 268" {...props}>
@@ -84,12 +84,12 @@ const Header = (props) => {
                 flexDirection: "row",
               }}
             >
-              <Text style={styles.textBubbleWeb}>
+              <Text style={styles.textBubble}>
                 {props.greeting}
                 <Image source={Rain} style={styles.placeholderWeather} />
               </Text>
             </View>
-            <Text style={styles.announcementWeb}>{props.announcement}</Text>
+            <Text style={styles.announcement}>{props.announcement}</Text>
           </View>
         </View>
         <View style={styles.headerRight}>
@@ -142,28 +142,18 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
   },
-  textBubbleWeb: {
+  textBubble: {
     flexWrap: "wrap",
-    ...textWeb.title,
+    ...text.title,
     position: "absolute",
     alignSelf: "flex-start",
   },
-  announcementWeb: {
+  announcement: {
     paddingTop: RFValue(75),
-    ...textWeb.body,
+    ...text.body,
     position: "absolute",
   },
 
-  textBubble: {
-    flexWrap: "wrap",
-    ...textWeb.title,
-    position: "absolute",
-  },
-  announcement: {
-    paddingTop: RFValue(75),
-    ...textWeb.body,
-    position: "absolute",
-  },
   placeholderWeather: {
     width: RFValue(20),
     height: RFValue(20),

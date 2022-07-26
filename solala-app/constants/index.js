@@ -69,6 +69,21 @@ export const theme = {
       fontFamily: "MontserratAltRegular",
     },
   },
+  textWeb: {
+    title: {
+      fontSize: RFValue(30, 1600),
+      fontFamily: "Courgette",
+    },
+    h1: {
+      fontSize: RFValue(30, 1600),
+      fontFamily: "MontserratAltBlack",
+    },
+    body: {
+      fontSize: RFValue(20, 1600),
+      fontFamily: "MontserratAltRegular",
+    },
+  },
+
   shadowProp: {
     /* Apply to add a shadow to an object */
     shadowColor: "#141414",

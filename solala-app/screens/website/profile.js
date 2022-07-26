@@ -8,7 +8,7 @@ import {
     ScrollView,
     Button,
     Image,
-
+    TouchableHighlight,
 } from "react-native";
 
 import { theme, fonts } from "../../constants";
@@ -259,7 +259,7 @@ export default function Profile() {
             <View style={styles.mainView}>
 
                 {profiles.map((item, key) => (
-                    <TouchableOpacity key={key} style={styles.tempImage} onPress={() => changeScreen(item?.redirect)}  >
+                    <TouchableOpacity key={key} style={styles.tempImage} onPress={() => changeScreen(item?.redirect)} >
 
 
                         {item?.image}
@@ -277,7 +277,12 @@ export default function Profile() {
 
     const changeScreen = (props) => setScreen(
 
-        props
+        <View style={{
+
+            width: "80%",
+            height: "80%",
+            
+        }}> {props} </View>
 
     );
 
@@ -287,6 +292,18 @@ export default function Profile() {
             <View style={styles.headerBox}>
                 <View style={styles.header}>
 
+                    <TouchableHighlight style={styles.linkButton}><Text>
+
+                        About Us
+
+                    </Text></TouchableHighlight>
+
+
+                    <TouchableHighlight style={styles.linkButton}><Text>
+
+                        Meet Solala
+
+                    </Text></TouchableHighlight>
                 </View>
             </View >
 
@@ -326,10 +343,13 @@ const styles = StyleSheet.create({
     },
     header: {
         flex: "1",
-        flexDirection: "column",
+        flexDirection: "row",
         backgroundColor: theme.colorPalette.pink,
         width: "100%",
         height: RFValue(30),
+        flexWrap: "wrap",
+        justifyContent: "flex-start",
+        
     },
     headerBox: {
         height: RFValue(60),

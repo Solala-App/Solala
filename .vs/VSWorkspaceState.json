@@ -3,11 +3,12 @@
     "",
     "\\assets",
     "\\assets\\favicons_js",
-    "\\assets\\favicons_light",
+    "\\assets\\logo",
+    "\\assets\\volunteers",
     "\\solala-app",
     "\\solala-app\\components",
-    "\\solala-app\\constants",
-    "\\solala-app\\screens"
+    "\\solala-app\\screens",
+    "\\solala-app\\screens\\website"
   ],
   "PreviewInSolutionExplorer": false
 }

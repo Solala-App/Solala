@@ -30,7 +30,7 @@ const ProfilePopUp = (props) => {
 
 
     return (
-        <ScrollView style={styles.container}>
+        <View> 
             <View style={styles.profile}>
                 <View style={styles.profileDescription}>
 
@@ -66,7 +66,7 @@ const ProfilePopUp = (props) => {
                 )}
 
             </View>
-        </ScrollView>
+        </View>
     );
 };
 
@@ -112,7 +112,8 @@ const styles = StyleSheet.create({
         paddingLeft: RFValue(50),
         flexDirection: "column",
         flexWrap: "wrap",
-    },
+        backgroundColor: "white",
+       },
     buttonMenu: {
         flexDirection: "row",
         width: RFValue(70),

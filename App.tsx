@@ -18,7 +18,7 @@ export default function App() {
       } finally {
         // Tell the application to render
         setAppIsReady(true);
-      }s
+      }
     }
 
     prepare();

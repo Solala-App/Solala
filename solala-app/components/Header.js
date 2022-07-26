@@ -60,8 +60,10 @@ const Header = (props) => {
         <View style={styles.headerCenter}>
           <View style={styles.headerSun}>
             <SvgSun></SvgSun>
-            <Text style={styles.textBubble}>{props.greeting}</Text>
-            <Image source={Rain} style={styles.placeholderWeather} />
+            <Text style={styles.textBubble}>
+              {props.greeting}
+              <Image source={Rain} style={styles.placeholderWeather} />
+            </Text>
             <Text style={styles.announcement}>{props.announcement}</Text>
           </View>
         </View>
@@ -107,8 +109,8 @@ const styles = StyleSheet.create({
   },
   headerSun: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: "column",
+    alignItems: "flex-end",
     width: "100%",
     position: "absolute",
   },
@@ -118,21 +120,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   textBubble: {
-    width: RFValue(150),
-    height: RFValue(100),
-    fontSize: RFValue(10),
     flexWrap: "wrap",
-    paddingTop: RFValue(100),
-    paddingLeft: RFValue(10),
+    paddingTop: RFValue(48),
+    paddingRight: RFValue(75),
     ...text.title,
     position: "absolute",
   },
   announcement: {
-    width: RFValue(200),
-    height: RFValue(100),
-    fontSize: RFValue(10),
-    paddingTop: RFValue(40),
-    paddingLeft: RFValue(15),
+    paddingTop: RFValue(75),
+    paddingRight: RFValue(75),
     ...text.body,
     position: "absolute",
   },
@@ -140,8 +136,8 @@ const styles = StyleSheet.create({
   placeholderWeather: {
     width: RFValue(20),
     height: RFValue(20),
-    top: 170,
-    justifyContent: "flex-end",
+    top: RFValue(48),
+    marginLeft: RFValue(15),
     position: "absolute",
   },
 

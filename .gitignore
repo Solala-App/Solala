@@ -9,7 +9,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-.vs/slnx.sqlite
+*slnx.sqlite
 
 # macOS
 .DS_Store

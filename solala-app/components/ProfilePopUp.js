@@ -1,23 +1,16 @@
-
-
-
-
 import React from "react";
 import {
     Text,
     View,
     StyleSheet,
     TouchableOpacity,
-    Platform,
-    ScrollView,
+
     Button,
     Image,
 } from "react-native";
 
 import { theme, fonts } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
-import * as Favicon from "../../assets/favicons_js";
-import * as Weather from "../../assets/favicons_weather";
 
 const { colorPalette } = theme;
 
@@ -30,7 +23,7 @@ const ProfilePopUp = (props) => {
 
 
     return (
-        <View> 
+        <View style={styles.profileCard}> 
             <View style={styles.profile}>
                 <View style={styles.profileDescription}>
 
@@ -46,10 +39,7 @@ const ProfilePopUp = (props) => {
                     </View>
                     <Text style={styles.mainText}>{props.about}</Text>
                     <Text style={styles.mainText}>{props.whyHere}</Text>
-                    <TouchableOpacity style={styles.teamButton}>
-                        <Text>Meet the rest of the team!</Text>
-                    </TouchableOpacity>
-
+                    
                 </View>
                 <Image source={props.profileImage} style={styles.profileImage} />
             </View>
@@ -74,17 +64,28 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+
+    profileCard: {
+        
+        backgroundColor: colorPalette.white,
+        marginLeft: RFValue(50),
+        marginBottom: RFValue(50),
+        marginRight: RFValue(50),
+        shadowOpacity: 0.2,
+        shadowOffset: { width: RFValue(2), height: RFValue(2) },
+    
+    },
     profileInfo: {
         paddingTop: RFValue(20),
         paddingBottom: RFValue(20),
     },
     header: {
-        color: "#61989e",
+        color: colorPalette.jade,
         fontSize: RFValue(24),
         fontWeight: "bold",
     },
     contributionsHeader: {
-        color: "#61989e",
+        color: colorPalette.jade,
         fontSize: RFValue(24),
         fontWeight: "bold",
         paddingLeft: RFValue(30),
@@ -109,10 +110,10 @@ const styles = StyleSheet.create({
         width: "50%",
         height: "80%",
         paddingTop: RFValue(150),
-        paddingLeft: RFValue(50),
+        paddingLeft: RFValue(10),
         flexDirection: "column",
         flexWrap: "wrap",
-        backgroundColor: "white",
+       
        },
     buttonMenu: {
         flexDirection: "row",
@@ -121,38 +122,11 @@ const styles = StyleSheet.create({
         justifyContent: "space-evenly",
     },
 
-    websiteLinkButton: {
-        width: RFValue(10),
-        height: RFValue(10),
-        borderRadius: RFValue(20),
-        backgroundColor: "white",
-    },
-
-    indeedLinkButton: {
-        width: RFValue(10),
-        height: RFValue(10),
-        borderRadius: RFValue(20),
-        backgroundColor: "#6A65F0",
-    },
-
-    gitLinkButton: {
-        width: RFValue(10),
-        height: RFValue(10),
-        borderRadius: RFValue(20),
-        backgroundColor: "#65F06A",
-    },
-
-    teamButton: {
-        width: RFValue(100),
-        height: RFValue(20),
-        borderRadius: RFValue(10),
-        backgroundColor: "pink",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    mainText: {
+    
+      mainText: {
         paddingBottom: RFValue(20),
         color: "grey",
+        paddingRight: RFValue(15),
     },
 
     profileImage: {
@@ -176,7 +150,7 @@ const styles = StyleSheet.create({
         height: RFValue(150),
         width: RFValue(100),
         backgroundColor: "white",
-        shadowOpacity: 0.1,
+        shadowOpacity: 0.02,
         shadowOffset: { width: RFValue(2), height: RFValue(2) },
         flexDirection: "column",
         justifyContent: "space-around",

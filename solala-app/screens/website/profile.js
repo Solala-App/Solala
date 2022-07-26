@@ -4,16 +4,13 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    Platform,
     ScrollView,
-    Button,
-    Image,
-    TouchableHighlight,
+     Image,
+   
 } from "react-native";
 
-import { theme, fonts } from "../../constants";
+import { theme} from "../../constants";
 import { RFValue } from "react-native-responsive-fontsize";
-import { StackActions } from '@react-navigation/native';
 
 import Christoph from "../../../assets/volunteers/christoph.jpg";
 import Christopher from "../../../assets/volunteers/christopher.jpg";
@@ -25,13 +22,17 @@ import Leej from "../../../assets/volunteers/leej.jpg";
 import Robert from "../../../assets/volunteers/robert.jpg";
 import Angela from "../../../assets/volunteers/angela.jpg";
 import Placeholder from "../../../assets/volunteers/placeholder.jpg";
+import Back from "../../../assets/volunteers/volunteerBackArrow.jpg";
 import * as Components from "../../components";
-const { light, size, colorPalette } = theme;
+const { light} = theme;
 
 export default function Profile() {
 
+
+    {/* This is an array containing all the profiles for each individual person. Adding all the props as can be seen in the profiles array will allow a programmer to very easily
+     * create a new addable person, and a person can be removed by simply removing their data from the array*/}
     let profiles = [{
-        nameAndTitle: "Lee Janzen-Morel, Project Manager Lead", image: <Image source={Leej} style={{ width: RFValue(150), height: RFValue(140) }} />, redirect:
+        nameAndTitle: "Lee Janzen-Morel, Project Manager Lead", image: <Image source={Leej} style={{ width: RFValue(150), height: RFValue(140) }} alt="Picture of Lee Janzen-Morel"/>, redirect:
             <Components.ProfilePopUp name="Lee" position="Project Manager" skills="Project management, Scrum, HTML, CSS, Bootstrap, Git"
                 buttons={[{ style: styles.websiteLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
                 { style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
@@ -56,7 +57,7 @@ export default function Profile() {
 
 
         {
-            nameAndTitle: "Christoph Bendix, App Development Lead", image: <Image source={Christoph} style={{ width: RFValue(150), height: RFValue(140) }} />, redirect:
+            nameAndTitle: "Christoph Bendix, App Development Lead", image: <Image source={Christoph} style={{ width: RFValue(150), height: RFValue(140) }} alt="Picture of Christoph Bendix" />, redirect:
                 <Components.ProfilePopUp name="CHRISTOPH" position="App Development Lead" skills="Java, React, JS, MySQL, Git"
                     buttons={[{ style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
                     { style: styles.gitLinkButton, image: "", pressEvent: (() => { console.log(""); }) }]}
@@ -77,7 +78,7 @@ export default function Profile() {
 
 
         {
-            nameAndTitle: "Drew King, Research Lead", image: <Image source={Drew} style={{ width: RFValue(150), height: RFValue(140) }} />, redirect:
+            nameAndTitle: "Drew King, Research Lead", image: <Image source={Drew} style={{ width: RFValue(150), height: RFValue(140) }} alt="Picture of Drew King" />, redirect:
                 <Components.ProfilePopUp name="Drew" position="Research Lead" skills="research, technical writing"
                     buttons={[
                     { style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
@@ -95,7 +96,7 @@ export default function Profile() {
 
 
         {
-            nameAndTitle: "Christopher Roy, UX/UI Developer Lead", image: <Image source={Christopher} style={{ width: RFValue(150), height: RFValue(140) }} />, redirect:
+            nameAndTitle: "Christopher Roy, UX/UI Developer Lead", image: <Image source={Christopher} style={{ width: RFValue(150), height: RFValue(140) }} alt="Picture of Christopher Roy" />, redirect:
                 <Components.ProfilePopUp name="Christopher" position="UX/UI Development Lead" skills="Java, Figma, React, SQL, UX Design"
                     buttons={[
                     { style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
@@ -113,7 +114,7 @@ export default function Profile() {
 
 
         {
-            nameAndTitle: "Navkiran Nijjar, Head of Marketing", image: <Image source={Placeholder} style={{ width: RFValue(150), height: RFValue(140) }} />, redirect:
+            nameAndTitle: "Navkiran Nijjar, Head of Marketing", image: <Image source={Placeholder} style={{ width: RFValue(150), height: RFValue(140) }} alt="Picture of Navkiran Nijjar (Placeholder)" />, redirect:
                 <Components.ProfilePopUp name="Navkiran" position="Head of Marketing" skills="Marketing"
                     buttons={[]}
                     about="I must fill out the volunteers page"
@@ -129,7 +130,7 @@ export default function Profile() {
 
 
         {
-            nameAndTitle: "Robert Selfe, Social and Emotional Research", image: <Image source={Robert} style={{ width: RFValue(150), height: RFValue(140) }} />, redirect:
+            nameAndTitle: "Robert Selfe, Social and Emotional Research", image: <Image source={Robert} style={{ width: RFValue(150), height: RFValue(140) }} alt="Picture of Robert Selfe" />, redirect:
                 <Components.ProfilePopUp name="Robert" position="Social and Emotional Researcher" skills="Social Health, Research, Communications, Psychology"
                     buttons={[{ style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) }]}
                     about="I am a queer social work student who is involved with a million and a half organizations as well as a HUGE person for self-care and mental health and so much more. I am also part of the Drag and drag fundraising community."
@@ -145,7 +146,7 @@ export default function Profile() {
 
 
         {
-            nameAndTitle: "Edison Jacob Lueng, Software Engineer", image: <Image source={Edison} style={{ width: RFValue(150), height: RFValue(140) }} />, redirect:
+            nameAndTitle: "Edison Jacob Lueng, Software Engineer", image: <Image source={Edison} style={{ width: RFValue(150), height: RFValue(140) }} alt="Picture of Edison Leung" />, redirect:
                 <Components.ProfilePopUp name="Edison" position="Software Engineer" skills="Java, React, JS, Git"
                     buttons={[
                     { style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
@@ -163,7 +164,7 @@ export default function Profile() {
 
 
         {
-            nameAndTitle: "Hawa Ali Drammeh, UX and Software Engineer", image: <Image source={Placeholder} style={{ width: RFValue(150), height: RFValue(140) }} />, redirect:
+            nameAndTitle: "Hawa Ali Drammeh, UX and Software Engineer", image: <Image source={Placeholder} style={{ width: RFValue(150), height: RFValue(140) }} alt="Picture of Hawa Drammeh (Placeholder)" />, redirect:
                 <Components.ProfilePopUp name="Hawa" position="Software Developer" skills="Java, Figma, Scrum and Agile, UX Design"
                     buttons={[
                     { style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
@@ -181,7 +182,7 @@ export default function Profile() {
 
 
         {
-            nameAndTitle: "Brian Tran, Software Engineer", image: <Image source={Placeholder} style={{ width: RFValue(150), height: RFValue(140) }} />, redirect:
+            nameAndTitle: "Brian Tran, Software Engineer", image: <Image source={Placeholder} style={{ width: RFValue(150), height: RFValue(140) }} alt="Picture of Brian Tran (placeholder)" />, redirect:
                 <Components.ProfilePopUp name="Brian" position="Software Developer" skills="HCI, Java, Figma, UX Design"
                     buttons={[{ style: styles.websiteLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
                     { style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
@@ -199,7 +200,7 @@ export default function Profile() {
 
 
         {
-            nameAndTitle: "Devika Dwivedi, Software Engineer", image: <Image source={Devika} style={{ width: RFValue(150), height: RFValue(140) }} />, redirect:
+            nameAndTitle: "Devika Dwivedi, Software Engineer", image: <Image source={Devika} style={{ width: RFValue(150), height: RFValue(140) }} alt="Picture of Devika Dwivedi" />, redirect:
                 <Components.ProfilePopUp name="Devika" position="Software Developer" skills="Project management, Scrum, HTML, CSS, Bootstrap, Git"
                     buttons={[{ style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) } ]}
                     about="I'm a rising junior at the University of Washington in the computer science major. I have experience with multiple labs including Grid Lab at UW's Department of Neurosurgery, Koelle Lab in CERID, and am currently doing research relating to cryptography. I love to read, run, and hike."
@@ -215,7 +216,7 @@ export default function Profile() {
 
 
         {
-            nameAndTitle: "Angela Lee, UX and Software Engineer", image: <Image source={Angela} style={{ width: RFValue(150), height: RFValue(140), }} />, redirect:
+            nameAndTitle: "Angela Lee, UX and Software Engineer", image: <Image source={Angela} style={{ width: RFValue(150), height: RFValue(140), }} alt="Picture of Angela Lee" />, redirect:
                 <Components.ProfilePopUp name="Angela" position="Software Developer" skills="HCI, Java, Figma, UX Design"
                     buttons={[
                     { style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
@@ -233,7 +234,7 @@ export default function Profile() {
 
 
         {
-            nameAndTitle: "Kimia Nehchiri, UX and Software Engineer", image: <Image source={Kimia} style={{ width: RFValue(150), height: RFValue(140), }} />, redirect:
+            nameAndTitle: "Kimia Nehchiri, UX and Software Engineer", image: <Image source={Kimia} style={{ width: RFValue(150), height: RFValue(140), }} alt="Picture of Kimia Nehchiri" />, redirect:
                 <Components.ProfilePopUp name="Kimia" position="Software Developer" skills="Java, UX design"
                     buttons={[
                     { style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
@@ -248,62 +249,67 @@ export default function Profile() {
                     }]}
                 />}];
 
+
+    {/* This is a constant which represnts the "home" screen of the profiles page. It is used to dynamically add different team members' profiles and will be called
+     whenever this display needs to be generated.*/}
+
+    const openingProfileScreen = (<ScrollView>
+
+        <Text style={styles.textHeader}>MEET THE CREW</Text>
+
+        <View style={styles.mainView}>
+
+            {profiles.map((item, key) => (
+                <TouchableOpacity key={key} style={styles.tempImage} onPress={() => changeScreen(
+
+                <View>
+                    <TouchableOpacity style={styles.backButton} onPress={() => changeScreen(
+
+                        openingProfileScreen
+
+
+                        )}><Image style={styles.backStyle} source={Back} /></TouchableOpacity>
+
+
+                        {item?.redirect}
+
+                </View>
+                )} >
+
+
+                    {item?.image}
+                    <Text>{item?.nameAndTitle}</Text>
+                </TouchableOpacity>)
+            )}
+
+
+
+        </View>
+
+    </ScrollView >);
+
+    {/* This essentially makes the opening screen (the variable screen) the profile pages home, while also allowing for that display to be changed
+     * using the setScreen method. Essentially, it creates a mutable element which can be changed through setScreen.*/}
     const [screen, setScreen] = useState(
 
-        <ScrollView style={
-            styles.scroll
-        }>
-
-            <Text style={styles.textHeader}>MEET THE CREW</Text>
-
-            <View style={styles.mainView}>
-
-                {profiles.map((item, key) => (
-                    <TouchableOpacity key={key} style={styles.tempImage} onPress={() => changeScreen(item?.redirect)} >
-
-
-                        {item?.image}
-                        <Text style={{fontSize: RFValue(7)}}>{item?.nameAndTitle}</Text>
-                    </TouchableOpacity>)
-                )}
-
-
-
-            </View>
-
-        </ScrollView>
+        openingProfileScreen
 
     );
 
+
+    {/* This method takes in a component/element and then changes the valuable screen to become said component/element*/}
     const changeScreen = (props) => setScreen(
-
-        <View style={{
-
-            width: "80%",
-            height: "80%",
-            
-        }}> {props} </View>
-
+        <View>
+            <View style={styles.cardContainer}> {props} </View>
+        </View>
     );
 
-
+    {/* Returns the opening profile screen sandwiched between the header and footer */ }
     return (
         <View style={styles.container}>
             <View style={styles.headerBox}>
                 <View style={styles.header}>
 
-                    <TouchableHighlight style={styles.linkButton}><Text>
-
-                        About Us
-
-                    </Text></TouchableHighlight>
-
-
-                    <TouchableHighlight style={styles.linkButton}><Text>
-
-                        Meet Solala
-
-                    </Text></TouchableHighlight>
                 </View>
             </View >
 
@@ -316,30 +322,11 @@ export default function Profile() {
 }
 
 
-{/* <Components.ProfilePopUp name="Lee" position="Project Manager" skills="Project management, Scrum, HTML, CSS, Bootstrap, Git"
-                buttons={[{ style: styles.websiteLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
-                    { style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
-                    { style: styles.gitLinkButton, image: "", pressEvent: (() => { console.log(""); }) }]}
-              about="I love working with others and helping the people I care most about.
-                        I love my family more than anything and try to use tech to make the world
-                        a kinder place for my kid to grow up in."
-              whyHere="Throughout COVID-19 I watched my friends take on meeting after meeting,
-                        driving themselves to burnout. Mental health became just one more thing to do
-                        and fell to the wayside. Solala was meant to be a present voice to remind you how
-                        important it is to take those 5 minutes, and how small changes can make a huge
-                        difference in how you feel."
-            profileImage= {Leej}
-             cards={[{ image: "", accolade: "Leadership", description: "Solala is originally my personal project.But I had a vision for a more collaborative based learning opportunity, so I reached out to my new found community at UW. I lead the charge into the beginnings of our project" },
-                    { image: "", accolade: "Communication", description: "With my mind set on a future career in tech PM work I largely worked on this project as Scrum Master, working with each team member to define their individual goals and scoping the project timeline." },
-                    {
-                       image: "", accolade: "Adaptability", description: "In addition to PM work I stepped in where needed to keep our project on task. I created much of Solala's design, such as the logo. But I also stepped up technical challenges: coding our initial landing website and technical writing."
-                    }]}
-            />*/}
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: light.primary,
+
     },
     header: {
         flex: "1",
@@ -377,6 +364,13 @@ const styles = StyleSheet.create({
         marginBottom: RFValue(10),
        
     },
+    backStyle: {
+
+        width: RFValue(30),
+        height: RFValue(20),
+    
+
+    },
 
     placeholder: {
         backgroundColor: theme.colorPalette.teal,
@@ -395,7 +389,7 @@ const styles = StyleSheet.create({
         width: RFValue(10),
         height: RFValue(10),
         borderRadius: RFValue(20),
-        backgroundColor: "white",
+        backgroundColor: "#f8f8ff",
     },
 
     indeedLinkButton: {
@@ -403,6 +397,29 @@ const styles = StyleSheet.create({
         height: RFValue(10),
         borderRadius: RFValue(20),
         backgroundColor: "#6A65F0",
+    },
+
+    backButton: {
+        width: RFValue(50),
+        height: RFValue(50),
+        borderRadius: RFValue(40),
+        backgroundColor: "grey",
+        left: RFValue(600),
+        marginTop: RFValue(20),
+        marginBottom: RFValue(20),
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    cardContainer: {
+
+
+        
+        flex: "1",
+        alignItems: "center",
+        justifyContent: "center",
+
+    
     },
 
     gitLinkButton: {

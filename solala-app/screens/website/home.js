@@ -5,7 +5,7 @@ import * as Components from "../../components";
 import { theme } from "../../constants";
 const { light, size, text } = theme;
 
-export default function Home() {
+export default function Landing() {
   return (
     <View style={styles.container}>
       <Components.HeaderWeb />
@@ -23,7 +23,6 @@ export default function Home() {
               <Components.Card />
             </View>
           </View>
-
           <View style={styles.column2}>
             <View style={styles.card}>
               <Components.Card />

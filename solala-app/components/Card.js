@@ -69,7 +69,7 @@ const Card = () => {
         </View>
         <View style={cardStyles.cardHeaderRight}>
           <TouchableOpacity onPress={handleAddObject}>
-            <Favicon.Plus style={{ width: 44 }} />
+            <Favicon.Plus style={{ width: RFValue(11) }} />
           </TouchableOpacity>
 
           <Modal visible={isModalVisible} transparent={true}>
@@ -93,7 +93,7 @@ const Card = () => {
             scrollsDown;
           }}
         >
-          <Favicon.ScrollDown style={{ width: 44 }} />
+          <Favicon.ScrollDown style={{ width: RFValue(12) }} />
         </Pressable>
       </View>
     </SafeAreaView>

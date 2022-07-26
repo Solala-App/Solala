@@ -57,15 +57,15 @@ export const theme = {
   },
   text: {
     title: {
-      fontSize: RFValue(18),
+      fontSize: RFValue(14),
       fontFamily: "Courgette",
     },
     h1: {
-      fontSize: RFValue(18),
+      fontSize: RFValue(14),
       fontFamily: "MontserratAltBlack",
     },
     body: {
-      fontSize: RFValue(14),
+      fontSize: RFValue(10),
       fontFamily: "MontserratAltRegular",
     },
   },

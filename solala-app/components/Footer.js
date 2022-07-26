@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Platform } from "react-native";
 
+import { RFValue } from "react-native-responsive-fontsize";
 import GreenHouse from "../../assets/favicons_light/greenhouse.svg";
 import Calendar from "../../assets/favicons_light/calendar.svg";
 import ToDoList from "../../assets/favicons_light/to-do-list.svg";
@@ -61,7 +62,7 @@ export const footerStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
-    height: 100,
+    height: RFValue(25),
     bottom: 0,
     position: "absolute",
   },

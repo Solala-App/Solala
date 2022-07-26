@@ -1,135 +1,70 @@
-import * as React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-  Pressable,
-} from "react-native";
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import * as Components from "../components";
 
 import { theme } from "../constants";
-import { RFValue } from "react-native-responsive-fontsize";
-import * as Favicon from "../../assets/favicons_js";
-import * as Logos from "../../assets/logo";
-import Logo from "../../assets/logo/logo_lg.png";
+const { light, size, text } = theme;
 
-const { colorPalette, size, text } = theme;
+export default function Home() {
+  return (
+    <View style={styles.container}>
+      <Components.HeaderWeb />
+      <View style={styles.mainView}>
+        <View style={styles.heroSection}>
+          <View style={styles.heroSectionHeader}>Stuff</View>
+          <View style={styles.heroSectionBody}>Stuff</View>
+        </View>
+        <View style={styles.appFeatures}>
+          <View style={styles.column1}>
+            <View style={styles.card}>
+              <Components.Card />
+            </View>
+            <View style={styles.card}>
+              <Components.Card />
+            </View>
+          </View>
 
-const Header = () => {
-  const HomePressEvent = () => {
-    console.log("Temp home navigation");
-  };
-  const AboutPressEvent = () => {
-    console.log("Temp About navigation");
-  };
-  const AppPressEvent = () => {
-    console.log("Temp app navigation");
-  };
-
-  if (Platform.OS === "android" || Platform.OS === "IOS") {
-    return (
-      <View style={styles.headerBox}>
-        <View style={styles.header}>
-          <View style={styles.headerCenter}>
-            <Pressable onPress={HomePressEvent}>
-              <Text style={styles.navBar}>Home</Text>
-            </Pressable>
-            <Pressable
-              onPress={() => {
-                AppPressEvent;
-              }}
-            >
-              <Logos.SolalaLogo style={{ height: RFValue(28) }} />
-            </Pressable>
-            <Pressable onPress={AboutPressEvent}>
-              <Text style={styles.navBar}>About</Text>
-            </Pressable>
+          <View style={styles.column2}>
+            <View style={styles.card}>
+              <Components.Card />
+            </View>
+            <View style={styles.card}>
+              <Components.Card />
+            </View>
           </View>
         </View>
       </View>
-    );
-  } else {
-    return (
-      <View style={styles.headerBox}>
-        <View style={styles.headerLeft}>
-          <Pressable onPress={HomePressEvent}>
-            <Text style={styles.navBar}>Home</Text>
-          </Pressable>
-        </View>
-        <View style={styles.headerCenter}>
-          <Pressable
-            onPress={() => {
-              AppPressEvent;
-            }}
-          >
-            <Logos.SolalaLogoText style={{ height: RFValue(28) }} />
-          </Pressable>
-        </View>
-        <View style={styles.headerRight}>
-          <Pressable onPress={AboutPressEvent}>
-            <Text style={styles.navBar}>About</Text>
-          </Pressable>
-        </View>
-        <View style={styles.headerFlower}>
-          <Logos.SolalaFlower />
-        </View>
-      </View>
-    );
-  }
-};
+      <Components.Footer />
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
-  headerLeft: {
-    flex: 2,
-    flexDirection: "row",
-    backgroundColor: colorPalette.pink,
-    alignItems: "center",
-    justifyContent: "flex-end",
-    width: "100%",
-    height: RFValue(30),
-  },
-  headerCenter: {
+  container: {
     flex: 1,
-    flexDirection: "row",
-    backgroundColor: colorPalette.pink,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    height: RFValue(30),
+    backgroundColor: light.primary,
   },
-  headerRight: {
+  mainView: {
     flex: 1,
-    flexDirection: "row",
-    backgroundColor: colorPalette.pink,
-    alignItems: "center",
-    justifyContent: "flex-start",
-    width: "100%",
-    height: RFValue(30),
+    flexDirection: "column",
+    justifyContent: "space-between",
+    padding: size.padding,
   },
-  headerFlower: {
+  heroSection: { flex: 1, flexDirection: "column", alignItems: "center" },
+  heroSectionHeader: { ...text.title, color: light.accent },
+  heroSectionBody: { ...text.body, color: light.accent },
+  appFeatures: { flexDirection: "row" },
+  column1: {
     flex: 1,
-    flexDirection: "row",
-    backgroundColor: colorPalette.pink,
-    alignItems: "center",
-    justifyContent: "flex-start",
-    width: "100%",
-    height: RFValue(30),
+    flexDirection: "column",
+    marginRight: size.margin,
   },
-  headerBox: {
-    height: RFValue(25),
-    width: "100%",
-    flexDirection: "row",
+  column2: {
+    flex: 1,
+    flexDirection: "column",
   },
-  navBarLogo: {
-    width: RFValue(45),
-    height: RFValue(20),
-    marginLeft: RFValue(15),
-    position: "absolute",
-  },
-  navBar: {
-    ...text.h2,
+  card: {
+    flex: 1,
+    paddingBottom: size.padding,
   },
 });
-
-export default Header;

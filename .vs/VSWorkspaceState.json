@@ -2,12 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\assets",
-    "\\assets\\favicons_js",
-    "\\assets\\favicons_light",
     "\\solala-app",
     "\\solala-app\\components",
     "\\solala-app\\constants",
-    "\\solala-app\\screens"
+    "\\solala-app\\screens",
+    "\\solala-app\\screens\\website"
   ],
+  "SelectedNode": "\\solala-app\\components\\AddTaskPopup.js",
   "PreviewInSolutionExplorer": false
 }

@@ -15,7 +15,8 @@ import { RFValue } from "react-native-responsive-fontsize";
 import Slider from '@react-native-community/slider';
 import { Dropdown } from 'react-native-element-dropdown';
 import * as Favicon from "../../assets/favicons_js";
-import AddTaskPopup from './AddTaskPopup.js'
+import EventPopup from './EventPopup.js'
+import TaskPopup from './TaskPopup.js'
 import { theme } from "../constants";
 const { light, size, text, shadowProp } = theme;
 
@@ -77,7 +78,7 @@ const Card = () => {
               </TouchableOpacity>
 
                   <Modal visible={isModalVisible} transparent={true}>
-                      <AddTaskPopup isModalVisible={handleAddObject} />
+                      <TaskPopup isModalVisible={handleAddObject} />
                 </Modal>
           </View>
       </View>

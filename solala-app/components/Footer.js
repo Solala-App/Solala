@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity, Platform } from "react-native";
+import { View, StyleSheet, Platform, Pressable } from "react-native";
 
 import GreenHouse from "../../assets/favicons_light/greenhouse.svg";
 import Calendar from "../../assets/favicons_light/calendar.svg";
@@ -23,30 +23,30 @@ const Footer = () => {
   return (
     <View style={footerStyles.box}>
       {(Platform.OS === "android" || Platform.OS === "ios") && (
-        <>
-          <TouchableOpacity onPress={handleGreenHousePress}>
+              <>
+                  <Pressable onPress={handleGreenHousePress}>
             <GreenHouse
               width={icon_size}
               height={icon_size}
               style={footerStyles.button}
-            />
-          </TouchableOpacity>
+                      />
+                  </Pressable>
 
-          <TouchableOpacity onPress={handleCalendarPress}>
+                  <Pressable onPress={handleCalendarPress}>
             <Calendar
               width={icon_size}
               height={icon_size}
               style={footerStyles.button}
-            />
-          </TouchableOpacity>
+                      />
+                  </Pressable>
 
-          <TouchableOpacity onPress={handleToDoPress}>
+                  <Pressable onPress={handleToDoPress}>
             <ToDoList
               width={icon_size}
               height={icon_size}
               style={footerStyles.button}
-            />
-          </TouchableOpacity>
+                      />
+                  </Pressable>
         </>
       )}
     </View>

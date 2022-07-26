@@ -18,7 +18,7 @@ export default function App() {
       } finally {
         // Tell the application to render
         setAppIsReady(true);
-      }
+      }s
     }
 
     prepare();
@@ -39,6 +39,6 @@ export default function App() {
   if (!appIsReady) {
     return null;
   }
-  //add a splashscreen
-  return <Screens.App.Homepage />;
+    //add a splashscreen
+    return <Screens.Website.Profile />;
 }

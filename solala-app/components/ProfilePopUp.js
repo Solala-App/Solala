@@ -1,7 +1,3 @@
-
-
-
-
 import React from "react";
 import {
     Text,
@@ -20,11 +16,6 @@ import * as Favicon from "../../assets/favicons_js";
 import * as Weather from "../../assets/favicons_weather";
 
 const { colorPalette } = theme;
-
-
-
-
-
 
 const ProfilePopUp = (props) => {
 

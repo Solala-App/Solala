@@ -3,6 +3,7 @@ export { default as Cancel } from "./Cancel.js";
 export { default as Check } from "./Check.js";
 export { default as CheckLeaf } from "./CheckLeaf.js";
 export { default as Greenhouse } from "./Greenhouse.js";
+export { default as Leaf } from "./Leaf.js";
 export { default as Minus } from "./Minus.js";
 export { default as Plus } from "./Plus.js";
 export { default as ScrollDown } from "./ScrollDown.js";

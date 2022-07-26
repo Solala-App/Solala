@@ -64,6 +64,10 @@ export const theme = {
       fontSize: RFValue(14),
       fontFamily: "MontserratAltBlack",
     },
+    h2: {
+      fontSize: RFValue(12),
+      fontFamily: "MontserratAltBold",
+    },
     body: {
       fontSize: RFValue(10),
       fontFamily: "MontserratAltRegular",

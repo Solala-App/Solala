@@ -1,1 +1,1 @@
-export { default as Happy } from "./Happy.js";
+export { default as Happy } from "./happy.js";

@@ -39,6 +39,6 @@ export default function App() {
   if (!appIsReady) {
     return null;
   }
-  //add a splashscreen
-  return <Screens.Website.Home />;
+    //add a splashscreen
+    return <Screens.Website.Home />;
 }

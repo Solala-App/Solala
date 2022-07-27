@@ -16,9 +16,9 @@ import Plus from "../../assets/favicons_light/plus.svg";
 import ScrollLeft from "../../assets/favicons_dark/scroll_left.svg";
 import ScrollRight from "../../assets/favicons_dark/scroll_right.svg";
 import Check from "../../assets/favicons_dark/check.svg";
+import { Picker } from "@react-native-picker/picker";
 
 import { theme } from "../constants";
-import { Picker } from "@react-native-picker/picker";
 const { light, size, text, shadowProp } = theme;
 
 // npm install @react-native-community/slider --save

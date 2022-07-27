@@ -7,7 +7,7 @@ import { theme } from "../../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 const { light, size, text } = theme;
 
-export default function Home({ navigation }) {
+export default function Home() {
   return (
     <View style={styles.container}>
       <View style={styles.mainView}>

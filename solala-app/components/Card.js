@@ -72,8 +72,8 @@ const Card = () => {
             <Favicon.Plus style={{ width: RFValue(11) }} />
           </TouchableOpacity>
 
-                  <Modal visible={isModalVisible} transparent={true}>
-                      <TaskPopup isModalVisible={handleAddObject} />
+          <Modal visible={isModalVisible} transparent={true}>
+            <TaskPopup isModalVisible={handleAddObject} />
           </Modal>
         </View>
       </View>

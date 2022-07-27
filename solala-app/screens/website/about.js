@@ -26,7 +26,7 @@ import Placeholder from "../../../assets/volunteers/placeholder.jpg";
 import * as Components from "../../components";
 const { light, size, colorPalette } = theme;
 
-export default function Profile() {
+export default function About({ navigation }) {
   let profiles = [
     {
       nameAndTitle: "Lee Janzen-Morel, Project Manager Lead",
@@ -709,13 +709,9 @@ export default function Profile() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerBox}>
-        <View style={styles.header}></View>
-      </View>
-
       {screen}
 
-      <Components.Footer />
+      <Components.FooterWeb />
     </View>
   );
 }

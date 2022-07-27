@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useCallback, useEffect } from "react";
-import * as Screens from "./solala-app/screens";
+import SolalaApp from "./solala-app";
 import { View, Text } from "react-native";
 import fonts from "./solala-app/constants";
 import * as SplashScreen from "expo-splash-screen";
@@ -40,5 +40,5 @@ export default function App() {
     return null;
   }
   //add a splashscreen
-  return <Screens.Website.Home />;
+  return <SolalaApp />;
 }

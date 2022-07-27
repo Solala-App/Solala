@@ -7,10 +7,9 @@ import { theme } from "../../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 const { light, size, text } = theme;
 
-export default function Landing() {
+export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
-      <Components.HeaderWeb />
       <View style={styles.mainView}>
         <View style={styles.heroSection}>
           <View
@@ -80,7 +79,7 @@ export default function Landing() {
           </View>
         </View>
       </View>
-      <Components.Footer />
+      <Components.FooterWeb />
     </View>
   );
 }

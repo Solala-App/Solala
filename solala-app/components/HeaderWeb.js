@@ -11,20 +11,21 @@ import {
 import { theme } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
+import MyStack from "../routes/MyStack";
 import * as Logos from "../../assets/logo";
 import Logo from "../../assets/logo/logo_lg.png";
 
 const { colorPalette, size, text } = theme;
 
-const Header = () => {
+const Header = ({ navigation }) => {
   const HomePressEvent = () => {
-    console.log("Temp home navigation");
+    navigation.navigate("Home");
   };
   const AboutPressEvent = () => {
-    console.log("Temp About navigation");
+    navigation.navigate("About");
   };
   const AppPressEvent = () => {
-    console.log("Temp app navigation");
+    navigation.navigate("Login");
   };
 
   if (Platform.OS === "android" || Platform.OS === "IOS") {

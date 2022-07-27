@@ -6,13 +6,19 @@ import {
   ScrollView,
   TextInput,
   Pressable,
+  Platform,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import Slider from "@react-native-community/slider";
 import * as Favicon from "../../assets/favicons_js";
-import { Picker } from "@react-native-picker/picker";
+import Cancel from "../../assets/favicons_light/cancel.svg";
+import Plus from "../../assets/favicons_light/plus.svg";
+import ScrollLeft from "../../assets/favicons_dark/scroll_left.svg";
+import ScrollRight from "../../assets/favicons_dark/scroll_right.svg";
+import Check from "../../assets/favicons_dark/check.svg";
 
 import { theme } from "../constants";
+import { Picker } from "@react-native-picker/picker";
 const { light, size, text, shadowProp } = theme;
 
 // npm install @react-native-community/slider --save
@@ -50,27 +56,36 @@ const CalendarPopup = (props) => {
           <View style={cardStyles.popupHeader}>
             <View style={cardStyles.cardHeaderLeft} />
             <View style={cardStyles.cardHeaderCenter}>
-              <Text style={cardStyles.popupHeaderText}> Create Task </Text>
+              <Text style={cardStyles.popupHeaderText}>
+                Create {props.type}
+              </Text>
             </View>
             <View style={cardStyles.cardHeaderRight}>
               <Pressable onPress={props.isModalVisible}>
-                <Favicon.Cancel style={{ width: 35 }} />
+                <Favicon.Cancel style={{ width: 30 }} />
+                {(Platform.OS === "ios" || Platform.OS === "android") && (
+                  <Cancel width={20} height={20} />
+                )}
               </Pressable>
             </View>
           </View>
           <View style={cardStyles.popupLabel}>
-            <View style={cardStyles.cardHeaderCenter}>
+            <View style={cardStyles.centeredView}>
               <Text style={cardStyles.popupLabelText}> Date: </Text>
             </View>
           </View>
-          <View style={cardStyles.calendar}> </View>
+          <View style={cardStyles.calendar} />
           {props.displayRepeat === true && (
             <View style={cardStyles.popupLabel}>
               <Text style={cardStyles.popupLabelText}> Repeat </Text>
               <View style={cardStyles.centeredView}>
                 <Pressable onPress={scrollLeft}>
                   <Favicon.ScrollLeft style={{ width: 10 }} />
+                  {(Platform.OS === "ios" || Platform.OS === "android") && (
+                    <ScrollLeft width={15} height={15} />
+                  )}
                 </Pressable>
+
                 <View style={cardStyles.repeatText}>
                   <Text style={cardStyles.popupLabelText}>
                     {" "}
@@ -79,6 +94,9 @@ const CalendarPopup = (props) => {
                 </View>
                 <Pressable onPress={scrollRight}>
                   <Favicon.ScrollRight style={{ width: 10 }} />
+                  {(Platform.OS === "ios" || Platform.OS === "android") && (
+                    <ScrollRight width={15} height={15} />
+                  )}
                 </Pressable>
               </View>
             </View>
@@ -86,45 +104,57 @@ const CalendarPopup = (props) => {
           {props.displayPriority === true && (
             <View style={cardStyles.popupLabel}>
               <Text style={cardStyles.popupLabelText}> Priority: </Text>
-
-              <Slider
-                maximumValue={100}
-                minimumValue={0}
-                minimumTrackTintColor={light.textSecondary}
-                maximumTrackTintColor={light.textSecondary}
-                thumbTintColor="orange"
-                step={1}
-                value={priorityValue}
-                onValueChange={(priorityValue) =>
-                  setPriorityValue(priorityValue)
-                }
-              />
+              <View style={cardStyles.centeredView}>
+                <View style={cardStyles.slider}>
+                  <Slider
+                    maximumValue={100}
+                    minimumValue={0}
+                    minimumTrackTintColor={light.textSecondary}
+                    maximumTrackTintColor={light.textSecondary}
+                    thumbTintColor="orange"
+                    step={1}
+                    value={priorityValue}
+                    onValueChange={(priorityValue) =>
+                      setPriorityValue(priorityValue)
+                    }
+                  />
+                </View>
+              </View>
             </View>
           )}
           {props.displayComplexity === true && (
             <View style={cardStyles.popupLabel}>
               <Text style={cardStyles.popupLabelText}> Complexity: </Text>
-              <Slider
-                maximumValue={100}
-                minimumValue={0}
-                minimumTrackTintColor={light.textSecondary}
-                maximumTrackTintColor={light.textSecondary}
-                thumbTintColor="orange"
-                step={1}
-                value={complexityValue}
-                onValueChange={(complexityValue) =>
-                  setComplexityValue(complexityValue)
-                }
-              />
+              <View style={cardStyles.centeredView}>
+                <View style={cardStyles.slider}>
+                  <Slider
+                    maximumValue={100}
+                    minimumValue={0}
+                    minimumTrackTintColor={light.textSecondary}
+                    maximumTrackTintColor={light.textSecondary}
+                    thumbTintColor="orange"
+                    step={1}
+                    value={complexityValue}
+                    onValueChange={(complexityValue) =>
+                      setComplexityValue(complexityValue)
+                    }
+                  />
+                </View>
+              </View>
             </View>
           )}
           {props.displayCategory === true && (
             <View style={cardStyles.popupLabel}>
               <Text style={cardStyles.popupLabelText}> Category: </Text>
+
               <View style={cardStyles.centeredView}>
                 <Picker
-                  testID="styled-picker"
                   selectedValue={category}
+                  style={{
+                    height: "75%",
+                    width: "75%",
+                    textAlign: "center",
+                  }}
                   onValueChange={(v) => setCategory(v)}
                   accessibilityLabel="Styled Picker Accessibility Label"
                 >
@@ -149,6 +179,9 @@ const CalendarPopup = (props) => {
               <View style={cardStyles.popupAddNote}>
                 <Pressable onPress={() => setNotes(tempNotes)}>
                   <Favicon.Plus style={{ width: 22 }} />
+                  {(Platform.OS === "ios" || Platform.OS === "android") && (
+                    <Plus width={20} height={20} />
+                  )}
                 </Pressable>
               </View>
             </View>
@@ -165,6 +198,9 @@ const CalendarPopup = (props) => {
               }}
             >
               <Favicon.Check style={{ width: 44 }} />
+              {(Platform.OS === "ios" || Platform.OS === "android") && (
+                <Check width={44} height={44} />
+              )}
             </Pressable>
           </View>
         </View>
@@ -174,10 +210,6 @@ const CalendarPopup = (props) => {
 };
 
 export const cardStyles = StyleSheet.create({
-  cardHeaderCenter: {
-    flex: 10,
-  },
-
   cardHeaderRight: {
     flex: 1,
     paddingTop: size.innerPadding,
@@ -194,26 +226,19 @@ export const cardStyles = StyleSheet.create({
     flexDirection: "row",
   },
   modalView: {
+    marginTop: RFValue(30),
     backgroundColor: light.secondary,
-    borderRadius: 13,
+    borderRadius: 17,
     alignItems: "center",
-    width: 400,
+    width: RFValue(250),
     elevation: 5,
   },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-    position: "absolute",
-    top: 0,
-  },
   popupHeader: {
-    alignSelf: "stretch",
-    borderRadius: size.borderRadius,
     backgroundColor: light.accent,
-    justifyContent: "space-between",
+    borderRadius: size.borderRadius,
     flexDirection: "row",
     textAlign: "center",
+    alignSelf: "stretch",
   },
   calendar: {
     marginTop: 10,
@@ -222,6 +247,8 @@ export const cardStyles = StyleSheet.create({
     width: "100%",
   },
   popupHeaderText: {
+    justifyContent: "center",
+    textAlign: "center",
     fontSize: 15,
     color: "white",
     ...text.title,
@@ -238,6 +265,7 @@ export const cardStyles = StyleSheet.create({
   },
   popupLabelText: {
     textAlign: "center",
+    justifyContent: "center",
     fontSize: 20,
     color: "green",
   },
@@ -257,7 +285,17 @@ export const cardStyles = StyleSheet.create({
     borderWidth: 1,
   },
   repeatText: {
-    width: "40%",
+    width: "50%",
+  },
+  slider: {
+    width: "100%",
+  },
+  cardHeaderLeft: {
+    flex: 1,
+  },
+
+  cardHeaderCenter: {
+    flex: 10,
   },
 });
 

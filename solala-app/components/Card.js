@@ -6,13 +6,15 @@ import {
   Pressable,
   FlatList,
   SafeAreaView,
-  TouchableOpacity,
   Modal,
+  Button,
+  Platform,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
 import TaskPopup from "./TaskPopup.js";
 import EventPopup from "./EventPopup.js";
+import Plus from "../../assets/favicons_light/plus.svg";
 
 import { theme } from "../constants";
 const { light, size, text, shadowProp } = theme;
@@ -68,10 +70,14 @@ const Card = () => {
           <Text style={cardStyles.cardHeaderText}>Hello</Text>
         </View>
         <View style={cardStyles.cardHeaderRight}>
-          <TouchableOpacity onPress={handleAddObject}>
+          <Pressable onPress={handleAddObject}>
             <Favicon.Plus style={{ width: RFValue(11) }} />
-          </TouchableOpacity>
-
+          </Pressable>
+          {(Platform.OS === "ios" || Platform.OS === "android") && (
+            <Pressable onPress={handleAddObject}>
+              <Plus width={15} height={15} />
+            </Pressable>
+          )}
           <Modal visible={isModalVisible} transparent={true}>
             <TaskPopup isModalVisible={handleAddObject} />
           </Modal>

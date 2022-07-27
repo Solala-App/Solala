@@ -2004,10 +2004,10 @@
   "resolved" "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.5.tgz"
   "version" "15.7.5"
 
-"@types/react-native@~0.66.13":
-  "integrity" "sha512-3c3BFq/skYngafzBPwUiAAuRsueudo83GodarainUXaeq9xdnCmVfmGgC2uTYtZPT9GTzftUkn4/y3HsH3Rw9w=="
-  "resolved" "https://registry.npmjs.org/@types/react-native/-/react-native-0.66.20.tgz"
-  "version" "0.66.20"
+"@types/react-native@~0.67.6":
+  version "0.67.12"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.67.12.tgz#bcb55fcdc1fa8136face21aeef5ba0728b7cdd6e"
+  integrity sha512-2ee/MhGWpOLJML2YSgHymAf+FOyGQ6T/CmM94AoQr8Rdm9u7PfzIr5gVS7iMuDPyZpwKdtQFhOE26QFGD/AD4A==
   dependencies:
     "@types/react" "^17"
 

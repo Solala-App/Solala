@@ -5,6 +5,7 @@ const EventPopup = (props) => {
     return (
         <AddCalendarPopup
             isModalVisible={props.isModalVisible}
+            type={"Event" }
             displayRepeat={true}
             displayPriority={false}
             displayCategory={false}

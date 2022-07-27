@@ -5,6 +5,7 @@ const TaskPopup = (props) => {
     return (
         <AddCalendarPopup
             isModalVisible={props.isModalVisible}
+            type={"Task" }
             displayRepeat={true}
             displayPriority={true}
             displayCategory={true}

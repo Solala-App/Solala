@@ -1,15 +1,16 @@
 {
   "expo": {
     "name": "Solala",
+    "platforms": ["ios","android","web"],
     "slug": "Solala",
     "version": "1.0.0",
     "orientation": "portrait",
     "githubUrl": "https://github.com/Solala-App/Solala.git",
     "userInterfaceStyle": "light",
     "splash": {
-
-      "resizeMode": "contain",
-      "backgroundColor": "#E3FFEB"
+      "image": "./assets/logo/solala_flower.svg",
+      "backgroundColor": "#E3FFEB",
+      "resizeMode": "contain"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -29,11 +30,6 @@
     "web": {
       "backgroundColor": "#E3FFEB",
       "favicon": "./assets/logo/solala_icon.png"
-    },
-    "splash": {
-      "image": "./assets/logo/solala_flower.svg",
-      "backgroundColor": "#E3FFEB",
-      "resizeMode": "contain"
     }
   }
 }

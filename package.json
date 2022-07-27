@@ -36,7 +36,7 @@
     "@babel/core": "^7.12.9",
     "@svgr/cli": "^6.3.0",
     "@types/react": "~17.0.21",
-    "@types/react-native": "~0.66.13",
+    "@types/react-native": "~0.67.6",
     "babel-eslint": "^10.1.0",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",

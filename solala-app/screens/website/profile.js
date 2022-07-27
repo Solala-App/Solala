@@ -23,7 +23,7 @@ import Angela from "../../../assets/volunteers/angela.jpg";
 import Placeholder from "../../../assets/volunteers/placeholder.jpg";
 import Back from "../../../assets/favicons_js/BackArrow.js";
 import * as Components from "../../components";
-const { light } = theme;
+const { light, text } = theme;
 
 export default function Profile() {
   {
@@ -747,6 +747,7 @@ export default function Profile() {
   {
     /* This method takes in a component/element and then changes the valuable screen to become said component/element*/
   }
+
   const changeScreen = (props) =>
     setScreen(
       <View>
@@ -759,10 +760,6 @@ export default function Profile() {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.headerBox}>
-        <View style={styles.header}></View>
-      </View>
-
       {screen}
 
       <Components.Footer />
@@ -867,8 +864,7 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     color: "#61989e",
-    fontSize: RFValue(24),
-    fontWeight: "bold",
+    ...text.title,
     paddingLeft: RFValue(15),
     paddingTop: RFValue(20),
   },

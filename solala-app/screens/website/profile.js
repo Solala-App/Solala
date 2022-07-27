@@ -722,7 +722,7 @@ export default function Profile() {
                     style={styles.backButton}
                     onPress={() => changeScreen(openingProfileScreen)}
                   >
-                    <Image style={styles.backStyle} source={Back} />
+                    <Back />
                   </TouchableOpacity>
 
                   {item?.redirect}

@@ -1,184 +1,155 @@
 import React from "react";
 import {
-    Text,
-    View,
-    StyleSheet,
-    TouchableOpacity,
-    Platform,
-    ScrollView,
-    Button,
-    Image,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Button,
+  Image,
 } from "react-native";
 
 import { theme, fonts } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
-import * as Favicon from "../../assets/favicons_js";
-import * as Weather from "../../assets/favicons_weather";
 
 const { colorPalette } = theme;
 
 const ProfilePopUp = (props) => {
-
-
-    return (
-        <ScrollView style={styles.container}>
-            <View style={styles.profile}>
-                <View style={styles.profileDescription}>
-
-                    <Text style={styles.header}>Meet {props.name}</Text>
-                    <View style={styles.profileInfo}>
-                        <Text>{props.position}</Text>
-                        <Text>Skills: {props.skills}</Text>
-                        <View style={styles.buttonMenu}>
-                            {props.buttons.map((item, key) => (
-                                <TouchableOpacity key={key} style={item?.style} onPress={item?.pressEvent}> {item?.image} </TouchableOpacity>)
-                            )}
-                        </View>
-                    </View>
-                    <Text style={styles.mainText}>{props.about}</Text>
-                    <Text style={styles.mainText}>{props.whyHere}</Text>
-                    <TouchableOpacity style={styles.teamButton}>
-                        <Text>Meet the rest of the team!</Text>
-                    </TouchableOpacity>
-
-                </View>
-                <Image source={props.profileImage} style={styles.profileImage} />
+  return (
+    <View style={styles.profileCard}>
+      <View style={styles.profile}>
+        <View style={styles.profileDescription}>
+          <Text style={styles.header}>Meet {props.name}</Text>
+          <View style={styles.profileInfo}>
+            <Text>{props.position}</Text>
+            <Text>Skills: {props.skills}</Text>
+            <View style={styles.buttonMenu}>
+              {props.buttons.map((item, key) => (
+                <TouchableOpacity
+                  key={key}
+                  style={item?.style}
+                  onPress={item?.pressEvent}
+                >
+                  {" "}
+                  {item?.image}{" "}
+                </TouchableOpacity>
+              ))}
             </View>
-            <Text style={styles.contributionsHeader}>Key Project Contributions</Text>
-            <View style={styles.accolade}>
-
-                {props.cards.map((item, key) => (
-                    <View key={key} style={styles.contributionCard}>
-                        <View style={styles.placeholder}>{item?.image}</View>
-                        <Text style={styles.cardHeader}>{item?.accolade}</Text>
-                        <Text style={styles.cardText}>{item?.description}</Text>
-                    </View>)
-
-                )}
-
-            </View>
-        </ScrollView>
-    );
+          </View>
+          <Text style={styles.mainText}>{props.about}</Text>
+          <Text style={styles.mainText}>{props.whyHere}</Text>
+        </View>
+        <Image source={props.profileImage} style={styles.profileImage} />
+      </View>
+      <Text style={styles.contributionsHeader}>Key Project Contributions</Text>
+      <View style={styles.accolade}>
+        {props.cards.map((item, key) => (
+          <View key={key} style={styles.contributionCard}>
+            <View style={styles.placeholder}>{item?.image}</View>
+            <Text style={styles.cardHeader}>{item?.accolade}</Text>
+            <Text style={styles.cardText}>{item?.description}</Text>
+          </View>
+        ))}
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    profileInfo: {
-        paddingTop: RFValue(20),
-        paddingBottom: RFValue(20),
-    },
-    header: {
-        color: "#61989e",
-        fontSize: RFValue(24),
-        fontWeight: "bold",
-    },
-    contributionsHeader: {
-        color: "#61989e",
-        fontSize: RFValue(24),
-        fontWeight: "bold",
-        paddingLeft: RFValue(30),
-    },
-    cardText: {
-        color: "grey",
-    },
+  container: {
+    flex: 1,
+  },
 
-    cardHeader: {
-        fontWeight: "bold",
-        fontSize: RFValue(9),
-    },
+  profileCard: {
+    backgroundColor: colorPalette.white,
+    marginLeft: RFValue(50),
+    marginBottom: RFValue(50),
+    marginRight: RFValue(50),
+    shadowOpacity: 0.2,
+    shadowOffset: { width: RFValue(2), height: RFValue(2) },
+  },
+  profileInfo: {
+    paddingTop: RFValue(20),
+    paddingBottom: RFValue(20),
+  },
+  header: {
+    color: colorPalette.jade,
+    fontSize: RFValue(24),
+    fontWeight: "bold",
+  },
+  contributionsHeader: {
+    color: colorPalette.jade,
+    fontSize: RFValue(24),
+    fontWeight: "bold",
+    paddingLeft: RFValue(30),
+  },
+  cardText: {
+    color: "grey",
+  },
 
+  cardHeader: {
+    fontWeight: "bold",
+    fontSize: RFValue(9),
+  },
 
-    profile: {
-        width: "100%",
-        height: RFValue(500),
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-    },
-    profileDescription: {
-        width: "50%",
-        height: "80%",
-        paddingTop: RFValue(150),
-        paddingLeft: RFValue(50),
-        flexDirection: "column",
-        flexWrap: "wrap",
-    },
-    buttonMenu: {
-        flexDirection: "row",
-        width: RFValue(70),
-        height: RFValue(10),
-        justifyContent: "space-evenly",
-    },
+  profile: {
+    width: "100%",
+    height: RFValue(500),
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  profileDescription: {
+    width: "50%",
+    height: "80%",
+    paddingTop: RFValue(150),
+    paddingLeft: RFValue(10),
+    flexDirection: "column",
+    flexWrap: "wrap",
+  },
+  buttonMenu: {
+    flexDirection: "row",
+    width: RFValue(70),
+    height: RFValue(10),
+    justifyContent: "space-evenly",
+  },
 
-    websiteLinkButton: {
-        width: RFValue(10),
-        height: RFValue(10),
-        borderRadius: RFValue(20),
-        backgroundColor: "white",
-    },
+  mainText: {
+    paddingBottom: RFValue(20),
+    color: "grey",
+    paddingRight: RFValue(15),
+  },
 
-    indeedLinkButton: {
-        width: RFValue(10),
-        height: RFValue(10),
-        borderRadius: RFValue(20),
-        backgroundColor: "#6A65F0",
-    },
+  profileImage: {
+    width: "50%",
+    height: "100%",
+  },
 
-    gitLinkButton: {
-        width: RFValue(10),
-        height: RFValue(10),
-        borderRadius: RFValue(20),
-        backgroundColor: "#65F06A",
-    },
+  accolade: {
+    width: "100%",
+    height: RFValue(200),
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    paddingBottom: RFValue(45),
+    paddingRight: RFValue(20),
+    paddingLeft: RFValue(50),
+  },
 
-    teamButton: {
-        width: RFValue(100),
-        height: RFValue(20),
-        borderRadius: RFValue(10),
-        backgroundColor: "pink",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    mainText: {
-        paddingBottom: RFValue(20),
-        color: "grey",
-    },
-
-    profileImage: {
-        width: "50%",
-        height: "100%",
-
-    },
-
-    accolade: {
-        width: "100%",
-        height: RFValue(200),
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        alignItems: "center",
-        paddingBottom: RFValue(45),
-        paddingRight: RFValue(20),
-        paddingLeft: RFValue(50),
-    },
-
-    contributionCard: {
-        height: RFValue(150),
-        width: RFValue(100),
-        backgroundColor: "white",
-        shadowOpacity: 0.1,
-        shadowOffset: { width: RFValue(2), height: RFValue(2) },
-        flexDirection: "column",
-        justifyContent: "space-around",
-        alignItems: "center",
-        textAlign: "center"
-    },
-    placeholder: {
-        backgroundColor: theme.colorPalette.teal,
-        width: RFValue(30),
-        height: RFValue(30),
-    },
-
+  contributionCard: {
+    height: RFValue(150),
+    width: RFValue(100),
+    backgroundColor: "white",
+    shadowOpacity: 0.02,
+    shadowOffset: { width: RFValue(2), height: RFValue(2) },
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
+    textAlign: "center",
+  },
+  placeholder: {
+    backgroundColor: theme.colorPalette.teal,
+    width: RFValue(30),
+    height: RFValue(30),
+  },
 });
 
 export default ProfilePopUp;

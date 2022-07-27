@@ -1,3 +1,4 @@
+export { default as BackArrow } from "./BackArrow.js";
 export { default as Calendar } from "./Calendar.js";
 export { default as Cancel } from "./Cancel.js";
 export { default as Check } from "./Check.js";

@@ -30,7 +30,7 @@ const MyStack = () => {
         }}
       >
         <Stack.Screen name="Home" component={Website.Home} />
-        <Stack.Screen name="About" component={Website.About} />
+        <Stack.Screen name="About" component={Website.Profile} />
         <Stack.Screen name="Login" component={App.Login} />
       </Stack.Navigator>
     );

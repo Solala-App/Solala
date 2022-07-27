@@ -21,7 +21,7 @@ import Leej from "../../../assets/volunteers/leej.jpg";
 import Robert from "../../../assets/volunteers/robert.jpg";
 import Angela from "../../../assets/volunteers/angela.jpg";
 import Placeholder from "../../../assets/volunteers/placeholder.jpg";
-import Back from "../../../assets/favicons_js";
+import Back from "../../../assets/favicons_js/BackArrow.js";
 import * as Components from "../../components";
 const { light } = theme;
 

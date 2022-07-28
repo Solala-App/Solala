@@ -29,7 +29,7 @@
     },
     "web": {
       "backgroundColor": "#E3FFEB",
-      "favicon": "./assets/logo/solala_icon.svg"
+      "favicon": "./assets/logo/solala_icon.png"
     }
   }
 }

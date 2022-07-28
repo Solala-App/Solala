@@ -1,9 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Platform, Pressable } from "react-native";
-
-import { theme } from "../constants";
-
-const { colorPalette } = theme;
+import { View, Text, TouchableOpacity } from "react-native";
 
 function Test({ state, descriptors, navigation }) {
   return (
@@ -58,25 +54,5 @@ function Test({ state, descriptors, navigation }) {
     </View>
   );
 }
-
-const icon_size = 75;
-export const footerStyles = StyleSheet.create({
-  box: {
-    backgroundColor: colorPalette.terracotta,
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    width: "100%",
-    height: 100,
-    bottom: 0,
-    position: "absolute",
-  },
-  button: {
-    top: 10,
-    position: "relative",
-    width: "75",
-    height: "75",
-  },
-});
 
 export default Test;

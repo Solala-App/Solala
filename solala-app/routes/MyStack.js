@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as Website from "../screens/website";
 import * as App from "../screens/app";
 import React from "react";
-import { HeaderWeb, Header, Footer, Sun } from "../components";
+import { HeaderWeb, Header, Footer, Sun, Test } from "../components";
 
 const Login = true;
 
@@ -32,9 +32,8 @@ const SolalaAppMobileTest = () => {
   return (
     <Tab.Navigator
       initialRouteName="Homepage"
-      screenOptions={{
-        tabBar: (props) => <Test {...props} />,
-      }}
+      tabBar={(props) => <Footer {...props} />}
+      header={<Header greeting="Good Morning!" announcement="Meet Solala" />}
     >
       <Tab.Screen name="Homepage" component={App.Homepage} />
       <Tab.Screen name="Calendar" component={App.Calendar} />

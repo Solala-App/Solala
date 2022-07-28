@@ -4,30 +4,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as Website from "../screens/website";
 import * as App from "../screens/app";
 import React from "react";
-import { HeaderWeb, Header, Footer, Sun, Test } from "../components";
+import { HeaderWeb, Header, Footer, Sun } from "../components";
 
 const Login = true;
 
 const SolalaAppMobile = () => {
-  const Tab = createBottomTabNavigator();
-  return (
-    <Tab.Navigator
-      initialRouteName="Homepage"
-      screenOptions={{
-        header: () => (
-          <Sun greeting="Good Morning!" announcement="Meet Solala" />
-        ),
-        tabBarComponent: (props) => <Footer {...props} />,
-      }}
-    >
-      <Tab.Screen name="Homepage" component={App.Homepage} />
-      <Tab.Screen name="Calendar" component={App.Calendar} />
-      <Tab.Screen name="Todo" component={App.Todo} />
-    </Tab.Navigator>
-  );
-};
-
-const SolalaAppMobileTest = () => {
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
@@ -78,16 +59,12 @@ const SolalaWebsite = () => {
 
 const MyStack = () => {
   if (Login === true && (Platform.OS === "android" || Platform.OS === "IOS")) {
-    return <SolalaAppMobileTest />;
+    return <SolalaAppMobile />;
   } else if (Login === true) {
     return <SolalaApp />;
   } else {
     return <SolalaWebsite />;
   }
 };
-
-/*        screenOptions={{
-          header: (props) => <Header {...props} />,
-        }}*/
 
 export default MyStack;

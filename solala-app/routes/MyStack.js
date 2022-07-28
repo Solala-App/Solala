@@ -1,10 +1,47 @@
+import { Platform } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as Website from "../screens/website";
 import * as App from "../screens/app";
 import React from "react";
-import { HeaderWeb, Header } from "../components";
+import { HeaderWeb, Header, Footer, Sun } from "../components";
 
 const Login = true;
+
+const SolalaAppMobile = () => {
+  const Tab = createBottomTabNavigator();
+  return (
+    <Tab.Navigator
+      initialRouteName="Homepage"
+      screenOptions={{
+        header: () => (
+          <Sun greeting="Good Morning!" announcement="Meet Solala" />
+        ),
+        tabBarComponent: (props) => <Footer {...props} />,
+      }}
+    >
+      <Tab.Screen name="Homepage" component={App.Homepage} />
+      <Tab.Screen name="Calendar" component={App.Calendar} />
+      <Tab.Screen name="Todo" component={App.Todo} />
+    </Tab.Navigator>
+  );
+};
+
+const SolalaAppMobileTest = () => {
+  const Tab = createBottomTabNavigator();
+  return (
+    <Tab.Navigator
+      initialRouteName="Homepage"
+      screenOptions={{
+        tabBar: (props) => <Test {...props} />,
+      }}
+    >
+      <Tab.Screen name="Homepage" component={App.Homepage} />
+      <Tab.Screen name="Calendar" component={App.Calendar} />
+      <Tab.Screen name="Todo" component={App.Todo} />
+    </Tab.Navigator>
+  );
+};
 
 const SolalaApp = () => {
   const AppStack = createStackNavigator();
@@ -41,10 +78,12 @@ const SolalaWebsite = () => {
 };
 
 const MyStack = () => {
-  if (Login === true) {
+  if (Login === true && (Platform.OS === "android" || Platform.OS === "IOS")) {
+    return <SolalaAppMobileTest />;
+  } else if (Login === true) {
     return <SolalaApp />;
   } else {
-    return <Website />;
+    return <SolalaWebsite />;
   }
 };
 

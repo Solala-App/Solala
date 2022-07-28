@@ -8,7 +8,6 @@ const { light, size } = theme;
 export default function Homepage() {
   return (
     <View style={styles.container}>
-      <Components.Header greeting="Good Morning!" announcement="Meet Solala" />
       <View style={styles.mainView}>
         <View style={styles.column1}>
           <View style={styles.card}>
@@ -32,6 +31,7 @@ export default function Homepage() {
     </View>
   );
 }
+//<Components.Temp greeting="Good Morning!" announcement="Meet Solala" />
 
 const styles = StyleSheet.create({
   container: {

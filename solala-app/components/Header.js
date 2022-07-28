@@ -8,10 +8,8 @@ import {
   Image,
 } from "react-native";
 import Svg, { Path } from "react-native-svg";
+import { useNavigation } from "@react-navigation/native";
 
-import GreenHouse from "../../assets/favicons_light/greenhouse.svg";
-import Calendar from "../../assets/favicons_light/calendar.svg";
-import ToDoList from "../../assets/favicons_light/to-do-list.svg";
 import { theme } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
@@ -30,11 +28,13 @@ const SvgSun = (props) => (
 );
 
 const Header = (props) => {
+  const navigation = useNavigation();
+
   const CalendarPressEvent = () => {
-    console.log("Temp calendar navigation");
+    navigation.navigate("Calendar");
   };
   const ToDoPressEvent = () => {
-    console.log("Temp TODO navigation");
+    navigation.navigate("Todo");
   };
 
   if (Platform.OS === "android" || Platform.OS === "IOS") {
@@ -103,6 +103,15 @@ const Header = (props) => {
 };
 
 const styles = StyleSheet.create({
+  headerBack: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: colorPalette.pink,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    width: "100%",
+    height: RFValue(30),
+  },
   headerLeft: {
     flex: 1,
     flexDirection: "row",

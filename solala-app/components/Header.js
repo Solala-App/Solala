@@ -36,70 +36,41 @@ const Header = (props) => {
   const ToDoPressEvent = () => {
     navigation.navigate("Todo");
   };
-
-  if (Platform.OS === "android" || Platform.OS === "IOS") {
-    return (
-      <View style={styles.headerBox}>
-        <View style={styles.header}>
-          <View style={styles.headerSun}>
-            <SvgSun></SvgSun>
-            <View
-              style={{
-                position: "absolute",
-                top: RFValue(48),
-                alignItems: "center",
-                width: "100%",
-                justifyContent: "space-around",
-                flexDirection: "row",
-              }}
-            >
-              <Text style={styles.textBubbleWeb}>
-                {props.greeting}
-                <Image source={Rain} style={styles.placeholderWeather} />
-              </Text>
-            </View>
-            <Text style={styles.announcementWeb}>{props.announcement}</Text>
+  return (
+    <View style={styles.headerBox}>
+      <View style={styles.headerLeft}>
+        <TouchableOpacity onPress={CalendarPressEvent}>
+          <Favicon.Calendar style={styles.placeholder} />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.headerCenter}>
+        <View style={styles.headerSun}>
+          <SvgSun></SvgSun>
+          <View
+            style={{
+              position: "absolute",
+              top: RFValue(48),
+              alignItems: "center",
+              width: "100%",
+              justifyContent: "space-around",
+              flexDirection: "row",
+            }}
+          >
+            <Text style={styles.textBubble}>
+              {props.greeting}
+              <Image source={Rain} style={styles.placeholderWeather} />
+            </Text>
           </View>
+          <Text style={styles.announcement}>{props.announcement}</Text>
         </View>
       </View>
-    );
-  } else {
-    return (
-      <View style={styles.headerBox}>
-        <View style={styles.headerLeft}>
-          <TouchableOpacity onPress={CalendarPressEvent}>
-            <Favicon.Calendar style={styles.placeholder} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.headerCenter}>
-          <View style={styles.headerSun}>
-            <SvgSun></SvgSun>
-            <View
-              style={{
-                position: "absolute",
-                top: RFValue(48),
-                alignItems: "center",
-                width: "100%",
-                justifyContent: "space-around",
-                flexDirection: "row",
-              }}
-            >
-              <Text style={styles.textBubble}>
-                {props.greeting}
-                <Image source={Rain} style={styles.placeholderWeather} />
-              </Text>
-            </View>
-            <Text style={styles.announcement}>{props.announcement}</Text>
-          </View>
-        </View>
-        <View style={styles.headerRight}>
-          <TouchableOpacity onPress={ToDoPressEvent}>
-            <Favicon.ToDoList style={styles.placeholder} />
-          </TouchableOpacity>
-        </View>
+      <View style={styles.headerRight}>
+        <TouchableOpacity onPress={ToDoPressEvent}>
+          <Favicon.ToDoList style={styles.placeholder} />
+        </TouchableOpacity>
       </View>
-    );
-  }
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

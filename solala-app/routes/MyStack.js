@@ -14,7 +14,11 @@ const SolalaAppMobile = () => {
     <Tab.Navigator
       initialRouteName="Homepage"
       tabBar={(props) => <Footer {...props} />}
-      header={<Header greeting="Good Morning!" announcement="Meet Solala" />}
+      screenOptions={{
+        header: () => (
+          <Sun greeting="Good Morning!" announcement="Meet Solala" />
+        ),
+      }}
     >
       <Tab.Screen name="Homepage" component={App.Homepage} />
       <Tab.Screen name="Calendar" component={App.Calendar} />

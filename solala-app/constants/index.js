@@ -72,6 +72,14 @@ export const theme = {
       fontSize: RFValue(10),
       fontFamily: "MontserratAltRegular",
     },
+    mobileGreeting: {
+      fontSize: RFValue(25),
+      fontFamily: "Courgette",
+    },
+    mobileAnnouncment: {
+      fontSize: RFValue(20),
+      fontFamily: "MontserratAltRegular",
+    },
   },
 
   shadowProp: {

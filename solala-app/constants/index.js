@@ -51,8 +51,8 @@ export const theme = {
     padding: RFValue(19),
     innerPadding: RFValue(4),
     margin: RFValue(10),
-    borderRadius: 30,
-    textBoxRadius: 30,
+    borderRadius: RFValue(10),
+    textBoxRadius: RFValue(30),
     icon_size_sm: RFValue(20),
   },
   text: {
@@ -70,6 +70,14 @@ export const theme = {
     },
     body: {
       fontSize: RFValue(10),
+      fontFamily: "MontserratAltRegular",
+    },
+    mobileGreeting: {
+      fontSize: RFValue(25),
+      fontFamily: "Courgette",
+    },
+    mobileAnnouncment: {
+      fontSize: RFValue(20),
       fontFamily: "MontserratAltRegular",
     },
   },

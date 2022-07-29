@@ -8,10 +8,8 @@ import {
   Image,
 } from "react-native";
 import Svg, { Path } from "react-native-svg";
+import { useNavigation } from "@react-navigation/native";
 
-import GreenHouse from "../../assets/favicons_light/greenhouse.svg";
-import Calendar from "../../assets/favicons_light/calendar.svg";
-import ToDoList from "../../assets/favicons_light/to-do-list.svg";
 import { theme } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
@@ -30,79 +28,61 @@ const SvgSun = (props) => (
 );
 
 const Header = (props) => {
+  const navigation = useNavigation();
+
   const CalendarPressEvent = () => {
-    console.log("Temp calendar navigation");
+    navigation.navigate("Calendar");
   };
   const ToDoPressEvent = () => {
-    console.log("Temp TODO navigation");
+    navigation.navigate("Todo");
   };
-
-  if (Platform.OS === "android" || Platform.OS === "IOS") {
-    return (
-      <View style={styles.headerBox}>
-        <View style={styles.header}>
-          <View style={styles.headerSun}>
-            <SvgSun></SvgSun>
-            <View
-              style={{
-                position: "absolute",
-                top: RFValue(48),
-                alignItems: "center",
-                width: "100%",
-                justifyContent: "space-around",
-                flexDirection: "row",
-              }}
-            >
-              <Text style={styles.textBubbleWeb}>
-                {props.greeting}
-                <Image source={Rain} style={styles.placeholderWeather} />
-              </Text>
-            </View>
-            <Text style={styles.announcementWeb}>{props.announcement}</Text>
+  return (
+    <View style={styles.headerBox}>
+      <View style={styles.headerLeft}>
+        <TouchableOpacity onPress={CalendarPressEvent}>
+          <Favicon.Calendar style={styles.placeholder} />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.headerCenter}>
+        <View style={styles.headerSun}>
+          <SvgSun></SvgSun>
+          <View
+            style={{
+              position: "absolute",
+              top: RFValue(48),
+              alignItems: "center",
+              width: "100%",
+              justifyContent: "space-around",
+              flexDirection: "row",
+            }}
+          >
+            <Text style={styles.textBubble}>
+              {props.greeting}
+              <Image source={Rain} style={styles.placeholderWeather} />
+            </Text>
           </View>
+          <Text style={styles.announcement}>{props.announcement}</Text>
         </View>
       </View>
-    );
-  } else {
-    return (
-      <View style={styles.headerBox}>
-        <View style={styles.headerLeft}>
-          <TouchableOpacity onPress={CalendarPressEvent}>
-            <Favicon.Calendar style={styles.placeholder} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.headerCenter}>
-          <View style={styles.headerSun}>
-            <SvgSun></SvgSun>
-            <View
-              style={{
-                position: "absolute",
-                top: RFValue(48),
-                alignItems: "center",
-                width: "100%",
-                justifyContent: "space-around",
-                flexDirection: "row",
-              }}
-            >
-              <Text style={styles.textBubble}>
-                {props.greeting}
-                <Image source={Rain} style={styles.placeholderWeather} />
-              </Text>
-            </View>
-            <Text style={styles.announcement}>{props.announcement}</Text>
-          </View>
-        </View>
-        <View style={styles.headerRight}>
-          <TouchableOpacity onPress={ToDoPressEvent}>
-            <Favicon.ToDoList style={styles.placeholder} />
-          </TouchableOpacity>
-        </View>
+      <View style={styles.headerRight}>
+        <TouchableOpacity onPress={ToDoPressEvent}>
+          <Favicon.ToDoList style={styles.placeholder} />
+        </TouchableOpacity>
       </View>
-    );
-  }
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
+  headerBack: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: colorPalette.pink,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    width: "100%",
+    height: RFValue(30),
+  },
   headerLeft: {
     flex: 1,
     flexDirection: "row",

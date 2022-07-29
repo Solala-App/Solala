@@ -8,7 +8,6 @@ const Footer = () => {
   return <View style={footerStyles.box}></View>;
 };
 
-const icon_size = 75;
 export const footerStyles = StyleSheet.create({
   box: {
     backgroundColor: colorPalette.terracotta,

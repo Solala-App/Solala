@@ -8,7 +8,7 @@
     "githubUrl": "https://github.com/Solala-App/Solala.git",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/logo/solala_flower.svg",
+      "image": "./assets/logo/solala_icon.png",
       "backgroundColor": "#E3FFEB",
       "resizeMode": "contain"
     },

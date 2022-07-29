@@ -1,19 +1,9 @@
 import * as React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-  Pressable,
-} from "react-native";
+import { Text, View, StyleSheet, Platform, Pressable } from "react-native";
 
 import { theme } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
-import * as Favicon from "../../assets/favicons_js";
-import MyStack from "../routes/MyStack";
 import * as Logos from "../../assets/logo";
-import Logo from "../../assets/logo/logo_lg.png";
 
 const { colorPalette, size, text } = theme;
 

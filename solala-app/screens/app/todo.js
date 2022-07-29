@@ -8,10 +8,6 @@ const { light, size } = theme;
 export default function Todo() {
   return (
     <View style={styles.container}>
-      <Components.Header
-        greeting="solala logo here"
-        announcement="Meet Solala"
-      />
       <View style={styles.mainView}>
         <View style={styles.column1}>
           <View style={styles.card}>

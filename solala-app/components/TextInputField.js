@@ -6,35 +6,26 @@ const { colorPalette, text, shadowProp, size } = theme;
 
 const TextInputField = (props) => {
   const [text, onChangeText] = React.useState(null);
-  const [isMultitext, setMultitext] = React.useState(false);
 
   let cardStyle = styles.cardLight;
   let textStyle = styles.textStyleLight;
   switch (props.color) {
     case "dark":
       cardStyle = styles.cardDark;
-      textStyle = styles.textStyleDark;
+      textStyle = colorPalette.forest;
       break;
     case "accent":
       cardStyle = styles.cardAccent;
-      textStyle = styles.textStyleAccent;
+      textStyle = colorPalette.forest;
       break;
 
     default:
       cardStyle = styles.cardLight;
-      textStyle = styles.textStyleLight;
+      textStyle = colorPalette.white;
       break;
   }
-  const handleText = () => {
-    if (props.multiclick === "true") {
-      props.multiclick;
-    }
-    if (props.navigateTo) {
-      navigation.navigate(props.navigateTo);
-    }
-  };
 
-  if (isMultitext) {
+  if (props.multiline) {
     return (
       <View style={cardStyle}>
         <TextInput
@@ -43,6 +34,7 @@ const TextInputField = (props) => {
           value={text}
           placeholder="useless placeholder"
           numberOfLines={props.numberOfLines}
+          placeholderTextColor={textStyle}
         />
       </View>
     );
@@ -50,10 +42,10 @@ const TextInputField = (props) => {
     return (
       <View style={cardStyle}>
         <TextInput
-          handleText
           onChangeText={onChangeText}
           value={text}
           placeholder={props.placeholder}
+          placeholderTextColor={textStyle}
         />
       </View>
     );
@@ -65,36 +57,24 @@ const styles = StyleSheet.create({
     margin: size.margin,
     backgroundColor: colorPalette.white,
     borderRadius: size.borderRadius,
-    textAlign: "center",
+    alignSelf: "stretch",
     ...shadowProp,
-  },
-  textStyleDark: {
-    ...text.body,
-    color: colorPalette.forest,
   },
   cardLight: {
     padding: size.innerPadding,
     margin: size.margin,
     backgroundColor: colorPalette.forest,
     borderRadius: size.borderRadius,
-    textAlign: "center",
+    alignSelf: "stretch",
     ...shadowProp,
-  },
-  textStyleLight: {
-    ...text.body,
-    color: colorPalette.white,
   },
   cardAccent: {
     padding: size.innerPadding,
     margin: size.margin,
     backgroundColor: colorPalette.jade,
     borderRadius: size.borderRadius,
-    textAlign: "center",
+    alignSelf: "stretch",
     ...shadowProp,
-  },
-  textStyleAccent: {
-    ...text.body,
-    color: colorPalette.forest,
   },
 });
 

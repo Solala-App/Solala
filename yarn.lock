@@ -1958,9 +1958,9 @@
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
 
 "@types/react-native@~0.67.6":
-  "integrity" "sha512-2ee/MhGWpOLJML2YSgHymAf+FOyGQ6T/CmM94AoQr8Rdm9u7PfzIr5gVS7iMuDPyZpwKdtQFhOE26QFGD/AD4A=="
-  "resolved" "https://registry.npmjs.org/@types/react-native/-/react-native-0.67.12.tgz"
-  "version" "0.67.12"
+  version "0.67.12"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.67.12.tgz#bcb55fcdc1fa8136face21aeef5ba0728b7cdd6e"
+  integrity sha512-2ee/MhGWpOLJML2YSgHymAf+FOyGQ6T/CmM94AoQr8Rdm9u7PfzIr5gVS7iMuDPyZpwKdtQFhOE26QFGD/AD4A==
   dependencies:
     "@types/react" "^17"
 
@@ -3433,9 +3433,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.202:
-  version "1.4.205"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.205.tgz#1e5180945c1415f66b2143c5a5eb983fffb2e30f"
-  integrity sha512-sSHlbfqn6CgQqD9muogEwWrw1wi2tHEQ+sunW7ex/kJ9ICucE85JW0E9ekbRDDgLP7NlpoNVUl+el0556RhFIg==
+  version "1.4.206"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.206.tgz#580ff85b54d7ec0c05f20b1e37ea0becdd7b0ee4"
+  integrity sha512-h+Fadt1gIaQ06JaIiyqPsBjJ08fV5Q7md+V8bUvQW/9OvXfL2LRICTz2EcnnCP7QzrFTS6/27MRV6Bl9Yn97zA==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -3453,11 +3453,6 @@ end-of-stream@^1.1.0:
   integrity sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==
   dependencies:
     once "^1.4.0"
-
-enlist@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/enlist/-/enlist-0.1.0.tgz#606557f3f65feb50890c81a72baec3f7a037d179"
-  integrity sha512-bndUhfDDNDXPJY6/cNJlX91+e15D5sUYz2aZnl/9tY/XDuUH63E0qEJ8oDN4Wy3rj45bcQzurQHmm5cJeabEgw==
 
 entities@^2.0.0:
   version "2.2.0"
@@ -6332,22 +6327,10 @@ react-native-iphone-x-helper@^1.3.1:
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
   integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
 
-<<<<<<< HEAD
-"react-native-pager-view@^5.4.15":
-  "integrity" "sha512-5NssD840wFCuOL4B1ZRiRADvt+Vx2Dgify4SmAUqHXCx03yiGPnRWmFjYXyQeK6gq/8VY+gPGE4bTy9ahzBbDw=="
-  "resolved" "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-5.4.15.tgz"
-  "version" "5.4.15"
-
-"react-native-responsive-fontsize@^0.5.1":
-  "integrity" "sha512-G77iPzrf3BHxMxVm6G3Mw3vPImIdq+jLLXhYoOjWei6i9J3/jzUNUhNdRWvp49Csb5prhbVBLPM+pYZz+b3ESQ=="
-  "resolved" "https://registry.npmjs.org/react-native-responsive-fontsize/-/react-native-responsive-fontsize-0.5.1.tgz"
-  "version" "0.5.1"
-=======
 react-native-responsive-fontsize@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/react-native-responsive-fontsize/-/react-native-responsive-fontsize-0.5.1.tgz#c39fa2212ecced2bac879211a7b25106534f72d2"
   integrity sha512-G77iPzrf3BHxMxVm6G3Mw3vPImIdq+jLLXhYoOjWei6i9J3/jzUNUhNdRWvp49Csb5prhbVBLPM+pYZz+b3ESQ==
->>>>>>> main
   dependencies:
     react-native-iphone-x-helper "^1.3.1"
 

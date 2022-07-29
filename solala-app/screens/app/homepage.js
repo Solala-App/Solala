@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import * as Components from "../../components";
 
+import { Titles } from "../../components/Card.js"
 import { theme } from "../../constants";
 const { light, size } = theme;
 
@@ -11,20 +12,21 @@ export default function Homepage() {
       <Components.Header greeting="Good Morning!" announcement="Meet Solala" />
       <View style={styles.mainView}>
         <View style={styles.column1}>
-          <View style={styles.card}>
-            <Components.Card />
+                  <View style={styles.card}>
+                      <Components.Card title={Titles.TodayEvent} />
           </View>
           <View style={styles.card}>
-            <Components.Card />
+                      <Components.Card title={Titles.BodyCheck} />
           </View>
         </View>
         <View style={styles.column2} />
         <View style={styles.column3}>
           <View style={styles.card}>
-            <Components.Card />
+                      <Components.Card title={Titles.Upcoming} />
           </View>
-          <View style={styles.card}>
-            <Components.Card />
+                  <View style={styles.card}>
+                      <Components.Card title={Titles.HighPriority} />
+
           </View>
         </View>
       </View>

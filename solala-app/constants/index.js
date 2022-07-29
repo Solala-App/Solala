@@ -51,8 +51,9 @@ export const theme = {
     padding: RFValue(19),
     innerPadding: RFValue(4),
     margin: RFValue(10),
-    borderRadius: 30,
-    textBoxRadius: 30,
+    borderRadius: RFValue(30),
+    borderRadiusMobileCard: RFValue(15),
+    textBoxRadius: RFValue(30),
     icon_size_sm: RFValue(20),
   },
   text: {

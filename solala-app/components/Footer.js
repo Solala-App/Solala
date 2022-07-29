@@ -42,13 +42,11 @@ const icon_size = 75;
 export const footerStyles = StyleSheet.create({
   box: {
     backgroundColor: colorPalette.terracotta,
-    flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
     height: RFValue(70),
     bottom: 0,
-    position: "absolute",
   },
   button: {
     top: RFValue(10),

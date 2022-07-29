@@ -49,7 +49,7 @@ const Header = (props) => {
 const styles = StyleSheet.create({
   headerBox: {
     width: "100%",
-    paddingBottom: RFValue(185),
+    paddingBottom: RFValue(130),
     backgroundColor: light.primary,
   },
   textBubble: {

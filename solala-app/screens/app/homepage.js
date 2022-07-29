@@ -9,8 +9,13 @@ export default function Homepage() {
   if (Platform.OS === "android" || Platform.OS === "IOS") {
     return (
       <View style={styles.container}>
-        <View style={styles.mainView}>
-          <View style={styles.column1}>
+        <View style={styles.mainViewMobile}>
+          <View style={styles.row1}>
+            <View style={styles.card}>
+              <Components.Card />
+            </View>
+          </View>
+          <View style={styles.row2}>
             <View style={styles.card}>
               <Components.Card />
             </View>
@@ -18,11 +23,7 @@ export default function Homepage() {
               <Components.Card />
             </View>
           </View>
-          <View style={styles.column2} />
-          <View style={styles.column3}>
-            <View style={styles.card}>
-              <Components.Card />
-            </View>
+          <View style={styles.row3}>
             <View style={styles.card}>
               <Components.Card />
             </View>
@@ -71,6 +72,13 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     padding: size.padding,
   },
+  mainViewMobile: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: size.padding,
+  },
   column1: {
     flex: 1,
     flexDirection: "column",
@@ -83,8 +91,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
   },
-  card: {
-    flex: 1,
-    marginBottom: size.margin,
+  row1: {
+    flexDirection: "row",
   },
+  row2: {
+    flexDirection: "row",
+  },
+  row3: {
+    flexDirection: "row",
+  },
+  card: { flex: 1, height: "100%", marginBottom: size.margin },
 });

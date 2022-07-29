@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import * as Components from "../../components";
-import * as Solala from "../../../assets/solala";
+import * as Solala from "../../../assets/solala_js";
 
 import { theme } from "../../constants";
 import { RFValue } from "react-native-responsive-fontsize";

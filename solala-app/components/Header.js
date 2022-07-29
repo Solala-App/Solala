@@ -1,22 +1,14 @@
 import * as React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-  Image,
-} from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { useNavigation } from "@react-navigation/native";
 
 import { theme } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
-import * as Weather from "../../assets/favicons_weather";
 import Rain from "../../assets/favicons_weather/rain.png";
 
-const { colorPalette, size, text } = theme;
+const { colorPalette, text } = theme;
 
 const SvgSun = (props) => (
   <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 268" {...props}>

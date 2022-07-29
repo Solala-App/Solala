@@ -6,7 +6,7 @@ import * as App from "../screens/app";
 import React from "react";
 import { HeaderWeb, Header, Footer, Sun } from "../components";
 
-const Login = true;
+const Login = false;
 
 const SolalaAppMobile = () => {
   const Tab = createBottomTabNavigator();

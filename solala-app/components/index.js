@@ -8,6 +8,7 @@ import ProfilePopUp from "./ProfilePopUp";
 import Features from "./Features";
 import Sun from "./Sun";
 import Button from "./Button";
+import TextInputField from "./TextInputField";
 
 export {
   Card,
@@ -20,4 +21,5 @@ export {
   FooterWeb,
   Sun,
   Button,
+  TextInputField,
 };

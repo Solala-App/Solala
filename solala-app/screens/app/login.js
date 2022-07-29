@@ -12,16 +12,9 @@ export default function Login() {
   const [isLoggingIn, setLoggingIn] = React.useState(false);
   const [isNewUser, setNewUser] = React.useState(false);
   const [isCreatingAccount, setCreatingAccount] = React.useState(false);
+  const [isLoggingIntoAccount, setLoggingIntoAccount] = React.useState(false);
 
-  const GetStartedButton = () => {
-    setNewUser(() => !isNewUser);
-  };
-  const LoginButton = () => {
-    setLoggingIn(() => !isLoggingIn);
-  };
-  const CreateAccount = () => {
-    setCreatingAccount(() => !isCreatingAccount);
-  };
+  console.log({ isNewUser, isLoggingIn, isCreatingAccount });
 
   if (Platform.OS === "android" || Platform.OS === "ios") {
     return (
@@ -50,59 +43,50 @@ export default function Login() {
             />
             {!isLoggingIn && !isNewUser && (
               <View>
-                <Pressable
-                  style={styles.textBubbleLight}
-                  onPress={GetStartedButton}
-                >
-                  <Text style={styles.textStyleLight}>Get Started</Text>
-                </Pressable>
-                <Pressable style={styles.textBubbleDark} onPress={LoginButton}>
-                  <Text style={styles.textStyleDark}>Login</Text>
-                </Pressable>
+                <Components.Button
+                  title="Get Started"
+                  color="light"
+                  onClick={() => setNewUser(!isNewUser)}
+                />
+                <Components.Button
+                  title="Login"
+                  color="dark"
+                  onClick={() => setLoggingIn(!isLoggingIn)}
+                />
               </View>
             )}
             {isNewUser && (
               <View>
-                <Pressable
-                  style={styles.textBubbleAccent}
-                  onPress={GetStartedButton}
-                >
-                  <Text style={styles.textStyleAccent}>Create Username</Text>
-                </Pressable>
-                <Pressable
-                  style={styles.textBubbleAccent}
-                  onPress={LoginButton}
-                >
-                  <Text style={styles.textStyleAccent}>Create Password</Text>
-                </Pressable>
-                <Pressable
-                  style={styles.textBubbleDark}
-                  onPress={CreateAccount}
-                >
-                  <Text style={styles.textStyleDark}>Sign Up</Text>
-                </Pressable>
+                <Components.TextInputField
+                  placeholder="Create Username"
+                  color="accent"
+                />
+                <Components.TextInputField
+                  placeholder="Create Password"
+                  color="accent"
+                />
+                <Components.Button
+                  title="Create Account"
+                  color="light"
+                  onClick={() => setCreatingAccount(!isCreatingAccount)}
+                />
               </View>
             )}
             {isLoggingIn && (
               <View>
-                <Pressable
-                  style={styles.textBubbleAccent}
-                  onPress={GetStartedButton}
-                >
-                  <Text style={styles.textStyleAccent}>Username</Text>
-                </Pressable>
-                <Pressable
-                  style={styles.textBubbleAccent}
-                  onPress={LoginButton}
-                >
-                  <Text style={styles.textStyleAccent}>Password</Text>
-                </Pressable>
-                <Pressable
-                  style={styles.textBubbleDark}
-                  onPress={CreateAccount}
-                >
-                  <Text style={styles.textStyleDark}>Log In</Text>
-                </Pressable>
+                <Components.TextInputField
+                  placeholder="Username"
+                  color="accent"
+                />
+                <Components.TextInputField
+                  placeholder="Password"
+                  color="accent"
+                />
+                <Components.Button
+                  title="Login"
+                  color="light"
+                  onClick={() => setLoggingIntoAccount(!isLoggingIntoAccount)}
+                />
               </View>
             )}
           </View>

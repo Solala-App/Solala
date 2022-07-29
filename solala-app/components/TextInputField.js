@@ -1,46 +1,66 @@
 import * as React from "react";
-import { Pressable, Text, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { TextInput, StyleSheet, View } from "react-native";
 import { theme } from "../constants";
 
 const { colorPalette, text, shadowProp, size } = theme;
 
-const NavButton = (props) => {
-  const navigation = useNavigation();
-  let buttonStyle = styles.buttonLight;
+const TextInputField = (props) => {
+  const [text, onChangeText] = React.useState(null);
+  const [isMultitext, setMultitext] = React.useState(false);
+
+  let cardStyle = styles.cardLight;
   let textStyle = styles.textStyleLight;
   switch (props.color) {
     case "dark":
-      buttonStyle = styles.buttonDark;
+      cardStyle = styles.cardDark;
       textStyle = styles.textStyleDark;
       break;
     case "accent":
-      buttonStyle = styles.buttonAccent;
+      cardStyle = styles.cardAccent;
       textStyle = styles.textStyleAccent;
       break;
 
     default:
-      buttonStyle = styles.buttonLight;
+      cardStyle = styles.cardLight;
       textStyle = styles.textStyleLight;
       break;
   }
-
-  const handleClick = (event) => {
-    if (typeof props.onClick === "function") {
-      props.onClick(event);
+  const handleText = () => {
+    if (props.multiclick === "true") {
+      props.multiclick;
     }
     if (props.navigateTo) {
       navigation.navigate(props.navigateTo);
     }
   };
-  return (
-    <Pressable style={buttonStyle} onPress={handleClick}>
-      <Text style={textStyle}>{props.title}</Text>
-    </Pressable>
-  );
+
+  if (isMultitext) {
+    return (
+      <View style={cardStyle}>
+        <TextInput
+          multiline
+          onChangeText={onChangeText}
+          value={text}
+          placeholder="useless placeholder"
+          numberOfLines={props.numberOfLines}
+        />
+      </View>
+    );
+  } else {
+    return (
+      <View style={cardStyle}>
+        <TextInput
+          handleText
+          onChangeText={onChangeText}
+          value={text}
+          placeholder={props.placeholder}
+        />
+      </View>
+    );
+  }
 };
 const styles = StyleSheet.create({
-  buttonDark: {
+  cardDark: {
     padding: size.innerPadding,
     margin: size.margin,
     backgroundColor: colorPalette.white,
@@ -52,7 +72,7 @@ const styles = StyleSheet.create({
     ...text.body,
     color: colorPalette.forest,
   },
-  buttonLight: {
+  cardLight: {
     padding: size.innerPadding,
     margin: size.margin,
     backgroundColor: colorPalette.forest,
@@ -64,7 +84,7 @@ const styles = StyleSheet.create({
     ...text.body,
     color: colorPalette.white,
   },
-  buttonAccent: {
+  cardAccent: {
     padding: size.innerPadding,
     margin: size.margin,
     backgroundColor: colorPalette.jade,
@@ -78,4 +98,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NavButton;
+export default TextInputField;

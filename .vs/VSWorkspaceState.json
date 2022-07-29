@@ -2,9 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\assets",
+    "\\assets\\favicons_js",
     "\\solala-app",
     "\\solala-app\\components",
-    "\\solala-app\\routes",
     "\\solala-app\\screens",
     "\\solala-app\\screens\\app",
     "\\solala-app\\screens\\routes",

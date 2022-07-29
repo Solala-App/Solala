@@ -19,7 +19,9 @@ export default function Homepage() {
                       <Components.Card title={Titles.BodyCheck} />
           </View>
         </View>
-        <View style={styles.column2} />
+              <View style={styles.column2}>
+
+              </View>
         <View style={styles.column3}>
           <View style={styles.card}>
                       <Components.Card title={Titles.Upcoming} />

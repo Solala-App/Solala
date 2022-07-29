@@ -103,7 +103,9 @@ const Card = (props) => {
     })
     return (
         <SafeAreaView style={[cardStyles.card,
-            { width: (props.title === Titles.TodayEvent || props.title === Titles.BodyCheck) ? "200%" : "100%" },
+            {
+                width: (props.title === Titles.TodayEvent || props.title === Titles.BodyCheck) ? "200%" : "100%",
+            },
         ]}>
             <View style={cardStyles.cardHeader}>
                 <View style={cardStyles.cardHeaderLeft} />
@@ -146,7 +148,6 @@ const Card = (props) => {
                             showsVerticalScrollIndicator={false}
                             renderItem={renderItem}
                             keyExtractor={(item) => item.id}
-
                         />
                 </View>
             )}

@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Platform, Pressable } from "react-native";
 
 import { theme } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
-import * as Logos from "../../assets/logo";
+import * as Logos from "../../assets/logo_js";
 
 const { colorPalette, size, text } = theme;
 

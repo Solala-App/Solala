@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { theme } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
-import * as Weather from "../../assets/favicons_weather";
+import * as Weather from "../../assets/favicons_weather_js";
 import Rain from "../../assets/favicons_weather/rain.png";
 
 const { colorPalette, size, text } = theme;

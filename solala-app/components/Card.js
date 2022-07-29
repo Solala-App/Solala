@@ -14,7 +14,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
 import TaskPopup from "./TaskPopup.js";
 import EventPopup from "./EventPopup.js";
-import Plus from "../../assets/favicons_light/plus.svg";
+import Plus from "../../assets/favicons_light/plus.png";
 
 import { theme } from "../constants";
 const { light, size, text, shadowProp } = theme;

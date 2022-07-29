@@ -11,11 +11,11 @@ import {
 import { RFValue } from "react-native-responsive-fontsize";
 import Slider from "@react-native-community/slider";
 import * as Favicon from "../../assets/favicons_js";
-import Cancel from "../../assets/favicons_light/cancel.svg";
-import Plus from "../../assets/favicons_light/plus.svg";
-import ScrollLeft from "../../assets/favicons_dark/scroll_left.svg";
-import ScrollRight from "../../assets/favicons_dark/scroll_right.svg";
-import Check from "../../assets/favicons_dark/check.svg";
+import Cancel from "../../assets/favicons_light/cancel.png";
+import Plus from "../../assets/favicons_light/plus.png";
+import ScrollLeft from "../../assets/favicons_dark/scroll_left.png";
+import ScrollRight from "../../assets/favicons_dark/scroll_right.png";
+import Check from "../../assets/favicons_dark/check.png";
 import { Picker } from "@react-native-picker/picker";
 
 import { theme } from "../constants";

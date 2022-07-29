@@ -85,9 +85,9 @@ export const theme = {
   shadowProp: {
     /* Apply to add a shadow to an object */
     shadowColor: "#141414",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.23,
-    shadowRadius: 2.62,
+    shadowRadius: 3,
     elevation: 4,
   },
 };

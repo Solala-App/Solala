@@ -6,30 +6,56 @@ import { theme } from "../../constants";
 const { light, size } = theme;
 
 export default function Homepage() {
-  return (
-    <View style={styles.container}>
-      <View style={styles.mainView}>
-        <View style={styles.column1}>
-          <View style={styles.card}>
-            <Components.Card />
+  if (Platform.OS === "android" || Platform.OS === "IOS") {
+    return (
+      <View style={styles.container}>
+        <View style={styles.mainView}>
+          <View style={styles.column1}>
+            <View style={styles.card}>
+              <Components.Card />
+            </View>
+            <View style={styles.card}>
+              <Components.Card />
+            </View>
           </View>
-          <View style={styles.card}>
-            <Components.Card />
-          </View>
-        </View>
-        <View style={styles.column2} />
-        <View style={styles.column3}>
-          <View style={styles.card}>
-            <Components.Card />
-          </View>
-          <View style={styles.card}>
-            <Components.Card />
+          <View style={styles.column2} />
+          <View style={styles.column3}>
+            <View style={styles.card}>
+              <Components.Card />
+            </View>
+            <View style={styles.card}>
+              <Components.Card />
+            </View>
           </View>
         </View>
       </View>
-      <Components.Footer />
-    </View>
-  );
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <View style={styles.mainView}>
+          <View style={styles.column1}>
+            <View style={styles.card}>
+              <Components.Card />
+            </View>
+            <View style={styles.card}>
+              <Components.Card />
+            </View>
+          </View>
+          <View style={styles.column2} />
+          <View style={styles.column3}>
+            <View style={styles.card}>
+              <Components.Card />
+            </View>
+            <View style={styles.card}>
+              <Components.Card />
+            </View>
+          </View>
+        </View>
+        <Components.FooterWeb />
+      </View>
+    );
+  }
 }
 //<Components.Temp greeting="Good Morning!" announcement="Meet Solala" />
 

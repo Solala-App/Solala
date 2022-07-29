@@ -1,14 +1,12 @@
 import React from "react";
 import { View, StyleSheet, Platform, Pressable } from "react-native";
-
-import GreenHouse from "../../assets/favicons_light/greenhouse.svg";
-import Calendar from "../../assets/favicons_light/calendar.svg";
-import ToDoList from "../../assets/favicons_light/to-do-list.svg";
+import { RFValue } from "react-native-responsive-fontsize";
+import * as Favicon from "../../assets/favicons_js";
 import { theme } from "../constants";
 
 const { colorPalette } = theme;
 
-const Footer = ({ state, descriptors, navigation }) => {
+const Footer = ({ navigation }) => {
   const handleGreenHousePress = () => {
     navigation.navigate("Homepage");
   };
@@ -24,27 +22,15 @@ const Footer = ({ state, descriptors, navigation }) => {
       {(Platform.OS === "android" || Platform.OS === "ios") && (
         <>
           <Pressable onPress={handleGreenHousePress}>
-            <GreenHouse
-              width={icon_size}
-              height={icon_size}
-              style={footerStyles.button}
-            />
+            <Favicon.Greenhouse style={footerStyles.button} />
           </Pressable>
 
           <Pressable onPress={handleCalendarPress}>
-            <Calendar
-              width={icon_size}
-              height={icon_size}
-              style={footerStyles.button}
-            />
+            <Favicon.Calendar style={footerStyles.button} />
           </Pressable>
 
           <Pressable onPress={handleToDoPress}>
-            <ToDoList
-              width={icon_size}
-              height={icon_size}
-              style={footerStyles.button}
-            />
+            <Favicon.ToDoList style={footerStyles.button} />
           </Pressable>
         </>
       )}
@@ -60,15 +46,15 @@ export const footerStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
-    height: 100,
+    height: RFValue(70),
     bottom: 0,
     position: "absolute",
   },
   button: {
-    top: 10,
+    top: RFValue(10),
     position: "relative",
-    width: "75",
-    height: "75",
+    width: RFValue(50),
+    height: RFValue(50),
   },
 });
 

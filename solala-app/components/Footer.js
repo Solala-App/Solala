@@ -1,7 +1,9 @@
 import React from "react";
 import { View, StyleSheet, Platform, Pressable } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import * as Favicon from "../../assets/favicons_js";
+import Greenhouse from "../../assets/favicons_light";
+import Calendar from "../../assets/favicons_light";
+import ToDoList from "../../assets/favicons_light";
 import { theme } from "../constants";
 
 const { colorPalette } = theme;
@@ -22,15 +24,15 @@ const Footer = ({ navigation }) => {
       {(Platform.OS === "android" || Platform.OS === "ios") && (
         <>
           <Pressable onPress={handleGreenHousePress}>
-            <Favicon.Greenhouse style={footerStyles.button} />
+            <Greenhouse width={icon_size} style={footerStyles.button} />
           </Pressable>
 
           <Pressable onPress={handleCalendarPress}>
-            <Favicon.Calendar style={footerStyles.button} />
+            <Calendar width={icon_size} style={footerStyles.button} />
           </Pressable>
 
           <Pressable onPress={handleToDoPress}>
-            <Favicon.ToDoList style={footerStyles.button} />
+            <ToDoList width={icon_size} style={footerStyles.button} />
           </Pressable>
         </>
       )}
@@ -38,7 +40,7 @@ const Footer = ({ navigation }) => {
   );
 };
 
-const icon_size = 75;
+const icon_size = RFValue(50);
 export const footerStyles = StyleSheet.create({
   box: {
     backgroundColor: colorPalette.terracotta,

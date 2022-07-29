@@ -7,6 +7,7 @@ import Zoom from "./Zoom";
 import ProfilePopUp from "./ProfilePopUp";
 import Features from "./Features";
 import Sun from "./Sun";
+import Button from "./Button";
 
 export {
   Card,
@@ -18,4 +19,5 @@ export {
   Features,
   FooterWeb,
   Sun,
+  Button,
 };

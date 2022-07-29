@@ -19,30 +19,38 @@ const Footer = ({ navigation }) => {
     navigation.navigate("Todo");
   };
 
-  return (
-    <View style={footerStyles.box}>
-      {(Platform.OS === "android" || Platform.OS === "ios") && (
-        <>
-          <Pressable onPress={handleGreenHousePress}>
-            <Greenhouse width={icon_size} style={footerStyles.button} />
-          </Pressable>
+  if (Platform.OS === "android" || Platform.OS === "ios") {
+    return (
+      <View style={footerStyles.boxMobile}>
+        <Pressable onPress={handleGreenHousePress}>
+          <Greenhouse width={icon_size} style={footerStyles.button} />
+        </Pressable>
 
-          <Pressable onPress={handleCalendarPress}>
-            <Calendar width={icon_size} style={footerStyles.button} />
-          </Pressable>
+        <Pressable onPress={handleCalendarPress}>
+          <Calendar width={icon_size} style={footerStyles.button} />
+        </Pressable>
 
-          <Pressable onPress={handleToDoPress}>
-            <ToDoList width={icon_size} style={footerStyles.button} />
-          </Pressable>
-        </>
-      )}
-    </View>
-  );
+        <Pressable onPress={handleToDoPress}>
+          <ToDoList width={icon_size} style={footerStyles.button} />
+        </Pressable>
+      </View>
+    );
+  } else {
+    return <View style={footerStyles.box}></View>;
+  }
 };
 
 const icon_size = RFValue(50);
 export const footerStyles = StyleSheet.create({
   box: {
+    backgroundColor: colorPalette.terracotta,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    height: RFValue(25),
+    bottom: 0,
+  },
+  boxMobile: {
     backgroundColor: colorPalette.terracotta,
     flexDirection: "row",
     justifyContent: "space-around",

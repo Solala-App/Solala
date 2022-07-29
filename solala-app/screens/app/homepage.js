@@ -27,7 +27,7 @@ export default function Homepage() {
           </View>
         </View>
       </View>
-      <Components.FooterWeb />
+      <Components.Footer />
     </View>
   );
 }

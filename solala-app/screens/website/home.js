@@ -30,7 +30,11 @@ export default function Home() {
           </View>
           <View style={styles.heroSectionImage}>
             <Solala.Happy style={{ height: RFValue(200) }} />
-            <Text style={styles.heroSectionHeader}>Meet Solala</Text>
+            <Components.Button
+              navigateTo="Login"
+              title="Meet Solala"
+              color="light"
+            />
           </View>
           <View
             style={{ flex: 1, flexDirection: "column", alignItems: "center" }}

@@ -1,9 +1,9 @@
 import React from "react";
 import { View, StyleSheet, Platform, Pressable } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import Greenhouse from "../../assets/favicons_light";
-import Calendar from "../../assets/favicons_light";
-import ToDoList from "../../assets/favicons_light";
+import Greenhouse from "../../assets/favicons_light/Greenhouse.png";
+import Calendar from "../../assets/favicons_light/Calendar.png";
+import ToDoList from "../../assets/favicons_light/ToDoList.png";
 import { theme } from "../constants";
 
 const { colorPalette } = theme;

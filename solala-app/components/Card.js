@@ -61,93 +61,49 @@ const Card = () => {
   const scrollsDown = () => {
     console.log("Scrolls Down");
   };
-  if (Platform.OS === "android" || Platform.OS === "IOS") {
-    return (
-      <SafeAreaView style={cardStyles.cardMobile}>
-        <View style={cardStyles.cardHeader}>
-          <View style={cardStyles.cardHeaderLeft} />
-          <View style={cardStyles.cardHeaderCenter}>
-            <Text style={cardStyles.cardHeaderText}>Hello</Text>
-          </View>
-          <View style={cardStyles.cardHeaderRight}>
-            <Pressable onPress={handleAddObject}>
-              <Favicon.Plus style={{ width: RFValue(11) }} />
-            </Pressable>
-            {(Platform.OS === "ios" || Platform.OS === "android") && (
-              <Pressable onPress={handleAddObject}>
-                <Plus width={15} height={15} />
-              </Pressable>
-            )}
-            <Modal visible={isModalVisible} transparent={true}>
-              <TaskPopup isModalVisible={handleAddObject} />
-            </Modal>
-          </View>
-        </View>
 
-        <View style={{ alignSelf: "stretch" }}>
-          <FlatList
-            data={DATA.slice(0, 2)}
-            maxToRenderPerBatch={2}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          />
+  return (
+    <SafeAreaView style={cardStyles.card}>
+      <View style={cardStyles.cardHeader}>
+        <View style={cardStyles.cardHeaderLeft} />
+        <View style={cardStyles.cardHeaderCenter}>
+          <Text style={cardStyles.cardHeaderText}>Hello</Text>
         </View>
-
-        <View>
-          <Pressable
-            onPress={() => {
-              scrollsDown;
-            }}
-          >
-            <Favicon.ScrollDown style={{ width: RFValue(12) }} />
+        <View style={cardStyles.cardHeaderRight}>
+          <Pressable onPress={handleAddObject}>
+            <Favicon.Plus style={{ width: RFValue(11) }} />
           </Pressable>
-        </View>
-      </SafeAreaView>
-    );
-  } else {
-    return (
-      <SafeAreaView style={cardStyles.card}>
-        <View style={cardStyles.cardHeader}>
-          <View style={cardStyles.cardHeaderLeft} />
-          <View style={cardStyles.cardHeaderCenter}>
-            <Text style={cardStyles.cardHeaderText}>Hello</Text>
-          </View>
-          <View style={cardStyles.cardHeaderRight}>
+          {(Platform.OS === "ios" || Platform.OS === "android") && (
             <Pressable onPress={handleAddObject}>
-              <Favicon.Plus style={{ width: RFValue(11) }} />
+              <Plus width={15} height={15} />
             </Pressable>
-            {(Platform.OS === "ios" || Platform.OS === "android") && (
-              <Pressable onPress={handleAddObject}>
-                <Plus width={15} height={15} />
-              </Pressable>
-            )}
-            <Modal visible={isModalVisible} transparent={true}>
-              <TaskPopup isModalVisible={handleAddObject} />
-            </Modal>
-          </View>
+          )}
+          <Modal visible={isModalVisible} transparent={true}>
+            <TaskPopup isModalVisible={handleAddObject} />
+          </Modal>
         </View>
+      </View>
 
-        <View style={{ alignSelf: "stretch" }}>
-          <FlatList
-            data={DATA.slice(0, 2)}
-            maxToRenderPerBatch={2}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
+      <View style={{ alignSelf: "stretch" }}>
+        <FlatList
+          data={DATA.slice(0, 2)}
+          maxToRenderPerBatch={2}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
 
-        <View>
-          <Pressable
-            onPress={() => {
-              scrollsDown;
-            }}
-          >
-            <Favicon.ScrollDown style={{ width: RFValue(12) }} />
-          </Pressable>
-        </View>
-      </SafeAreaView>
-    );
-  }
+      <View>
+        <Pressable
+          onPress={() => {
+            scrollsDown;
+          }}
+        >
+          <Favicon.ScrollDown style={{ width: RFValue(12) }} />
+        </Pressable>
+      </View>
+    </SafeAreaView>
+  );
 };
 
 export const cardStyles = StyleSheet.create({
@@ -156,16 +112,6 @@ export const cardStyles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     borderRadius: size.borderRadius,
-    opacity: 0.7,
-    paddingBottom: size.innerPadding,
-    ...shadowProp,
-  },
-
-  cardMobile: {
-    backgroundColor: light.secondary,
-    flexDirection: "column",
-    alignItems: "center",
-    borderRadius: size.borderRadiusMobileCard,
     opacity: 0.7,
     paddingBottom: size.innerPadding,
     ...shadowProp,

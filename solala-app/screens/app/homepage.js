@@ -6,59 +6,31 @@ import { theme } from "../../constants";
 const { light, size } = theme;
 
 export default function Homepage() {
-  if (Platform.OS === "android" || Platform.OS === "IOS") {
-    return (
-      <View style={styles.container}>
-        <View style={styles.mainViewMobile}>
-          <View style={styles.row1}>
-            <View style={styles.card}>
-              <Components.Card />
-            </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.mainView}>
+        <View style={styles.column1}>
+          <View style={styles.card}>
+            <Components.Card />
           </View>
-          <View style={styles.row2}>
-            <View style={styles.card}>
-              <Components.Card />
-            </View>
-            <View style={styles.card}>
-              <Components.Card />
-            </View>
+          <View style={styles.card}>
+            <Components.Card />
           </View>
-          <View style={styles.row3}>
-            <View style={styles.card}>
-              <Components.Card />
-            </View>
+        </View>
+        <View style={styles.column2} />
+        <View style={styles.column3}>
+          <View style={styles.card}>
+            <Components.Card />
+          </View>
+          <View style={styles.card}>
+            <Components.Card />
           </View>
         </View>
       </View>
-    );
-  } else {
-    return (
-      <View style={styles.container}>
-        <View style={styles.mainView}>
-          <View style={styles.column1}>
-            <View style={styles.card}>
-              <Components.Card />
-            </View>
-            <View style={styles.card}>
-              <Components.Card />
-            </View>
-          </View>
-          <View style={styles.column2} />
-          <View style={styles.column3}>
-            <View style={styles.card}>
-              <Components.Card />
-            </View>
-            <View style={styles.card}>
-              <Components.Card />
-            </View>
-          </View>
-        </View>
-        <Components.FooterWeb />
-      </View>
-    );
-  }
+      <Components.FooterWeb />
+    </View>
+  );
 }
-//<Components.Temp greeting="Good Morning!" announcement="Meet Solala" />
 
 const styles = StyleSheet.create({
   container: {
@@ -70,13 +42,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    padding: size.padding,
-  },
-  mainViewMobile: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
     padding: size.padding,
   },
   column1: {
@@ -91,14 +56,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
   },
-  row1: {
-    flexDirection: "row",
+  card: {
+    flex: 1,
+    marginBottom: size.margin,
   },
-  row2: {
-    flexDirection: "row",
-  },
-  row3: {
-    flexDirection: "row",
-  },
-  card: { flex: 1, height: "100%", marginBottom: size.margin },
 });

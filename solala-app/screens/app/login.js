@@ -4,26 +4,28 @@ import * as Components from "../../components";
 
 import { theme } from "../../constants";
 const { light, size } = theme;
+import { Titles } from "../../components/Card.js"
+
 
 export default function Login() {
   return (
     <View style={styles.container}>
       <View style={styles.mainView}>
         <View style={styles.column1}>
-          <View style={styles.card}>
-            <Components.Card />
+                  <View style={styles.card}>
+                      <Components.Card title={Titles.TodayEvent} />
           </View>
-          <View style={styles.card}>
-            <Components.Card />
+                  <View style={styles.card}>
+                      <Components.Card title={Titles.BodyCheck} />
           </View>
         </View>
         <View style={styles.column2} />
         <View style={styles.column3}>
-          <View style={styles.card}>
-            <Components.Card />
+                  <View style={styles.card}>
+                      <Components.Card title={Titles.Upcoming} />
           </View>
-          <View style={styles.card}>
-            <Components.Card />
+                  <View style={styles.card}>
+                      <Components.Card title={Titles.HighPriority} />
           </View>
         </View>
       </View>
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: size.padding,
     paddingRight: size.padding,
-    paddingBottom: size.padding,
+      paddingBottom: size.padding,
   },
   column1: {
     flex: 1,
@@ -60,6 +62,6 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    marginBottom: size.margin,
+    marginBottom: size.margin
   },
 });

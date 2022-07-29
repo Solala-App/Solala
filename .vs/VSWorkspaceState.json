@@ -2,13 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\assets",
-    "\\assets\\favicons_js",
-    "\\assets\\favicons_light",
     "\\solala-app",
     "\\solala-app\\components",
-    "\\solala-app\\constants",
-    "\\solala-app\\screens"
+    "\\solala-app\\routes",
+    "\\solala-app\\screens",
+    "\\solala-app\\screens\\app",
+    "\\solala-app\\screens\\routes",
+    "\\solala-app\\screens\\website"
   ],
-  "SelectedNode": "\\solala-app\\components",
+  "SelectedNode": "\\solala-app\\components\\Card.js",
   "PreviewInSolutionExplorer": false
 }

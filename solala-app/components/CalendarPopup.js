@@ -34,7 +34,7 @@ const CalendarPopup = (props) => {
   const repeatOptions = ["None", "Daily", "Weekly", "Monthly"];
   const [category, setCategory] = React.useState("key0");
 
-  const scrollLeft = () => {
+    const scrollLeft = () => {
     if (repeatIndex === 0) {
       setRepeatIndex(repeatOptions.length - 1);
     } else {

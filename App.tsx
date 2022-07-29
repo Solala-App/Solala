@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import SolalaApp from "./solala-app";
 import { View, Text } from "react-native";
 import fonts from "./solala-app/constants";

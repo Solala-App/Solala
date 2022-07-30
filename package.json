@@ -8,7 +8,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "react-scripts test",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx solala-app",
+    "lint:fix": "yarn lint --fix",
+    "prettier": "prettier --write solala-app"
   },
   "dependencies": {
     "@react-native-community/slider": "4.2.1",

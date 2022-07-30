@@ -15,7 +15,7 @@ const Features = (props) => {
       <View style={{ flexWrap: "wrap" }}>
         <View style={cardStyles.cardItem}>
           <Text style={cardStyles.cardObjectText}>{props.body}</Text>
-          <View style={cardStyles.cardObjectPhoto}></View>
+          <View style={cardStyles.cardObjectPhoto} />
         </View>
       </View>
     </SafeAreaView>

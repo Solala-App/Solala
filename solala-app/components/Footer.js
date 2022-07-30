@@ -24,13 +24,17 @@ const Footer = ({ navigation }) => {
       {(Platform.OS === "android" || Platform.OS === "ios") && (
         <>
                   <Pressable onPress={handleGreenHousePress}>
-                      <Image style={footerStyles.button} source={require("../../assets/favicons_light/greenhouse.png")}/>
+                      <Image style={footerStyles.button} source={Greenhouse} />
           </Pressable>
 
-          <Pressable onPress={handleCalendarPress}>
+                  <Pressable onPress={handleCalendarPress}>
+                      <Image style={footerStyles.button} source={Calendar} />
+
           </Pressable>
 
-          <Pressable onPress={handleToDoPress}>
+                  <Pressable onPress={handleToDoPress}>
+                      <Image style={footerStyles.button} source={ToDoList} />
+
           </Pressable>
         </>
       )}
@@ -41,6 +45,15 @@ const Footer = ({ navigation }) => {
 const icon_size = RFValue(50);
 export const footerStyles = StyleSheet.create({
   box: {
+    backgroundColor: colorPalette.terracotta,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    height: RFValue(25),
+    bottom: 0,
+    position: "absolute",
+  },
+  boxMobile: {
     backgroundColor: colorPalette.terracotta,
     flexDirection: "row",
     justifyContent: "space-around",

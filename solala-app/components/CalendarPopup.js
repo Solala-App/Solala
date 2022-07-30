@@ -1,3 +1,5 @@
+import Slider from "@react-native-community/slider";
+import { Picker } from "@react-native-picker/picker";
 import React from "react";
 import {
   View,
@@ -6,17 +8,16 @@ import {
   ScrollView,
   TextInput,
   Pressable,
-  Platform,
+  Platform, Image
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import Slider from "@react-native-community/slider";
+
 import * as Favicon from "../../assets/favicons_js";
 import Cancel from "../../assets/favicons_light/cancel.png";
 import Plus from "../../assets/favicons_light/plus.png";
 import ScrollLeft from "../../assets/favicons_dark/ScrollLeft.png";
 import ScrollRight from "../../assets/favicons_dark/ScrollRight.png";
 import Check from "../../assets/favicons_dark/check.png";
-import { Picker } from "@react-native-picker/picker";
 
 import { theme } from "../constants";
 const { light, size, text, shadowProp } = theme;
@@ -62,10 +63,7 @@ const CalendarPopup = (props) => {
             </View>
             <View style={cardStyles.cardHeaderRight}>
               <Pressable onPress={props.isModalVisible}>
-                <Favicon.Cancel style={{ width: 30 }} />
-                {(Platform.OS === "ios" || Platform.OS === "android") && (
-                  <Cancel width={20} height={20} />
-                )}
+                    <Image source={Cancel} style={{width:RFValue(12), height:RFValue(12)}}/>
               </Pressable>
             </View>
           </View>
@@ -82,7 +80,7 @@ const CalendarPopup = (props) => {
                 <Pressable onPress={scrollLeft}>
                   <Favicon.ScrollLeft style={{ width: 10 }} />
                   {(Platform.OS === "ios" || Platform.OS === "android") && (
-                    <ScrollLeft width={15} height={15} />
+                    <Image source={ScrollLeft} style={{width:15, height:15}}/>
                   )}
                 </Pressable>
 
@@ -95,7 +93,7 @@ const CalendarPopup = (props) => {
                 <Pressable onPress={scrollRight}>
                   <Favicon.ScrollRight style={{ width: 10 }} />
                   {(Platform.OS === "ios" || Platform.OS === "android") && (
-                    <ScrollRight width={15} height={15} />
+                    <Image source={ScrollRight} style={{width:15, height:15}}/>
                   )}
                 </Pressable>
               </View>
@@ -156,8 +154,7 @@ const CalendarPopup = (props) => {
                     textAlign: "center",
                   }}
                   onValueChange={(v) => setCategory(v)}
-                  accessibilityLabel="Styled Picker Accessibility Label"
-                >
+                  accessibilityLabel="Styled Picker Accessibility Label">
                   <Picker.Item label="Category One" value="key0" />
                   <Picker.Item label="Category Two" value="key1" />
                   <Picker.Item label="Category Three" value="key2" />
@@ -180,7 +177,7 @@ const CalendarPopup = (props) => {
                 <Pressable onPress={() => setNotes(tempNotes)}>
                   <Favicon.Plus style={{ width: 22 }} />
                   {(Platform.OS === "ios" || Platform.OS === "android") && (
-                    <Plus width={20} height={20} />
+                    <Image width={20} height={20} />
                   )}
                 </Pressable>
               </View>
@@ -195,12 +192,9 @@ const CalendarPopup = (props) => {
                 console.log("category: ", category);
                 console.log("Notes: ", notes);
                 console.log("Repeat: ", repeatOptions[repeatIndex]);
-              }}
-            >
-              <Favicon.Check style={{ width: 44 }} />
-              {(Platform.OS === "ios" || Platform.OS === "android") && (
-                <Check width={44} height={44} />
-              )}
+              }}>
+              <Image source={Check} style={{ width: RFValue(25), height: RFValue(25) }} />
+
             </Pressable>
           </View>
         </View>

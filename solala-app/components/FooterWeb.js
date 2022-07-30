@@ -1,11 +1,12 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+
 import { theme } from "../constants";
 
 const { colorPalette } = theme;
 
 const Footer = () => {
-  return <View style={footerStyles.box}></View>;
+  return <View style={footerStyles.box} />;
 };
 
 export const footerStyles = StyleSheet.create({

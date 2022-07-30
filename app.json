@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Solala",
-    "platforms": ["ios","android","web"],
+    "platforms": ["ios", "android", "web"],
     "slug": "Solala",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,15 +15,12 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-
         "backgroundColor": "#E3FFEB"
       }
     },

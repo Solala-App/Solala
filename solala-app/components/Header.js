@@ -1,12 +1,12 @@
+import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
-import Svg, { Path } from "react-native-svg";
-import { useNavigation } from "@react-navigation/native";
-
-import { theme } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
+import Svg, { Path } from "react-native-svg";
+
 import * as Favicon from "../../assets/favicons_js";
 import Rain from "../../assets/favicons_weather/rain.png";
+import { theme } from "../constants";
 
 const { colorPalette, text } = theme;
 
@@ -37,7 +37,7 @@ const Header = (props) => {
       </View>
       <View style={styles.headerCenter}>
         <View style={styles.headerSun}>
-          <SvgSun></SvgSun>
+          <SvgSun />
           <View
             style={{
               position: "absolute",
@@ -46,8 +46,7 @@ const Header = (props) => {
               width: "100%",
               justifyContent: "space-around",
               flexDirection: "row",
-            }}
-          >
+            }}>
             <Text style={styles.textBubble}>
               {props.greeting}
               <Image source={Rain} style={styles.placeholderWeather} />

@@ -1,10 +1,11 @@
-import { StatusBar } from "expo-status-bar";
-import { useState, useCallback, useEffect } from "react";
-import SolalaApp from "./solala-app";
-import { View, Text } from "react-native";
-import fonts from "./solala-app/constants";
 import * as SplashScreen from "expo-splash-screen";
-import * as Screens from "./solala-app/screens";
+import React, { useState, useCallback, useEffect } from "react";
+
+// import { StatusBar } from "expo-status-bar";
+// import { View, Text } from "react-native";
+import SolalaApp from "./solala-app";
+import fonts from "./solala-app/constants";
+// import * as Screens from "./solala-app/screens";
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);

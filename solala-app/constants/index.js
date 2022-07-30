@@ -1,5 +1,5 @@
-import { RFValue } from "react-native-responsive-fontsize";
 import * as Font from "expo-font";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const colorPalette = {
   mint: "#E3FFEB",
@@ -30,7 +30,6 @@ export default fonts;
 export const theme = {
   fonts,
   colorPalette,
-  fonts,
   dark: {
     primary: colorPalette.forest,
     secondary: colorPalette.jade,
@@ -85,9 +84,9 @@ export const theme = {
   shadowProp: {
     /* Apply to add a shadow to an object */
     shadowColor: "#141414",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.23,
-    shadowRadius: 2.62,
+    shadowRadius: 3,
     elevation: 4,
   },
 };

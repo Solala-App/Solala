@@ -7,9 +7,10 @@ import {
   FlatList,
   SafeAreaView,
   Modal,
-  Platform, Button
+  Platform, Button, Image
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+
 import * as Favicon from "../../assets/favicons_js";
 import TaskPopup from "./TaskPopup.js";
 import EventPopup from "./EventPopup.js";
@@ -117,7 +118,8 @@ const Card = (props) => {
                     {(props.title === Titles.TodayEvent || props.title === Titles.HighPriority) && (
                         <>
                             <Pressable onPress={handleAddObject}>
-                                <Favicon.Plus style={{ width: RFValue(11) }} />
+                                <Image style={{ width: RFValue(11), height: RFValue(11) }} source={Plus} />
+
                             </Pressable>
 
                             <Modal visible={isModalVisible} transparent={true}>
@@ -168,7 +170,11 @@ const Card = (props) => {
                     <Pressable
                         onPress={scrollsDown}
                     >
-                        <Favicon.ScrollDown style={{ width: RFValue(12) }} />
+                            <Favicon.ScrollDown style={{ width: RFValue(12) }} />
+                            {(Platform.OS === "android" || Platform.OS === "ios") && (
+                                <Image style={{ width: RFValue(12), height: RFValue(12) }} source={ScrollDown} />
+
+                            )}
 
                     </Pressable>
                 )}
@@ -178,7 +184,10 @@ const Card = (props) => {
                         onPress={scrollsDown}
                     >
                         <Favicon.ScrollRight style={{ width: RFValue(12)}} />
+                        {(Platform.OS === "android" || Platform.OS === "ios") && (
+                            <Image style={{ width: RFValue(12), height: RFValue(12) }} source={ScrollRight} />
 
+                        )}
                     </Pressable>
                             </View>
                 )}

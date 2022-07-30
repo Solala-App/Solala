@@ -1,11 +1,17 @@
 {
-  "devDependencies": {
-    "@types/react": "~17.0.21",
-    "@types/react-native": "~0.67.6",
-    "babel-cli": "^6.26.0",
-    "prettier": "2.7.1",
-    "react-native-svg-transformer": "^1.0.0",
-    "typescript": "^4.7.4"
+  "name": "solala-app",
+  "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "test": "react-scripts test",
+    "eject": "expo eject",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx solala-app",
+    "lint:fix": "yarn lint --fix",
+    "prettier": "prettier --write solala-app"
   },
   "dependencies": {
     "@react-native-community/slider": "4.2.1",
@@ -13,6 +19,7 @@
     "@react-navigation/bottom-tabs": "^6.3.2",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/stack": "^6.2.2",
+    "enlist": "^0.1.0",
     "expo": "^45.0.6",
     "expo-app-loading": "~2.0.0",
     "expo-splash-screen": "~0.15.1",
@@ -27,5 +34,17 @@
     "react-native-screens": "~3.11.1",
     "react-native-svg": "12.3.0",
     "react-native-web": "0.17.7"
+  },
+  "devDependencies": {
+    "@types/react": "~17.0.21",
+    "@types/react-native": "~0.67.6",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "babel-cli": "^6.26.0",
+    "eslint": "^8.20.0",
+    "eslint-config-universe": "^11.0.0",
+    "prettier": "^2.7.1",
+    "react-native-svg-transformer": "^1.0.0",
+    "typescript": "^4.7.4"
   }
 }

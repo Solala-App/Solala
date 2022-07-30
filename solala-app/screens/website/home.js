@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import * as Components from "../../components";
-import * as Solala from "../../../assets/solala_js";
-
-import { theme } from "../../constants";
 import { RFValue } from "react-native-responsive-fontsize";
+
+import * as Solala from "../../../assets/solala_js";
+import * as Components from "../../components";
+import { theme } from "../../constants";
+
 const { light, size, text } = theme;
 
 export default function Home() {
@@ -13,8 +14,7 @@ export default function Home() {
       <View style={styles.mainView}>
         <View style={styles.heroSection}>
           <View
-            style={{ flex: 1, flexDirection: "column", alignItems: "center" }}
-          >
+            style={{ flex: 1, flexDirection: "column", alignItems: "center" }}>
             <Text style={styles.heroSectionBody}>
               Solala is a mental health management tool, designed to help
               develop emotional intelligence skills, track moods and stress
@@ -30,11 +30,14 @@ export default function Home() {
           </View>
           <View style={styles.heroSectionImage}>
             <Solala.Happy style={{ height: RFValue(200) }} />
-            <Text style={styles.heroSectionHeader}>Meet Solala</Text>
+            <Components.Button
+              navigateTo="Login"
+              title="Meet Solala"
+              color="light"
+            />
           </View>
           <View
-            style={{ flex: 1, flexDirection: "column", alignItems: "center" }}
-          >
+            style={{ flex: 1, flexDirection: "column", alignItems: "center" }}>
             <Text style={styles.heroSectionBody}>
               Solala is built by a committed team of students from University of
               Washington's Paul G. Allen School of Computer Science, with a

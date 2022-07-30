@@ -7,9 +7,9 @@ import {
   Button,
   Image,
 } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 
 import { theme, fonts } from "../constants";
-import { RFValue } from "react-native-responsive-fontsize";
 
 const { colorPalette } = theme;
 
@@ -27,8 +27,7 @@ const ProfilePopUp = (props) => {
                 <TouchableOpacity
                   key={key}
                   style={item?.style}
-                  onPress={item?.pressEvent}
-                >
+                  onPress={item?.pressEvent}>
                   {" "}
                   {item?.image}{" "}
                 </TouchableOpacity>

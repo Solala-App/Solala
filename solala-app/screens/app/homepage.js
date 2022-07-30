@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import * as Components from "../../components";
 
 import { Titles } from "../../components/Card.js"
+import * as Components from "../../components";
 import { theme } from "../../constants";
 const { light, size } = theme;
 

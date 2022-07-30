@@ -1,15 +1,23 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, Platform } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Components from "../../components";
 import { theme } from "../../constants";
-const { light, size } = theme;
+const { light, size, text, colorPalette } = theme;
 
 export default function Todo() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
-        <View style={styles.column1}>
+        <View style={styles.row}></View>
+        <View style={styles.row}>
+          <View style={styles.card}>
+            <Components.Card />
+          </View>
+          <View style={styles.card}>
+            <Components.Card />
+          </View>
           <View style={styles.card}>
             <Components.Card />
           </View>
@@ -17,8 +25,13 @@ export default function Todo() {
             <Components.Card />
           </View>
         </View>
-        <View style={styles.column2} />
-        <View style={styles.column3}>
+        <View style={styles.row}>
+          <View style={styles.card}>
+            <Components.Card />
+          </View>
+          <View style={styles.card}>
+            <Components.Card />
+          </View>
           <View style={styles.card}>
             <Components.Card />
           </View>
@@ -28,7 +41,7 @@ export default function Todo() {
         </View>
       </View>
       <Components.Footer />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -39,27 +52,35 @@ const styles = StyleSheet.create({
   },
   mainView: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    justifyContent: "flex-start",
     alignItems: "center",
     paddingLeft: size.padding,
     paddingRight: size.padding,
-    paddingBottom: size.padding,
+    paddingTop: size.padding,
   },
-  column1: {
-    flex: 1,
-    flexDirection: "column",
-  },
-  column2: {
-    flex: 1,
-    flexDirection: "column",
-  },
-  column3: {
-    flex: 1,
-    flexDirection: "column",
+  row: {
+    flexDirection: "row",
+    alignSelf: "stretch",
   },
   card: {
     flex: 1,
+    margin: size.margin,
+  },
+  text: {
+    ...text.body,
+    color: colorPalette.white,
+  },
+  textBubble: {
+    padding: size.innerPadding,
+    marginHorizontal: size.margin,
     marginBottom: size.margin,
+    backgroundColor: colorPalette.terracotta,
+    borderRadius: size.borderRadius,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    textAlign: "center",
+    opacity: 0.7,
   },
 });

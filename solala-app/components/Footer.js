@@ -50,6 +50,7 @@ export const footerStyles = StyleSheet.create({
     width: "100%",
     height: RFValue(25),
     bottom: 0,
+    position: "absolute",
   },
   boxMobile: {
     backgroundColor: colorPalette.terracotta,

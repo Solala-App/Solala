@@ -1,6 +1,7 @@
+import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
 import { Pressable, Text, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+
 import { theme } from "../constants";
 
 const { colorPalette, text, shadowProp, size } = theme;

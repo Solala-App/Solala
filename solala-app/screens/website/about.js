@@ -9,10 +9,9 @@ import {
   Button,
   Image,
 } from "react-native";
-
-import { theme, fonts } from "../../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 
+import Angela from "../../../assets/volunteers/angela.jpg";
 import Christoph from "../../../assets/volunteers/christoph.jpg";
 import Christopher from "../../../assets/volunteers/christopher.jpg";
 import Devika from "../../../assets/volunteers/devika.jpg";
@@ -20,14 +19,14 @@ import Drew from "../../../assets/volunteers/drew.jpg";
 import Edison from "../../../assets/volunteers/edison.jpg";
 import Kimia from "../../../assets/volunteers/kimia.jpg";
 import Leej from "../../../assets/volunteers/leej.jpg";
-import Robert from "../../../assets/volunteers/robert.jpg";
-import Angela from "../../../assets/volunteers/angela.jpg";
 import Placeholder from "../../../assets/volunteers/placeholder.jpg";
+import Robert from "../../../assets/volunteers/robert.jpg";
 import * as Components from "../../components";
+import { theme, fonts } from "../../constants";
 const { light, size, colorPalette } = theme;
 
 export default function About({ navigation }) {
-  let profiles = [
+  const profiles = [
     {
       nameAndTitle: "Lee Janzen-Morel, Project Manager Lead",
       image: (
@@ -695,8 +694,7 @@ export default function About({ navigation }) {
           <TouchableOpacity
             key={key}
             style={styles.tempImage}
-            onPress={() => changeScreen(item?.redirect)}
-          >
+            onPress={() => changeScreen(item?.redirect)}>
             {item?.image}
             <Text style={{ fontSize: RFValue(7) }}>{item?.nameAndTitle}</Text>
           </TouchableOpacity>

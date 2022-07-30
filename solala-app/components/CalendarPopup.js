@@ -1,3 +1,5 @@
+import Slider from "@react-native-community/slider";
+import { Picker } from "@react-native-picker/picker";
 import React from "react";
 import {
   View,
@@ -9,15 +11,13 @@ import {
   Platform,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import Slider from "@react-native-community/slider";
-import * as Favicon from "../../assets/favicons_js";
-import Cancel from "../../assets/favicons_light/Cancel.png";
-import Plus from "../../assets/favicons_light/Plus.png";
+
 import ScrollLeft from "../../assets/favicons_dark/ScrollLeft.png";
 import ScrollRight from "../../assets/favicons_dark/ScrollRight.png";
 import Check from "../../assets/favicons_dark/check.png";
-import { Picker } from "@react-native-picker/picker";
-
+import * as Favicon from "../../assets/favicons_js";
+import Cancel from "../../assets/favicons_light/Cancel.png";
+import Plus from "../../assets/favicons_light/Plus.png";
 import { theme } from "../constants";
 const { light, size, text, shadowProp } = theme;
 
@@ -156,8 +156,7 @@ const CalendarPopup = (props) => {
                     textAlign: "center",
                   }}
                   onValueChange={(v) => setCategory(v)}
-                  accessibilityLabel="Styled Picker Accessibility Label"
-                >
+                  accessibilityLabel="Styled Picker Accessibility Label">
                   <Picker.Item label="Category One" value="key0" />
                   <Picker.Item label="Category Two" value="key1" />
                   <Picker.Item label="Category Three" value="key2" />
@@ -195,8 +194,7 @@ const CalendarPopup = (props) => {
                 console.log("category: ", category);
                 console.log("Notes: ", notes);
                 console.log("Repeat: ", repeatOptions[repeatIndex]);
-              }}
-            >
+              }}>
               <Favicon.Check style={{ width: 44 }} />
               {(Platform.OS === "ios" || Platform.OS === "android") && (
                 <Check width={44} height={44} />

@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, Platform, Pressable } from "react-native";
-import * as Components from "../../components";
-import * as Logo from "../../../assets/logo_js";
-import * as Graphics from "../../../assets/graphics_js";
-
-import { theme } from "../../constants";
 import { RFValue } from "react-native-responsive-fontsize";
+
+import * as Graphics from "../../../assets/graphics_js";
+import * as Logo from "../../../assets/logo_js";
+import * as Components from "../../components";
+import { theme } from "../../constants";
+
 const { light, size, text, colorPalette, shadowProp } = theme;
 
 export default function Login() {
@@ -20,11 +21,11 @@ export default function Login() {
     return (
       <View style={styles.container}>
         <View style={styles.mainView}>
-          <View style={styles.column1}></View>
+          <View style={styles.column1} />
           <View style={styles.column2}>
             <Logo.SolalaLogoLg />
           </View>
-          <View style={styles.column3}></View>
+          <View style={styles.column3} />
         </View>
         <Components.FooterWeb />
       </View>
@@ -36,7 +37,7 @@ export default function Login() {
           <Graphics.Vine />
         </View>
         <View style={styles.mainView}>
-          <View style={styles.column1}></View>
+          <View style={styles.column1} />
           <View style={styles.column2}>
             <Logo.SolalaLogoLg
               style={{ width: RFValue(100), alignSelf: "center" }}
@@ -90,7 +91,7 @@ export default function Login() {
               </View>
             )}
           </View>
-          <View style={styles.column3}></View>
+          <View style={styles.column3} />
         </View>
         <Components.FooterWeb />
       </View>

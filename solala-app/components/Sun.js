@@ -2,8 +2,8 @@ import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Defs, Image, Use, Path } from "react-native-svg";
-import Rain from "../../assets/favicons_weather/rain.png";
 
+import Rain from "../../assets/favicons_weather/rain.png";
 import { theme } from "../constants";
 const { text, light } = theme;
 
@@ -74,16 +74,6 @@ const styles = StyleSheet.create({
     width: RFValue(20),
     height: RFValue(20),
     alignSelf: "center",
-  },
-  textBubble: {
-    flexWrap: "wrap",
-    ...text.mobileGreeting,
-    alignSelf: "flex-start",
-  },
-  announcement: {
-    paddingTop: RFValue(75),
-    ...text.mobileAnnouncment,
-    position: "absolute",
   },
   headerSun: {
     flex: 1,

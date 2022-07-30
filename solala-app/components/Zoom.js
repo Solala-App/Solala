@@ -6,11 +6,11 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
-
-import { theme, fonts } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
+
 import * as Favicon from "../../assets/favicons_js";
 import * as Weather from "../../assets/favicons_weather_js";
+import { theme, fonts } from "../constants";
 
 const { colorPalette } = theme;
 

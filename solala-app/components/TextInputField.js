@@ -1,5 +1,6 @@
 import * as React from "react";
 import { TextInput, StyleSheet, View } from "react-native";
+
 import { theme } from "../constants";
 
 const { colorPalette, text, shadowProp, size } = theme;

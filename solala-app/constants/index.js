@@ -1,5 +1,5 @@
-import { RFValue } from "react-native-responsive-fontsize";
 import * as Font from "expo-font";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const colorPalette = {
   mint: "#E3FFEB",
@@ -30,7 +30,6 @@ export default fonts;
 export const theme = {
   fonts,
   colorPalette,
-  fonts,
   dark: {
     primary: colorPalette.forest,
     secondary: colorPalette.jade,

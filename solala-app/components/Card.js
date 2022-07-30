@@ -11,12 +11,12 @@ import {
   Platform,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import * as Favicon from "../../assets/favicons_js";
-import TaskPopup from "./TaskPopup.js";
-import EventPopup from "./EventPopup.js";
-import Plus from "../../assets/favicons_light/Plus.png";
 
+import * as Favicon from "../../assets/favicons_js";
+import Plus from "../../assets/favicons_light/Plus.png";
 import { theme } from "../constants";
+import EventPopup from "./EventPopup.js";
+import TaskPopup from "./TaskPopup.js";
 const { light, size, text, shadowProp } = theme;
 
 // npm install @react-native-community/slider --save
@@ -78,7 +78,7 @@ const Card = () => {
               <Plus width={15} height={15} />
             </Pressable>
           )}
-          <Modal visible={isModalVisible} transparent={true}>
+          <Modal visible={isModalVisible} transparent>
             <TaskPopup isModalVisible={handleAddObject} />
           </Modal>
         </View>
@@ -97,8 +97,7 @@ const Card = () => {
         <Pressable
           onPress={() => {
             scrollsDown;
-          }}
-        >
+          }}>
           <Favicon.ScrollDown style={{ width: RFValue(12) }} />
         </Pressable>
       </View>

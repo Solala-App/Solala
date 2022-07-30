@@ -7,10 +7,10 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-
-import { theme } from "../../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 
+import Back from "../../../assets/favicons_js/BackArrow.js";
+import Angela from "../../../assets/volunteers/angela.jpg";
 import Christoph from "../../../assets/volunteers/christoph.jpg";
 import Christopher from "../../../assets/volunteers/christopher.jpg";
 import Devika from "../../../assets/volunteers/devika.jpg";
@@ -18,11 +18,10 @@ import Drew from "../../../assets/volunteers/drew.jpg";
 import Edison from "../../../assets/volunteers/edison.jpg";
 import Kimia from "../../../assets/volunteers/kimia.jpg";
 import Leej from "../../../assets/volunteers/leej.jpg";
-import Robert from "../../../assets/volunteers/robert.jpg";
-import Angela from "../../../assets/volunteers/angela.jpg";
 import Placeholder from "../../../assets/volunteers/placeholder.jpg";
-import Back from "../../../assets/favicons_js/BackArrow.js";
+import Robert from "../../../assets/volunteers/robert.jpg";
 import * as Components from "../../components";
+import { theme } from "../../constants";
 const { light, text } = theme;
 
 export default function Profile() {
@@ -30,7 +29,7 @@ export default function Profile() {
     /* This is an array containing all the profiles for each individual person. Adding all the props as can be seen in the profiles array will allow a programmer to very easily
      * create a new addable person, and a person can be removed by simply removing their data from the array*/
   }
-  let profiles = [
+  const profiles = [
     {
       nameAndTitle: "Lee Janzen-Morel, Project Manager Lead",
       image: (
@@ -720,16 +719,14 @@ export default function Profile() {
                 <View>
                   <TouchableOpacity
                     style={styles.backButton}
-                    onPress={() => changeScreen(openingProfileScreen)}
-                  >
+                    onPress={() => changeScreen(openingProfileScreen)}>
                     <Back />
                   </TouchableOpacity>
 
                   {item?.redirect}
                 </View>
               )
-            }
-          >
+            }>
             {item?.image}
             <Text>{item?.nameAndTitle}</Text>
           </TouchableOpacity>

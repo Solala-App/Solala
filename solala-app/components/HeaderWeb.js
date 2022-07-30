@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Text, View, StyleSheet, Platform, Pressable } from "react-native";
-
-import { theme } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
+
 import * as Logos from "../../assets/logo_js";
+import { theme } from "../constants";
 
 const { colorPalette, size, text } = theme;
 
@@ -26,11 +26,7 @@ const Header = ({ navigation }) => {
             <Pressable onPress={HomePressEvent}>
               <Text style={styles.navBar}>Home</Text>
             </Pressable>
-            <Pressable
-              onPress={() => {
-                AppPressEvent;
-              }}
-            >
+            <Pressable onPress={AppPressEvent}>
               <Logos.SolalaLogo style={{ height: RFValue(28) }} />
             </Pressable>
             <Pressable onPress={AboutPressEvent}>
@@ -49,11 +45,7 @@ const Header = ({ navigation }) => {
           </Pressable>
         </View>
         <View style={styles.headerCenter}>
-          <Pressable
-            onPress={() => {
-              AppPressEvent;
-            }}
-          >
+          <Pressable onPress={AppPressEvent}>
             <Logos.SolalaLogoText style={{ height: RFValue(28) }} />
           </Pressable>
         </View>

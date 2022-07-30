@@ -1,13 +1,11 @@
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
-
-import { theme } from "../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Defs, Image, Use, Path } from "react-native-svg";
-import * as Weather from "../../assets/favicons_weather";
 import Rain from "../../assets/favicons_weather/rain.png";
 
-const { colorPalette, size, text, light } = theme;
+import { theme } from "../constants";
+const { text, light } = theme;
 
 const SvgSunMobile = (props) => (
   <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2355 619" {...props}>
@@ -36,7 +34,7 @@ const Header = (props) => {
           <View style={styles.greeting}>
             <Text style={styles.textBubble}>
               {props.greeting}
-              <Weather.Rain />
+              <Rain />
             </Text>
             <Text style={styles.announcement}>{props.announcement}</Text>
           </View>

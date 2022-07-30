@@ -1,7 +1,9 @@
 import React from "react";
-import { View, StyleSheet, Platform, Pressable } from "react-native";
+import { View, StyleSheet, Platform, Pressable, Image } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import * as Favicon from "../../assets/favicons_js";
+import Greenhouse from "../../assets/favicons_light/greenhouse.png";
+import Calendar from "../../assets/favicons_light/calendar.png";
+import ToDoList from "../../assets/favicons_light/ToDoList.png";
 import { theme } from "../constants";
 
 const { colorPalette } = theme;
@@ -21,16 +23,14 @@ const Footer = ({ navigation }) => {
     <View style={footerStyles.box}>
       {(Platform.OS === "android" || Platform.OS === "ios") && (
         <>
-          <Pressable onPress={handleGreenHousePress}>
-            <Favicon.Greenhouse style={footerStyles.button} />
+                  <Pressable onPress={handleGreenHousePress}>
+                      <Image style={footerStyles.button} source={require("../../assets/favicons_light/greenhouse.png")}/>
           </Pressable>
 
           <Pressable onPress={handleCalendarPress}>
-            <Favicon.Calendar style={footerStyles.button} />
           </Pressable>
 
           <Pressable onPress={handleToDoPress}>
-            <Favicon.ToDoList style={footerStyles.button} />
           </Pressable>
         </>
       )}
@@ -38,7 +38,7 @@ const Footer = ({ navigation }) => {
   );
 };
 
-const icon_size = 75;
+const icon_size = RFValue(50);
 export const footerStyles = StyleSheet.create({
   box: {
     backgroundColor: colorPalette.terracotta,
@@ -52,7 +52,8 @@ export const footerStyles = StyleSheet.create({
     top: RFValue(10),
     position: "relative",
     width: RFValue(50),
-    height: RFValue(50),
+      height: RFValue(50),
+      width: icon_size
   },
 });
 

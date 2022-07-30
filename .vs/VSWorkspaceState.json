@@ -2,7 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\assets",
-    "\\assets\\favicons_js",
+    "\\assets\\favicons_light",
     "\\solala-app",
     "\\solala-app\\components",
     "\\solala-app\\screens",
@@ -10,6 +10,5 @@
     "\\solala-app\\screens\\routes",
     "\\solala-app\\screens\\website"
   ],
-  "SelectedNode": "\\solala-app\\components\\Card.js",
   "PreviewInSolutionExplorer": false
 }

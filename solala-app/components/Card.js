@@ -13,9 +13,9 @@ import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
 import TaskPopup from "./TaskPopup.js";
 import EventPopup from "./EventPopup.js";
-import Plus from "../../assets/favicons_light/plus.svg";
-import ScrollDown from "../../assets/favicons_light/scroll_down.svg";
-import ScrollRight from "../../assets/favicons_light/scroll_right.svg";
+import Plus from "../../assets/favicons_light/plus.png";
+import ScrollDown from "../../assets/favicons_light/ScrollDown.png";
+import ScrollRight from "../../assets/favicons_light/ScrollRight.png";
 
 import { theme } from "../constants";
 const { light, size, text, shadowProp } = theme;
@@ -119,11 +119,7 @@ const Card = (props) => {
                             <Pressable onPress={handleAddObject}>
                                 <Favicon.Plus style={{ width: RFValue(11) }} />
                             </Pressable>
-                            {(Platform.OS === "ios" || Platform.OS === "android") && (
-                                <Pressable onPress={handleAddObject}>
-                                    <Plus width={15} height={15} />
-                                </Pressable>
-                            )}
+
                             <Modal visible={isModalVisible} transparent={true}>
                                 {props.title === Titles.TodayEvent && (
                                     <EventPopup isModalVisible={handleAddObject} />
@@ -173,9 +169,7 @@ const Card = (props) => {
                         onPress={scrollsDown}
                     >
                         <Favicon.ScrollDown style={{ width: RFValue(12) }} />
-                        {(Platform.OS === 'ios' || Platform.OS === 'android') && (
-                            <ScrollDown width={20} height={20} />
-                        )}
+
                     </Pressable>
                 )}
                     {(props.title === Titles.BodyCheck) && (
@@ -184,10 +178,8 @@ const Card = (props) => {
                         onPress={scrollsDown}
                     >
                         <Favicon.ScrollRight style={{ width: RFValue(12)}} />
-                        {(Platform.OS === 'ios' || Platform.OS === 'android') && (
-                            <ScrollRight width={20} height={20} />
-                        )}
-                            </Pressable>
+
+                    </Pressable>
                             </View>
                 )}
                 </View>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
   View,
   Text,
@@ -13,24 +13,25 @@ import {
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Favicon from "../../assets/favicons_js";
-import Check from "../../assets/favicons_light/Check.png";
-import CheckBox from "../../assets/favicons_light/CheckBox.png";
 import Plus from "../../assets/favicons_light/Plus.png";
 import ScrollDown from "../../assets/favicons_light/ScrollDown.png";
 import ScrollRight from "../../assets/favicons_light/ScrollRight.png";
 import { theme } from "../constants";
 import CheckBoxComponent from "./CheckBoxComponent";
-import EventPopup from "./EventPopup.js";
 import TaskPopup from "./TaskPopup.js";
 const { light, size, text, shadowProp } = theme;
 
 // npm install @react-native-community/slider --save
 // yarn add react-native-select-dropdown
 export const Titles = {
-  BodyCheck: "Body Check",
-  Upcoming: "Upcoming",
-  TodayEvent: "Today's Events",
-  HighPriority: "Priorities",
+  Monday: "Monday",
+  Tuesday: "Tuesday",
+  Wednesday: "Wednesday",
+  Thursday: "Thursday",
+  Friday: "Friday",
+  Saturday: "Saturday",
+  Sunday: "Sunday",
+  NextWeek: "Next Week",
 };
 
 const DATA = [
@@ -64,32 +65,26 @@ let h;
 const onLayoutEvent = (evt) => {
   h = evt.nativeEvent.layout.height;
 };
-const Item = ({ title, type }) => (
+const Item = ({ title }) => (
   <View style={cardStyles.cardItem} onLayout={onLayoutEvent}>
     <View style={cardStyles.cardObjectLeft}>
-      {type === Titles.HighPriority && (
-        <CheckBoxComponent
-          onChange={(checked) => {
-            // do stuff with checked
-            console.log(
-              `Todo ${title} is ${checked ? "complete" : "incomplete"}`
-            );
-          }}
-        />
-      )}
-      {type === Titles.TodayEvent && (
-        <Text style={cardStyles.cardObjectText}>8 AM</Text>
-      )}
+      <CheckBoxComponent
+        onChange={(checked) => {
+          // do stuff with checked
+          console.log(
+            `Todo ${title} is ${checked ? "complete" : "incomplete"}`
+          );
+        }}
+      />
     </View>
     <View style={cardStyles.cardObjectRight}>
       <Text style={cardStyles.cardObjectText}>{title}</Text>
     </View>
   </View>
 );
-
 //showsVerticalScrollIndicator={false} ref={scrollRef} scrollEventThrottle={1} onScroll={(e) => setScrollPos(e.nativeEvent.contentOffset.y)}
 /* green bubble for menus */
-const Card = (props) => {
+const ToDoCard = (props) => {
   const renderItem = ({ item }) => (
     <Item title={item.title} type={props.title} />
   );
@@ -101,7 +96,6 @@ const Card = (props) => {
     setIsModalVisible(() => !isModalVisible);
   };
 
-  //reaserch needed...we also need a scroll up...how do these arrows work with flatbox?
   const scrollsDown = () => {
     if (scrollIndex < DATA.length) {
       setScrollIndex(scrollIndex + 1);
@@ -120,7 +114,7 @@ const Card = (props) => {
         {
           width:
             props.title === Titles.TodayEvent ||
-            props.title === Titles.BodyCheck
+            props.title === Titles.horizontal
               ? "200%"
               : "100%",
         },
@@ -132,30 +126,20 @@ const Card = (props) => {
           <Text style={cardStyles.cardHeaderText}>{props.title}</Text>
         </View>
         <View style={cardStyles.cardHeaderRight}>
-          {(props.title === Titles.TodayEvent ||
-            props.title === Titles.HighPriority) && (
-            <>
-              <Pressable onPress={handleAddObject}>
-                <Image
-                  style={{ width: RFValue(11), height: RFValue(11) }}
-                  source={Plus}
-                />
-              </Pressable>
+          <Pressable onPress={handleAddObject}>
+            <Image
+              style={{ width: RFValue(11), height: RFValue(11) }}
+              source={Plus}
+            />
+          </Pressable>
 
-              <Modal visible={isModalVisible} transparent>
-                {props.title === Titles.TodayEvent && (
-                  <EventPopup isModalVisible={handleAddObject} />
-                )}
-                {props.title === Titles.HighPriority && (
-                  <TaskPopup isModalVisible={handleAddObject} />
-                )}
-              </Modal>
-            </>
-          )}
+          <Modal visible={isModalVisible} transparent>
+            <TaskPopup isModalVisible={handleAddObject} />
+          </Modal>
         </View>
       </View>
 
-      {!(props.title === Titles.BodyCheck) && (
+      {!(props.title === Titles.horizontal) && (
         <View
           style={{
             alignSelf: "stretch",
@@ -174,7 +158,7 @@ const Card = (props) => {
         </View>
       )}
       <View style={{ flexDirection: "row" }}>
-        {props.title === Titles.BodyCheck && (
+        {props.title === Titles.horizontal && (
           <View style={{ flex: 9, marginStart: size.margin }}>
             <FlatList
               data={DATA}
@@ -189,7 +173,7 @@ const Card = (props) => {
           </View>
         )}
         <View>
-          {!(props.title === Titles.BodyCheck) && (
+          {!(props.title === Titles.horizontal) && (
             <Pressable onPress={scrollsDown}>
               <Favicon.ScrollDown style={{ width: RFValue(12) }} />
               {(Platform.OS === "android" || Platform.OS === "ios") && (
@@ -200,7 +184,7 @@ const Card = (props) => {
               )}
             </Pressable>
           )}
-          {props.title === Titles.BodyCheck && (
+          {props.title === Titles.horizontal && (
             <View style={{ margin: size.innerPadding, flex: 1 }}>
               <Pressable onPress={scrollsDown}>
                 <Favicon.ScrollRight style={{ width: RFValue(12) }} />
@@ -306,4 +290,4 @@ export const cardStyles = StyleSheet.create({
   },
 });
 
-export default Card;
+export default ToDoCard;

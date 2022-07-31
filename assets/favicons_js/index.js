@@ -2,6 +2,7 @@ export { default as BackArrow } from "./BackArrow.js";
 export { default as Calendar } from "./Calendar.js";
 export { default as Cancel } from "./Cancel.js";
 export { default as Check } from "./Check.js";
+export { default as CheckBox } from "./CheckBox.js";
 export { default as CheckLeaf } from "./CheckLeaf.js";
 export { default as Greenhouse } from "./Greenhouse.js";
 export { default as Leaf } from "./Leaf.js";

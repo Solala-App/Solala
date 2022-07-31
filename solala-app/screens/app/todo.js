@@ -1,42 +1,44 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView, Platform } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import { View, StyleSheet, SafeAreaView } from "react-native";
 
 import * as Components from "../../components";
+import { Titles } from "../../components/ToDoCard.js";
 import { theme } from "../../constants";
-const { light, size, text, colorPalette } = theme;
+const { light, size } = theme;
+//<Components.SelectionButton title="Date:" data="Dates" />
 
 export default function Todo() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
-        <View style={styles.row} />
+        <View style={styles.topBar} />
+
         <View style={styles.row}>
           <View style={styles.card}>
-            <Components.Card />
+            <Components.ToDoCard title={Titles.Monday} />
           </View>
           <View style={styles.card}>
-            <Components.Card />
+            <Components.ToDoCard title={Titles.Tuesday} />
           </View>
           <View style={styles.card}>
-            <Components.Card />
+            <Components.ToDoCard title={Titles.Wednesday} />
           </View>
           <View style={styles.card}>
-            <Components.Card />
+            <Components.ToDoCard title={Titles.Thursday} />
           </View>
         </View>
         <View style={styles.row}>
           <View style={styles.card}>
-            <Components.Card />
+            <Components.ToDoCard title={Titles.Friday} />
           </View>
           <View style={styles.card}>
-            <Components.Card />
+            <Components.ToDoCard title={Titles.Saturday} />
           </View>
           <View style={styles.card}>
-            <Components.Card />
+            <Components.ToDoCard title={Titles.Sunday} />
           </View>
           <View style={styles.card}>
-            <Components.Card />
+            <Components.ToDoCard title={Titles.NextWeek} />
           </View>
         </View>
       </View>
@@ -63,24 +65,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "stretch",
   },
+  topBar: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    flex: 1,
+  },
   card: {
     flex: 1,
     margin: size.margin,
-  },
-  text: {
-    ...text.body,
-    color: colorPalette.white,
-  },
-  textBubble: {
-    padding: size.innerPadding,
-    marginHorizontal: size.margin,
-    marginBottom: size.margin,
-    backgroundColor: colorPalette.terracotta,
-    borderRadius: size.borderRadius,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    textAlign: "center",
-    opacity: 0.7,
   },
 });

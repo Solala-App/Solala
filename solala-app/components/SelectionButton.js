@@ -75,9 +75,9 @@ export default function SelectionButton(props) {
   return (
     <View style={styles.textBubble}>
       <Pressable onPress={scrollLeft}>
-        <Favicon.ScrollLeft style={{ width: RFValue(10) }} />
+        <Favicon.ScrollLeft style={{ width: RFValue(5) }} />
         {(Platform.OS === "ios" || Platform.OS === "android") && (
-          <ScrollLeft width={RFValue(15)} height={RFValue(15)} />
+          <ScrollLeft width={RFValue(5)} height={RFValue(5)} />
         )}
       </Pressable>
 
@@ -88,9 +88,9 @@ export default function SelectionButton(props) {
         </Text>
       </View>
       <Pressable onPress={scrollRight}>
-        <Favicon.ScrollRight style={{ width: RFValue(10) }} />
+        <Favicon.ScrollRight style={{ width: RFValue(5) }} />
         {(Platform.OS === "ios" || Platform.OS === "android") && (
-          <ScrollRight width={RFValue(15)} height={RFValue(15)} />
+          <ScrollRight width={RFValue(5)} height={RFValue(5)} />
         )}
       </Pressable>
     </View>

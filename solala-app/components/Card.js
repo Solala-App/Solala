@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
   View,
   Text,
@@ -13,8 +13,6 @@ import {
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Favicon from "../../assets/favicons_js";
-import Check from "../../assets/favicons_light/Check.png";
-import CheckBox from "../../assets/favicons_light/CheckBox.png";
 import Plus from "../../assets/favicons_light/Plus.png";
 import ScrollDown from "../../assets/favicons_light/ScrollDown.png";
 import ScrollRight from "../../assets/favicons_light/ScrollRight.png";
@@ -236,6 +234,8 @@ export const cardStyles = StyleSheet.create({
     paddingBottom: size.innerPadding,
     alignItems: "center",
     ...shadowProp,
+    height: "100%",
+    width: "100%",
   },
 
   cardHeader: {

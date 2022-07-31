@@ -11,8 +11,14 @@ export default function Todo() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
-        <View style={styles.topBar} />
-
+        <View style={styles.topBar}>
+          <View style={{ alignItems: "flex-start", flex: 1 }}>
+            <Components.SelectionButton title="Sort:" data="todo view" />
+          </View>
+          <View style={{ alignItems: "flex-end", flex: 1 }}>
+            <Components.SelectionButton title="Date:" data="Dates" />
+          </View>
+        </View>
         <View style={styles.row}>
           <View style={styles.card}>
             <Components.ToDoCard title={Titles.Monday} />
@@ -64,11 +70,12 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignSelf: "stretch",
+    flex: 1,
   },
   topBar: {
     flexDirection: "row",
     alignItems: "flex-start",
-    flex: 1,
+    width: "100%",
   },
   card: {
     flex: 1,

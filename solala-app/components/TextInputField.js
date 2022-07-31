@@ -3,7 +3,7 @@ import { TextInput, StyleSheet, View } from "react-native";
 
 import { theme } from "../constants";
 
-const { colorPalette, text, shadowProp, size } = theme;
+const { colorPalette, shadowProp, size } = theme;
 
 const TextInputField = (props) => {
   const [text, onChangeText] = React.useState(null);

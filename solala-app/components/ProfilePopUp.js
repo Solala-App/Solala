@@ -1,15 +1,8 @@
 import React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  Image,
-} from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-import { theme, fonts } from "../constants";
+import { theme } from "../constants";
 
 const { colorPalette } = theme;
 

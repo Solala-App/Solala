@@ -1,15 +1,7 @@
 import React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-import * as Favicon from "../../assets/favicons_js";
-import * as Weather from "../../assets/favicons_weather_js";
 import { theme, fonts } from "../constants";
 
 const { colorPalette } = theme;

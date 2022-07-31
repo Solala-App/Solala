@@ -2,9 +2,9 @@ import React from "react";
 import { View, StyleSheet, Platform, Pressable, Image } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
+import Calendar from "../../assets/favicons_light/Calendar.png";
+import Greenhouse from "../../assets/favicons_light/Greenhouse.png";
 import ToDoList from "../../assets/favicons_light/ToDoList.png";
-import Calendar from "../../assets/favicons_light/calendar.png";
-import Greenhouse from "../../assets/favicons_light/greenhouse.png";
 import { theme } from "../constants";
 
 const { colorPalette } = theme;
@@ -63,7 +63,6 @@ export const footerStyles = StyleSheet.create({
   button: {
     top: RFValue(10),
     position: "relative",
-    width: RFValue(50),
     height: RFValue(50),
     width: icon_size,
   },

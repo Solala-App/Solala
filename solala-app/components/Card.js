@@ -14,9 +14,9 @@ import {
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Favicon from "../../assets/favicons_js";
+import Plus from "../../assets/favicons_light/Plus.png";
 import ScrollDown from "../../assets/favicons_light/ScrollDown.png";
 import ScrollRight from "../../assets/favicons_light/ScrollRight.png";
-import Plus from "../../assets/favicons_light/plus.png";
 import { theme } from "../constants";
 import EventPopup from "./EventPopup.js";
 import TaskPopup from "./TaskPopup.js";

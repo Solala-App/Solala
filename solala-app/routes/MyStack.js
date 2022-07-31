@@ -16,7 +16,7 @@ const SolalaAppMobile = () => {
       initialRouteName="Homepage"
       tabBar={(props) => <Footer {...props} />}
       screenOptions={{
-        header: () => (
+        Header: () => (
           <Sun greeting="Good Morning!" announcement="Meet Solala" />
         ),
       }}>

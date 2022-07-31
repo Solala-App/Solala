@@ -3643,11 +3643,6 @@ end-of-stream@^1.1.0:
   dependencies:
     once "^1.4.0"
 
-enlist@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/enlist/-/enlist-0.1.0.tgz#606557f3f65feb50890c81a72baec3f7a037d179"
-  integrity sha512-bndUhfDDNDXPJY6/cNJlX91+e15D5sUYz2aZnl/9tY/XDuUH63E0qEJ8oDN4Wy3rj45bcQzurQHmm5cJeabEgw==
-
 entities@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.2.0.tgz#098dc90ebb83d8dffa089d55256b351d34c4da55"

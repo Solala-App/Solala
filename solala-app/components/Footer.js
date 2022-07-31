@@ -1,9 +1,8 @@
 import React from "react";
-import { View, StyleSheet, Platform, Pressable } from "react-native";
+import { View, StyleSheet, Platform, Pressable, Image } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-
-import Calendar from "../../assets/favicons_light/Calendar.png";
-import Greenhouse from "../../assets/favicons_light/Greenhouse.png";
+import Greenhouse from "../../assets/favicons_light/greenhouse.png";
+import Calendar from "../../assets/favicons_light/calendar.png";
 import ToDoList from "../../assets/favicons_light/ToDoList.png";
 import { theme } from "../constants";
 
@@ -20,25 +19,27 @@ const Footer = ({ navigation }) => {
     navigation.navigate("Todo");
   };
 
-  if (Platform.OS === "android" || Platform.OS === "ios") {
-    return (
-      <View style={footerStyles.boxMobile}>
-        <Pressable onPress={handleGreenHousePress}>
-          <Greenhouse width={icon_size} style={footerStyles.button} />
-        </Pressable>
+  return (
+    <View style={footerStyles.box}>
+      {(Platform.OS === "android" || Platform.OS === "ios") && (
+        <>
+                  <Pressable onPress={handleGreenHousePress}>
+                      <Image style={footerStyles.button} source={Greenhouse} />
+          </Pressable>
 
-        <Pressable onPress={handleCalendarPress}>
-          <Calendar width={icon_size} style={footerStyles.button} />
-        </Pressable>
+                  <Pressable onPress={handleCalendarPress}>
+                      <Image style={footerStyles.button} source={Calendar} />
 
-        <Pressable onPress={handleToDoPress}>
-          <ToDoList width={icon_size} style={footerStyles.button} />
-        </Pressable>
-      </View>
-    );
-  } else {
-    return <View style={footerStyles.box} />;
-  }
+          </Pressable>
+
+                  <Pressable onPress={handleToDoPress}>
+                      <Image style={footerStyles.button} source={ToDoList} />
+
+          </Pressable>
+        </>
+      )}
+    </View>
+  );
 };
 
 const icon_size = RFValue(50);
@@ -64,7 +65,8 @@ export const footerStyles = StyleSheet.create({
     top: RFValue(10),
     position: "relative",
     width: RFValue(50),
-    height: RFValue(50),
+      height: RFValue(50),
+      width: icon_size
   },
 });
 

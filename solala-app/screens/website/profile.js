@@ -719,7 +719,8 @@ export default function Profile() {
                 <View>
                   <TouchableOpacity
                     style={styles.backButton}
-                    onPress={() => changeScreen(openingProfileScreen)}>
+                    onPress={() => changeScreen(openingProfileScreen)}
+                  >
                     <Back />
                   </TouchableOpacity>
 
@@ -744,7 +745,6 @@ export default function Profile() {
   {
     /* This method takes in a component/element and then changes the valuable screen to become said component/element*/
   }
-
   const changeScreen = (props) =>
     setScreen(
       <View>
@@ -757,6 +757,10 @@ export default function Profile() {
   }
   return (
     <View style={styles.container}>
+      <View style={styles.headerBox}>
+        <View style={styles.header}></View>
+      </View>
+
       {screen}
 
       <Components.Footer />
@@ -861,7 +865,8 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     color: "#61989e",
-    ...text.title,
+    fontSize: RFValue(24),
+    fontWeight: "bold",
     paddingLeft: RFValue(15),
     paddingTop: RFValue(20),
   },

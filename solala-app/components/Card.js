@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   View,
   Text,
@@ -7,20 +7,28 @@ import {
   FlatList,
   SafeAreaView,
   Modal,
-  Button,
-  Platform,
+  Platform, Button, Image
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Favicon from "../../assets/favicons_js";
-import Plus from "../../assets/favicons_light/Plus.png";
-import { theme } from "../constants";
-import EventPopup from "./EventPopup.js";
 import TaskPopup from "./TaskPopup.js";
+import EventPopup from "./EventPopup.js";
+import Plus from "../../assets/favicons_light/plus.png";
+import ScrollDown from "../../assets/favicons_light/ScrollDown.png";
+import ScrollRight from "../../assets/favicons_light/ScrollRight.png";
+
+import { theme } from "../constants";
 const { light, size, text, shadowProp } = theme;
 
 // npm install @react-native-community/slider --save
 // yarn add react-native-select-dropdown
+export const Titles = {
+    BodyCheck: "Body Check",
+    Upcoming: "Upcoming",
+    TodayEvent: "Today's Events",
+    HighPriority: "Priorities"
+}
 
 const DATA = [
   {
@@ -34,74 +42,158 @@ const DATA = [
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d72",
     title: "Third Item",
-  },
+    },
+    {
+        id: "58694a0f-3da1-471f-bd96-145571e29d73",
+        title: "Fourth Item",
+    },
+    {
+        id: "58694a0f-3da1-471f-bd96-145571e29d74",
+        title: "Fifth Item",
+    },
+    {
+        id: "58694a0f-3da1-471f-bd96-145571e20d74",
+        title: "Sixth Item",
+    },
+
 ];
 
-const Item = ({ title }) => (
-  <View style={cardStyles.cardItem}>
-    <View style={cardStyles.cardObjectLeft}>
-      <Text style={cardStyles.cardObjectText}>8 AM</Text>
+var h;
+const onLayoutEvent = (evt) => {
+    h = evt.nativeEvent.layout.height;
+}
+const Item = ({ title, type }) => (
+    <View
+        style={cardStyles.cardItem}
+        onLayout={onLayoutEvent}>
+        <View style={cardStyles.cardObjectLeft}>
+            {type === Titles.HighPriority && (
+                <Button title={"O"}/>
+            )}
+            {type === Titles.TodayEvent && (
+                <Text style={cardStyles.cardObjectText}>8 AM</Text>
+            )}
+        </View>
+        <View style={cardStyles.cardObjectRight}>
+          <Text style={cardStyles.cardObjectText}>{title}</Text>
+        </View>
     </View>
-    <View style={cardStyles.cardObjectRight}>
-      <Text style={cardStyles.cardObjectText}>{title}</Text>
-    </View>
-  </View>
 );
-
+//showsVerticalScrollIndicator={false} ref={scrollRef} scrollEventThrottle={1} onScroll={(e) => setScrollPos(e.nativeEvent.contentOffset.y)}
 /* green bubble for menus */
-const Card = () => {
-  const renderItem = ({ item }) => <Item title={item.title} />;
-  const [isModalVisible, setIsModalVisible] = React.useState(false);
+const Card = (props) => {
 
-  const handleAddObject = () => {
-    setIsModalVisible(() => !isModalVisible);
-  };
+    const renderItem = ({ item }) => <Item title={item.title} type={props.title} />;
+    const [isModalVisible, setIsModalVisible] = React.useState(false);
+    const [scrollIndex, setScrollIndex] = React.useState(0);
+    const flatList = useRef();
+
+    const handleAddObject = () => {
+        setIsModalVisible(() => !isModalVisible);
+    };
 
   //reaserch needed...we also need a scroll up...how do these arrows work with flatbox?
-  const scrollsDown = () => {
-    console.log("Scrolls Down");
-  };
+    const scrollsDown = () => {
+        if (scrollIndex < DATA.length) {
+            setScrollIndex(scrollIndex + 1);
+            flatList.current.scrollToIndex({ index: scrollIndex })
+        }
+    };
+    const onViewRef = React.useRef((viewableItems) => {
+        setScrollIndex(viewableItems.viewableItems[viewableItems.viewableItems.length-1].index)
+    })
+    return (
+        <SafeAreaView style={[cardStyles.card,
+            {
+                width: (props.title === Titles.TodayEvent || props.title === Titles.BodyCheck) ? "200%" : "100%",
+            },
+        ]}>
+            <View style={cardStyles.cardHeader}>
+                <View style={cardStyles.cardHeaderLeft} />
 
-  return (
-    <SafeAreaView style={cardStyles.card}>
-      <View style={cardStyles.cardHeader}>
-        <View style={cardStyles.cardHeaderLeft} />
-        <View style={cardStyles.cardHeaderCenter}>
-          <Text style={cardStyles.cardHeaderText}>Hello</Text>
-        </View>
-        <View style={cardStyles.cardHeaderRight}>
-          <Pressable onPress={handleAddObject}>
-            <Favicon.Plus style={{ width: RFValue(11) }} />
-          </Pressable>
-          {(Platform.OS === "ios" || Platform.OS === "android") && (
-            <Pressable onPress={handleAddObject}>
-              <Plus width={15} height={15} />
-            </Pressable>
-          )}
-          <Modal visible={isModalVisible} transparent>
-            <TaskPopup isModalVisible={handleAddObject} />
-          </Modal>
-        </View>
-      </View>
+                <View style={cardStyles.centeredView}>
+                    <Text style={cardStyles.cardHeaderText}>{props.title}</Text>
+                </View>
+                <View style={cardStyles.cardHeaderRight}>
+                    {(props.title === Titles.TodayEvent || props.title === Titles.HighPriority) && (
+                        <>
+                            <Pressable onPress={handleAddObject}>
+                                <Image style={{ width: RFValue(11), height: RFValue(11) }} source={Plus} />
 
-      <View style={{ alignSelf: "stretch" }}>
-        <FlatList
-          data={DATA.slice(0, 2)}
-          maxToRenderPerBatch={2}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
+                            </Pressable>
 
-      <View>
-        <Pressable
-          onPress={() => {
-            scrollsDown;
-          }}>
-          <Favicon.ScrollDown style={{ width: RFValue(12) }} />
-        </Pressable>
-      </View>
-    </SafeAreaView>
+                            <Modal visible={isModalVisible} transparent={true}>
+                                {props.title === Titles.TodayEvent && (
+                                    <EventPopup isModalVisible={handleAddObject} />
+                                )}
+                                {props.title === Titles.HighPriority && (
+                                    <TaskPopup isModalVisible={handleAddObject} />
+                                )}
+                            </Modal>
+                        </>
+                    )}
+                </View>
+            </View>
+            
+            {!(props.title === Titles.BodyCheck) && (
+
+                <View style={{ alignSelf: "stretch", height: props.title === Titles.TodayEvent ? RFValue(89) : RFValue(59) }}>
+                        <FlatList
+                            data={DATA}
+                            ref={flatList}
+                            initialScrollIndex={0}
+                            onViewableItemsChanged={onViewRef.current}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={renderItem}
+                            keyExtractor={(item) => item.id}
+                        />
+                </View>
+            )}
+            <View style={{ flexDirection:"row" }}>
+            {(props.title === Titles.BodyCheck) && (
+                    
+                <View style={{flex:9, marginStart:size.margin}}>
+                    <FlatList
+                        data={DATA}
+                        ref={flatList}
+                        horizontal
+                        initialScrollIndex={0}
+                        onViewableItemsChanged={onViewRef.current}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.id}
+                    />
+                </View>
+            )}
+            <View>
+                {!(props.title === Titles.BodyCheck) && (
+                    <Pressable
+                        onPress={scrollsDown}
+                    >
+                            <Favicon.ScrollDown style={{ width: RFValue(12) }} />
+                            {(Platform.OS === "android" || Platform.OS === "ios") && (
+                                <Image style={{ width: RFValue(12), height: RFValue(12) }} source={ScrollDown} />
+
+                            )}
+
+                    </Pressable>
+                )}
+                    {(props.title === Titles.BodyCheck) && (
+                        <View style={{ margin: size.innerPadding, flex: 1 }}>
+                    <Pressable
+                        onPress={scrollsDown}
+                    >
+                        <Favicon.ScrollRight style={{ width: RFValue(12)}} />
+                        {(Platform.OS === "android" || Platform.OS === "ios") && (
+                            <Image style={{ width: RFValue(12), height: RFValue(12) }} source={ScrollRight} />
+
+                        )}
+                    </Pressable>
+                            </View>
+                )}
+                </View>
+            </View>
+        </SafeAreaView>
   );
 };
 
@@ -109,11 +201,11 @@ export const cardStyles = StyleSheet.create({
   card: {
     backgroundColor: light.secondary,
     flexDirection: "column",
-    alignItems: "center",
     borderRadius: size.borderRadius,
     opacity: 0.7,
     paddingBottom: size.innerPadding,
-    ...shadowProp,
+    alignItems:"center",
+    ...shadowProp
   },
 
   cardHeader: {
@@ -128,19 +220,19 @@ export const cardStyles = StyleSheet.create({
   },
 
   cardHeaderLeft: {
-    flex: 1,
+    flex: .1,
   },
 
   cardHeaderCenter: {
     flex: 10,
+
   },
 
   cardHeaderRight: {
-    flex: 1,
+    flex:.1,
     paddingTop: size.innerPadding,
     paddingBottom: size.innerPadding,
     paddingRight: size.innerPadding,
-    paddingLeft: size.innerPadding,
     alignItems: "flex-end",
   },
 
@@ -150,17 +242,17 @@ export const cardStyles = StyleSheet.create({
   },
 
   cardItem: {
+
     padding: size.innerPadding,
     marginHorizontal: size.margin,
 
     marginBottom: size.margin,
     backgroundColor: light.primary,
     borderRadius: size.borderRadius,
-    justifyContent: "space-between",
+    justifyContent: "center",
     flexDirection: "row",
-    textAlign: "center",
-    alignSelf: "stretch",
-    flex: 1,
+      textAlign: "center",
+      alignSelf: "stretch"
   },
 
   cardObjectLeft: {
@@ -178,18 +270,13 @@ export const cardStyles = StyleSheet.create({
 
   cardObjectText: {
     ...text.body,
-    color: light.textSecondary,
+      color: light.textSecondary,
+      flexDirection:"row"
   },
 
   scrollDown: {
     alignSelf: "flex-end",
     justifyContent: "center",
-  },
-
-  button: {
-    justifyContent: "space-around",
-    flexDirection: "column",
-    alignItems: "center",
   },
 
   centeredView: {

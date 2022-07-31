@@ -60,7 +60,7 @@ const SolalaWebsite = () => {
 };
 
 const MyStack = () => {
-  if (Login === true && (Platform.OS === "android" || Platform.OS === "IOS")) {
+  if (Login === true && (Platform.OS === "android" || Platform.OS === "ios")) {
     return <SolalaAppMobile />;
   } else if (Login === true) {
     return <SolalaApp />;

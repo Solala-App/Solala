@@ -14,7 +14,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 import ScrollLeft from "../../assets/favicons_dark/ScrollLeft.png";
 import ScrollRight from "../../assets/favicons_dark/ScrollRight.png";
-import Check from "../../assets/favicons_dark/check.png";
+import Check from "../../assets/favicons_dark/Check.png";
 import * as Favicon from "../../assets/favicons_js";
 import Cancel from "../../assets/favicons_light/Cancel.png";
 import Plus from "../../assets/favicons_light/Plus.png";

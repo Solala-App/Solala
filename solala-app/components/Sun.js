@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Defs, Image, Use, Path } from "react-native-svg";
 
-import Rain from "../../assets/favicons_weather/rain.png";
+import Rain from "../../assets/favicons_weather/Rain.png";
 import { theme } from "../constants";
 const { text, light } = theme;
 

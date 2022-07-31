@@ -5,7 +5,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Path } from "react-native-svg";
 
 import * as Favicon from "../../assets/favicons_js";
-import Rain from "../../assets/favicons_weather/rain.png";
+import Rain from "../../assets/favicons_weather/Rain.png";
 import { theme } from "../constants";
 
 const { colorPalette, text } = theme;

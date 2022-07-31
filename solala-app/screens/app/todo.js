@@ -10,7 +10,7 @@ export default function Todo() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
-        <View style={styles.row}></View>
+        <View style={styles.row} />
         <View style={styles.row}>
           <View style={styles.card}>
             <Components.Card />

@@ -108,10 +108,18 @@ const Card = (props) => {
       flatList.current.scrollToIndex({ index: scrollIndex });
     }
   };
+
   const onViewRef = React.useRef((viewableItems) => {
-    setScrollIndex(
-      viewableItems.viewableItems[viewableItems.viewableItems.length - 1].index
-    );
+    if (
+      typeof viewableItems.viewableItems[
+        viewableItems.viewableItems.length - 1
+      ] !== "undefined"
+    ) {
+      setScrollIndex(
+        viewableItems.viewableItems[viewableItems.viewableItems.length - 1]
+          .index
+      );
+    }
   });
   return (
     <SafeAreaView

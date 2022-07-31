@@ -8,21 +8,64 @@ import ScrollRight from "../../assets/favicons_light/ScrollRight.png";
 import { theme } from "../constants";
 const { size, text, colorPalette } = theme;
 
-const repeatOptions = ["7/31-8/6", "8/7-8/13", "8/14-8/20", "8/21-8/27"];
+const Dates = ["7/31-8/6", "8/7-8/13", "8/14-8/20", "8/21-8/27"];
+const ToDoView = ["Planner", "Category", "Date"];
+const Month = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+//use props title {name of button} and data {which data to use}
+//To add other kinds, create a new Data felid above,
+//and in the function below add a repeat index and case for it's associated data prop
 
 export default function SelectionButton(props) {
-  const [repeatIndex, setRepeatIndex] = React.useState(0);
+  const [repeatIndexDate, setRepeatIndexDate] = React.useState(0);
+  const [repeatIndexToDoView, setRepeatIndexToDoView] = React.useState(0);
+  const [repeatIndexMonth, setRepeatIndexMonth] = React.useState(0);
+
+  let repeatIndex = repeatIndexDate;
+  let setRepeatIndex = setRepeatIndexDate;
+  let dataType = Dates;
+  switch (props.data) {
+    case "todo view":
+      dataType = ToDoView;
+      repeatIndex = repeatIndexToDoView;
+      setRepeatIndex = setRepeatIndexToDoView;
+      break;
+    case "month":
+      dataType = Month;
+      repeatIndex = repeatIndexMonth;
+      setRepeatIndex = setRepeatIndexMonth;
+      break;
+
+    default:
+      dataType = Dates;
+      repeatIndex = repeatIndexDate;
+      setRepeatIndex = setRepeatIndexDate;
+      break;
+  }
 
   const scrollLeft = () => {
     if (repeatIndex === 0) {
-      setRepeatIndex(repeatOptions.length - 1);
+      setRepeatIndex(dataType.length - 1);
     } else {
       setRepeatIndex(() => repeatIndex - 1);
     }
   };
 
   const scrollRight = () => {
-    if (repeatIndex === repeatOptions.length - 1) {
+    if (repeatIndex === dataType.length - 1) {
       setRepeatIndex(0);
     } else {
       setRepeatIndex(() => repeatIndex + 1);
@@ -39,7 +82,10 @@ export default function SelectionButton(props) {
       </Pressable>
 
       <View style={styles.text}>
-        <Text style={styles.text}> Date: {repeatOptions[repeatIndex]} </Text>
+        <Text style={styles.text}>
+          {" "}
+          {props.title} {dataType[repeatIndex]}{" "}
+        </Text>
       </View>
       <Pressable onPress={scrollRight}>
         <Favicon.ScrollRight style={{ width: RFValue(10) }} />

@@ -1,9 +1,10 @@
 import React from "react";
 import { View, StyleSheet, Platform, Pressable, Image } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import Greenhouse from "../../assets/favicons_light/greenhouse.png";
-import Calendar from "../../assets/favicons_light/calendar.png";
+
 import ToDoList from "../../assets/favicons_light/ToDoList.png";
+import Calendar from "../../assets/favicons_light/calendar.png";
+import Greenhouse from "../../assets/favicons_light/greenhouse.png";
 import { theme } from "../constants";
 
 const { colorPalette } = theme;
@@ -23,18 +24,16 @@ const Footer = ({ navigation }) => {
     <View style={footerStyles.box}>
       {(Platform.OS === "android" || Platform.OS === "ios") && (
         <>
-                  <Pressable onPress={handleGreenHousePress}>
-                      <Image style={footerStyles.button} source={Greenhouse} />
+          <Pressable onPress={handleGreenHousePress}>
+            <Image style={footerStyles.button} source={Greenhouse} />
           </Pressable>
 
-                  <Pressable onPress={handleCalendarPress}>
-                      <Image style={footerStyles.button} source={Calendar} />
-
+          <Pressable onPress={handleCalendarPress}>
+            <Image style={footerStyles.button} source={Calendar} />
           </Pressable>
 
-                  <Pressable onPress={handleToDoPress}>
-                      <Image style={footerStyles.button} source={ToDoList} />
-
+          <Pressable onPress={handleToDoPress}>
+            <Image style={footerStyles.button} source={ToDoList} />
           </Pressable>
         </>
       )}
@@ -65,8 +64,8 @@ export const footerStyles = StyleSheet.create({
     top: RFValue(10),
     position: "relative",
     width: RFValue(50),
-      height: RFValue(50),
-      width: icon_size
+    height: RFValue(50),
+    width: icon_size,
   },
 });
 

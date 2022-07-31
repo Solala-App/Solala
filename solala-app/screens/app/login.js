@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: size.padding,
     paddingRight: size.padding,
-      paddingBottom: size.padding,
+    paddingBottom: size.padding,
   },
   textBubbleDark: {
     padding: size.innerPadding,
@@ -171,6 +171,6 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    marginBottom: size.margin
+    marginBottom: size.margin,
   },
 });

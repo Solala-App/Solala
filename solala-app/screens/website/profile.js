@@ -719,8 +719,7 @@ export default function Profile() {
                 <View>
                   <TouchableOpacity
                     style={styles.backButton}
-                    onPress={() => changeScreen(openingProfileScreen)}
-                  >
+                    onPress={() => changeScreen(openingProfileScreen)}>
                     <Back />
                   </TouchableOpacity>
 
@@ -758,7 +757,7 @@ export default function Profile() {
   return (
     <View style={styles.container}>
       <View style={styles.headerBox}>
-        <View style={styles.header}></View>
+        <View style={styles.header} />
       </View>
 
       {screen}

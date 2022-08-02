@@ -1,6 +1,7 @@
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import React from "react";
 
+
 const auth = getAuth();
 
 export function useAuthentication() {

@@ -3,6 +3,8 @@ import React, { useState, useCallback, useEffect } from "react";
 import "./config/firebase";
 import RootNavigation from "./solala-app/routes";
 import fonts from "./solala-app/constants";
+
+
 // import * as Screens from "./solala-app/screens";
 
 export default function App() {

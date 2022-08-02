@@ -1,12 +1,12 @@
 import React from "react";
-import { View, StyleSheet, SafeAreaView } from "react-native";
+import { View, StyleSheet, SafeAreaView, FlatList, Text } from "react-native";
 
 import * as Components from "../../components";
 import { Titles } from "../../components/ToDoCard.js";
+import { RFValue } from "react-native-responsive-fontsize";
 import { theme } from "../../constants";
 const { light, size } = theme;
 //<Components.SelectionButton title="Date:" data="Dates" />
-
 export default function Todo() {
   return (
     <SafeAreaView style={styles.container}>
@@ -19,33 +19,29 @@ export default function Todo() {
             <Components.SelectionButton title="Date:" data="Dates" />
           </View>
         </View>
-        <View style={styles.row}>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Monday} />
-          </View>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Tuesday} />
-          </View>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Wednesday} />
-          </View>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Thursday} />
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Friday} />
-          </View>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Saturday} />
-          </View>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Sunday} />
-          </View>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.NextWeek} />
-          </View>
+        <View style={{width:"100%", height:"100%", flex:1} }>
+            <View style={styles.row}>
+                      <View style={styles.card}>
+                          <Components.ToDoCard title={Titles.Monday} />
+                      </View>
+                      <View style={styles.card}>
+                          <Components.ToDoCard title={Titles.Monday} />
+                      </View>
+                      <View style={styles.card}>
+                          <Components.ToDoCard title={Titles.Monday} />
+                      </View>
+            </View>
+            <View style={styles.row}>
+                      <View style={styles.card}>
+                          <Components.ToDoCard title={Titles.Monday} />
+                      </View>
+                      <View style={styles.card}>
+                          <Components.ToDoCard title={Titles.Monday} />
+                      </View>  
+                      <View style={styles.card}>
+                          <Components.ToDoCard title={Titles.Monday} />
+                      </View>
+            </View>
         </View>
       </View>
       <Components.Footer />
@@ -65,12 +61,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: size.padding,
     paddingRight: size.padding,
-    paddingTop: size.padding,
+    paddingTop: size.padding, 
+    paddingBottom:size.padding
   },
   row: {
     flexDirection: "row",
     alignSelf: "stretch",
     flex: 1,
+    marginBottom: RFValue(25)
   },
   topBar: {
     flexDirection: "row",
@@ -79,6 +77,6 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    margin: size.margin,
-  },
+    margin: size.margin
+   },
 });

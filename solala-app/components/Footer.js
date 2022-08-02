@@ -20,25 +20,25 @@ const Footer = ({ navigation }) => {
     navigation.navigate("Todo");
   };
 
-  return (
-    <View style={footerStyles.box}>
-      {(Platform.OS === "android" || Platform.OS === "ios") && (
-        <>
-          <Pressable onPress={handleGreenHousePress}>
-            <Image style={footerStyles.button} source={Greenhouse} />
-          </Pressable>
+    if (Platform.OS === 'ios' || Platform.OS == 'android') {
+        return (
+            <View style={footerStyles.boxMobile}>
+                <Pressable onPress={handleGreenHousePress}>
+                    <Image style={footerStyles.button} source={Greenhouse} />
+                </Pressable>
 
-          <Pressable onPress={handleCalendarPress}>
-            <Image style={footerStyles.button} source={Calendar} />
-          </Pressable>
+                <Pressable onPress={handleCalendarPress}>
+                    <Image style={footerStyles.button} source={Calendar} />
+                </Pressable>
 
-          <Pressable onPress={handleToDoPress}>
-            <Image style={footerStyles.button} source={ToDoList} />
-          </Pressable>
-        </>
-      )}
-    </View>
-  );
+                <Pressable onPress={handleToDoPress}>
+                    <Image style={footerStyles.button} source={ToDoList} />
+                </Pressable>
+            </View>
+        );
+    }
+    return <View style={footerStyles.box}/>
+    
 };
 
 const icon_size = RFValue(50);

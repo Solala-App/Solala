@@ -7,8 +7,8 @@
     "\\solala-app\\components",
     "\\solala-app\\screens",
     "\\solala-app\\screens\\app",
-    "\\solala-app\\screens\\routes",
     "\\solala-app\\screens\\website"
   ],
+  "SelectedNode": "\\solala-app\\components\\Card.js",
   "PreviewInSolutionExplorer": false
 }

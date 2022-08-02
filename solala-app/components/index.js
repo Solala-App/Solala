@@ -8,7 +8,6 @@ import Header from "./Header";
 import HeaderWeb from "./HeaderWeb";
 import ProfilePopUp from "./ProfilePopUp";
 import SelectionButton from "./SelectionButton";
-import Sun from "./Sun";
 import TextInputField from "./TextInputField";
 import ToDoCard from "./ToDoCard";
 import Zoom from "./Zoom";
@@ -23,7 +22,6 @@ export {
   HeaderWeb,
   Features,
   FooterWeb,
-  Sun,
   Button,
   TextInputField,
   ToDoCard,

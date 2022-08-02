@@ -1,9 +1,17 @@
 import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Platform,
+} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Path } from "react-native-svg";
 
+import Sun from "./Sun";
 import * as Favicon from "../../assets/favicons_js";
 import Rain from "../../assets/favicons_weather/Rain.png";
 import { theme } from "../constants";
@@ -28,6 +36,9 @@ const Header = (props) => {
   const ToDoPressEvent = () => {
     navigation.navigate("Todo");
   };
+  if (Platform.OS === "ios" || Platform.OS === "android") {
+    return <Sun greeting={props.greeting} announcement={props.announcement} />;
+  }
   return (
     <View style={styles.headerBox}>
       <View style={styles.headerLeft}>

@@ -1,11 +1,12 @@
 import * as React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { Defs, Image, Use, Path } from "react-native-svg";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Svg, { Defs, Use, Path } from "react-native-svg";
 
 import Rain from "../../assets/favicons_weather/Rain.png";
 import { theme } from "../constants";
-const { text, light } = theme;
+const { text, light, size } = theme;
 
 const SvgSunMobile = (props) => (
   <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2355 619" {...props}>
@@ -27,70 +28,62 @@ const SvgSunMobile = (props) => (
 
 const Header = (props) => {
   return (
-    <View style={styles.headerBox}>
-      <View style={styles.header}>
-        <View style={styles.headerSun}>
-          <SvgSunMobile />
-          <View style={styles.greeting}>
-            <Text style={styles.textBubble}>
-              {props.greeting}
-              <Rain />
-            </Text>
-            <Text style={styles.announcement}>{props.announcement}</Text>
-          </View>
-        </View>
+    <SafeAreaView style={styles.headerBox}>
+      <View style={styles.headerSun}>
+        <SvgSunMobile />
       </View>
-    </View>
+      <View
+        style={{
+          flexDirection: "column",
+          alignItems: "center",
+          flex: 1,
+          top: RFValue(15),
+        }}>
+        <View style={styles.greeting}>
+          <Text style={styles.textBubble}>{props.greeting}</Text>
+          <Image source={Rain} style={styles.weather} />
+        </View>
+        <Text style={styles.announcement}>{props.announcement}</Text>
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   headerBox: {
     width: "100%",
-    paddingBottom: RFValue(130),
+    height: RFValue(130),
     backgroundColor: light.primary,
   },
+  headerSun: {
+    width: "100%",
+    position: "absolute",
+    top: RFValue(20),
+    height: RFValue(120),
+  },
+
   textBubble: {
     flexWrap: "wrap",
-    ...text.title,
-    position: "absolute",
-    alignSelf: "flex-start",
-  },
-  announcement: {
-    paddingTop: RFValue(75),
-    ...text.body,
-    position: "absolute",
+    ...text.mobileGreeting,
   },
 
-  placeholderWeather: {
+  weather: {
+    margin: size.margin,
     width: RFValue(20),
     height: RFValue(20),
-    marginLeft: RFValue(15),
-    alignSelf: "flex-end",
-    position: "absolute",
   },
 
-  placeholder: {
-    width: RFValue(20),
-    height: RFValue(20),
-    alignSelf: "center",
-  },
-  headerSun: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-    position: "absolute",
-    top: 0,
-    height: RFValue(160),
-  },
   greeting: {
-    position: "absolute",
-    top: RFValue(48),
-    alignItems: "center",
-    width: "100%",
-    justifyContent: "space-around",
+    padding: size.innerPadding,
     flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+  },
+
+  announcement: {
+    padding: size.innerPadding,
+    flex: 2,
+    ...text.mobileAnnouncment,
   },
 });
 

@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { Platform } from "react-native";
 
-import { HeaderWeb, Header, Footer, Sun } from "../components";
+import { HeaderWeb, Header, Footer } from "../components";
 import * as App from "../screens/app";
 import * as Website from "../screens/website";
 

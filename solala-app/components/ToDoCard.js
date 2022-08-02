@@ -19,6 +19,7 @@ import ScrollRight from "../../assets/favicons_light/ScrollRight.png";
 import { theme } from "../constants";
 import CheckBoxComponent from "./CheckBoxComponent";
 import TaskPopup from "./TaskPopup.js";
+import Zoom from "./Zoom.js";
 const { light, size, text, shadowProp } = theme;
 
 // npm install @react-native-community/slider --save
@@ -75,7 +76,9 @@ const Item = ({ title }) => (
       />
     </View>
     <View style={cardStyles.cardObjectRight}>
-      <Text style={cardStyles.cardObjectText}>{title}</Text>
+            <Pressable onPress={() => console.log("PRESS") }>
+                <Text style={cardStyles.cardObjectText}>{title}</Text>
+            </Pressable>
     </View>
   </View>
 );
@@ -83,8 +86,9 @@ const Item = ({ title }) => (
 /* green bubble for menus */
 const ToDoCard = (props) => {
   const renderItem = ({ item }) => (
-    <Item title={item.title} type={props.title} />
-  );
+      <Item title={item.title} type={props.title} />
+    );
+
   const [isModalVisible, setIsModalVisible] = React.useState(false);
     const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
     const [scrollUpIndex, setScrollUpIndex] = React.useState(0)

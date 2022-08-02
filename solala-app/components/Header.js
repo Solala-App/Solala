@@ -9,8 +9,8 @@ import {
   Platform,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { Defs, Use, Path } from "react-native-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Svg, { Defs, Use, Path } from "react-native-svg";
 
 import * as Favicon from "../../assets/favicons_js";
 import Rain from "../../assets/favicons_weather/Rain.png";

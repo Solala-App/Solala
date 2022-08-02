@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Platform, Pressable } from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Graphics from "../../../assets/graphics_js";

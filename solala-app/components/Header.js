@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
 
   textBubbleMobile: {
     flexWrap: "wrap",
-    ...text.mobileGreeting,
+    ...text.mobileTitle,
   },
 
   weatherMobile: {
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   announcementMobile: {
     padding: size.innerPadding,
     flex: 2,
-    ...text.mobileAnnouncment,
+    ...text.mobileBody,
   },
 
   headerBack: {

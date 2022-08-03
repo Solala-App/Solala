@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
-import { Pressable, Text, StyleSheet } from "react-native";
+import { Pressable, Text, StyleSheet, Platform } from "react-native";
 
 import { theme } from "../constants";
 
@@ -10,20 +10,38 @@ const NavButton = (props) => {
   const navigation = useNavigation();
   let buttonStyle = styles.buttonLight;
   let textStyle = styles.textStyleLight;
-  switch (props.color) {
-    case "dark":
-      buttonStyle = styles.buttonDark;
-      textStyle = styles.textStyleDark;
-      break;
-    case "accent":
-      buttonStyle = styles.buttonAccent;
-      textStyle = styles.textStyleAccent;
-      break;
+  if (Platform.OS === "ios" || Platform.OS === "android") {
+    switch (props.color) {
+      case "dark":
+        buttonStyle = styles.buttonDark;
+        textStyle = styles.textStyleDarkMobile;
+        break;
+      case "accent":
+        buttonStyle = styles.buttonAccent;
+        textStyle = styles.textStyleAccentMobile;
+        break;
 
-    default:
-      buttonStyle = styles.buttonLight;
-      textStyle = styles.textStyleLight;
-      break;
+      default:
+        buttonStyle = styles.buttonLight;
+        textStyle = styles.textStyleLightMobile;
+        break;
+    }
+  } else {
+    switch (props.color) {
+      case "dark":
+        buttonStyle = styles.buttonDark;
+        textStyle = styles.textStyleDark;
+        break;
+      case "accent":
+        buttonStyle = styles.buttonAccent;
+        textStyle = styles.textStyleAccent;
+        break;
+
+      default:
+        buttonStyle = styles.buttonLight;
+        textStyle = styles.textStyleLight;
+        break;
+    }
   }
 
   const handleClick = (event) => {
@@ -46,36 +64,51 @@ const styles = StyleSheet.create({
     margin: size.margin,
     backgroundColor: colorPalette.white,
     borderRadius: size.borderRadius,
-    textAlign: "center",
     ...shadowProp,
   },
   textStyleDark: {
     ...text.body,
     color: colorPalette.forest,
+    textAlign: "center",
+  },
+  textStyleDarkMobile: {
+    ...text.bodyMobile,
+    color: colorPalette.forest,
+    textAlign: "center",
   },
   buttonLight: {
     padding: size.innerPadding,
     margin: size.margin,
     backgroundColor: colorPalette.forest,
     borderRadius: size.borderRadius,
-    textAlign: "center",
     ...shadowProp,
   },
   textStyleLight: {
     ...text.body,
     color: colorPalette.white,
+    textAlign: "center",
+  },
+  textStyleLightMobile: {
+    ...text.bodyMobile,
+    color: colorPalette.white,
+    textAlign: "center",
   },
   buttonAccent: {
     padding: size.innerPadding,
     margin: size.margin,
     backgroundColor: colorPalette.jade,
     borderRadius: size.borderRadius,
-    textAlign: "center",
     ...shadowProp,
   },
   textStyleAccent: {
     ...text.body,
     color: colorPalette.forest,
+    textAlign: "center",
+  },
+  textStyleAccentMobile: {
+    ...text.bodyMobile,
+    color: colorPalette.forest,
+    textAlign: "center",
   },
 });
 

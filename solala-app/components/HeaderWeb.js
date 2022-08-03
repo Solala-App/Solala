@@ -11,7 +11,6 @@ import {
 import { RFValue } from "react-native-responsive-fontsize";
 
 import LogoText from "../../assets/logo/SolalaLogoB.png";
-import Logo from "../../assets/logo/SolalaLogoLg.png";
 import * as Logos from "../../assets/logo_js";
 import { theme } from "../constants";
 
@@ -33,7 +32,7 @@ const Header = ({ navigation }) => {
       <SafeAreaView style={styles.headerBoxMobile}>
         <View style={styles.headerLeftMobile}>
           <Pressable onPress={HomePressEvent}>
-            <Text style={styles.navBar}>Home</Text>
+            <Text style={styles.navBarMobile}>Home</Text>
           </Pressable>
         </View>
         <View style={styles.headerCenter}>
@@ -46,7 +45,7 @@ const Header = ({ navigation }) => {
         </View>
         <View style={styles.headerRight}>
           <Pressable onPress={AboutPressEvent}>
-            <Text style={styles.navBar}>About</Text>
+            <Text style={styles.navBarMobile}>About</Text>
           </Pressable>
         </View>
       </SafeAreaView>
@@ -129,6 +128,9 @@ const styles = StyleSheet.create({
   },
   navBar: {
     ...text.h2,
+  },
+  navBarMobile: {
+    ...text.h2Mobile,
   },
 });
 

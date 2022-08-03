@@ -48,7 +48,7 @@ export const footerStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
-    height: RFValue(25),
+    height: RFValue(50),
     bottom: 0,
     position: "absolute",
   },

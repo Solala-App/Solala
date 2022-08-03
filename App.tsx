@@ -1,10 +1,10 @@
 import * as SplashScreen from "expo-splash-screen";
 import React, { useState, useCallback, useEffect } from "react";
-
-// import { StatusBar } from "expo-status-bar";
-// import { View, Text } from "react-native";
-import SolalaApp from "./solala-app";
+import "./config/firebase";
+import RootNavigation from "./solala-app/routes";
 import fonts from "./solala-app/constants";
+
+
 // import * as Screens from "./solala-app/screens";
 
 export default function App() {
@@ -42,5 +42,5 @@ export default function App() {
     return null;
   }
   //add a splashscreen
-  return <SolalaApp />;
+  return <RootNavigation />;
 }

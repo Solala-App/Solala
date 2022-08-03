@@ -1,8 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet, Platform, Pressable } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import { View, StyleSheet, Platform, Image } from "react-native";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
+import Vine from "../../../assets/graphics/Vine.png";
 import * as Graphics from "../../../assets/graphics_js";
+import LogoMobile from "../../../assets/logo/SolalaLogoLg.png";
 import * as Logo from "../../../assets/logo_js";
 import * as Components from "../../components";
 import { theme } from "../../constants";
@@ -20,12 +22,75 @@ export default function Login() {
   if (Platform.OS === "android" || Platform.OS === "ios") {
     return (
       <View style={styles.container}>
+        <View style={styles.vine}>
+          <Image
+            style={{
+              width: RFPercentage(75),
+              height: RFPercentage(10),
+              alignSelf: "center",
+            }}
+            source={Vine}
+          />
+        </View>
         <View style={styles.mainView}>
-          <View style={styles.column1} />
           <View style={styles.column2}>
-            <Logo.SolalaLogoLg />
+            <Image
+              style={{
+                height: RFValue(75),
+                width: RFValue(168),
+                alignSelf: "center",
+              }}
+              source={LogoMobile}
+            />
+            {!isLoggingIn && !isNewUser && (
+              <View>
+                <Components.Button
+                  title="Get Started"
+                  color="light"
+                  onClick={() => setNewUser(!isNewUser)}
+                />
+                <Components.Button
+                  title="Login"
+                  color="dark"
+                  onClick={() => setLoggingIn(!isLoggingIn)}
+                />
+              </View>
+            )}
+            {isNewUser && (
+              <View>
+                <Components.TextInputField
+                  placeholder="Create Username"
+                  color="accent"
+                />
+                <Components.TextInputField
+                  placeholder="Create Password"
+                  color="accent"
+                />
+                <Components.Button
+                  title="Create Account"
+                  color="light"
+                  onClick={() => setCreatingAccount(!isCreatingAccount)}
+                />
+              </View>
+            )}
+            {isLoggingIn && (
+              <View>
+                <Components.TextInputField
+                  placeholder="Username"
+                  color="accent"
+                />
+                <Components.TextInputField
+                  placeholder="Password"
+                  color="accent"
+                />
+                <Components.Button
+                  title="Login"
+                  color="light"
+                  onClick={() => setLoggingIntoAccount(!isLoggingIntoAccount)}
+                />
+              </View>
+            )}
           </View>
-          <View style={styles.column3} />
         </View>
         <Components.FooterWeb />
       </View>

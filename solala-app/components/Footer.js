@@ -58,7 +58,7 @@ export const footerStyles = StyleSheet.create({
     justifyContent: "space-around",
     width: "100%",
     height: RFValue(70),
-    bottom: 0,
+    bottom: RFValue(70),
   },
   button: {
     top: RFValue(10),

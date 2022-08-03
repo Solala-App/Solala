@@ -5,10 +5,11 @@
     "\\assets\\favicons_light",
     "\\solala-app",
     "\\solala-app\\components",
+    "\\solala-app\\constants",
     "\\solala-app\\screens",
     "\\solala-app\\screens\\app",
     "\\solala-app\\screens\\website"
   ],
-  "SelectedNode": "\\solala-app\\components\\Card.js",
+  "SelectedNode": "\\solala-app\\screens\\app\\todo.js",
   "PreviewInSolutionExplorer": false
 }

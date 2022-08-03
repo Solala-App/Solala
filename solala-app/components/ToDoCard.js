@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   Modal,
   Platform,
-  Image,
+  Image
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -82,6 +82,7 @@ const Item = ({ title }) => (
     </View>
   </View>
 );
+
 //showsVerticalScrollIndicator={false} ref={scrollRef} scrollEventThrottle={1} onScroll={(e) => setScrollPos(e.nativeEvent.contentOffset.y)}
 /* green bubble for menus */
 const ToDoCard = (props) => {
@@ -132,18 +133,8 @@ const ToDoCard = (props) => {
         }
     }
   });
-  return (
-    <SafeAreaView
-      style={[
-        cardStyles.card,
-        {
-          width:
-            props.title === Titles.TodayEvent ||
-            props.title === Titles.horizontal
-              ? "200%"
-              : "100%",
-        },
-      ]}>
+    return (
+        <SafeAreaView style={cardStyles.card}>
       <View style={cardStyles.cardHeader}>
         <View style={cardStyles.cardHeaderLeft} />
 
@@ -164,12 +155,7 @@ const ToDoCard = (props) => {
         </View>
       </View>
 
-      {!(props.title === Titles.horizontal) && (
-        <View
-                  style={{
-                      alignSelf: "stretch",
-                  height:RFValue(50)
-          }}>
+        <View style={{alignSelf: "stretch", flex:1}}>
 
             <FlatList
                 data={DATA}
@@ -181,22 +167,9 @@ const ToDoCard = (props) => {
                 keyExtractor={(item) => item.id}
             />
         </View>
-      )}
+     
       <View style={{ flexDirection: "row" }}>
-        {props.title === Titles.horizontal && (
-          <View style={{ flex: 9, marginStart: size.margin }}>
-            <FlatList
-              data={DATA}
-              ref={flatList}
-              horizontal
-              initialScrollIndex={0}
-              onViewableItemsChanged={onViewRef.current}
-              showsHorizontalScrollIndicator={false}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-            />
-          </View>
-        )}
+
         <View>
           {!(props.title === Titles.horizontal) && (
             <View style={{ flexDirection: "row" }}>
@@ -210,19 +183,6 @@ const ToDoCard = (props) => {
                 )}
             </View>
           )}
-          {props.title === Titles.horizontal && (
-            <View style={{ margin: size.innerPadding, flex: 1 }}>
-              <Pressable onPress={scrollsDown}>
-                <Favicon.ScrollRight style={{ width: RFValue(12) }} />
-                {(Platform.OS === "android" || Platform.OS === "ios") && (
-                  <Image
-                    style={{ width: RFValue(12), height: RFValue(12) }}
-                    source={ScrollRight}
-                  />
-                )}
-              </Pressable>
-            </View>
-          )}
         </View>
       </View>
     </SafeAreaView>
@@ -230,8 +190,8 @@ const ToDoCard = (props) => {
 };
 
 export const cardStyles = StyleSheet.create({
-    card: {
-      flex:1,
+  card: {
+    flex:1,
     backgroundColor: light.secondary,
     flexDirection: "column",
     borderRadius: size.borderRadius,
@@ -315,11 +275,11 @@ export const cardStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     },
-    scrollButton: {
+  scrollButton: {
         width: RFValue(12),
         height: RFValue(12),
         marginEnd: size.margin
-    }
+  }
 });
 
 export default ToDoCard;

@@ -141,13 +141,7 @@ const Card = (props) => {
     <SafeAreaView
       style={[
         cardStyles.card,
-        {
-          width:
-            props.title === Titles.TodayEvent ||
-            props.title === Titles.BodyCheck
-              ? "200%"
-              : "100%",
-        },
+        {flex: props.title === Titles.BodyCheck ? -1:1}
       ]}>
       <View style={cardStyles.cardHeader}>
         <View style={cardStyles.cardHeaderLeft} />
@@ -182,8 +176,7 @@ const Card = (props) => {
       {!(props.title === Titles.BodyCheck) && (
         <View
           style={{
-            alignSelf: "stretch",
-            height: props.title === Titles.TodayEvent ? RFValue(89) : RFValue(50),
+            alignSelf: "stretch", flex:1
           }}>
           <FlatList
             data={DATA}
@@ -200,7 +193,7 @@ const Card = (props) => {
       )}
       <View style={{ flexDirection: "row" }}>
         {props.title === Titles.BodyCheck && (
-          <View style={{ flex: 9, marginStart: size.margin }}>
+          <View style={{ flex: 9, marginStart: size.margin, paddingBottom: size.margin }}>
             <FlatList
               data={DATA}
               ref={flatList}
@@ -217,13 +210,13 @@ const Card = (props) => {
         )}
         <View>
           {!(props.title === Titles.BodyCheck) && (
-            <View style={{flexDirection:"row"}}>
+            <View style={{ flexDirection: "row" }}>
                 <Pressable onPress={scrollsDown}>
                     <Favicon.ScrollDown style={cardStyles.scrollButton} />
                 </Pressable>
-                { displayScrollUp === true && (
-                    <Pressable onPress={scrollUp }>
-                         <Favicon.ScrollUp style={cardStyles.scrollButton }/>
+                {displayScrollUp === true && (
+                    <Pressable onPress={scrollUp}>
+                        <Favicon.ScrollUp style={cardStyles.scrollButton} />
                     </Pressable>
                 )}
             </View>
@@ -231,13 +224,7 @@ const Card = (props) => {
           {props.title === Titles.BodyCheck && (
             <View style={{ margin: size.innerPadding, flex: 1 }}>
               <Pressable onPress={scrollsDown}>
-                <Favicon.ScrollRight style={{ width: RFValue(12) }} />
-                {(Platform.OS === "android" || Platform.OS === "ios") && (
-                  <Image
-                    style={{ width: RFValue(12), height: RFValue(12) }}
-                    source={ScrollRight}
-                  />
-                )}
+                <Favicon.ScrollRight style={cardStyles.scrollButton} />
               </Pressable>
             </View>
           )}
@@ -248,15 +235,14 @@ const Card = (props) => {
 };
 
 export const cardStyles = StyleSheet.create({
-  card: {
+  card: { 
     backgroundColor: light.secondary,
     flexDirection: "column",
     borderRadius: size.borderRadius,
     opacity: 0.7,
     paddingBottom: size.innerPadding,
     alignItems: "center",
-    ...shadowProp,
-    width: "100%",
+    ...shadowProp
   },
 
   cardHeader: {

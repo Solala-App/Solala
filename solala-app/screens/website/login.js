@@ -107,6 +107,7 @@ export default function Login() {
             <Logo.SolalaLogoLg
               style={{ width: RFValue(100), alignSelf: "center" }}
             />
+            //Our landing page: create account or login
             {!isLoggingIn && !isNewUser && (
               <View>
                 <Components.Button
@@ -121,6 +122,7 @@ export default function Login() {
                 />
               </View>
             )}
+            //Create Account
             {isNewUser && (
               <View>
                 <Components.TextInputField
@@ -138,6 +140,7 @@ export default function Login() {
                 />
               </View>
             )}
+            //Login
             {isLoggingIn && (
               <View>
                 <Components.TextInputField

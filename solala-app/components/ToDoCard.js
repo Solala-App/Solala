@@ -19,6 +19,7 @@ import ScrollRight from "../../assets/favicons_light/ScrollRight.png";
 import { theme } from "../constants";
 import CheckBoxComponent from "./CheckBoxComponent";
 import TaskPopup from "./TaskPopup.js";
+import Zoom from "./Zoom.js";
 const { light, size, text, shadowProp } = theme;
 
 // npm install @react-native-community/slider --save
@@ -61,12 +62,8 @@ const DATA = [
   },
 ];
 
-let h;
-const onLayoutEvent = (evt) => {
-  h = evt.nativeEvent.layout.height;
-};
-const Item = ({ title }) => (
-  <View style={cardStyles.cardItem} onLayout={onLayoutEvent}>
+const Item = ({ title, zoom }) => (
+  <View style={cardStyles.cardItem}>
     <View style={cardStyles.cardObjectLeft}>
       <CheckBoxComponent
         onChange={(checked) => {
@@ -78,28 +75,46 @@ const Item = ({ title }) => (
       />
     </View>
     <View style={cardStyles.cardObjectRight}>
-      <Text style={cardStyles.cardObjectText}>{title}</Text>
+      <Pressable onPress={zoom}>
+        <Text style={cardStyles.cardObjectText}>{title}</Text>
+      </Pressable>
     </View>
   </View>
 );
+
 //showsVerticalScrollIndicator={false} ref={scrollRef} scrollEventThrottle={1} onScroll={(e) => setScrollPos(e.nativeEvent.contentOffset.y)}
+
 /* green bubble for menus */
 const ToDoCard = (props) => {
   const renderItem = ({ item }) => (
-    <Item title={item.title} type={props.title} />
+    <Item title={item.title} zoom={handleZoomVisible} />
   );
+
   const [isModalVisible, setIsModalVisible] = React.useState(false);
-  const [scrollIndex, setScrollIndex] = React.useState(0);
+  const [isZoomVisible, setZoomVisible] = React.useState(false);
+  const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
+  const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
+  const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
+
   const flatList = useRef();
 
+  const handleZoomVisible = () => {
+    setZoomVisible(() => !isZoomVisible);
+  };
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
   };
 
   const scrollsDown = () => {
-    if (scrollIndex < DATA.length) {
-      setScrollIndex(scrollIndex + 1);
-      flatList.current.scrollToIndex({ index: scrollIndex });
+    if (scrollDownIndex < DATA.length) {
+      setScrollDownIndex(scrollDownIndex + 1);
+      flatList.current.scrollToIndex({ index: scrollDownIndex });
+    }
+  };
+  const scrollUp = () => {
+    if (scrollUpIndex >= 0) {
+      setScrollUpIndex(scrollUpIndex - 1);
+      flatList.current.scrollToIndex({ index: scrollUpIndex });
     }
   };
   const onViewRef = React.useRef((viewableItems) => {
@@ -108,24 +123,20 @@ const ToDoCard = (props) => {
         viewableItems.viewableItems.length - 1
       ] !== "undefined"
     ) {
-      setScrollIndex(
+      setScrollDownIndex(
         viewableItems.viewableItems[viewableItems.viewableItems.length - 1]
           .index
       );
+      setScrollUpIndex(viewableItems.viewableItems[0].index - 1);
+      if (viewableItems.viewableItems[0].index === 0) {
+        setDisplayScrollUp(false);
+      } else {
+        setDisplayScrollUp(true);
+      }
     }
   });
   return (
-    <SafeAreaView
-      style={[
-        cardStyles.card,
-        {
-          width:
-            props.title === Titles.TodayEvent ||
-            props.title === Titles.horizontal
-              ? "200%"
-              : "100%",
-        },
-      ]}>
+    <SafeAreaView style={cardStyles.card}>
       <View style={cardStyles.cardHeader}>
         <View style={cardStyles.cardHeaderLeft} />
 
@@ -143,65 +154,34 @@ const ToDoCard = (props) => {
           <Modal visible={isModalVisible} transparent>
             <TaskPopup isModalVisible={handleAddObject} />
           </Modal>
+          {isZoomVisible === true && <Zoom />}
         </View>
       </View>
 
-      {!(props.title === Titles.horizontal) && (
-        <View
-          style={{
-            alignSelf: "stretch",
-            height:
-              props.title === Titles.TodayEvent ? RFValue(89) : RFValue(59),
-          }}>
-          <FlatList
-            data={DATA}
-            ref={flatList}
-            initialScrollIndex={0}
-            onViewableItemsChanged={onViewRef.current}
-            showsVerticalScrollIndicator={false}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
-      )}
+      <View style={{ alignSelf: "stretch", flex: 1 }}>
+        <FlatList
+          data={DATA}
+          ref={flatList}
+          initialScrollIndex={0}
+          onViewableItemsChanged={onViewRef.current}
+          showsVerticalScrollIndicator={false}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
+
       <View style={{ flexDirection: "row" }}>
-        {props.title === Titles.horizontal && (
-          <View style={{ flex: 9, marginStart: size.margin }}>
-            <FlatList
-              data={DATA}
-              ref={flatList}
-              horizontal
-              initialScrollIndex={0}
-              onViewableItemsChanged={onViewRef.current}
-              showsHorizontalScrollIndicator={false}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-            />
-          </View>
-        )}
         <View>
           {!(props.title === Titles.horizontal) && (
-            <Pressable onPress={scrollsDown}>
-              <Favicon.ScrollDown style={{ width: RFValue(12) }} />
-              {(Platform.OS === "android" || Platform.OS === "ios") && (
-                <Image
-                  style={{ width: RFValue(12), height: RFValue(12) }}
-                  source={ScrollDown}
-                />
-              )}
-            </Pressable>
-          )}
-          {props.title === Titles.horizontal && (
-            <View style={{ margin: size.innerPadding, flex: 1 }}>
+            <View style={{ flexDirection: "row" }}>
               <Pressable onPress={scrollsDown}>
-                <Favicon.ScrollRight style={{ width: RFValue(12) }} />
-                {(Platform.OS === "android" || Platform.OS === "ios") && (
-                  <Image
-                    style={{ width: RFValue(12), height: RFValue(12) }}
-                    source={ScrollRight}
-                  />
-                )}
+                <Favicon.ScrollDown style={cardStyles.scrollButton} />
               </Pressable>
+              {displayScrollUp === true && (
+                <Pressable onPress={scrollUp}>
+                  <Favicon.ScrollUp style={cardStyles.scrollButton} />
+                </Pressable>
+              )}
             </View>
           )}
         </View>
@@ -212,6 +192,7 @@ const ToDoCard = (props) => {
 
 export const cardStyles = StyleSheet.create({
   card: {
+    flex: 1,
     backgroundColor: light.secondary,
     flexDirection: "column",
     borderRadius: size.borderRadius,
@@ -294,6 +275,11 @@ export const cardStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  scrollButton: {
+    width: RFValue(12),
+    height: RFValue(12),
+    marginEnd: size.margin,
   },
 });
 

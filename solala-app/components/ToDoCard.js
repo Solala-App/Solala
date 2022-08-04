@@ -59,7 +59,7 @@ const DATA = [
   {
     id: "58694a0f-3da1-471f-bd96-145571e20d74",
     title: "Sixth Item",
-    },
+  },
 ];
 
 const Item = ({ title, zoom }) => (
@@ -83,7 +83,7 @@ const Item = ({ title, zoom }) => (
 );
 
 //showsVerticalScrollIndicator={false} ref={scrollRef} scrollEventThrottle={1} onScroll={(e) => setScrollPos(e.nativeEvent.contentOffset.y)}
- 
+
 /* green bubble for menus */
 const ToDoCard = (props) => {
   const renderItem = ({ item }) => (
@@ -100,7 +100,7 @@ const ToDoCard = (props) => {
 
   const handleZoomVisible = () => {
     setZoomVisible(() => !isZoomVisible);
-  }
+  };
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
   };
@@ -154,9 +154,7 @@ const ToDoCard = (props) => {
           <Modal visible={isModalVisible} transparent>
             <TaskPopup isModalVisible={handleAddObject} />
           </Modal>
-          {isZoomVisible === true && (
-            <Zoom />
-          )}
+          {isZoomVisible === true && <Zoom />}
         </View>
       </View>
 

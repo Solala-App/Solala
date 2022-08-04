@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: light.primary,
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height - 63,
+    height: Dimensions.get("window").height - RFValue(25),
   },
   mainView: {
     flex: 1,

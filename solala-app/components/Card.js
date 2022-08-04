@@ -58,22 +58,22 @@ const DATA = [
   {
     id: "58694a0f-3da1-471f-bd96-145571e20d74",
     title: "Sixth Item",
-    },
-    {
-        id: "1",
-        title: "qwertyuio"
-    },
-    {
-        id: "1",
-        title: "qwertyuio"
-    },
-    {
-        id: "1",
-        title: "qwertyuio"
-    }
+  },
+  {
+    id: "1",
+    title: "qwertyuio",
+  },
+  {
+    id: "1",
+    title: "qwertyuio",
+  },
+  {
+    id: "1",
+    title: "qwertyuio",
+  },
 ];
 
-const Item = ({ title, type, zoom}) => (
+const Item = ({ title, type, zoom }) => (
   <View style={cardStyles.cardItem}>
     <View style={cardStyles.cardObjectLeft}>
       {type === Titles.HighPriority && (
@@ -91,9 +91,9 @@ const Item = ({ title, type, zoom}) => (
       )}
     </View>
     <View style={cardStyles.cardObjectRight}>
-        <Pressable onPress={zoom}>
-                <Text style={cardStyles.cardObjectText}>{title}</Text>
-        </Pressable>
+      <Pressable onPress={zoom}>
+        <Text style={cardStyles.cardObjectText}>{title}</Text>
+      </Pressable>
     </View>
   </View>
 );
@@ -116,9 +116,9 @@ const Card = (props) => {
   const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
   const flatList = useRef();
 
-    const handleZoomVisible = () => {
-        setZoomVisible(() => !isZoomVisible);
-    }
+  const handleZoomVisible = () => {
+    setZoomVisible(() => !isZoomVisible);
+  };
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
   };
@@ -190,9 +190,7 @@ const Card = (props) => {
           )}
         </View>
       </View>
-        {isZoomVisible === true && (
-            <Zoom />
-        )}
+      {isZoomVisible === true && <Zoom />}
       {!(props.title === Titles.BodyCheck) && (
         <View
           style={{

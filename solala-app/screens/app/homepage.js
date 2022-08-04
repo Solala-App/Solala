@@ -5,8 +5,10 @@ import * as Components from "../../components";
 import { Titles } from "../../components/Card.js";
 import { theme } from "../../constants";
 const { light, size } = theme;
+import { useAuthentication } from "../utils/hooks/useAuthentication";
 
 export default function Homepage() {
+  const { user } = useAuthentication();
   return (
     <View style={styles.container}>
       <View style={styles.mainView}>

@@ -1,5 +1,17 @@
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import React from "react";
-import { View, StyleSheet, Platform, Image } from "react-native";
+import {
+  TextInput,
+  View,
+  StyleSheet,
+  Platform,
+  Image,
+  Text,
+} from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 import Vine from "../../../assets/graphics/Vine.png";
@@ -10,8 +22,54 @@ import * as Components from "../../components";
 import { theme } from "../../constants";
 
 const { light, size, text, colorPalette, shadowProp } = theme;
+const auth = getAuth();
 
-export default function Login() {
+export default function Login({ navigation }) {
+  const [value, setValue] = React.useState({
+    email: "",
+    password: "",
+    error: "",
+  });
+
+  async function signUp() {
+    if (value.email === "" || value.password === "") {
+      setValue({
+        ...value,
+        error: "Email and password are mandatory.",
+      });
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, value.email, value.password);
+      navigation.navigate("Sign In");
+    } catch (error) {
+      setValue({
+        ...value,
+        error: error.message,
+      });
+    }
+  }
+
+  async function signIn() {
+    if (value.email === "" || value.password === "") {
+      setValue({
+        ...value,
+        error: "Email and password are mandatory.",
+      });
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, value.email, value.password);
+    } catch (error) {
+      setValue({
+        ...value,
+        error: error.message,
+      });
+    }
+  }
+
   const [isLoggingIn, setLoggingIn] = React.useState(false);
   const [isNewUser, setNewUser] = React.useState(false);
   const [isCreatingAccount, setCreatingAccount] = React.useState(false);
@@ -42,6 +100,11 @@ export default function Login() {
               }}
               source={LogoMobile}
             />
+            {!!value.error && (
+              <View style={styles.error}>
+                <Text>{value.error}</Text>
+              </View>
+            )}
             {!isLoggingIn && !isNewUser && (
               <View>
                 <Components.Button
@@ -58,10 +121,6 @@ export default function Login() {
             )}
             {isNewUser && (
               <View>
-                <Components.TextInputField
-                  placeholder="Create Username"
-                  color="accent"
-                />
                 <Components.TextInputField
                   placeholder="Create Password"
                   color="accent"
@@ -123,35 +182,57 @@ export default function Login() {
             )}
             {isNewUser && (
               <View>
-                <Components.TextInputField
-                  placeholder="Create Username"
-                  color="accent"
-                />
-                <Components.TextInputField
-                  placeholder="Create Password"
-                  color="accent"
-                />
+                <View style={styles.textInput}>
+                  <TextInput
+                    onChangeText={(text) => setValue({ ...value, email: text })}
+                    value={value.email}
+                    placeholder="Email"
+                    placeholderTextColor={colorPalette.forest}
+                  />
+                </View>
+                <View style={styles.textInput}>
+                  <TextInput
+                    onChangeText={(text) =>
+                      setValue({ ...value, password: text })
+                    }
+                    value={value.password}
+                    secureTextEntry
+                    placeholder="Create Password"
+                    placeholderTextColor={colorPalette.forest}
+                  />
+                </View>
                 <Components.Button
                   title="Create Account"
                   color="light"
-                  onClick={() => setCreatingAccount(!isCreatingAccount)}
+                  onClick={() => signUp()}
                 />
               </View>
             )}
             {isLoggingIn && (
               <View>
-                <Components.TextInputField
-                  placeholder="Username"
-                  color="accent"
-                />
-                <Components.TextInputField
-                  placeholder="Password"
-                  color="accent"
-                />
+                <View style={styles.textInput}>
+                  <TextInput
+                    onChangeText={(text) => setValue({ ...value, email: text })}
+                    value={value.email}
+                    placeholder="Email"
+                    placeholderTextColor={colorPalette.forest}
+                  />
+                </View>
+                <View style={styles.textInput}>
+                  <TextInput
+                    onChangeText={(text) =>
+                      setValue({ ...value, password: text })
+                    }
+                    value={value.password}
+                    secureTextEntry
+                    placeholder="Password"
+                    placeholderTextColor={colorPalette.forest}
+                  />
+                </View>
                 <Components.Button
                   title="Login"
                   color="light"
-                  onClick={() => setLoggingIntoAccount(!isLoggingIntoAccount)}
+                  onClick={() => signIn()}
                 />
               </View>
             )}
@@ -237,5 +318,13 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     marginBottom: size.margin,
+  },
+  textInput: {
+    padding: size.innerPadding,
+    margin: size.margin,
+    backgroundColor: colorPalette.jade,
+    borderRadius: size.borderRadius,
+    alignSelf: "stretch",
+    ...shadowProp,
   },
 });

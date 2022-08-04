@@ -1,4 +1,4 @@
-import React, { } from "react";
+import React from "react";
 import { View, StyleSheet, Dimensions, Platform } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -10,39 +10,36 @@ const { light, size } = theme;
 export default function Homepage() {
   return (
     <View style={styles.container}>
-          <View style={styles.mainView}>
-              <View style={styles.row}>
-                  <View style={styles.card}>
-                      <Components.Card title={Titles.TodayEvent} />
-                  </View>
-
-              </View>
-              <View style={styles.row}>
-                  <View style={styles.card}>
-                      <Components.Card title={Titles.HighPriority} />
-                  </View>
-                  <View style={styles.card}>
-                      <Components.Card title={Titles.Upcoming} />
-                  </View>
-              </View>
-              <View style={styles.row}>
-                  <View style={styles.card}>
-                      <Components.Card title={Titles.BodyCheck} />
-                  </View>
-
-              </View>
+      <View style={styles.mainView}>
+        <View style={styles.row}>
+          <View style={styles.card}>
+            <Components.Card title={Titles.TodayEvent} />
           </View>
+        </View>
+        <View style={styles.row}>
+          <View style={styles.card}>
+            <Components.Card title={Titles.HighPriority} />
+          </View>
+          <View style={styles.card}>
+            <Components.Card title={Titles.Upcoming} />
+          </View>
+        </View>
+        <View style={styles.row}>
+          <View style={styles.card}>
+            <Components.Card title={Titles.BodyCheck} />
+          </View>
+        </View>
+      </View>
       <Components.Footer />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: light.primary,
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height - 63,
-
+  container: {
+    backgroundColor: light.primary,
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height - 63,
   },
   mainView: {
     flex: 1,
@@ -51,8 +48,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: size.padding,
     paddingRight: size.padding,
-    paddingTop: size.padding, 
-    paddingBottom: Platform.OS === 'ios' || Platform.OS === 'android' ? RFValue(70) + size.padding : size.padding,
+    paddingTop: size.padding,
+    paddingBottom: size.padding,
   },
   row: {
     flexDirection: "row",
@@ -61,6 +58,6 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    margin: size.margin
-   },
+    margin: size.margin,
+  },
 });

@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   Modal,
   Platform,
-  Image
+  Image,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -59,11 +59,10 @@ const DATA = [
   {
     id: "58694a0f-3da1-471f-bd96-145571e20d74",
     title: "Sixth Item",
-  },
+    },
 ];
 
-
-const Item = ({ title }) => (
+const Item = ({ title, zoom }) => (
   <View style={cardStyles.cardItem}>
     <View style={cardStyles.cardObjectLeft}>
       <CheckBoxComponent
@@ -76,27 +75,32 @@ const Item = ({ title }) => (
       />
     </View>
     <View style={cardStyles.cardObjectRight}>
-            <Pressable onPress={() => console.log("PRESS") }>
-                <Text style={cardStyles.cardObjectText}>{title}</Text>
-            </Pressable>
+      <Pressable onPress={zoom}>
+        <Text style={cardStyles.cardObjectText}>{title}</Text>
+      </Pressable>
     </View>
   </View>
 );
 
 //showsVerticalScrollIndicator={false} ref={scrollRef} scrollEventThrottle={1} onScroll={(e) => setScrollPos(e.nativeEvent.contentOffset.y)}
+ 
 /* green bubble for menus */
 const ToDoCard = (props) => {
   const renderItem = ({ item }) => (
-      <Item title={item.title} type={props.title} />
-    );
+    <Item title={item.title} zoom={handleZoomVisible} />
+  );
 
   const [isModalVisible, setIsModalVisible] = React.useState(false);
-    const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
-    const [scrollUpIndex, setScrollUpIndex] = React.useState(0)
-    const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
+  const [isZoomVisible, setZoomVisible] = React.useState(false);
+  const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
+  const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
+  const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
 
   const flatList = useRef();
 
+  const handleZoomVisible = () => {
+    setZoomVisible(() => !isZoomVisible);
+  }
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
   };
@@ -106,13 +110,13 @@ const ToDoCard = (props) => {
       setScrollDownIndex(scrollDownIndex + 1);
       flatList.current.scrollToIndex({ index: scrollDownIndex });
     }
-    };
-    const scrollUp = () => {
-        if (scrollUpIndex >= 0) {
-            setScrollUpIndex(scrollUpIndex - 1);
-            flatList.current.scrollToIndex({ index: scrollUpIndex });
-        }
+  };
+  const scrollUp = () => {
+    if (scrollUpIndex >= 0) {
+      setScrollUpIndex(scrollUpIndex - 1);
+      flatList.current.scrollToIndex({ index: scrollUpIndex });
     }
+  };
   const onViewRef = React.useRef((viewableItems) => {
     if (
       typeof viewableItems.viewableItems[
@@ -122,19 +126,17 @@ const ToDoCard = (props) => {
       setScrollDownIndex(
         viewableItems.viewableItems[viewableItems.viewableItems.length - 1]
           .index
-        );
-        setScrollUpIndex(
-            viewableItems.viewableItems[0].index-1
-        );
-        if (viewableItems.viewableItems[0].index === 0) {
-            setDisplayScrollUp(false)
-        } else {
-            setDisplayScrollUp(true)
-        }
+      );
+      setScrollUpIndex(viewableItems.viewableItems[0].index - 1);
+      if (viewableItems.viewableItems[0].index === 0) {
+        setDisplayScrollUp(false);
+      } else {
+        setDisplayScrollUp(true);
+      }
     }
   });
-    return (
-        <SafeAreaView style={cardStyles.card}>
+  return (
+    <SafeAreaView style={cardStyles.card}>
       <View style={cardStyles.cardHeader}>
         <View style={cardStyles.cardHeaderLeft} />
 
@@ -152,35 +154,36 @@ const ToDoCard = (props) => {
           <Modal visible={isModalVisible} transparent>
             <TaskPopup isModalVisible={handleAddObject} />
           </Modal>
+          {isZoomVisible === true && (
+            <Zoom />
+          )}
         </View>
       </View>
 
-        <View style={{alignSelf: "stretch", flex:1}}>
+      <View style={{ alignSelf: "stretch", flex: 1 }}>
+        <FlatList
+          data={DATA}
+          ref={flatList}
+          initialScrollIndex={0}
+          onViewableItemsChanged={onViewRef.current}
+          showsVerticalScrollIndicator={false}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
 
-            <FlatList
-                data={DATA}
-                ref={flatList}
-                initialScrollIndex={0}
-                onViewableItemsChanged={onViewRef.current}
-                showsVerticalScrollIndicator={false}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-            />
-        </View>
-     
       <View style={{ flexDirection: "row" }}>
-
         <View>
           {!(props.title === Titles.horizontal) && (
             <View style={{ flexDirection: "row" }}>
-                <Pressable onPress={scrollsDown}>
-                    <Favicon.ScrollDown style={cardStyles.scrollButton} />
+              <Pressable onPress={scrollsDown}>
+                <Favicon.ScrollDown style={cardStyles.scrollButton} />
+              </Pressable>
+              {displayScrollUp === true && (
+                <Pressable onPress={scrollUp}>
+                  <Favicon.ScrollUp style={cardStyles.scrollButton} />
                 </Pressable>
-                {displayScrollUp === true && (
-                    <Pressable onPress={scrollUp}>
-                        <Favicon.ScrollUp style={cardStyles.scrollButton} />
-                    </Pressable>
-                )}
+              )}
             </View>
           )}
         </View>
@@ -191,7 +194,7 @@ const ToDoCard = (props) => {
 
 export const cardStyles = StyleSheet.create({
   card: {
-    flex:1,
+    flex: 1,
     backgroundColor: light.secondary,
     flexDirection: "column",
     borderRadius: size.borderRadius,
@@ -274,12 +277,12 @@ export const cardStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    },
+  },
   scrollButton: {
-        width: RFValue(12),
-        height: RFValue(12),
-        marginEnd: size.margin
-  }
+    width: RFValue(12),
+    height: RFValue(12),
+    marginEnd: size.margin,
+  },
 });
 
 export default ToDoCard;

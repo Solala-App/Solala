@@ -186,7 +186,7 @@ export default function Login({ navigation }) {
                   <TextInput
                     onChangeText={(text) => setValue({ ...value, email: text })}
                     value={value.email}
-                    placeholder={"Email"}
+                    placeholder="Email"
                     placeholderTextColor={colorPalette.forest}
                   />
                 </View>
@@ -196,8 +196,8 @@ export default function Login({ navigation }) {
                       setValue({ ...value, password: text })
                     }
                     value={value.password}
-                    secureTextEntry={true}
-                    placeholder={"Create Password"}
+                    secureTextEntry
+                    placeholder="Create Password"
                     placeholderTextColor={colorPalette.forest}
                   />
                 </View>
@@ -214,7 +214,7 @@ export default function Login({ navigation }) {
                   <TextInput
                     onChangeText={(text) => setValue({ ...value, email: text })}
                     value={value.email}
-                    placeholder={"Email"}
+                    placeholder="Email"
                     placeholderTextColor={colorPalette.forest}
                   />
                 </View>
@@ -224,8 +224,8 @@ export default function Login({ navigation }) {
                       setValue({ ...value, password: text })
                     }
                     value={value.password}
-                    secureTextEntry={true}
-                    placeholder={"Password"}
+                    secureTextEntry
+                    placeholder="Password"
                     placeholderTextColor={colorPalette.forest}
                   />
                 </View>

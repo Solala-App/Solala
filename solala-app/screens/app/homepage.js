@@ -4,8 +4,8 @@ import { View, StyleSheet } from "react-native";
 import * as Components from "../../components";
 import { Titles } from "../../components/Card.js";
 import { theme } from "../../constants";
-const { light, size } = theme;
 import { useAuthentication } from "../utils/hooks/useAuthentication";
+const { light, size } = theme;
 
 export default function Homepage() {
   const { user } = useAuthentication();

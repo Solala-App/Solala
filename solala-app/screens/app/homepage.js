@@ -5,9 +5,11 @@ import { RFValue } from "react-native-responsive-fontsize";
 import * as Components from "../../components";
 import { Titles } from "../../components/Card.js";
 import { theme } from "../../constants";
+import { useAuthentication } from "../utils/hooks/useAuthentication";
 const { light, size } = theme;
 
 export default function Homepage() {
+  const { user } = useAuthentication();
   return (
     <View style={styles.container}>
       <View style={styles.mainView}>

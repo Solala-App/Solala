@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import { signOut, getAuth } from "firebase/auth";
 import * as React from "react";
 import {
   Text,
@@ -45,6 +46,8 @@ const SvgSunMobile = (props) => (
   </Svg>
 );
 
+const auth = getAuth();
+
 const Header = (props) => {
   const navigation = useNavigation();
 
@@ -53,6 +56,9 @@ const Header = (props) => {
   };
   const ToDoPressEvent = () => {
     navigation.navigate("Todo");
+  };
+  const handleSignOut = () => {
+    signOut(auth);
   };
   if (Platform.OS === "ios" || Platform.OS === "android") {
     return (
@@ -106,6 +112,9 @@ const Header = (props) => {
         <View style={styles.headerRight}>
           <TouchableOpacity onPress={ToDoPressEvent}>
             <Favicon.ToDoList style={styles.placeholder} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleSignOut}>
+            <Favicon.LogOut style={styles.placeholder} />
           </TouchableOpacity>
         </View>
       </View>

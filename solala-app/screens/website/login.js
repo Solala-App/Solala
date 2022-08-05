@@ -130,6 +130,7 @@ export default function Login({ navigation }) {
                 <Components.TextInputField
                   placeholder="Create Password"
                   color="accent"
+                  textContentType="password"
                 />
                 <Components.Button
                   title="Create Account"
@@ -143,10 +144,12 @@ export default function Login({ navigation }) {
                 <Components.TextInputField
                   placeholder="Username"
                   color="accent"
+                  textContentType="username"
                 />
                 <Components.TextInputField
                   placeholder="Password"
                   color="accent"
+                  textContentType="password"
                 />
                 <Components.Button
                   title="Login"

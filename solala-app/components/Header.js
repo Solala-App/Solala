@@ -64,6 +64,7 @@ const Header = (props) => {
   const handleSignOut = () => {
     signOut(auth);
   };
+  const WeatherIcon = props.icon;
   if (Platform.OS === "ios" || Platform.OS === "android") {
     return (
       <SafeAreaView style={styles.headerBoxMobile}>
@@ -79,7 +80,14 @@ const Header = (props) => {
           }}>
           <View style={styles.greetingMobile}>
             <Text style={styles.textBubbleMobile}>{props.greeting}</Text>
-            <Image source={Rain} style={styles.weatherMobile} />
+            <Image
+              // source={{
+              //   uri: `http://openweathermap.org/img/wn/${props.icon}@4x.png`,
+              // }}
+              source={props.icon}
+              style={styles.weatherMobile}
+            />
+            {/* <WeatherIcon style={styles.weatherMobile} /> */}
           </View>
           <Text style={styles.announcementMobile}>{props.announcement}</Text>
         </View>
@@ -110,7 +118,14 @@ const Header = (props) => {
               }}>
               <Text style={styles.textBubble}>
                 {props.greeting}
-                <Image source={Rain} style={styles.placeholderWeather} />
+                <Image
+                  // source={{
+                  //   uri: `http://openweathermap.org/img/wn/${props.icon}@4x.png`,
+                  // }}
+                  source={props.icon}
+                  style={styles.placeholderWeather}
+                />
+                {/* <WeatherIcon style={styles.placeholderWeather} /> */}
               </Text>
             </View>
             <Text style={styles.announcement}>{props.announcement}</Text>

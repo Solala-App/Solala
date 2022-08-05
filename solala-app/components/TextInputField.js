@@ -36,6 +36,7 @@ const TextInputField = (props) => {
           placeholder="useless placeholder"
           numberOfLines={props.numberOfLines}
           placeholderTextColor={textStyle}
+          textContentType={props.textContentType}
         />
       </View>
     );

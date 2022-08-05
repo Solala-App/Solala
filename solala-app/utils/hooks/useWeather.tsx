@@ -52,11 +52,27 @@ interface Weather {
 
 const getWeatherIcon = (name?: string): string => {
   switch (name) {
-    case "Rain":
-      return weatherIcons.Rain;
-
-    default:
+    case "Clear":
       return weatherIcons.Sun;
+    case "Clouds":
+      return weatherIcons.Cloudy;
+    case "Rain":
+    case "Drizzle":
+      return weatherIcons.Rain;
+    case "Thunderstorm":
+      return weatherIcons.Thunderstorm;
+    case "Mist":
+    case "Smoke":
+    case "Haze":
+    case "Dust":
+    case "Fog":
+    case "Sand":
+    case "Ash":
+      return weatherIcons.Mist;
+    case "Snow":
+      return weatherIcons.Snow;
+    default:
+      return weatherIcons.Loading;
   }
 };
 
@@ -104,7 +120,7 @@ export function useWeather(): UseWeatherReturn {
   });
 
   const weather = forecast?.weather ? forecast?.weather[0] : undefined;
-  const weatherIcon = getWeatherIcon(weather?.icon);
+  const weatherIcon = getWeatherIcon(weather?.main);
 
   console.log({ forecast, weather, weatherIcon });
 

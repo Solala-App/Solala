@@ -9,6 +9,8 @@ const { light, size } = theme;
 
 //<Components.SelectionButton title="Date:" data="Dates" />
 export default function Todo() {
+  const moment = require("moment");
+  let now = moment().format("dddd");
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
@@ -25,21 +27,27 @@ export default function Todo() {
             <Components.ToDoCard title={Titles.Monday} />
           </View>
           <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Monday} />
+            <Components.ToDoCard title={Titles.Tuesday} />
           </View>
           <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Monday} />
+            <Components.ToDoCard title={Titles.Wednesday} />
+          </View>
+          <View style={styles.card}>
+            <Components.ToDoCard title={Titles.Thursday} />
           </View>
         </View>
         <View style={styles.row}>
           <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Monday} />
+            <Components.ToDoCard title={Titles.Friday} />
           </View>
           <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Monday} />
+            <Components.ToDoCard title={Titles.Saturday} />
           </View>
           <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Monday} />
+            <Components.ToDoCard title={Titles.Sunday} />
+          </View>
+          <View style={styles.card}>
+            <Components.ToDoCard title={Titles.NextWeek} />
           </View>
         </View>
       </View>

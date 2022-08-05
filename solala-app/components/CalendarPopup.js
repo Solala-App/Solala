@@ -272,7 +272,7 @@ export const cardStyles = StyleSheet.create({
     textAlign: "center",
     justifyContent: "center",
     fontSize: 20,
-    color: "green",
+    color: light.textSecondary,
   },
   popupCheck: {
     marginTop: 10,

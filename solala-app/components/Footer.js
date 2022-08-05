@@ -20,7 +20,7 @@ const Footer = ({ navigation }) => {
     navigation.navigate("Todo");
   };
 
-  if (Platform.OS === "ios" || Platform.OS == "android") {
+  if (Platform.OS === "ios" || Platform.OS === "android") {
     return (
       <View style={footerStyles.boxMobile}>
         <Pressable onPress={handleGreenHousePress}>

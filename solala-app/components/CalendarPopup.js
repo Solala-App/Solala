@@ -12,6 +12,8 @@ import {
   Image,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import Calendar from "./Calendar";
+import SelectionButton from "./SelectionButton";
 
 import Check from "../../assets/favicons_dark/Check.png";
 import ScrollLeft from "../../assets/favicons_dark/ScrollLeft.png";
@@ -28,28 +30,11 @@ const { light, size, text, shadowProp } = theme;
 const CalendarPopup = (props) => {
   const [priorityValue, setPriorityValue] = React.useState(15);
   const [complexityValue, setComplexityValue] = React.useState(15);
-  const [repeatIndex, setRepeatIndex] = React.useState(0);
   const [tempNotes, setTempNotes] = React.useState("");
   const [notes, setNotes] = React.useState("");
 
-  const repeatOptions = ["None", "Daily", "Weekly", "Monthly"];
   const [category, setCategory] = React.useState("key0");
 
-  const scrollLeft = () => {
-    if (repeatIndex === 0) {
-      setRepeatIndex(repeatOptions.length - 1);
-    } else {
-      setRepeatIndex(() => repeatIndex - 1);
-    }
-  };
-
-  const scrollRight = () => {
-    if (repeatIndex === repeatOptions.length - 1) {
-      setRepeatIndex(0);
-    } else {
-      setRepeatIndex(() => repeatIndex + 1);
-    }
-  };
   return (
     <ScrollView>
       <View style={cardStyles.centeredView}>
@@ -70,42 +55,12 @@ const CalendarPopup = (props) => {
               </Pressable>
             </View>
           </View>
-          <View style={cardStyles.popupLabel}>
-            <View style={cardStyles.centeredView}>
-              <Text style={cardStyles.popupLabelText}> Date: </Text>
-            </View>
+          <View style={cardStyles.calendar}>
+            <Calendar />
           </View>
-          <View style={cardStyles.calendar} />
           {props.displayRepeat === true && (
             <View style={cardStyles.popupLabel}>
-              <Text style={cardStyles.popupLabelText}> Repeat </Text>
-              <View style={cardStyles.centeredView}>
-                <Pressable onPress={scrollLeft}>
-                  <Favicon.ScrollLeft style={{ width: 10 }} />
-                  {(Platform.OS === "ios" || Platform.OS === "android") && (
-                    <Image
-                      source={ScrollLeft}
-                      style={{ width: 15, height: 15 }}
-                    />
-                  )}
-                </Pressable>
-
-                <View style={cardStyles.repeatText}>
-                  <Text style={cardStyles.popupLabelText}>
-                    {" "}
-                    {repeatOptions[repeatIndex]}{" "}
-                  </Text>
-                </View>
-                <Pressable onPress={scrollRight}>
-                  <Favicon.ScrollRight style={{ width: 10 }} />
-                  {(Platform.OS === "ios" || Platform.OS === "android") && (
-                    <Image
-                      source={ScrollRight}
-                      style={{ width: 15, height: 15 }}
-                    />
-                  )}
-                </Pressable>
-              </View>
+<SelectionButton data="calendar" title="repeat:" color="light" />
             </View>
           )}
           {props.displayPriority === true && (
@@ -200,7 +155,6 @@ const CalendarPopup = (props) => {
                 console.log("complexity: ", complexityValue);
                 console.log("category: ", category);
                 console.log("Notes: ", notes);
-                console.log("Repeat: ", repeatOptions[repeatIndex]);
               }}>
               <Image
                 source={Check}
@@ -225,48 +179,55 @@ export const cardStyles = StyleSheet.create({
   },
 
   centeredView: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
+    flex: 1,
   },
   modalView: {
     marginTop: RFValue(30),
     backgroundColor: light.secondary,
-    borderRadius: 17,
+    borderRadius: size.borderRadius,
     alignItems: "center",
     width: RFValue(250),
-    elevation: 5,
+    elevation: RFValue(5),
+    flex: 1,
+    maxHeight: RFValue(667),
+    maxWidth: RFValue(375),
   },
   popupHeader: {
-    backgroundColor: light.accent,
+    alignSelf: "stretch",
     borderRadius: size.borderRadius,
+    backgroundColor: light.accent,
+    opacity: 0.7,
+    justifyContent: "space-between",
     flexDirection: "row",
     textAlign: "center",
-    alignSelf: "stretch",
+    marginBottom: size.margin,
   },
   calendar: {
     marginTop: 10,
-    backgroundColor: "blue",
-    height: 400,
-    width: "100%",
+    marginBottom: 25,
+    //backgroundColor: "blue",
+    flex: 1, // unhiding this takes away the fixed 400 placeholder size.
+    maxWidth: RFValue(375), // unhide later
+    //height: 300, // remove this later
+    width: "94%", // remove this later
   },
   popupHeaderText: {
-    justifyContent: "center",
-    textAlign: "center",
-    fontSize: 15,
     color: "white",
     ...text.title,
   },
   popupLabel: {
+    padding: size.innerPadding,
     marginHorizontal: size.margin,
-    marginTop: 10,
+    marginBottom: size.margin,
     backgroundColor: light.primary,
     borderRadius: size.borderRadius,
+    justifyContent: "center",
     flexDirection: "row",
     textAlign: "center",
     alignSelf: "stretch",
-    paddingEnd: size.margin,
   },
   popupLabelText: {
     textAlign: "center",

@@ -42,6 +42,6 @@ import fonts from "./solala-app/constants";
      return null;
    }
    //add a splashscreen
-   //return <Screens.App.Todo />;
+   //return <Screens.App.Homepage />;
    return <RootNavigation />;
  }

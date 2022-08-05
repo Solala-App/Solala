@@ -234,11 +234,17 @@ const Card = (props) => {
           {!(props.title === Titles.BodyCheck) && (
             <View style={{ flexDirection: "row" }}>
               <Pressable onPress={scrollsDown}>
-                <Favicon.ScrollDown style={cardStyles.scrollButton} />
+                <Favicon.ScrollDown
+                  color="light"
+                  style={cardStyles.scrollButton}
+                />
               </Pressable>
               {displayScrollUp === true && (
                 <Pressable onPress={scrollUp}>
-                  <Favicon.ScrollUp style={cardStyles.scrollButton} />
+                  <Favicon.ScrollUp
+                    color="light"
+                    style={cardStyles.scrollButton}
+                  />
                 </Pressable>
               )}
             </View>
@@ -246,7 +252,10 @@ const Card = (props) => {
           {props.title === Titles.BodyCheck && (
             <View style={{ margin: size.innerPadding, flex: 1 }}>
               <Pressable onPress={scrollsDown}>
-                <Favicon.ScrollRight style={cardStyles.scrollButton} />
+                <Favicon.ScrollRight
+                  color="light"
+                  style={cardStyles.scrollButton}
+                />
               </Pressable>
             </View>
           )}

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   Platform,
+  Pressable,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -54,6 +55,9 @@ const Header = (props) => {
   const CalendarPressEvent = () => {
     navigation.navigate("Calendar");
   };
+  const GreenhousePressEvent = () => {
+    navigation.navigate("Homepage");
+  };
   const ToDoPressEvent = () => {
     navigation.navigate("Todo");
   };
@@ -85,9 +89,12 @@ const Header = (props) => {
     return (
       <View style={styles.headerBox}>
         <View style={styles.headerLeft}>
-          <TouchableOpacity onPress={CalendarPressEvent}>
-            <Favicon.Calendar style={styles.placeholder} />
-          </TouchableOpacity>
+          <Pressable onPress={GreenhousePressEvent}>
+            <Favicon.Greenhouse color="black" style={styles.placeholder} />
+          </Pressable>
+          <Pressable onPress={CalendarPressEvent}>
+            <Favicon.Calendar color="black" style={styles.placeholder} />
+          </Pressable>
         </View>
         <View style={styles.headerCenter}>
           <View style={styles.headerSun}>
@@ -110,12 +117,12 @@ const Header = (props) => {
           </View>
         </View>
         <View style={styles.headerRight}>
-          <TouchableOpacity onPress={ToDoPressEvent}>
-            <Favicon.ToDoList style={styles.placeholder} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleSignOut}>
-            <Favicon.LogOut style={styles.placeholder} />
-          </TouchableOpacity>
+          <Pressable onPress={ToDoPressEvent}>
+            <Favicon.ToDoList color="black" style={styles.placeholder} />
+          </Pressable>
+          <Pressable onPress={handleSignOut}>
+            <Favicon.LogOut color="black" style={styles.placeholder} />
+          </Pressable>
         </View>
       </View>
     );
@@ -231,6 +238,7 @@ const styles = StyleSheet.create({
     width: RFValue(20),
     height: RFValue(20),
     alignSelf: "center",
+    margin: size.margin,
   },
 });
 

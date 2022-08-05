@@ -175,11 +175,17 @@ const ToDoCard = (props) => {
           {!(props.title === Titles.horizontal) && (
             <View style={{ flexDirection: "row" }}>
               <Pressable onPress={scrollsDown}>
-                <Favicon.ScrollDown style={cardStyles.scrollButton} />
+                <Favicon.ScrollDown
+                  color="light"
+                  style={cardStyles.scrollButton}
+                />
               </Pressable>
               {displayScrollUp === true && (
                 <Pressable onPress={scrollUp}>
-                  <Favicon.ScrollUp style={cardStyles.scrollButton} />
+                  <Favicon.ScrollUp
+                    color="light"
+                    style={cardStyles.scrollButton}
+                  />
                 </Pressable>
               )}
             </View>

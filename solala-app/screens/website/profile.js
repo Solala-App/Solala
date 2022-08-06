@@ -648,14 +648,14 @@ export default function Profile() {
 
     const openingProfileScreen = (
 
-        <View>
+        <View style={{marginBottom: RFValue(30)} }>
 
             <Text style={styles.textHeader}>Meet the Crew</Text>
             <FlatList data={profiles}
                 contentContainerStyle={{
                     alignItems: "center",
                     justifyContent: "center",
-                    marginBottom: RFValue(20),
+                    marginBottom: RFValue(50),
                     flexDirection: 'row',
                     flexWrap: 'wrap'
                 }}
@@ -669,6 +669,7 @@ export default function Profile() {
                                 renderItem={() => (
                                     <View style={{
                                         alignItems: "flex-end",
+                                        
                                     }}>
 
                                         <TouchableOpacity
@@ -716,7 +717,7 @@ export default function Profile() {
             </View>
 
             {screen}
-            <Components.Footer />
+            <Components.FooterWeb />
 
         </View>
     );

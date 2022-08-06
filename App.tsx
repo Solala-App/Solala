@@ -5,6 +5,7 @@ import React, { useState, useCallback, useEffect } from "react";
 // import { View, Text } from "react-native";
 import SolalaApp from "./solala-app";
 import fonts from "./solala-app/constants";
+import { Calendar } from "./solala-app/screens/app";
 // import * as Screens from "./solala-app/screens";
 
 export default function App() {
@@ -41,6 +42,6 @@ export default function App() {
   if (!appIsReady) {
     return null;
   }
-  //add a splashscreen
-  return <SolalaApp />;
+    //add a splashscreen
+    return <Calendar />;
 }

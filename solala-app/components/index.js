@@ -11,6 +11,7 @@ import SelectionButton from "./SelectionButton";
 import TextInputField from "./TextInputField";
 import ToDoCard from "./ToDoCard";
 import Zoom from "./Zoom";
+import ArrowButton from "./ArrowButton";
 
 export {
   Card,
@@ -26,4 +27,5 @@ export {
   TextInputField,
   ToDoCard,
   SelectionButton,
+  ArrowButton,
 };

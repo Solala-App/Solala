@@ -15,3 +15,4 @@ export { default as ScrollUp } from "./ScrollUp.js";
 export { default as Swipe } from "./Swipe.js";
 export { default as ToDoList } from "./ToDoList.js";
 export { default as Undo } from "./Undo.js";
+export { default as LogOut } from "./LogOut.js";

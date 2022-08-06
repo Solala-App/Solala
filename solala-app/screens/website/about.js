@@ -714,27 +714,25 @@ export default function About({ navigation }) {
   );
 }
 
-{
-  /* <Components.ProfilePopUp name="Lee" position="Project Manager" skills="Project management, Scrum, HTML, CSS, Bootstrap, Git"
-                buttons={[{ style: styles.websiteLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
-                    { style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
-                    { style: styles.gitLinkButton, image: "", pressEvent: (() => { console.log(""); }) }]}
-              about="I love working with others and helping the people I care most about.
-                        I love my family more than anything and try to use tech to make the world
-                        a kinder place for my kid to grow up in."
-              whyHere="Throughout COVID-19 I watched my friends take on meeting after meeting,
-                        driving themselves to burnout. Mental health became just one more thing to do
-                        and fell to the wayside. Solala was meant to be a present voice to remind you how
-                        important it is to take those 5 minutes, and how small changes can make a huge
-                        difference in how you feel."
-            profileImage= {Leej}
-             cards={[{ image: "", accolade: "Leadership", description: "Solala is originally my personal project.But I had a vision for a more collaborative based learning opportunity, so I reached out to my new found community at UW. I lead the charge into the beginnings of our project" },
-                    { image: "", accolade: "Communication", description: "With my mind set on a future career in tech PM work I largely worked on this project as Scrum Master, working with each team member to define their individual goals and scoping the project timeline." },
-                    {
-                       image: "", accolade: "Adaptability", description: "In addition to PM work I stepped in where needed to keep our project on task. I created much of Solala's design, such as the logo. But I also stepped up technical challenges: coding our initial landing website and technical writing."
-                    }]}
-            />*/
-}
+/* <Components.ProfilePopUp name="Lee" position="Project Manager" skills="Project management, Scrum, HTML, CSS, Bootstrap, Git"
+      buttons={[{ style: styles.websiteLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
+          { style: styles.indeedLinkButton, image: "", pressEvent: (() => { console.log(""); }) },
+          { style: styles.gitLinkButton, image: "", pressEvent: (() => { console.log(""); }) }]}
+    about="I love working with others and helping the people I care most about.
+              I love my family more than anything and try to use tech to make the world
+              a kinder place for my kid to grow up in."
+    whyHere="Throughout COVID-19 I watched my friends take on meeting after meeting,
+              driving themselves to burnout. Mental health became just one more thing to do
+              and fell to the wayside. Solala was meant to be a present voice to remind you how
+              important it is to take those 5 minutes, and how small changes can make a huge
+              difference in how you feel."
+  profileImage= {Leej}
+    cards={[{ image: "", accolade: "Leadership", description: "Solala is originally my personal project.But I had a vision for a more collaborative based learning opportunity, so I reached out to my new found community at UW. I lead the charge into the beginnings of our project" },
+          { image: "", accolade: "Communication", description: "With my mind set on a future career in tech PM work I largely worked on this project as Scrum Master, working with each team member to define their individual goals and scoping the project timeline." },
+          {
+              image: "", accolade: "Adaptability", description: "In addition to PM work I stepped in where needed to keep our project on task. I created much of Solala's design, such as the logo. But I also stepped up technical challenges: coding our initial landing website and technical writing."
+          }]}
+  />*/
 
 const styles = StyleSheet.create({
   container: {

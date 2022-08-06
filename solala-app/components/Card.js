@@ -16,10 +16,13 @@ import * as Favicon from "../../assets/favicons_js";
 import Plus from "../../assets/favicons_light/Plus.png";
 import ScrollDown from "../../assets/favicons_light/ScrollDown.png";
 import ScrollRight from "../../assets/favicons_light/ScrollRight.png";
+import ScrollUp from "../../assets/favicons_light/ScrollUp.png";
 import { theme } from "../constants";
 import CheckBoxComponent from "./CheckBoxComponent";
 import EventPopup from "./EventPopup.js";
 import TaskPopup from "./TaskPopup.js";
+import Zoom from "./Zoom.js";
+
 const { light, size, text, shadowProp } = theme;
 
 // npm install @react-native-community/slider --save
@@ -56,14 +59,22 @@ const DATA = [
     id: "58694a0f-3da1-471f-bd96-145571e20d74",
     title: "Sixth Item",
   },
+  {
+    id: "1",
+    title: "qwertyuio",
+  },
+  {
+    id: "1",
+    title: "qwertyuio",
+  },
+  {
+    id: "1",
+    title: "qwertyuio",
+  },
 ];
 
-let h;
-const onLayoutEvent = (evt) => {
-  h = evt.nativeEvent.layout.height;
-};
-const Item = ({ title, type }) => (
-  <View style={cardStyles.cardItem} onLayout={onLayoutEvent}>
+const Item = ({ title, type, zoom }) => (
+  <View style={cardStyles.cardItem}>
     <View style={cardStyles.cardObjectLeft}>
       {type === Titles.HighPriority && (
         <CheckBoxComponent
@@ -80,30 +91,48 @@ const Item = ({ title, type }) => (
       )}
     </View>
     <View style={cardStyles.cardObjectRight}>
-      <Text style={cardStyles.cardObjectText}>{title}</Text>
+      <Pressable onPress={zoom}>
+        <Text style={cardStyles.cardObjectText}>{title}</Text>
+      </Pressable>
     </View>
   </View>
 );
 
-//showsVerticalScrollIndicator={false} ref={scrollRef} scrollEventThrottle={1} onScroll={(e) => setScrollPos(e.nativeEvent.contentOffset.y)}
+const itemSeparator = () => {
+  return (
+    <View style={{ height: size.margin, backgroundColor: light.secondary }} />
+  );
+};
 /* green bubble for menus */
+
 const Card = (props) => {
   const renderItem = ({ item }) => (
-    <Item title={item.title} type={props.title} />
+    <Item title={item.title} type={props.title} zoom={handleZoomVisible} />
   );
   const [isModalVisible, setIsModalVisible] = React.useState(false);
-  const [scrollIndex, setScrollIndex] = React.useState(0);
+  const [isZoomVisible, setZoomVisible] = React.useState(false);
+  const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
+  const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
+  const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
   const flatList = useRef();
 
+  const handleZoomVisible = () => {
+    setZoomVisible(() => !isZoomVisible);
+  };
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
   };
 
-  //reaserch needed...we also need a scroll up...how do these arrows work with flatbox?
   const scrollsDown = () => {
-    if (scrollIndex < DATA.length) {
-      setScrollIndex(scrollIndex + 1);
-      flatList.current.scrollToIndex({ index: scrollIndex });
+    if (scrollDownIndex < DATA.length) {
+      setScrollDownIndex(scrollDownIndex + 1);
+      flatList.current.scrollToIndex({ index: scrollDownIndex });
+    }
+  };
+  const scrollUp = () => {
+    if (scrollUpIndex >= 0) {
+      setScrollUpIndex(scrollUpIndex - 1);
+      flatList.current.scrollToIndex({ index: scrollUpIndex });
     }
   };
 
@@ -113,23 +142,24 @@ const Card = (props) => {
         viewableItems.viewableItems.length - 1
       ] !== "undefined"
     ) {
-      setScrollIndex(
+      setScrollDownIndex(
         viewableItems.viewableItems[viewableItems.viewableItems.length - 1]
-          .index
+          .index + 1
       );
+      setScrollUpIndex(viewableItems.viewableItems[0].index - 1);
+      console.log(viewableItems.viewableItems[0].index);
+      if (viewableItems.viewableItems[0].index === 0) {
+        setDisplayScrollUp(false);
+      } else {
+        setDisplayScrollUp(true);
+      }
     }
   });
   return (
     <SafeAreaView
       style={[
         cardStyles.card,
-        {
-          width:
-            props.title === Titles.TodayEvent ||
-            props.title === Titles.BodyCheck
-              ? "200%"
-              : "100%",
-        },
+        { flex: props.title === Titles.BodyCheck ? -1 : 1 },
       ]}>
       <View style={cardStyles.cardHeader}>
         <View style={cardStyles.cardHeaderLeft} />
@@ -160,13 +190,12 @@ const Card = (props) => {
           )}
         </View>
       </View>
-
+      {isZoomVisible === true && <Zoom />}
       {!(props.title === Titles.BodyCheck) && (
         <View
           style={{
             alignSelf: "stretch",
-            height:
-              props.title === Titles.TodayEvent ? RFValue(89) : RFValue(59),
+            flex: 1,
           }}>
           <FlatList
             data={DATA}
@@ -176,12 +205,18 @@ const Card = (props) => {
             showsVerticalScrollIndicator={false}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
+            ItemSeparatorComponent={itemSeparator}
           />
         </View>
       )}
       <View style={{ flexDirection: "row" }}>
         {props.title === Titles.BodyCheck && (
-          <View style={{ flex: 9, marginStart: size.margin }}>
+          <View
+            style={{
+              flex: 9,
+              marginStart: size.margin,
+              paddingBottom: size.margin,
+            }}>
             <FlatList
               data={DATA}
               ref={flatList}
@@ -191,31 +226,27 @@ const Card = (props) => {
               showsHorizontalScrollIndicator={false}
               renderItem={renderItem}
               keyExtractor={(item) => item.id}
+              ItemSeparatorComponent={itemSeparator}
             />
           </View>
         )}
         <View>
           {!(props.title === Titles.BodyCheck) && (
-            <Pressable onPress={scrollsDown}>
-              <Favicon.ScrollDown style={{ width: RFValue(12) }} />
-              {(Platform.OS === "android" || Platform.OS === "ios") && (
-                <Image
-                  style={{ width: RFValue(12), height: RFValue(12) }}
-                  source={ScrollDown}
-                />
+            <View style={{ flexDirection: "row" }}>
+              <Pressable onPress={scrollsDown}>
+                <Favicon.ScrollDown style={cardStyles.scrollButton} />
+              </Pressable>
+              {displayScrollUp === true && (
+                <Pressable onPress={scrollUp}>
+                  <Favicon.ScrollUp style={cardStyles.scrollButton} />
+                </Pressable>
               )}
-            </Pressable>
+            </View>
           )}
           {props.title === Titles.BodyCheck && (
             <View style={{ margin: size.innerPadding, flex: 1 }}>
               <Pressable onPress={scrollsDown}>
-                <Favicon.ScrollRight style={{ width: RFValue(12) }} />
-                {(Platform.OS === "android" || Platform.OS === "ios") && (
-                  <Image
-                    style={{ width: RFValue(12), height: RFValue(12) }}
-                    source={ScrollRight}
-                  />
-                )}
+                <Favicon.ScrollRight style={cardStyles.scrollButton} />
               </Pressable>
             </View>
           )}
@@ -234,8 +265,6 @@ export const cardStyles = StyleSheet.create({
     paddingBottom: size.innerPadding,
     alignItems: "center",
     ...shadowProp,
-    height: "100%",
-    width: "100%",
   },
 
   cardHeader: {
@@ -274,7 +303,6 @@ export const cardStyles = StyleSheet.create({
     padding: size.innerPadding,
     marginHorizontal: size.margin,
 
-    marginBottom: size.margin,
     backgroundColor: light.primary,
     borderRadius: size.borderRadius,
     justifyContent: "center",
@@ -311,6 +339,11 @@ export const cardStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  scrollButton: {
+    width: RFValue(12),
+    height: RFValue(12),
+    marginEnd: size.margin,
   },
 });
 

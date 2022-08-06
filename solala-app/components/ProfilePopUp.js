@@ -1,6 +1,13 @@
 import React from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from "react-native";
+import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
 
 import { theme } from "../constants";
 
@@ -8,22 +15,22 @@ const { colorPalette } = theme;
 
 const ProfilePopUp = (props) => {
   return (
-    <View style={styles.profileCard}>
+    <ScrollView style={styles.profileCard}>
       <View style={styles.profile}>
         <View style={styles.profileDescription}>
           <Text style={styles.header}>Meet {props.name}</Text>
           <View style={styles.profileInfo}>
-            <Text>{props.position}</Text>
-            <Text>Skills: {props.skills}</Text>
+            <Text style={{ fontSize: RFValue(12) }}>{props.position}</Text>
+            <Text style={{ fontSize: RFValue(12) }}>
+              Skills: {props.skills}
+            </Text>
             <View style={styles.buttonMenu}>
               {props.buttons.map((item, key) => (
                 <TouchableOpacity
                   key={key}
                   style={item?.style}
-                  onPress={item?.pressEvent}>
-                  {" "}
-                  {item?.image}{" "}
-                </TouchableOpacity>
+                  onPress={item?.pressEvent}
+                />
               ))}
             </View>
           </View>
@@ -42,7 +49,7 @@ const ProfilePopUp = (props) => {
           </View>
         ))}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -53,9 +60,11 @@ const styles = StyleSheet.create({
 
   profileCard: {
     backgroundColor: colorPalette.white,
-    marginLeft: RFValue(50),
-    marginBottom: RFValue(50),
-    marginRight: RFValue(50),
+    marginLeft: RFValue(20),
+    marginRight: RFValue(20),
+    marginTop: RFValue(30),
+    marginBottom: RFValue(120),
+    height: "75%",
     shadowOpacity: 0.2,
     shadowOffset: { width: RFValue(2), height: RFValue(2) },
   },
@@ -73,9 +82,11 @@ const styles = StyleSheet.create({
     fontSize: RFValue(24),
     fontWeight: "bold",
     paddingLeft: RFValue(30),
+    paddingTop: RFValue(50),
   },
   cardText: {
     color: "grey",
+    fontSize: RFValue(8),
   },
 
   cardHeader: {
@@ -92,10 +103,9 @@ const styles = StyleSheet.create({
   profileDescription: {
     width: "50%",
     height: "80%",
-    paddingTop: RFValue(150),
+    paddingTop: RFValue(50),
     paddingLeft: RFValue(10),
     flexDirection: "column",
-    flexWrap: "wrap",
   },
   buttonMenu: {
     flexDirection: "row",
@@ -108,11 +118,13 @@ const styles = StyleSheet.create({
     paddingBottom: RFValue(20),
     color: "grey",
     paddingRight: RFValue(15),
+    fontSize: RFValue(12),
   },
 
   profileImage: {
     width: "50%",
     height: "100%",
+    resizeMode: "cover",
   },
 
   accolade: {
@@ -121,7 +133,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    paddingBottom: RFValue(45),
+    paddingBottom: RFValue(50),
     paddingRight: RFValue(20),
     paddingLeft: RFValue(50),
   },
@@ -133,9 +145,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.02,
     shadowOffset: { width: RFValue(2), height: RFValue(2) },
     flexDirection: "column",
-    justifyContent: "space-around",
     alignItems: "center",
     textAlign: "center",
+    margin: RFValue(25),
   },
   placeholder: {
     backgroundColor: theme.colorPalette.teal,

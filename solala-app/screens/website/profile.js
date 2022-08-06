@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  FlatList,
 } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
 
 import Back from "../../../assets/favicons_js/BackArrow.js";
 import Angela from "../../../assets/volunteers/angela.jpg";
@@ -25,13 +26,12 @@ import { theme } from "../../constants";
 const { light, text } = theme;
 
 export default function Profile() {
-  {
-    /* This is an array containing all the profiles for each individual person. Adding all the props as can be seen in the profiles array will allow a programmer to very easily
-     * create a new addable person, and a person can be removed by simply removing their data from the array*/
-  }
+  /*
+   * This is an array containing all the profiles for each individual person. Adding all the props as can be seen in the profiles array will allow a programmer to very easily
+   * create a new addable person, and a person can be removed by simply removing their data from the array
+   */
   const profiles = [
     {
-      nameAndTitle: "Lee Janzen-Morel, Project Manager Lead",
       image: (
         <Image
           source={Leej}
@@ -47,21 +47,18 @@ export default function Profile() {
           buttons={[
             {
               style: styles.websiteLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
             },
             {
               style: styles.indeedLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
             },
             {
               style: styles.gitLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
@@ -78,19 +75,16 @@ export default function Profile() {
           profileImage={Leej}
           cards={[
             {
-              image: "",
               accolade: "Leadership",
               description:
                 "Solala is originally my personal project.But I had a vision for a more collaborative based learning opportunity, so I reached out to my new found community at UW. I lead the charge into the beginnings of our project",
             },
             {
-              image: "",
               accolade: "Communication",
               description:
                 "With my mind set on a future career in tech PM work I largely worked on this project as Scrum Master, working with each team member to define their individual goals and scoping the project timeline.",
             },
             {
-              image: "",
               accolade: "Adaptability",
               description:
                 "In addition to PM work I stepped in where needed to keep our project on task. I created much of Solala's design, such as the logo. But I also stepped up technical challenges: coding our initial landing website and technical writing.",
@@ -101,7 +95,6 @@ export default function Profile() {
     },
 
     {
-      nameAndTitle: "Christoph Bendix, App Development Lead",
       image: (
         <Image
           source={Christoph}
@@ -117,14 +110,12 @@ export default function Profile() {
           buttons={[
             {
               style: styles.indeedLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
             },
             {
               style: styles.gitLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
@@ -135,19 +126,16 @@ export default function Profile() {
           profileImage={Christoph}
           cards={[
             {
-              image: "",
               accolade: "Leadership",
               description:
                 "I communicated with the PM our next steps while leading the Software Engineering branch of Solala. Delegated various development tasks to ensure we stayed on target for launch.",
             },
             {
-              image: "",
               accolade: "Creativity",
               description:
                 "I lead the full stack development of Solala, working with UI and Back-end alike to ensure a high quality and beautiful End User Experience.",
             },
             {
-              image: "",
               accolade: "Technical",
               description:
                 "I contributed to a significant portion of Solala's code, working with tutorials and other resources to teach myself new skills sets where needed.",
@@ -158,7 +146,6 @@ export default function Profile() {
     },
 
     {
-      nameAndTitle: "Drew King, Research Lead",
       image: (
         <Image
           source={Drew}
@@ -174,14 +161,12 @@ export default function Profile() {
           buttons={[
             {
               style: styles.indeedLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
             },
             {
               style: styles.gitLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
@@ -192,19 +177,16 @@ export default function Profile() {
           profileImage={Drew}
           cards={[
             {
-              image: "",
               accolade: "Research",
               description:
                 "Solala is a data driven application. In order to prioritize development of the needed tools I lead the research needed that determined Solala's key features.",
             },
             {
-              image: "",
               accolade: "Diversity",
               description:
                 "I advocated for us to pause at stages of development and better ask how we could build Solala to be accessible and inclusive.",
             },
             {
-              image: "",
               accolade: "Data Analytics",
               description:
                 "Following the Research phase of solala I monitored for bugs, user engagement, testing phases and more to determine the use and priorities of our product.",
@@ -215,7 +197,6 @@ export default function Profile() {
     },
 
     {
-      nameAndTitle: "Christopher Roy, UX/UI Developer Lead",
       image: (
         <Image
           source={Christopher}
@@ -231,14 +212,12 @@ export default function Profile() {
           buttons={[
             {
               style: styles.indeedLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
             },
             {
               style: styles.gitLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
@@ -249,19 +228,16 @@ export default function Profile() {
           profileImage={Christopher}
           cards={[
             {
-              image: "",
               accolade: "UX Development",
               description:
                 "I helped to brainstorm how our app would feel for the customer, my personal focus on our Calender page.",
             },
             {
-              image: "",
               accolade: "Leadership",
               description:
                 "I lead the team in UI Design in Figma. Through my leadership and communication I set achievable deadlines that help get our app off the ground.",
             },
             {
-              image: "",
               accolade: "Front or Back-End Development",
               description:
                 "I implemented React or Node.js features and created connections to the Azure Cloud SQL Server where necessary.",
@@ -272,7 +248,6 @@ export default function Profile() {
     },
 
     {
-      nameAndTitle: "Navkiran Nijjar, Head of Marketing",
       image: (
         <Image
           source={Placeholder}
@@ -291,16 +266,14 @@ export default function Profile() {
           profileImage={Placeholder}
           cards={[
             {
-              image: "",
               accolade: "Social Media",
               description: "I did cool stuff.",
             },
-            { image: "", accolade: "Stuff", description: "more neat things" },
+            { accolade: "Stuff", description: "more neat things" },
             {
-              image: "",
               accolade: "Stuff",
               description:
-                "The rougher the seas, the smoother we sail. Ahoy! If ye thinks he be ready to sail a beauty, ye better be willin� to sink with her.",
+                "The rougher the seas, the smoother we sail. Ahoy! If ye thinks he be ready to sail a beauty, ye better be willin  to sink with her.",
             },
           ]}
         />
@@ -308,7 +281,6 @@ export default function Profile() {
     },
 
     {
-      nameAndTitle: "Robert Selfe, Social and Emotional Research",
       image: (
         <Image
           source={Robert}
@@ -324,7 +296,6 @@ export default function Profile() {
           buttons={[
             {
               style: styles.indeedLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
@@ -335,19 +306,16 @@ export default function Profile() {
           profileImage={Robert}
           cards={[
             {
-              image: "",
               accolade: "Social Health",
               description:
                 "I helped to oversee the social aspect of app development, encouraging researched based tools or designs to increase product engagement.",
             },
             {
-              image: "",
               accolade: "Research",
               description:
                 "Solala is a science based app. I contributed to finding resources for our research to ensure that Solala did what it set out to do in the best way possible.",
             },
             {
-              image: "",
               accolade: "Adaptability",
               description:
                 "With my experience in social health I was able to point out accessibility concerns within the app and contribute to product testing.",
@@ -358,7 +326,6 @@ export default function Profile() {
     },
 
     {
-      nameAndTitle: "Edison Jacob Lueng, Software Engineer",
       image: (
         <Image
           source={Edison}
@@ -374,14 +341,12 @@ export default function Profile() {
           buttons={[
             {
               style: styles.indeedLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
             },
             {
               style: styles.gitLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
@@ -392,19 +357,16 @@ export default function Profile() {
           profileImage={Edison}
           cards={[
             {
-              image: "",
               accolade: "Communication",
               description:
                 "I really excelled at working with the app development lead and PM to make sure I kept up with project demands.",
             },
             {
-              image: "",
               accolade: "Front-End Development",
               description:
                 "After Building the Login page in Figma I helped to code our UX features using React.",
             },
             {
-              image: "",
               accolade: "Back-End Development",
               description:
                 "I implemented Node.js features and created connections to the Azure Cloud SQL Server where necessary.",
@@ -415,7 +377,6 @@ export default function Profile() {
     },
 
     {
-      nameAndTitle: "Hawa Ali Drammeh, UX and Software Engineer",
       image: (
         <Image
           source={Placeholder}
@@ -431,14 +392,12 @@ export default function Profile() {
           buttons={[
             {
               style: styles.indeedLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
             },
             {
               style: styles.gitLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
@@ -449,19 +408,16 @@ export default function Profile() {
           profileImage={Placeholder}
           cards={[
             {
-              image: "",
               accolade: "UX Development",
               description:
                 "I helped to brainstorm how our app would feel for the customer, focusing on our ToDo list page.",
             },
             {
-              image: "",
               accolade: "Team Player",
               description:
                 "I found ways to keep everyone involved and to help everyone better communicate by building our Design Doc.",
             },
             {
-              image: "",
               accolade: "Front or Back-End Development",
               description:
                 "I implemented React or Node.js features and created connections to the Azure Cloud SQL Server where necessary.",
@@ -472,7 +428,6 @@ export default function Profile() {
     },
 
     {
-      nameAndTitle: "Brian Tran, Software Engineer",
       image: (
         <Image
           source={Placeholder}
@@ -488,21 +443,18 @@ export default function Profile() {
           buttons={[
             {
               style: styles.websiteLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
             },
             {
               style: styles.indeedLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
             },
             {
               style: styles.gitLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
@@ -513,19 +465,16 @@ export default function Profile() {
           profileImage={Placeholder}
           cards={[
             {
-              image: "",
               accolade: "UX Development",
               description:
                 "I helped to brainstorm how our app would feel for the customer.",
             },
             {
-              image: "",
               accolade: "Front-End Development",
               description:
                 "After Building the Login page in Figma I helped to code our UX features using React.",
             },
             {
-              image: "",
               accolade: "Front or Back-End Development",
               description:
                 "I implemented React or Node.js features and created connections to the Azure Cloud SQL Server where necessary.",
@@ -536,7 +485,6 @@ export default function Profile() {
     },
 
     {
-      nameAndTitle: "Devika Dwivedi, Software Engineer",
       image: (
         <Image
           source={Devika}
@@ -552,7 +500,6 @@ export default function Profile() {
           buttons={[
             {
               style: styles.indeedLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
@@ -563,19 +510,16 @@ export default function Profile() {
           profileImage={Devika}
           cards={[
             {
-              image: "",
               accolade: "Communication",
               description:
                 "I really excelled at working with the app development lead and PM to make sure I kept up with project demands.",
             },
             {
-              image: "",
               accolade: "Front-End Development",
               description:
                 "After Building the Login page in Figma I helped to code our UX features using React.",
             },
             {
-              image: "",
               accolade: "Back-End Development",
               description:
                 "I implemented Node.js features and created connections to the Azure Cloud SQL Server where necessary.",
@@ -586,7 +530,6 @@ export default function Profile() {
     },
 
     {
-      nameAndTitle: "Angela Lee, UX and Software Engineer",
       image: (
         <Image
           source={Angela}
@@ -602,14 +545,12 @@ export default function Profile() {
           buttons={[
             {
               style: styles.indeedLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
             },
             {
               style: styles.gitLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
@@ -620,19 +561,16 @@ export default function Profile() {
           profileImage={Angela}
           cards={[
             {
-              image: "",
               accolade: "UX Development",
               description:
                 "I helped to brainstorm how our app would feel for the customer, focusing on our home page when you first open the app.",
             },
             {
-              image: "",
               accolade: "Front-End Development",
               description:
                 "After Building the Login page in Figma I helped to code our UX features using React.",
             },
             {
-              image: "",
               accolade: "Front or Back-End Development",
               description:
                 "I implemented React or Node.js features and created connections to the Azure Cloud SQL Server where necessary.",
@@ -643,7 +581,6 @@ export default function Profile() {
     },
 
     {
-      nameAndTitle: "Kimia Nehchiri, UX and Software Engineer",
       image: (
         <Image
           source={Kimia}
@@ -659,7 +596,6 @@ export default function Profile() {
           buttons={[
             {
               style: styles.indeedLinkButton,
-              image: "",
               pressEvent: () => {
                 console.log("");
               },
@@ -677,19 +613,16 @@ export default function Profile() {
           profileImage={Kimia}
           cards={[
             {
-              image: "",
               accolade: "UX Development",
               description:
                 "I helped to brainstorm how our app would feel for the customer, focusing on our login page.",
             },
             {
-              image: "",
               accolade: "Front-End Development",
               description:
                 "After Building the Login page in Figma I helped to code our UX features using React.",
             },
             {
-              image: "",
               accolade: "Back-End Development",
               description:
                 "I implemented Node.js features and created connections to the Azure Cloud SQL Server where necessary.",
@@ -700,60 +633,62 @@ export default function Profile() {
     },
   ];
 
-  {
-    /* This is a constant which represnts the "home" screen of the profiles page. It is used to dynamically add different team members' profiles and will be called
-     whenever this display needs to be generated.*/
-  }
+  /*
+   * This is a constant which represnts the "home" screen of the profiles page. It is used to dynamically add different team members' profiles and will be called
+   * whenever this display needs to be generated.
+   */
 
   const openingProfileScreen = (
-    <ScrollView>
-      <Text style={styles.textHeader}>MEET THE CREW</Text>
-
-      <View style={styles.mainView}>
-        {profiles.map((item, key) => (
+    <View>
+      <Text style={styles.textHeader}>Meet the Crew</Text>
+      <FlatList
+        data={profiles}
+        contentContainerStyle={{
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: RFValue(20),
+          flexDirection: "row",
+          flexWrap: "wrap",
+        }}
+        renderItem={({ item, index }) => (
           <TouchableOpacity
-            key={key}
+            key={index}
             style={styles.tempImage}
             onPress={() =>
               changeScreen(
-                <View>
-                  <TouchableOpacity
-                    style={styles.backButton}
-                    onPress={() => changeScreen(openingProfileScreen)}>
-                    <Back />
-                  </TouchableOpacity>
-
-                  {item?.redirect}
-                </View>
+                <FlatList
+                  data={[{}]}
+                  renderItem={() => (
+                    <View
+                      style={{
+                        alignItems: "flex-end",
+                      }}>
+                      <TouchableOpacity
+                        style={styles.backButton}
+                        onPress={() => changeScreen(openingProfileScreen)}>
+                        <Back />
+                      </TouchableOpacity>
+                      {item?.redirect}
+                    </View>
+                  )}
+                />
               )
             }>
             {item?.image}
-            <Text>{item?.nameAndTitle}</Text>
           </TouchableOpacity>
-        ))}
-      </View>
-    </ScrollView>
+        )}
+      />
+    </View>
   );
 
-  {
-    /* This essentially makes the opening screen (the variable screen) the profile pages home, while also allowing for that display to be changed
-     * using the setScreen method. Essentially, it creates a mutable element which can be changed through setScreen.*/
-  }
   const [screen, setScreen] = useState(openingProfileScreen);
 
-  {
-    /* This method takes in a component/element and then changes the valuable screen to become said component/element*/
-  }
-  const changeScreen = (props) =>
-    setScreen(
-      <View>
-        <View style={styles.cardContainer}> {props} </View>
-      </View>
-    );
+  /* This method takes in a component/element and then changes the valuable screen to become said component/element*/
+  const changeScreen = (props) => {
+    setScreen(<View>{props}</View>);
+  };
 
-  {
-    /* Returns the opening profile screen sandwiched between the header and footer */
-  }
+  /* Returns the opening profile screen sandwiched between the header and footer */
   return (
     <View style={styles.container}>
       <View style={styles.headerBox}>
@@ -761,7 +696,6 @@ export default function Profile() {
       </View>
 
       {screen}
-
       <Components.Footer />
     </View>
   );
@@ -769,14 +703,16 @@ export default function Profile() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: light.primary,
+    height: "100%",
+    width: "100%",
   },
+
   header: {
-    flex: "1",
     flexDirection: "row",
     backgroundColor: theme.colorPalette.pink,
     width: "100%",
+    // height: "10%",
     height: RFValue(30),
     flexWrap: "wrap",
     justifyContent: "flex-start",
@@ -784,9 +720,6 @@ const styles = StyleSheet.create({
   headerBox: {
     height: RFValue(60),
     width: "100%",
-  },
-  scroller: {
-    flex: 1,
   },
 
   mainView: {
@@ -843,15 +776,14 @@ const styles = StyleSheet.create({
     height: RFValue(50),
     borderRadius: RFValue(40),
     backgroundColor: "grey",
-    left: RFValue(600),
-    marginTop: RFValue(20),
-    marginBottom: RFValue(20),
+    marginTop: RFValue(5),
+
+    marginBottom: RFValue(5),
     justifyContent: "center",
     alignItems: "center",
   },
 
   cardContainer: {
-    flex: "1",
     alignItems: "center",
     justifyContent: "center",
   },

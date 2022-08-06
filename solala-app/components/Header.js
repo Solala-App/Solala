@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   Platform,
+  Pressable,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -54,12 +55,18 @@ const Header = (props) => {
   const CalendarPressEvent = () => {
     navigation.navigate("Calendar");
   };
+  const GreenhousePressEvent = () => {
+    navigation.navigate("Homepage");
+  };
   const ToDoPressEvent = () => {
     navigation.navigate("Todo");
   };
   const handleSignOut = () => {
     signOut(auth);
   };
+
+  const WeatherIcon = props.icon;
+
   if (Platform.OS === "ios" || Platform.OS === "android") {
     return (
       <SafeAreaView style={styles.headerBoxMobile}>
@@ -75,7 +82,14 @@ const Header = (props) => {
           }}>
           <View style={styles.greetingMobile}>
             <Text style={styles.textBubbleMobile}>{props.greeting}</Text>
-            <Image source={Rain} style={styles.weatherMobile} />
+            <Image
+              // source={{
+              //   uri: `http://openweathermap.org/img/wn/${props.icon}@4x.png`,
+              // }}
+              source={props.icon}
+              style={styles.weatherMobile}
+            />
+            {/* <WeatherIcon style={styles.weatherMobile} /> */}
           </View>
           <Text style={styles.announcementMobile}>{props.announcement}</Text>
         </View>
@@ -85,9 +99,12 @@ const Header = (props) => {
     return (
       <View style={styles.headerBox}>
         <View style={styles.headerLeft}>
-          <TouchableOpacity onPress={CalendarPressEvent}>
-            <Favicon.Calendar style={styles.placeholder} />
-          </TouchableOpacity>
+          <Pressable onPress={GreenhousePressEvent}>
+            <Favicon.Greenhouse color="black" style={styles.placeholder} />
+          </Pressable>
+          <Pressable onPress={CalendarPressEvent}>
+            <Favicon.Calendar color="black" style={styles.placeholder} />
+          </Pressable>
         </View>
         <View style={styles.headerCenter}>
           <View style={styles.headerSun}>
@@ -103,19 +120,28 @@ const Header = (props) => {
               }}>
               <Text style={styles.textBubble}>
                 {props.greeting}
-                <Image source={Rain} style={styles.placeholderWeather} />
+                <Image
+                  // source={{
+                  //   uri: `http://openweathermap.org/img/wn/${props.icon}@4x.png`,
+                  // }}
+                  source={props.icon}
+                  style={styles.placeholderWeather}
+                />
+                {/* <WeatherIcon style={styles.placeholderWeather} /> */}
               </Text>
             </View>
             <Text style={styles.announcement}>{props.announcement}</Text>
           </View>
         </View>
         <View style={styles.headerRight}>
-          <TouchableOpacity onPress={ToDoPressEvent}>
-            <Favicon.ToDoList style={styles.placeholder} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleSignOut}>
-            <Favicon.LogOut style={styles.placeholder} />
-          </TouchableOpacity>
+
+          <Pressable onPress={ToDoPressEvent}>
+            <Favicon.ToDoList color="black" style={styles.placeholder} />
+          </Pressable>
+          <Pressable onPress={handleSignOut}>
+            <Favicon.LogOut color="black" style={styles.placeholder} />
+          </Pressable>
+
         </View>
       </View>
     );
@@ -231,6 +257,7 @@ const styles = StyleSheet.create({
     width: RFValue(20),
     height: RFValue(20),
     alignSelf: "center",
+    margin: size.margin,
   },
 });
 

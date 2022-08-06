@@ -1,0 +1,6 @@
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>Allow $(Solala) to use your location</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>Allow $(Solala) to use your location</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Allow $(Solala) to use your location</string>

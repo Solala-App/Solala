@@ -1,16 +1,19 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React from "react";
+import React, { useEffect } from "react";
 import { Platform } from "react-native";
 
 import { Header, Footer } from "../components";
 import * as App from "../screens/app";
+import { useWeather } from "../utils/hooks/useWeather";
 
 const Tab = createBottomTabNavigator();
 const AppStack = createStackNavigator();
 
 const SolalaAppMobile = () => {
+  const { weatherIcon } = useWeather();
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -18,7 +21,11 @@ const SolalaAppMobile = () => {
         tabBar={(props) => <Footer {...props} />}
         screenOptions={{
           header: () => (
-            <Header greeting="Good Morning!" announcement="Meet Solala" />
+            <Header
+              greeting="Good Morning!"
+              icon={weatherIcon}
+              announcement="Meet Solala"
+            />
           ),
         }}>
         <Tab.Screen name="Homepage" component={App.Homepage} />
@@ -30,13 +37,18 @@ const SolalaAppMobile = () => {
 };
 
 const SolalaApp = () => {
+  const { weatherIcon } = useWeather();
   return (
     <NavigationContainer>
       <AppStack.Navigator
         initialRouteName="Homepage"
         screenOptions={{
           header: () => (
-            <Header greeting="Good Morning!" announcement="Meet Solala" />
+            <Header
+              greeting="Good Morning!"
+              icon={weatherIcon}
+              announcement="Meet Solala"
+            />
           ),
         }}>
         <AppStack.Screen name="Homepage" component={App.Homepage} />

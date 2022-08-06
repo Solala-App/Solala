@@ -64,7 +64,9 @@ const Header = (props) => {
   const handleSignOut = () => {
     signOut(auth);
   };
+
   const WeatherIcon = props.icon;
+
   if (Platform.OS === "ios" || Platform.OS === "android") {
     return (
       <SafeAreaView style={styles.headerBoxMobile}>
@@ -132,12 +134,14 @@ const Header = (props) => {
           </View>
         </View>
         <View style={styles.headerRight}>
+
           <Pressable onPress={ToDoPressEvent}>
             <Favicon.ToDoList color="black" style={styles.placeholder} />
           </Pressable>
           <Pressable onPress={handleSignOut}>
             <Favicon.LogOut color="black" style={styles.placeholder} />
           </Pressable>
+
         </View>
       </View>
     );

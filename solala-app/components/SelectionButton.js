@@ -24,7 +24,6 @@ const Month = [
   "November",
   "December",
 ];
-const Calendar = ["None", "Daily", "Weekly", "Monthly"];
 
 //use props title {name of button} and data {which data to use}
 //To add other kinds, create a new Data felid above,
@@ -34,7 +33,6 @@ export default function SelectionButton(props) {
   const [repeatIndexDate, setRepeatIndexDate] = React.useState(0);
   const [repeatIndexToDoView, setRepeatIndexToDoView] = React.useState(0);
   const [repeatIndexMonth, setRepeatIndexMonth] = React.useState(0);
-  const [repeatIndexCalendar, setRepeatIndexCalendar] = React.useState(0);
 
   let repeatIndex = repeatIndexDate;
   let setRepeatIndex = setRepeatIndexDate;
@@ -50,60 +48,12 @@ export default function SelectionButton(props) {
       repeatIndex = repeatIndexMonth;
       setRepeatIndex = setRepeatIndexMonth;
       break;
-    case "calendar":
-      dataType = Calendar;
-      repeatIndex = repeatIndexCalendar;
-      setRepeatIndex = setRepeatIndexCalendar;
-      break;
 
     default:
       dataType = Dates;
       repeatIndex = repeatIndexDate;
       setRepeatIndex = setRepeatIndexDate;
       break;
-  }
-  let buttonStyle = styles.buttonLight;
-  let textStyle = styles.textStyleLight;
-  if (Platform.OS === "ios" || Platform.OS === "android") {
-    switch (props.color) {
-      case "dark":
-        buttonStyle = styles.buttonDark;
-        textStyle = styles.textStyleDarkMobile;
-        break;
-      case "accent":
-        buttonStyle = styles.buttonAccent;
-        textStyle = styles.textStyleAccentMobile;
-        break;
-      case "terracotta":
-        buttonStyle = styles.buttonTerracotta;
-        textStyle = styles.textStyleLightMobile;
-        break;    
-
-      default:
-        buttonStyle = styles.buttonLight;
-        textStyle = styles.textStyleLightMobile;
-        break;
-    }
-  } else {
-    switch (props.color) {
-      case "dark":
-        buttonStyle = styles.buttonDark;
-        textStyle = styles.textStyleDark;
-        break;
-      case "accent":
-        buttonStyle = styles.buttonAccent;
-        textStyle = styles.textStyleAccent;
-        break;
-      case "terracotta":
-        buttonStyle = styles.buttonTerracotta;
-        textStyle = styles.textStyleLight;
-        break;    
-
-      default:
-        buttonStyle = styles.buttonLight;
-        textStyle = styles.textStyleLight;
-        break;
-    }
   }
 
   const scrollLeft = () => {
@@ -152,7 +102,7 @@ const styles = StyleSheet.create({
     ...text.body,
     color: colorPalette.white,
   },
-  buttonTerracotta: {
+  textBubble: {
     padding: size.innerPadding,
     marginHorizontal: size.margin,
     marginBottom: size.margin,
@@ -163,71 +113,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     textAlign: "center",
     opacity: 0.7,
-  },
-  buttonDark: {
-    padding: size.innerPadding,
-    marginHorizontal: size.margin,
-    marginBottom: size.margin,
-    backgroundColor: colorPalette.white,
-    borderRadius: size.borderRadius,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    textAlign: "center",
-    opacity: 0.7,
-  },
-  textStyleDark: {
-    ...text.body,
-    color: colorPalette.forest,
-    textAlign: "center",
-  },
-  textStyleDarkMobile: {
-    ...text.bodyMobile,
-    color: colorPalette.forest,
-    textAlign: "center",
-  },
-  buttonLight: {
-    padding: size.innerPadding,
-    marginHorizontal: size.margin,
-    marginBottom: size.margin,
-    backgroundColor: colorPalette.forest,
-    borderRadius: size.borderRadius,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    textAlign: "center",
-    opacity: 0.7,
-  },
-  textStyleLight: {
-    ...text.body,
-    color: colorPalette.white,
-    textAlign: "center",
-  },
-  textStyleLightMobile: {
-    ...text.bodyMobile,
-    color: colorPalette.white,
-    textAlign: "center",
-  },
-  buttonAccent: {
-    padding: size.innerPadding,
-    marginHorizontal: size.margin,
-    marginBottom: size.margin,
-    backgroundColor: colorPalette.jade,
-    borderRadius: size.borderRadius,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    textAlign: "center",
-    opacity: 0.7,
-  },
-  textStyleAccent: {
-    ...text.body,
-    color: colorPalette.forest,
-    textAlign: "center",
-  },
-  textStyleAccentMobile: {
-    ...text.bodyMobile,
-    color: colorPalette.forest,
-    textAlign: "center",
   },
 });

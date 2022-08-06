@@ -23,7 +23,6 @@ import EventPopup from "./EventPopup.js";
 import TaskPopup from "./TaskPopup.js";
 import Zoom from "./Zoom.js";
 
-
 const { light, size, text, shadowProp } = theme;
 
 // npm install @react-native-community/slider --save
@@ -79,9 +78,7 @@ const DATA = [
   },
 ];
 
-
 const Item = ({ title, type, zoom }) => (
-
   <View style={cardStyles.cardItem}>
     <View style={cardStyles.cardObjectLeft}>
       {type === Titles.HighPriority && (
@@ -106,29 +103,22 @@ const Item = ({ title, type, zoom }) => (
   </View>
 );
 
-
 const itemSeparator = () => {
   return (
     <View style={{ height: size.margin, backgroundColor: light.secondary }} />
   );
 };
-
 /* green bubble for menus */
 
 const Card = (props) => {
   const renderItem = ({ item }) => (
-
     <Item title={item.title} type={props.title} zoom={handleZoomVisible} />
-
   );
-
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [isZoomVisible, setZoomVisible] = React.useState(false);
   const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
   const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
   const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
-
-
   const flatList = useRef();
 
   const handleZoomVisible = () => {
@@ -162,9 +152,7 @@ const Card = (props) => {
           .index + 1
       );
       setScrollUpIndex(viewableItems.viewableItems[0].index - 1);
-
       console.log(viewableItems.viewableItems[0].index);
-      
       if (viewableItems.viewableItems[0].index === 0) {
         setDisplayScrollUp(false);
       } else {
@@ -173,13 +161,11 @@ const Card = (props) => {
     }
   });
   return (
-
     <SafeAreaView
       style={[
         cardStyles.card,
         { flex: props.title === Titles.BodyCheck ? -1 : 1 },
       ]}>
-
       <View style={cardStyles.cardHeader}>
         <View style={cardStyles.cardHeaderLeft} />
 
@@ -195,7 +181,6 @@ const Card = (props) => {
               />
             </Pressable>
 
-
             <Modal visible={isModalVisible} transparent>
               <TaskPopup isModalVisible={handleAddObject} />
             </Modal>
@@ -208,7 +193,6 @@ const Card = (props) => {
           alignSelf: "stretch",
           flex: 1,
         }}>
-
         <FlatList
           data={DATA}
           ref={flatList}
@@ -217,7 +201,6 @@ const Card = (props) => {
           showsVerticalScrollIndicator={false}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
-
           ItemSeparatorComponent={itemSeparator}
         />
       </View>
@@ -239,7 +222,6 @@ const Card = (props) => {
               </Pressable>
             )}
           </View>
-
         </View>
       </View>
     </SafeAreaView>
@@ -248,7 +230,6 @@ const Card = (props) => {
 
 export const cardStyles = StyleSheet.create({
   card: {
-    flex: 1,
     backgroundColor: light.secondary,
     flexDirection: "column",
     borderRadius: size.borderRadius,

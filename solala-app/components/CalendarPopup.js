@@ -20,6 +20,8 @@ import * as Favicon from "../../assets/favicons_js";
 import Cancel from "../../assets/favicons_light/Cancel.png";
 import Plus from "../../assets/favicons_light/Plus.png";
 import { theme } from "../constants";
+import Calendar from "./Calendar";
+import SelectionButton from "./SelectionButton";
 const { light, size, text, shadowProp } = theme;
 
 // npm install @react-native-community/slider --save
@@ -75,7 +77,9 @@ const CalendarPopup = (props) => {
               <Text style={cardStyles.popupLabelText}> Date: </Text>
             </View>
           </View>
-          <View style={cardStyles.calendar} />
+          <View style={cardStyles.calendar}>
+            <Calendar />
+          </View>
           {props.displayRepeat === true && (
             <View style={cardStyles.popupLabel}>
               <Text style={cardStyles.popupLabelText}> Repeat </Text>

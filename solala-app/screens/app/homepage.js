@@ -2,8 +2,8 @@ import React from "react";
 import { View, StyleSheet, Dimensions, Platform } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-import * as Components from "../../components";
 import * as Favicon from "../../../assets/favicons_js";
+import * as Components from "../../components";
 import { Titles } from "../../components/Card.js";
 import { theme } from "../../constants";
 import { useAuthentication } from "../../utils/hooks/useAuthentication.ts";

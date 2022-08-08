@@ -1,4 +1,5 @@
 import Button from "./Button";
+import Calendar from "./Calendar";
 import Card from "./Card";
 import CheckBoxComponent from "./CheckBoxComponent";
 import Features from "./Features";
@@ -13,6 +14,7 @@ import ToDoCard from "./ToDoCard";
 import Zoom from "./Zoom";
 export {
   Card,
+  Calendar,
   CheckBoxComponent,
   Footer,
   Header,

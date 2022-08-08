@@ -1,10 +1,23 @@
 import React, { useState } from "react";
-import { Platform, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Image,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { RFValue } from "react-native-responsive-fontsize";
 
+import ScrollLeft from "../../assets/favicons_dark/ScrollLeft.png";
+import ScrollRight from "../../assets/favicons_dark/ScrollRight.png";
+import * as Favicon from "../../assets/favicons_js";
 import { theme } from "../constants";
 import Button from "./Button";
+import cardStyles from "./CalendarPopup";
 
 const { colorPalette } = theme;
 
@@ -13,6 +26,28 @@ const CalendarComponent = () => {
   const startDate = selectedStartDate
     ? selectedStartDate.format("YYYY-MM-DD").toString()
     : "";
+
+  const CalendarLeftNav = () => (
+    <View style={cardStyles.centeredView}>
+      <Pressable onPress={Calendar.onPressArrowLeft}>
+        <Favicon.ScrollLeft style={{ width: 10 }} />
+        {(Platform.OS === "ios" || Platform.OS === "android") && (
+          <Image source={ScrollLeft} style={{ width: 15, height: 15 }} />
+        )}
+      </Pressable>
+    </View>
+  );
+
+  const CalendarRightNav = () => (
+    <View style={cardStyles.centeredView}>
+      <Pressable onPress={Calendar.onPressArrowRight}>
+        <Favicon.ScrollRight style={{ width: 10 }} />
+        {(Platform.OS === "ios" || Platform.OS === "android") && (
+          <Image source={ScrollRight} style={{ width: 15, height: 15 }} />
+        )}
+      </Pressable>
+    </View>
+  );
 
   if (Platform.OS === "android" || Platform.OS === "IOS") {
     return (
@@ -102,8 +137,13 @@ const CalendarComponent = () => {
           // Hide month navigation arrows. Default = false
           hideArrows={false}
           // Replace default arrows with custom ones (direction can be 'left' or 'right')
-          //renderArrow={direction => '<Arrow />'}
-          renderArrow={(direction) => (direction === "left" ? "prev" : "next")}
+          renderArrow={(direction) => {
+            if (direction == "left") {
+              return <CalendarLeftNav />;
+            } else {
+              return <CalendarRightNav />;
+            }
+          }}
           // Do not show days of other months in month page. Default = false
           hideExtraDays
           // If hideArrows = false and hideExtraDays = false do not switch month when tapping on greyed out

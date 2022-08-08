@@ -1,13 +1,13 @@
 import React from "react";
 import { View, StyleSheet, Platform, Pressable, Image } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { signOut, getAuth } from "firebase/auth";
 
-import Calendar from "../../assets/favicons_light/Calendar.png";
-import Greenhouse from "../../assets/favicons_light/Greenhouse.png";
-import ToDoList from "../../assets/favicons_light/ToDoList.png";
+import * as Icons from "../../assets/favicons_light";
 import { theme } from "../constants";
 
 const { colorPalette } = theme;
+const auth = getAuth();
 
 const Footer = ({ navigation }) => {
   const handleGreenHousePress = () => {
@@ -19,20 +19,27 @@ const Footer = ({ navigation }) => {
   const handleToDoPress = () => {
     navigation.navigate("Todo");
   };
+  const handleSignOut = () => {
+    signOut(auth);
+  };
 
   if (Platform.OS === "ios" || Platform.OS === "android") {
     return (
       <View style={footerStyles.boxMobile}>
         <Pressable onPress={handleGreenHousePress}>
-          <Image style={footerStyles.button} source={Greenhouse} />
+          <Image style={footerStyles.button} source={Icons.Greenhouse} />
         </Pressable>
 
         <Pressable onPress={handleCalendarPress}>
-          <Image style={footerStyles.button} source={Calendar} />
+          <Image style={footerStyles.button} source={Icons.Calendar} />
         </Pressable>
 
         <Pressable onPress={handleToDoPress}>
-          <Image style={footerStyles.button} source={ToDoList} />
+          <Image style={footerStyles.button} source={Icons.ToDoList} />
+        </Pressable>
+
+        <Pressable onPress={handleSignOut}>
+          <Image style={footerStyles.button} source={Icons.LogOut} />
         </Pressable>
       </View>
     );

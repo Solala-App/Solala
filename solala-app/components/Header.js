@@ -5,7 +5,6 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableOpacity,
   Image,
   Platform,
   Pressable,
@@ -15,7 +14,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Svg, { Defs, Use, Path } from "react-native-svg";
 
 import * as Favicon from "../../assets/favicons_js";
-import Rain from "../../assets/favicons_weather/Rain.png";
 import { theme } from "../constants";
 
 const { colorPalette, text, light, size } = theme;
@@ -80,14 +78,7 @@ const Header = (props) => {
           }}>
           <View style={styles.greetingMobile}>
             <Text style={styles.textBubbleMobile}>{props.greeting}</Text>
-            <Image
-              // source={{
-              //   uri: `http://openweathermap.org/img/wn/${props.icon}@4x.png`,
-              // }}
-              source={props.icon}
-              style={styles.weatherMobile}
-            />
-            {/* <WeatherIcon style={styles.weatherMobile} /> */}
+            <Image source={props.icon} style={styles.weatherMobile} />
           </View>
           <Text style={styles.announcementMobile}>{props.announcement}</Text>
         </View>
@@ -97,11 +88,11 @@ const Header = (props) => {
     return (
       <View style={styles.headerBox}>
         <View style={styles.headerLeft}>
-          <Pressable onPress={GreenhousePressEvent}>
-            <Favicon.Greenhouse color="black" style={styles.placeholder} />
-          </Pressable>
           <Pressable onPress={CalendarPressEvent}>
             <Favicon.Calendar color="black" style={styles.placeholder} />
+          </Pressable>
+          <Pressable onPress={GreenhousePressEvent}>
+            <Favicon.Greenhouse color="black" style={styles.placeholder} />
           </Pressable>
         </View>
         <View style={styles.headerCenter}>
@@ -118,25 +109,18 @@ const Header = (props) => {
               }}>
               <Text style={styles.textBubble}>
                 {props.greeting}
-                <Image
-                  // source={{
-                  //   uri: `http://openweathermap.org/img/wn/${props.icon}@4x.png`,
-                  // }}
-                  source={props.icon}
-                  style={styles.placeholderWeather}
-                />
-                {/* <WeatherIcon style={styles.placeholderWeather} /> */}
+                <Image source={props.icon} style={styles.placeholderWeather} />
               </Text>
             </View>
             <Text style={styles.announcement}>{props.announcement}</Text>
           </View>
         </View>
         <View style={styles.headerRight}>
-          <Pressable onPress={ToDoPressEvent}>
-            <Favicon.ToDoList color="black" style={styles.placeholder} />
-          </Pressable>
           <Pressable onPress={handleSignOut}>
             <Favicon.LogOut color="black" style={styles.placeholder} />
+          </Pressable>
+          <Pressable onPress={ToDoPressEvent}>
+            <Favicon.ToDoList color="black" style={styles.placeholder} />
           </Pressable>
         </View>
       </View>

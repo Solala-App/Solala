@@ -13,16 +13,12 @@ import {
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-import Check from "../../assets/favicons_dark/Check.png";
-import ScrollLeft from "../../assets/favicons_dark/ScrollLeft.png";
-import ScrollRight from "../../assets/favicons_dark/ScrollRight.png";
+import * as IconsDark from "../../assets/favicons_dark";
+import * as IconsLight from "../../assets/favicons_light";
 import * as Favicon from "../../assets/favicons_js";
-import Cancel from "../../assets/favicons_light/Cancel.png";
-import Plus from "../../assets/favicons_light/Plus.png";
 import { theme } from "../constants";
 import Calendar from "./Calendar";
-import SelectionButton from "./SelectionButton";
-const { light, size, text, shadowProp } = theme;
+const { light, size, text } = theme;
 
 // npm install @react-native-community/slider --save
 // yarn add react-native-element-dropdown
@@ -66,7 +62,7 @@ const CalendarPopup = (props) => {
             <View style={cardStyles.cardHeaderRight}>
               <Pressable onPress={props.isModalVisible}>
                 <Image
-                  source={Cancel}
+                  source={IconsLight.Cancel}
                   style={{ width: RFValue(12), height: RFValue(12) }}
                 />
               </Pressable>
@@ -88,7 +84,7 @@ const CalendarPopup = (props) => {
                   <Favicon.ScrollLeft style={{ width: 10 }} />
                   {(Platform.OS === "ios" || Platform.OS === "android") && (
                     <Image
-                      source={ScrollLeft}
+                      source={IconsDark.ScrollLeft}
                       style={{ width: 15, height: 15 }}
                     />
                   )}
@@ -104,7 +100,7 @@ const CalendarPopup = (props) => {
                   <Favicon.ScrollRight style={{ width: 10 }} />
                   {(Platform.OS === "ios" || Platform.OS === "android") && (
                     <Image
-                      source={ScrollRight}
+                      source={IconsDark.ScrollRight}
                       style={{ width: 15, height: 15 }}
                     />
                   )}
@@ -190,7 +186,7 @@ const CalendarPopup = (props) => {
                 <Pressable onPress={() => setNotes(tempNotes)}>
                   <Favicon.Plus style={{ width: 22 }} />
                   {(Platform.OS === "ios" || Platform.OS === "android") && (
-                    <Image width={20} height={20} />
+                    <Image source={IconsDark.Plus} width={20} height={20} />
                   )}
                 </Pressable>
               </View>
@@ -207,7 +203,7 @@ const CalendarPopup = (props) => {
                 console.log("Repeat: ", repeatOptions[repeatIndex]);
               }}>
               <Image
-                source={Check}
+                source={IconsDark.Check}
                 style={{ width: RFValue(25), height: RFValue(25) }}
               />
             </Pressable>

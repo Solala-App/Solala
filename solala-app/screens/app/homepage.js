@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions, Platform } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Favicon from "../../../assets/favicons_js";
+import * as Solala from "../../../assets/solala_js";
 import * as Components from "../../components";
 import { Titles } from "../../components/Card.js";
 import { theme } from "../../constants";
@@ -11,32 +12,60 @@ const { light, size } = theme;
 
 export default function Homepage() {
   const { user } = useAuthentication();
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.mainView}>
-        <View style={styles.row}>
-          <View style={styles.card}>
-            <Components.Card title={Titles.TodayEvent} />
+  if (Platform.OS === "ios" || Platform.OS === "android") {
+    return (
+      <View style={styles.container}>
+        <View style={styles.mainViewMobile}>
+          <View style={styles.row}>
+            <View style={styles.card}>
+              <Components.Card title={Titles.TodayEvent} />
+            </View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.card}>
+              <Components.Card title={Titles.HighPriority} />
+            </View>
+            <View style={styles.card}>
+              <Components.Card title={Titles.Upcoming} />
+            </View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.card}>
+              <Components.Card title={Titles.BodyCheck} />
+            </View>
           </View>
         </View>
-        <View style={styles.row}>
-          <View style={styles.card}>
-            <Components.Card title={Titles.HighPriority} />
-          </View>
-          <View style={styles.card}>
-            <Components.Card title={Titles.Upcoming} />
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.card}>
-            <Components.Card title={Titles.BodyCheck} />
-          </View>
-        </View>
+        <Components.Footer />
       </View>
-      <Components.Footer />
-    </View>
-  );
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <View style={styles.mainView}>
+          <View style={styles.column}>
+            <View style={styles.card}>
+              <Components.Card title={Titles.TodayEvent} />
+            </View>
+            <View style={styles.card}>
+              <Components.Card title={Titles.Upcoming} />
+            </View>
+          </View>
+          <View style={styles.columnSolala}>
+            <Solala.Happy />
+          </View>
+          <View style={styles.column}>
+            <View style={styles.card}>
+              <Components.Card title={Titles.HighPriority} />
+            </View>
+            <View style={styles.card}>
+              <Components.Card title={Titles.BodyCheck} />
+            </View>
+          </View>
+        </View>
+        <Components.Footer />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -45,7 +74,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height - RFValue(25),
   },
-  mainView: {
+  mainViewMobile: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
@@ -55,9 +84,29 @@ const styles = StyleSheet.create({
     paddingTop: size.padding,
     paddingBottom: size.padding,
   },
+  mainView: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingLeft: size.padding,
+    paddingRight: size.padding,
+    paddingTop: size.padding,
+    paddingBottom: size.padding,
+  },
   row: {
     flexDirection: "row",
     alignSelf: "stretch",
+    flex: 1,
+  },
+  column: {
+    flexDirection: "column",
+    alignSelf: "stretch",
+    flex: 1,
+  },
+  columnSolala: {
+    flexDirection: "column",
+    alignSelf: "flex-end",
     flex: 1,
   },
   card: {

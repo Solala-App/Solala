@@ -5,8 +5,7 @@ import { Alert } from "react-native";
 
 import * as weatherIcons from "../../../assets/favicons_weather";
 
-const { OPEN_WEATHER_KEY: openWeatherKey } = process.env;
-// const openWeatherKey = Constants.manifest?.extra?.openWeatherKey;
+const openWeatherKey = Constants.manifest?.extra?.openWeatherKey;
 const url = `https://api.openweathermap.org/data/2.5/onecall?&units=metric&exclude=minutely&appid=${openWeatherKey}`;
 
 interface Weather {
@@ -90,7 +89,7 @@ export function useWeather(): UseWeatherReturn {
   const loadForecast = async () => {
     setRefreshing(true);
 
-    const { status } = await Location.requestPermissionsAsync();
+    const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       Alert.alert("Permission to access location was denied");
     }

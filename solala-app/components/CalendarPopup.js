@@ -14,8 +14,8 @@ import {
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as IconsDark from "../../assets/favicons_dark";
-import * as IconsLight from "../../assets/favicons_light";
 import * as Favicon from "../../assets/favicons_js";
+import * as IconsLight from "../../assets/favicons_light";
 import { theme } from "../constants";
 import Calendar from "./Calendar";
 const { light, size, text } = theme;

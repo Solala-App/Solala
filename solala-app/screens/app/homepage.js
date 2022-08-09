@@ -51,7 +51,7 @@ export default function Homepage() {
             </View>
           </View>
           <View style={styles.columnSolala}>
-            <Solala.Happy />
+            <Components.AnimatedHover />
           </View>
           <View style={styles.column}>
             <View style={styles.card}>

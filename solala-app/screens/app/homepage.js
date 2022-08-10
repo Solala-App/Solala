@@ -55,8 +55,8 @@ export default function Homepage() {
               size={525}
               faceType={Solala.Happy}
               animateFloat={false}
-              animateSpin={true}
-              animateWave={true}
+              animateSpin
+              animateWave
             />
           </View>
           <View style={styles.column}>

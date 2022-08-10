@@ -3,12 +3,11 @@ import { View, StyleSheet, SafeAreaView, Dimensions } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Components from "../../components";
-import { Titles } from "../../components/ToDoCard.js";
 import { theme } from "../../constants";
 const { light, size } = theme;
 
 //<Components.SelectionButton title="Date:" data="Dates" />
-export default function Todo() {
+export default function Todo(props) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
@@ -20,34 +19,7 @@ export default function Todo() {
             <Components.SelectionButton title="Date:" data="Dates" />
           </View>
         </View>
-        <View style={[styles.row]}>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Monday} />
-          </View>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Tuesday} />
-          </View>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Wednesday} />
-          </View>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Thursday} />
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Friday} />
-          </View>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Saturday} />
-          </View>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.Sunday} />
-          </View>
-          <View style={styles.card}>
-            <Components.ToDoCard title={Titles.NextWeek} />
-          </View>
-        </View>
+        <Components.ToDoPlannerView />
       </View>
       <Components.Footer />
     </SafeAreaView>

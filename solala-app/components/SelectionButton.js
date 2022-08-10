@@ -33,6 +33,7 @@ export default function SelectionButton(props) {
   const [repeatIndexDate, setRepeatIndexDate] = React.useState(0);
   const [repeatIndexToDoView, setRepeatIndexToDoView] = React.useState(0);
   const [repeatIndexMonth, setRepeatIndexMonth] = React.useState(0);
+  const [onChange, setOnChange] = React.useState(false);
 
   let repeatIndex = repeatIndexDate;
   let setRepeatIndex = setRepeatIndexDate;

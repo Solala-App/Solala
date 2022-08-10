@@ -7,10 +7,9 @@ import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
 import * as Light from "../../assets/favicons_light";
 import { theme } from "../constants";
-import Button from "./Button";
 import cardStyles from "./CalendarPopup";
 
-const { colorPalette, light, fonts } = theme;
+const { colorPalette, light } = theme;
 
 const getDate = new Date();
 const INITIAL_DATE = format(getDate, "yyy-MM-dd");
@@ -163,7 +162,6 @@ const CalendarComponent = () => {
           // Enable the option to swipe between months. Default = false
           enableSwipeMonths
         />
-        <Button title="Add to calendar" color="dark" onClick="" />
       </View>
     );
   } else {
@@ -237,7 +235,6 @@ const CalendarComponent = () => {
           enableSwipeMonths
           markedDates={marked}
         />
-        <Button title="Add to calendar" color="dark" onClick="" />
       </View>
     );
   }

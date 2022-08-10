@@ -20,20 +20,6 @@ import Zoom from "./Zoom.js";
 
 const { light, size, text, shadowProp } = theme;
 
-// npm install @react-native-community/slider --save
-// yarn add react-native-select-dropdown
-export const Titles = {
-  Monday: "Monday",
-  Tuesday: "Tuesday",
-  Wednesday: "Wednesday",
-  Thursday: "Thursday",
-  Friday: "Friday",
-  Saturday: "Saturday",
-  Sunday: "Sunday",
-  NextWeek: "Next Week",
-  Catagory: "Catagory",
-};
-
 const DATA = [
   {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
@@ -73,22 +59,17 @@ const DATA = [
   },
 ];
 
-const Item = ({ title, type, zoom }) => (
+const Item = ({ title, zoom }) => (
   <View style={cardStyles.cardItem}>
     <View style={cardStyles.cardObjectLeft}>
-      {type === Titles.HighPriority && (
-        <CheckBoxComponent
-          onChange={(checked) => {
-            // do stuff with checked
-            console.log(
-              `Todo ${title} is ${checked ? "complete" : "incomplete"}`
-            );
-          }}
-        />
-      )}
-      {type === Titles.TodayEvent && (
-        <Text style={cardStyles.cardObjectText}>8 AM</Text>
-      )}
+      <CheckBoxComponent
+        onChange={(checked) => {
+          // do stuff with checked
+          console.log(
+            `Todo ${title} is ${checked ? "complete" : "incomplete"}`
+          );
+        }}
+      />
     </View>
     <View style={cardStyles.cardObjectRight}>
       <Pressable onPress={zoom}>
@@ -156,11 +137,7 @@ const Card = (props) => {
     }
   });
   return (
-    <SafeAreaView
-      style={[
-        cardStyles.card,
-        { flex: props.title === Titles.BodyCheck ? -1 : 1 },
-      ]}>
+    <SafeAreaView style={cardStyles.card}>
       <View style={cardStyles.cardHeader}>
         <View style={cardStyles.cardHeaderLeft} />
 
@@ -168,18 +145,16 @@ const Card = (props) => {
           <Text style={cardStyles.cardHeaderText}>{props.title}</Text>
         </View>
         <View style={cardStyles.cardHeaderRight}>
-          <>
-            <Pressable onPress={handleAddObject}>
-              <Image
-                style={{ width: RFValue(11), height: RFValue(11) }}
-                source={Plus}
-              />
-            </Pressable>
+          <Pressable onPress={handleAddObject}>
+            <Image
+              style={{ width: RFValue(11), height: RFValue(11) }}
+              source={Plus}
+            />
+          </Pressable>
 
-            <Modal visible={isModalVisible} transparent>
-              <TaskPopup isModalVisible={handleAddObject} />
-            </Modal>
-          </>
+          <Modal visible={isModalVisible} transparent>
+            <TaskPopup isModalVisible={handleAddObject} />
+          </Modal>
         </View>
       </View>
       {isZoomVisible === true && <Zoom />}
@@ -200,24 +175,14 @@ const Card = (props) => {
         />
       </View>
       <View style={{ flexDirection: "row" }}>
-        <View>
-          <View style={{ flexDirection: "row" }}>
-            <Pressable onPress={scrollsDown}>
-              <Favicon.ScrollDown
-                color="light"
-                style={cardStyles.scrollButton}
-              />
-            </Pressable>
-            {displayScrollUp === true && (
-              <Pressable onPress={scrollUp}>
-                <Favicon.ScrollUp
-                  color="light"
-                  style={cardStyles.scrollButton}
-                />
-              </Pressable>
-            )}
-          </View>
-        </View>
+        <Pressable onPress={scrollsDown}>
+          <Favicon.ScrollDown color="light" style={cardStyles.scrollButton} />
+        </Pressable>
+        {displayScrollUp === true && (
+          <Pressable onPress={scrollUp}>
+            <Favicon.ScrollUp color="light" style={cardStyles.scrollButton} />
+          </Pressable>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -232,6 +197,7 @@ export const cardStyles = StyleSheet.create({
     paddingBottom: size.innerPadding,
     alignItems: "center",
     ...shadowProp,
+    flex: 1,
   },
 
   cardHeader: {

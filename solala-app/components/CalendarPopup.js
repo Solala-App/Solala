@@ -173,17 +173,20 @@ const CalendarPopup = (props) => {
               <Text style={cardStyles.popupLabelText}> Notes: </Text>
               <View style={cardStyles.centeredView}>
                 <TextInput
-                  style={{ color: "green" }}
+                  style={{ color: light.accent }}
                   placeholder="No Notes"
                   onChangeText={(newText) => setTempNotes(newText)}
                   defaultValue={tempNotes}
                 />
               </View>
-              <View style={cardStyles.popupAddNote}>
+              <View>
                 <Pressable onPress={() => setNotes(tempNotes)}>
-                  <Favicon.Plus style={{ width: 22 }} />
+                  <Favicon.Plus style={{ width: RFValue(12) }} />
                   {(Platform.OS === "ios" || Platform.OS === "android") && (
-                    <Image source={IconsDark.Plus} width={20} height={20} />
+                    <Image
+                      source={IconsDark.Plus}
+                      style={{ width: RFValue(12), height: RFValue(12) }}
+                    />
                   )}
                 </Pressable>
               </View>
@@ -275,12 +278,6 @@ export const cardStyles = StyleSheet.create({
   popupCheck: {
     marginTop: size.margin,
     marginBottom: size.margin,
-  },
-  popupAddNote: {
-    alignContent: "center",
-    position: "absolute",
-    right: RFValue(10),
-    margin: RFValue(2),
   },
   dropdown: {
     backgroundColor: colorPalette.white,

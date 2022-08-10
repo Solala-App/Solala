@@ -4,11 +4,10 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
   Image,
   FlatList,
 } from "react-native";
-import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
+import { RFValue } from "react-native-responsive-fontsize";
 
 import Back from "../../../assets/favicons_js/BackArrow.js";
 import Angela from "../../../assets/volunteers/angela.jpg";
@@ -23,7 +22,7 @@ import Placeholder from "../../../assets/volunteers/placeholder.jpg";
 import Robert from "../../../assets/volunteers/robert.jpg";
 import * as Components from "../../components";
 import { theme } from "../../constants";
-const { light, text } = theme;
+const { light } = theme;
 
 export default function Profile() {
   /*

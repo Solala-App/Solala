@@ -7,16 +7,12 @@ import {
   FlatList,
   SafeAreaView,
   Modal,
-  Platform,
   Image,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Favicon from "../../assets/favicons_js";
 import Plus from "../../assets/favicons_light/Plus.png";
-import ScrollDown from "../../assets/favicons_light/ScrollDown.png";
-import ScrollRight from "../../assets/favicons_light/ScrollRight.png";
-import ScrollUp from "../../assets/favicons_light/ScrollUp.png";
 import { theme } from "../constants";
 import CheckBoxComponent from "./CheckBoxComponent";
 import EventPopup from "./EventPopup.js";
@@ -25,8 +21,6 @@ import Zoom from "./Zoom.js";
 
 const { light, size, text, shadowProp } = theme;
 
-// npm install @react-native-community/slider --save
-// yarn add react-native-select-dropdown
 export const Titles = {
   BodyCheck: "Body Check",
   Upcoming: "Upcoming",

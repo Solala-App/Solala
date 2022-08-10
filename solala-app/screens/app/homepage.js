@@ -2,16 +2,13 @@ import React from "react";
 import { View, StyleSheet, Dimensions, Platform } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-import * as Favicon from "../../../assets/favicons_js";
 import * as Solala from "../../../assets/solala_js";
 import * as Components from "../../components";
 import { Titles } from "../../components/Card.js";
 import { theme } from "../../constants";
-import { useAuthentication } from "../../utils/hooks/useAuthentication.ts";
 const { light, size } = theme;
 
 export default function Homepage() {
-  const { user } = useAuthentication();
   if (Platform.OS === "ios" || Platform.OS === "android") {
     return (
       <View style={styles.container}>

@@ -7,19 +7,14 @@ import {
   FlatList,
   SafeAreaView,
   Modal,
-  Platform,
   Image,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Favicon from "../../assets/favicons_js";
 import Plus from "../../assets/favicons_light/Plus.png";
-import ScrollDown from "../../assets/favicons_light/ScrollDown.png";
-import ScrollRight from "../../assets/favicons_light/ScrollRight.png";
-import ScrollUp from "../../assets/favicons_light/ScrollUp.png";
 import { theme } from "../constants";
 import CheckBoxComponent from "./CheckBoxComponent";
-import EventPopup from "./EventPopup.js";
 import TaskPopup from "./TaskPopup.js";
 import Zoom from "./Zoom.js";
 

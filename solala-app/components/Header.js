@@ -62,7 +62,7 @@ const Header = (props) => {
   const handleSignOut = () => {
     signOut(auth);
   };
-  const WeatherIcon = props.icon;
+
   if (Platform.OS === "ios" || Platform.OS === "android") {
     return (
       <SafeAreaView style={styles.headerBoxMobile}>

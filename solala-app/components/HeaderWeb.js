@@ -14,7 +14,7 @@ import LogoText from "../../assets/logo/SolalaLogoB.png";
 import * as Logos from "../../assets/logo_js";
 import { theme } from "../constants";
 
-const { colorPalette, size, text } = theme;
+const { colorPalette, text } = theme;
 
 const Header = ({ navigation }) => {
   const HomePressEvent = () => {

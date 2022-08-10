@@ -53,6 +53,8 @@ export const theme = {
     borderRadius: RFValue(10),
     textBoxRadius: RFValue(30),
     icon_size_sm: RFValue(20),
+    maxWidth: RFValue(375),
+    maxHeight: RFValue(640),
   },
   text: {
     title: {

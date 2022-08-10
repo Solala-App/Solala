@@ -4,9 +4,7 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Platform,
   ScrollView,
-  Button,
   Image,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -22,8 +20,8 @@ import Leej from "../../../assets/volunteers/leej.jpg";
 import Placeholder from "../../../assets/volunteers/placeholder.jpg";
 import Robert from "../../../assets/volunteers/robert.jpg";
 import * as Components from "../../components";
-import { theme, fonts } from "../../constants";
-const { light, size, colorPalette } = theme;
+import { theme } from "../../constants";
+const { light } = theme;
 
 export default function About({ navigation }) {
   const profiles = [

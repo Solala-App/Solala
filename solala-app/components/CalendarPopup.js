@@ -18,7 +18,7 @@ import * as Favicon from "../../assets/favicons_js";
 import * as IconsLight from "../../assets/favicons_light";
 import { theme } from "../constants";
 import Calendar from "./Calendar";
-const { light, size, text } = theme;
+const { light, size, text, colorPalette, shadowProp } = theme;
 
 // cmds
 // npm install @react-native-community/slider --save
@@ -69,11 +69,7 @@ const CalendarPopup = (props) => {
               </Pressable>
             </View>
           </View>
-          <View style={cardStyles.popupLabel}>
-            <View style={cardStyles.centeredView}>
-              <Text style={cardStyles.popupLabelText}> Date: </Text>
-            </View>
-          </View>
+
           <View style={cardStyles.calendar}>
             <Calendar />
           </View>
@@ -224,7 +220,12 @@ export const cardStyles = StyleSheet.create({
     paddingLeft: size.innerPadding,
     alignItems: "flex-end",
   },
-
+  cardHeaderCenter: {
+    flex: 10,
+  },
+  cardHeaderLeft: {
+    flex: 1,
+  },
   centeredView: {
     flex: 1,
     justifyContent: "center",
@@ -234,10 +235,11 @@ export const cardStyles = StyleSheet.create({
   modalView: {
     marginTop: RFValue(30),
     backgroundColor: light.secondary,
-    borderRadius: 17,
+    borderRadius: size.borderRadius,
     alignItems: "center",
     width: RFValue(250),
-    elevation: 5,
+    elevation: RFValue(5),
+    ...shadowProp,
   },
   popupHeader: {
     backgroundColor: light.accent,
@@ -247,47 +249,42 @@ export const cardStyles = StyleSheet.create({
     alignSelf: "stretch",
   },
   calendar: {
-    marginTop: 10,
-    backgroundColor: "blue",
-    height: 400,
+    marginTop: size.margin,
     width: "100%",
   },
   popupHeaderText: {
-    justifyContent: "center",
-    textAlign: "center",
-    fontSize: 15,
-    color: "white",
+    color: colorPalette.white,
     ...text.title,
   },
   popupLabel: {
     marginHorizontal: size.margin,
-    marginTop: 10,
+    marginTop: size.margin,
+    padding: size.innerPadding,
     backgroundColor: light.primary,
     borderRadius: size.borderRadius,
     flexDirection: "row",
     textAlign: "center",
     alignSelf: "stretch",
-    paddingEnd: size.margin,
   },
   popupLabelText: {
     textAlign: "center",
     justifyContent: "center",
-    fontSize: 20,
+    ...text.body,
     color: light.textSecondary,
   },
   popupCheck: {
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: size.margin,
+    marginBottom: size.margin,
   },
   popupAddNote: {
     alignContent: "center",
     position: "absolute",
-    right: 10,
-    margin: 2,
+    right: RFValue(10),
+    margin: RFValue(2),
   },
   dropdown: {
-    backgroundColor: "white",
-    borderBottomColor: "black",
+    backgroundColor: colorPalette.white,
+    borderBottomColor: colorPalette.black,
     borderWidth: 1,
   },
   repeatText: {
@@ -295,13 +292,6 @@ export const cardStyles = StyleSheet.create({
   },
   slider: {
     width: "100%",
-  },
-  cardHeaderLeft: {
-    flex: 1,
-  },
-
-  cardHeaderCenter: {
-    flex: 10,
   },
 });
 

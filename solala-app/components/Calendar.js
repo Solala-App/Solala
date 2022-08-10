@@ -1,36 +1,22 @@
+import { format } from "date-fns";
 import React, { useCallback, useMemo, useState } from "react";
-import {
-  Image,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import {
-  Agendar,
-  Calendar,
-  CalendarList,
-  LocaleConfig,
-} from "react-native-calendars";
+import { Image, Platform, Pressable, StyleSheet, View } from "react-native";
+import { Calendar, LocaleConfig } from "react-native-calendars";
 import { RFValue } from "react-native-responsive-fontsize";
 
-import ScrollLeft from "../../assets/favicons_dark/ScrollLeft.png";
-import ScrollRight from "../../assets/favicons_dark/ScrollRight.png";
 import * as Favicon from "../../assets/favicons_js";
+import * as Light from "../../assets/favicons_light";
 import { theme } from "../constants";
 import Button from "./Button";
 import cardStyles from "./CalendarPopup";
 
-const { colorPalette } = theme;
+const { colorPalette, size, light } = theme;
 
-const INITIAL_DATE = new Date();
-
+const getDate = new Date();
+const INITIAL_DATE = format(getDate, "yyy-MM-dd");
+//  const [currentMonth, setCurrentMonth] = useState(INITIAL_DATE);
 const CalendarComponent = () => {
   const [selected, setSelected] = useState(INITIAL_DATE);
-  const [currentMonth, setCurrentMonth] = useState(INITIAL_DATE);
 
   const onDayPress = useCallback((day) => {
     setSelected(day.dateString);
@@ -99,9 +85,9 @@ const CalendarComponent = () => {
   const CalendarLeftNav = () => (
     <View style={cardStyles.centeredView}>
       <Pressable onPress={Calendar.onPressArrowLeft}>
-        <Favicon.ScrollLeft style={{ width: 10 }} />
+        <Favicon.ScrollLeft color="light" style={{ width: 10 }} />
         {(Platform.OS === "ios" || Platform.OS === "android") && (
-          <Image source={ScrollLeft} style={{ width: 15, height: 15 }} />
+          <Image source={Light.ScrollLeft} style={{ width: 15, height: 15 }} />
         )}
       </Pressable>
     </View>
@@ -110,9 +96,9 @@ const CalendarComponent = () => {
   const CalendarRightNav = () => (
     <View style={cardStyles.centeredView}>
       <Pressable onPress={Calendar.onPressArrowRight}>
-        <Favicon.ScrollRight style={{ width: 10 }} />
+        <Favicon.ScrollRight color="light" style={{ width: 10 }} />
         {(Platform.OS === "ios" || Platform.OS === "android") && (
-          <Image source={ScrollRight} style={{ width: 15, height: 15 }} />
+          <Image source={Light.ScrollRight} style={{ width: 15, height: 15 }} />
         )}
       </Pressable>
     </View>
@@ -210,7 +196,7 @@ const CalendarComponent = () => {
           hideArrows={false}
           // Replace default arrows with custom ones (direction can be 'left' or 'right')
           renderArrow={(direction) => {
-            if (direction == "left") {
+            if (direction === "left") {
               return <CalendarLeftNav />;
             } else {
               return <CalendarRightNav />;
@@ -256,7 +242,7 @@ const CalendarComponent = () => {
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: colorPalette.terracotta,
+    backgroundColor: light.secondary,
     flex: 1,
     //calendarBackground: colorPalette.jade,
     textSectionTitleColor: colorPalette.terracotta,
@@ -266,12 +252,12 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   input: {
-    height: 40,
-    margin: 12,
+    height: RFValue(40),
+    margin: size.margin,
     borderWidth: 1,
   },
   dateText: {
-    margin: 16,
+    margin: size.margin,
   },
 });
 

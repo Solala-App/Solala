@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, StyleSheet, SafeAreaView, Dimensions } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 

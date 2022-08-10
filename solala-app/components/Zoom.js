@@ -1,10 +1,9 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
 
-import { theme, fonts } from "../constants";
+import { theme } from "../constants";
 
-const { colorPalette } = theme;
+const { colorPalette, size, text, light } = theme;
 
 const Zoom = (props) => {
   let temp = null;
@@ -26,8 +25,9 @@ const Zoom = (props) => {
 
 const styles = StyleSheet.create({
   zoomWindow: {
-    backgroundColor: theme.colorPalette.black,
-    opacity: "70%",
+    backgroundColor: light.accent,
+    opacity: 0.7,
+    flex: 1,
     flexWrap: "wrap",
     alignItems: "center",
     alignContent: "center",
@@ -37,16 +37,14 @@ const styles = StyleSheet.create({
     width: "90%",
     height: "90%",
     position: "absolute",
-    left: "50%",
-    top: "50%",
-    transform: "translate(-50%, -50%)",
-    borderRadius: RFValue(40),
+    maxHeight: size.maxHeight,
+    maxWidth: size.maxWidth,
+    borderRadius: size.borderRadius,
   },
 
   textBox: {
-    fontFamily: theme.fonts.body,
-    fontSize: RFValue(24),
-    color: theme.colorPalette.white,
+    ...text.body,
+    color: colorPalette.white,
   },
 });
 

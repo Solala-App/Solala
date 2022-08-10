@@ -1,5 +1,4 @@
-import AnimatedHover from "./AnimatedHover";
-import AnimatedWave from "./AnimatedWave";
+import AnimationManager from "./AnimationManager";
 import Button from "./Button";
 import Calendar from "./Calendar";
 import Card from "./Card";
@@ -30,6 +29,5 @@ export {
   TextInputField,
   ToDoCard,
   SelectionButton,
-  AnimatedWave,
-  AnimatedHover,
+  AnimationManager,
 };

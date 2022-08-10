@@ -75,10 +75,38 @@ const getWeatherIcon = (name?: string): string => {
   }
 };
 
+const getWeatherAdvice = (name?: string): string => {
+  switch (name) {
+    case "Clear":
+      return "enjoy the sun!";
+    case "Clouds":
+      return "enjoy the shade today!";
+    case "Fog":
+    case "Mist":
+    case "Drizzle":
+      return "it might be a little damp!";
+    case "Rain":
+    case "Thunderstorm":
+      return "bring your umbrella today!";
+    case "Smoke":
+    case "Haze":
+    case "Dust":
+    case "Sand":
+    case "Ash":
+      return "stay inside, air hazards!";
+    case "Snow":
+      return "it's a snow day!";
+    default:
+      return "what a lovely day!";
+  }
+};
+
 interface UseWeatherReturn {
   forecast?: Partial<Weather>;
   loadForecast: () => void;
   weatherIcon?: string;
+  weatherTemp?: number;
+  weatherAdvice?: string;
   refreshing: boolean;
 }
 
@@ -120,12 +148,16 @@ export function useWeather(): UseWeatherReturn {
 
   const weather = forecast?.weather ? forecast?.weather[0] : undefined;
   const weatherIcon = getWeatherIcon(weather?.main);
+  const weatherTemp = forecast?.temp?.day ? forecast?.temp.day : undefined;
+  const weatherAdvice = getWeatherAdvice(weather?.main);
 
   console.log({ forecast, weather, weatherIcon });
 
   return {
     forecast,
     weatherIcon,
+    weatherTemp,
+    weatherAdvice,
     refreshing,
     loadForecast,
   };

@@ -9,8 +9,6 @@ const { light, size } = theme;
 
 //<Components.SelectionButton title="Date:" data="Dates" />
 export default function Todo() {
-  const moment = require("moment");
-  const now = moment().format("dddd");
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>

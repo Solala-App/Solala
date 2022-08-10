@@ -1,7 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React, { useEffect } from "react";
+import { format } from "date-fns";
+import React from "react";
 import { Platform } from "react-native";
 
 import { Header, Footer } from "../components";
@@ -12,7 +13,49 @@ const Tab = createBottomTabNavigator();
 const AppStack = createStackNavigator();
 
 const SolalaAppMobile = () => {
-  const { weatherIcon } = useWeather();
+  const { weatherIcon, weatherAdvice } = useWeather();
+  const currentTime = new Date();
+  const formattedTime = format(currentTime, "H");
+
+  let greet = "Nice to see you, ";
+  switch (formattedTime) {
+    case "5":
+    case "6":
+    case "7":
+    case "8":
+    case "9":
+    case "10":
+      greet = "Good Morning!, ";
+      break;
+    case "11":
+    case "12":
+    case "13":
+    case "14":
+    case "15":
+    case "16":
+      greet = "Good Afternoon, ";
+      break;
+    case "17":
+    case "18":
+    case "19":
+    case "20":
+    case "21":
+      greet = "Good Evening, ";
+      break;
+    case "22":
+    case "23":
+    case "0":
+    case "1":
+    case "2":
+    case "3":
+    case "4":
+      greet = "Hello Night Owl, ";
+      break;
+
+    default:
+      greet = "Nice to see you, ";
+      break;
+  }
 
   return (
     <NavigationContainer>
@@ -22,7 +65,8 @@ const SolalaAppMobile = () => {
         screenOptions={{
           header: () => (
             <Header
-              greeting="Good Morning!"
+              greeting={greet}
+              weather={weatherAdvice}
               icon={weatherIcon}
               announcement="Meet Solala"
             />
@@ -37,7 +81,49 @@ const SolalaAppMobile = () => {
 };
 
 const SolalaApp = () => {
-  const { weatherIcon } = useWeather();
+  const { weatherIcon, weatherAdvice } = useWeather();
+  const currentTime = new Date();
+  const formattedTime = format(currentTime, "H");
+
+  let greet = "Nice to see you, ";
+  switch (formattedTime) {
+    case "5":
+    case "6":
+    case "7":
+    case "8":
+    case "9":
+    case "10":
+      greet = "Good Morning!, ";
+      break;
+    case "11":
+    case "12":
+    case "13":
+    case "14":
+    case "15":
+    case "16":
+      greet = "Good Afternoon, ";
+      break;
+    case "17":
+    case "18":
+    case "19":
+    case "20":
+    case "21":
+      greet = "Good Evening, ";
+      break;
+    case "22":
+    case "23":
+    case "0":
+    case "1":
+    case "2":
+    case "3":
+    case "4":
+      greet = "Hello Night Owl, ";
+      break;
+
+    default:
+      greet = "Nice to see you, ";
+      break;
+  }
   return (
     <NavigationContainer>
       <AppStack.Navigator
@@ -45,7 +131,8 @@ const SolalaApp = () => {
         screenOptions={{
           header: () => (
             <Header
-              greeting="Good Morning!"
+              greeting={greet}
+              weather={weatherAdvice}
               icon={weatherIcon}
               announcement="Meet Solala"
             />

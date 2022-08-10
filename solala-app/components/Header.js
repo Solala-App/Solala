@@ -88,8 +88,8 @@ const Header = (props) => {
     return (
       <View style={styles.headerBox}>
         <View style={styles.headerLeft}>
-          <Pressable onPress={CalendarPressEvent}>
-            <Favicon.Calendar color="black" style={styles.placeholder} />
+          <Pressable onPress={handleSignOut}>
+            <Favicon.LogOut color="black" style={styles.placeholder} />
           </Pressable>
           <Pressable onPress={GreenhousePressEvent}>
             <Favicon.Greenhouse color="black" style={styles.placeholder} />
@@ -98,26 +98,21 @@ const Header = (props) => {
         <View style={styles.headerCenter}>
           <View style={styles.headerSun}>
             <SvgSun />
-            <View
-              style={{
-                position: "absolute",
-                top: RFValue(48),
-                alignItems: "center",
-                width: "100%",
-                justifyContent: "space-around",
-                flexDirection: "row",
-              }}>
-              <Text style={styles.textBubble}>
-                {props.greeting}
+            <View style={styles.greeting}>
+              <View style={{ flex: 3 }}>
+                <Text style={styles.textBubble}>{props.greeting}</Text>
+                <Text style={styles.textBubble}>{props.weather}</Text>
+              </View>
+              <View style={{ flex: 1 }}>
                 <Image source={props.icon} style={styles.placeholderWeather} />
-              </Text>
+              </View>
             </View>
             <Text style={styles.announcement}>{props.announcement}</Text>
           </View>
         </View>
         <View style={styles.headerRight}>
-          <Pressable onPress={handleSignOut}>
-            <Favicon.LogOut color="black" style={styles.placeholder} />
+          <Pressable onPress={CalendarPressEvent}>
+            <Favicon.Calendar color="black" style={styles.placeholder} />
           </Pressable>
           <Pressable onPress={ToDoPressEvent}>
             <Favicon.ToDoList color="black" style={styles.placeholder} />
@@ -214,23 +209,24 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   textBubble: {
-    flexWrap: "wrap",
     ...text.title,
-    position: "absolute",
-    alignSelf: "flex-start",
   },
   announcement: {
     paddingTop: RFValue(75),
     ...text.body,
     position: "absolute",
   },
+  greeting: {
+    paddingTop: RFValue(45),
+    width: "80%",
+    position: "absolute",
+    flexDirection: "row",
+  },
 
   placeholderWeather: {
     width: RFValue(20),
     height: RFValue(20),
     marginLeft: RFValue(15),
-    alignSelf: "flex-end",
-    position: "absolute",
   },
 
   placeholder: {

@@ -1,29 +1,108 @@
-import React, { useState } from "react";
-import { Platform, StyleSheet, Text, TextInput, View } from "react-native";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import React, { useCallback, useMemo, useState } from "react";
+import {
+  Image,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { Agendar, Calendar, CalendarList, LocaleConfig } from "react-native-calendars";
 import { RFValue } from "react-native-responsive-fontsize";
 
+import ScrollLeft from "../../assets/favicons_dark/ScrollLeft.png";
+import ScrollRight from "../../assets/favicons_dark/ScrollRight.png";
+import * as Favicon from "../../assets/favicons_js";
 import { theme } from "../constants";
 import Button from "./Button";
+import cardStyles from "./CalendarPopup";
 
 const { colorPalette } = theme;
 
+const INITIAL_DATE = new Date();
+
 const CalendarComponent = () => {
-  const [selectedStartDate, setSelectedStartDate] = useState(null);
-  const startDate = selectedStartDate
-    ? selectedStartDate.format("YYYY-MM-DD").toString()
-    : "";
+  const [selected, setSelected] = useState(INITIAL_DATE);
+  const [currentMonth, setCurrentMonth] = useState(INITIAL_DATE);
+
+  const onDayPress = useCallback((day) => {
+    setSelected(day.dateString);
+  }, []);
+
+  const marked = useMemo(() => {
+    console.log("selected date is ", selected);
+    return {
+      [selected]: {
+        selected: true,
+        disableTouchEvent: true,
+        selectedColor: colorPalette.terracotta,
+        selectedTextColor: colorPalette.white
+      },
+      /*['2022-07-22']: {
+        dotColor: 'red',
+        marked: true
+      }*/
+    };
+  }, [selected]);
+
+  LocaleConfig.locales['en'] = {
+    formatAccessibilityLabel: "dddd d 'of' MMMM 'of' yyyy",
+    monthNames: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ],
+    monthNamesShort: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
+    dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    dayNamesShort: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    // numbers: ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'] // number localization example
+  };
+  LocaleConfig.defaultLocale = 'en';
+
+
+  const CalendarLeftNav = () => (
+    <View style={cardStyles.centeredView}>
+      <Pressable onPress={Calendar.onPressArrowLeft}>
+        <Favicon.ScrollLeft style={{ width: 10 }} />
+        {(Platform.OS === "ios" || Platform.OS === "android") && (
+          <Image source={ScrollLeft} style={{ width: 15, height: 15 }} />
+        )}
+      </Pressable>
+    </View>
+  );
+
+  const CalendarRightNav = () => (
+    <View style={cardStyles.centeredView}>
+      <Pressable onPress={Calendar.onPressArrowRight}>
+        <Favicon.ScrollRight style={{ width: 10 }} />
+        {(Platform.OS === "ios" || Platform.OS === "android") && (
+          <Image source={ScrollRight} style={{ width: 15, height: 15 }} />
+        )}
+      </Pressable>
+    </View>
+  );
 
   if (Platform.OS === "android" || Platform.OS === "IOS") {
     return (
       <View style={styles.container}>
         <Calendar
           // Initially visible month. Default = now
-          initialDate="2012-03-01"
+          initialDate="2022-01-01"
           // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-          minDate="2012-05-10"
+          minDate="2022-01-01"
           // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-          maxDate="2012-05-30"
+          maxDate="2099-12-31"
           // Handler which gets executed on day press. Default = undefined
           onDayPress={(day) => {
             console.log("selected day", day);
@@ -80,15 +159,18 @@ const CalendarComponent = () => {
         <Calendar
           style={styles.container}
           // Initially visible month. Default = now
-          initialDate="2022-08-01"
+          initialDate={INITIAL_DATE}
           // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-          minDate="2022-08-04"
+          minDate={INITIAL_DATE}
           // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
           maxDate="2099-05-30"
           // Handler which gets executed on day press. Default = undefined
-          onDayPress={(day) => {
+          /*onDayPress={(day) => {
             console.log("selected day", day);
-          }}
+            onDateChange(day, 'START_DATE');
+            console.log("new selected day", selectedStartDate);
+          }}*/
+          onDayPress={onDayPress}
           // Handler which gets executed on day long press. Default = undefined
           onDayLongPress={(day) => {
             console.log("selected day", day);
@@ -102,8 +184,13 @@ const CalendarComponent = () => {
           // Hide month navigation arrows. Default = false
           hideArrows={false}
           // Replace default arrows with custom ones (direction can be 'left' or 'right')
-          //renderArrow={direction => '<Arrow />'}
-          renderArrow={(direction) => (direction === "left" ? "prev" : "next")}
+          renderArrow={(direction) => {
+            if (direction == "left") {
+              return <CalendarLeftNav />;
+            } else {
+              return <CalendarRightNav />;
+            }
+          }}
           // Do not show days of other months in month page. Default = false
           hideExtraDays
           // If hideArrows = false and hideExtraDays = false do not switch month when tapping on greyed out
@@ -126,11 +213,15 @@ const CalendarComponent = () => {
           // Disable all touch events for disabled days. can be override with disableTouchEvent in markedDates
           disableAllTouchEventsForDisabledDays
           // Replace default month and year title with custom one. the function receive a date as parameter
-          renderHeader={(date) => {
+          /*renderHeader={(month) => {
             /*Return JSX*/
-          }}
+            /*return (
+                <Text style={cardStyles.popupHeaderText}>{month.toLocaleString("en-US", { year: "numeric", month: "long" })}</Text>
+            )
+          }}*/
           // Enable the option to swipe between months. Default = false
           enableSwipeMonths
+          markedDates={marked}
         />
         <Button title="Add to calendar" color="dark" onClick="" />
       </View>
@@ -140,7 +231,7 @@ const CalendarComponent = () => {
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: colorPalette.forest,
+    backgroundColor: colorPalette.terracotta,
     flex: 1,
     //calendarBackground: colorPalette.jade,
     textSectionTitleColor: colorPalette.terracotta,

@@ -56,7 +56,7 @@ export const theme = {
   },
   text: {
     title: {
-      fontSize: RFValue(14),
+      fontSize: RFValue(10),
       fontFamily: "Courgette",
     },
     h1: {

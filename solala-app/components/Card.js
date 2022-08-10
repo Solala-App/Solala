@@ -64,11 +64,11 @@ const DATA = [
     title: "qwertyuio",
   },
   {
-    id: "1",
+    id: "13",
     title: "qwertyuio",
   },
   {
-    id: "1",
+    id: "122",
     title: "qwertyuio",
   },
 ];
@@ -209,11 +209,23 @@ const Card = (props) => {
           />
         </View>
       )}
-      <View style={{ flexDirection: "row" }}>
+      {!(props.title === Titles.BodyCheck) && (
+        <View style={{ flexDirection: "row" }}>
+          <Pressable onPress={scrollsDown}>
+            <Favicon.ScrollDown color="light" style={cardStyles.scrollButton} />
+          </Pressable>
+          {displayScrollUp === true && (
+            <Pressable onPress={scrollUp}>
+              <Favicon.ScrollUp color="light" style={cardStyles.scrollButton} />
+            </Pressable>
+          )}
+        </View>
+      )}
+      <View style={{ flexDirection: "row", width: "100%" }}>
         {props.title === Titles.BodyCheck && (
           <View
             style={{
-              flex: 9,
+              flex: 1,
               marginStart: size.margin,
               paddingBottom: size.margin,
             }}>
@@ -230,25 +242,8 @@ const Card = (props) => {
             />
           </View>
         )}
+
         <View>
-          {!(props.title === Titles.BodyCheck) && (
-            <View style={{ flexDirection: "row" }}>
-              <Pressable onPress={scrollsDown}>
-                <Favicon.ScrollDown
-                  color="light"
-                  style={cardStyles.scrollButton}
-                />
-              </Pressable>
-              {displayScrollUp === true && (
-                <Pressable onPress={scrollUp}>
-                  <Favicon.ScrollUp
-                    color="light"
-                    style={cardStyles.scrollButton}
-                  />
-                </Pressable>
-              )}
-            </View>
-          )}
           {props.title === Titles.BodyCheck && (
             <View style={{ margin: size.innerPadding, flex: 1 }}>
               <Pressable onPress={scrollsDown}>

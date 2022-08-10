@@ -9,7 +9,12 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { Agendar, Calendar, CalendarList, LocaleConfig } from "react-native-calendars";
+import {
+  Agendar,
+  Calendar,
+  CalendarList,
+  LocaleConfig,
+} from "react-native-calendars";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import ScrollLeft from "../../assets/favicons_dark/ScrollLeft.png";
@@ -38,7 +43,7 @@ const CalendarComponent = () => {
         selected: true,
         disableTouchEvent: true,
         selectedColor: colorPalette.terracotta,
-        selectedTextColor: colorPalette.white
+        selectedTextColor: colorPalette.white,
       },
       /*['2022-07-22']: {
         dotColor: 'red',
@@ -47,29 +52,49 @@ const CalendarComponent = () => {
     };
   }, [selected]);
 
-  LocaleConfig.locales['en'] = {
+  LocaleConfig.locales["en"] = {
     formatAccessibilityLabel: "dddd d 'of' MMMM 'of' yyyy",
     monthNames: [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ],
-    monthNamesShort: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
-    dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    dayNamesShort: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    monthNamesShort: [
+      "jan",
+      "feb",
+      "mar",
+      "apr",
+      "may",
+      "jun",
+      "jul",
+      "aug",
+      "sep",
+      "oct",
+      "nov",
+      "dec",
+    ],
+    dayNames: [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ],
+    dayNamesShort: ["S", "M", "T", "W", "T", "F", "S"],
     // numbers: ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'] // number localization example
   };
-  LocaleConfig.defaultLocale = 'en';
-
+  LocaleConfig.defaultLocale = "en";
 
   const CalendarLeftNav = () => (
     <View style={cardStyles.centeredView}>
@@ -215,7 +240,7 @@ const CalendarComponent = () => {
           // Replace default month and year title with custom one. the function receive a date as parameter
           /*renderHeader={(month) => {
             /*Return JSX*/
-            /*return (
+          /*return (
                 <Text style={cardStyles.popupHeaderText}>{month.toLocaleString("en-US", { year: "numeric", month: "long" })}</Text>
             )
           }}*/

@@ -1,7 +1,7 @@
+import { signOut, getAuth } from "firebase/auth";
 import React from "react";
 import { View, StyleSheet, Platform, Pressable, Image } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { signOut, getAuth } from "firebase/auth";
 
 import * as Icons from "../../assets/favicons_light";
 import { theme } from "../constants";

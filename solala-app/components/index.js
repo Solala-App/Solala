@@ -1,3 +1,4 @@
+import AnimationManager from "./AnimationManager";
 import Button from "./Button";
 import Calendar from "./Calendar";
 import Card from "./Card";
@@ -12,6 +13,7 @@ import SelectionButton from "./SelectionButton";
 import TextInputField from "./TextInputField";
 import ToDoCard from "./ToDoCard";
 import Zoom from "./Zoom";
+
 export {
   Card,
   Calendar,
@@ -27,4 +29,5 @@ export {
   TextInputField,
   ToDoCard,
   SelectionButton,
+  AnimationManager,
 };

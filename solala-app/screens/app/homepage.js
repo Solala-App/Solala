@@ -51,7 +51,13 @@ export default function Homepage() {
             </View>
           </View>
           <View style={styles.columnSolala}>
-            <Solala.Happy />
+            <Components.AnimationManager
+              size={525}
+              faceType={Solala.Happy}
+              animateFloat={false}
+              animateSpin
+              animateWave
+            />
           </View>
           <View style={styles.column}>
             <View style={styles.card}>

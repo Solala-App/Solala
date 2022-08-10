@@ -12,6 +12,7 @@ import ProfilePopUp from "./ProfilePopUp";
 import SelectionButton from "./SelectionButton";
 import TextInputField from "./TextInputField";
 import ToDoCard from "./ToDoCard";
+import ToDoCategoryView from "./ToDoCategoryView";
 import ToDoDateView from "./ToDoDateView";
 import ToDoPlannerView from "./ToDoPlannerView";
 import Zoom from "./Zoom";
@@ -30,6 +31,7 @@ export {
   Button,
   TextInputField,
   ToDoCard,
+  ToDoCategoryView,
   ToDoDateView,
   ToDoPlannerView,
   SelectionButton,

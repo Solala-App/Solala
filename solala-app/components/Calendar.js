@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import React, { useCallback, useMemo, useState } from "react";
-import { Image, Platform, Pressable, StyleSheet, View } from "react-native";
+import { Image, Platform, Pressable, View } from "react-native";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -10,7 +10,7 @@ import { theme } from "../constants";
 import Button from "./Button";
 import cardStyles from "./CalendarPopup";
 
-const { colorPalette, size, light } = theme;
+const { colorPalette, light, fonts } = theme;
 
 const getDate = new Date();
 const INITIAL_DATE = format(getDate, "yyy-MM-dd");
@@ -106,8 +106,10 @@ const CalendarComponent = () => {
 
   if (Platform.OS === "android" || Platform.OS === "IOS") {
     return (
-      <View style={styles.container}>
+      <View>
         <Calendar
+          style={{ flex: 1 }}
+          theme={themeCalendar}
           // Initially visible month. Default = now
           initialDate="2022-01-01"
           // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
@@ -123,7 +125,7 @@ const CalendarComponent = () => {
             console.log("selected day", day);
           }}
           // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
-          monthFormat="yyyy MM"
+          monthFormat="MMMM yy"
           // Handler which gets executed when visible month changes in calendar. Default = undefined
           onMonthChange={(month) => {
             console.log("month changed", month);
@@ -166,9 +168,10 @@ const CalendarComponent = () => {
     );
   } else {
     return (
-      <View style={styles.container}>
+      <View>
         <Calendar
-          style={styles.container}
+          style={{ flex: 1 }}
+          theme={themeCalendar}
           // Initially visible month. Default = now
           initialDate={INITIAL_DATE}
           // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
@@ -187,7 +190,7 @@ const CalendarComponent = () => {
             console.log("selected day", day);
           }}
           // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
-          monthFormat="yyyy MM"
+          monthFormat="MMMM yy"
           // Handler which gets executed when visible month changes in calendar. Default = undefined
           onMonthChange={(month) => {
             console.log("month changed", month);
@@ -240,25 +243,26 @@ const CalendarComponent = () => {
   }
 };
 
-export const styles = StyleSheet.create({
-  container: {
-    backgroundColor: light.secondary,
-    flex: 1,
-    //calendarBackground: colorPalette.jade,
-    textSectionTitleColor: colorPalette.terracotta,
-  },
-  day: {
-    backgroundColor: colorPalette.jade,
-    flex: 1,
-  },
-  input: {
-    height: RFValue(40),
-    margin: size.margin,
-    borderWidth: 1,
-  },
-  dateText: {
-    margin: size.margin,
-  },
-});
+const themeCalendar = {
+  backgroundColor: light.secondary,
+  calendarBackground: light.secondary,
+  textSectionTitleColor: colorPalette.white,
+  textSectionTitleDisabledColor: "#d9e1e8",
+  selectedDayBackgroundColor: light.accent,
+  selectedDayTextColor: colorPalette.white,
+  todayTextColor: light.accent,
+  dayTextColor: colorPalette.black,
+  textDisabledColor: light.primary,
+  dotColor: light.accent,
+  selectedDotColor: colorPalette.white,
+  monthTextColor: colorPalette.white,
+  indicatorColor: "blue",
+  textDayFontFamily: theme.fonts.MontserratAltRegular,
+  textMonthFontFamily: theme.fonts.Courgette,
+  textDayHeaderFontFamily: theme.fonts.Courgette,
+  textDayFontSize: RFValue(10),
+  textMonthFontSize: RFValue(10),
+  textDayHeaderFontSize: RFValue(10),
+};
 
 export default CalendarComponent;

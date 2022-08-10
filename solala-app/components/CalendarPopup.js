@@ -24,6 +24,7 @@ import Calendar from "./Calendar";
 import SelectionButton from "./SelectionButton";
 const { light, size, text, shadowProp } = theme;
 
+// cmds
 // npm install @react-native-community/slider --save
 // yarn add react-native-element-dropdown
 

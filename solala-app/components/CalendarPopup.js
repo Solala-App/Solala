@@ -20,6 +20,7 @@ import { theme } from "../constants";
 import Calendar from "./Calendar";
 const { light, size, text } = theme;
 
+// cmds
 // npm install @react-native-community/slider --save
 // yarn add react-native-element-dropdown
 

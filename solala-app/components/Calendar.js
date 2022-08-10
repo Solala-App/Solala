@@ -125,7 +125,7 @@ const CalendarComponent = () => {
             console.log("selected day", day);
           }}
           // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
-          monthFormat="MMMM yy"
+          monthFormat="MMMM yyyy"
           // Handler which gets executed when visible month changes in calendar. Default = undefined
           onMonthChange={(month) => {
             console.log("month changed", month);
@@ -190,7 +190,7 @@ const CalendarComponent = () => {
             console.log("selected day", day);
           }}
           // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
-          monthFormat="MMMM yy"
+          monthFormat="MMMM yyyy"
           // Handler which gets executed when visible month changes in calendar. Default = undefined
           onMonthChange={(month) => {
             console.log("month changed", month);

@@ -157,7 +157,6 @@ const Card = (props) => {
           </Modal>
         </View>
       </View>
-      {isZoomVisible === true && <Zoom />}
       <View
         style={{
           alignSelf: "stretch",
@@ -184,6 +183,7 @@ const Card = (props) => {
           </Pressable>
         )}
       </View>
+      {isZoomVisible === true && <Zoom zoom={handleZoomVisible} />}
     </SafeAreaView>
   );
 };

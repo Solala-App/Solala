@@ -184,7 +184,6 @@ const Card = (props) => {
           )}
         </View>
       </View>
-      {isZoomVisible === true && <Zoom />}
       {!(props.title === Titles.BodyCheck) && (
         <View
           style={{
@@ -250,6 +249,7 @@ const Card = (props) => {
           )}
         </View>
       </View>
+      {isZoomVisible === true && <Zoom zoom={handleZoomVisible} />}
     </SafeAreaView>
   );
 };

@@ -29,6 +29,15 @@ export default function Homepage() {
           <View style={styles.row}>
             <View style={styles.card}>
               <Components.Card title={Titles.BodyCheck} />
+              <View style={{ position: "absolute" }}>
+                <Components.AnimationManager
+                  size={100}
+                  faceType={Solala.Happy}
+                  animateFloat
+                  animateSpin
+                  animateWave={false}
+                />
+              </View>
             </View>
           </View>
         </View>
@@ -49,7 +58,6 @@ export default function Homepage() {
           </View>
           <View style={styles.columnSolala}>
             <Components.AnimationManager
-              size={525}
               faceType={Solala.Happy}
               animateFloat={false}
               animateSpin

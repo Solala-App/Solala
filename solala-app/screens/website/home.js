@@ -29,7 +29,7 @@ export default function Home() {
             </Text>
           </View>
           <View style={styles.heroSectionImage}>
-            <Solala.Happy style={{ height: RFValue(200) }} />
+            <Solala.HappyComponent style={{ height: RFValue(200) }} />
             <Components.Button
               navigateTo="Login"
               title="Meet Solala"

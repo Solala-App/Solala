@@ -1,10 +1,11 @@
 import React from "react";
 import { Animated, Easing, Image, View, StyleSheet } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Solala from "../../assets/solala_js";
 
 export default function AnimationManager({
-  size = 525,
+  size = RFValue(215),
   faceType = Solala.DefaultFace,
   animateFloat = false,
   animateSpin = false,

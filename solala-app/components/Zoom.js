@@ -1,7 +1,11 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Image, Pressable } from "react-native";
 
 import { theme } from "../constants";
+
+import { RFValue } from "react-native-responsive-fontsize";
+
+import * as IconsLight from "../../assets/favicons_light";
 
 const { colorPalette, size, text, light } = theme;
 
@@ -19,6 +23,12 @@ const Zoom = (props) => {
       {temp}
       <Text style={styles.textBox}>{props.completion}</Text>
       <Text style={styles.textBox}>{props.congratulation}</Text>
+      <Pressable onPress={props.zoom}>
+        <Image
+          source={IconsLight.Cancel}
+          style={{ width: RFValue(12), height: RFValue(12) }}
+        />
+      </Pressable>{" "}
     </View>
   );
 };
@@ -26,7 +36,7 @@ const Zoom = (props) => {
 const styles = StyleSheet.create({
   zoomWindow: {
     backgroundColor: light.accent,
-    opacity: 0.7,
+    opacity: 1,
     flex: 1,
     flexWrap: "wrap",
     alignItems: "center",

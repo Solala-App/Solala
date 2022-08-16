@@ -14,11 +14,12 @@ const { colorPalette, light } = theme;
 const getDate = new Date();
 const INITIAL_DATE = format(getDate, "yyy-MM-dd");
 //  const [currentMonth, setCurrentMonth] = useState(INITIAL_DATE);
-const CalendarComponent = () => {
+const CalendarComponent = (props) => {
   const [selected, setSelected] = useState(INITIAL_DATE);
 
   const onDayPress = useCallback((day) => {
     setSelected(day.dateString);
+    props.changeDate(day.dateString);
   }, []);
 
   const marked = useMemo(() => {
@@ -118,6 +119,7 @@ const CalendarComponent = () => {
           // Handler which gets executed on day press. Default = undefined
           onDayPress={(day) => {
             console.log("selected day", day);
+            props.changeDate(selected);
           }}
           // Handler which gets executed on day long press. Default = undefined
           onDayLongPress={(day) => {

@@ -1,5 +1,7 @@
+import { getAuth } from "firebase/auth";
+import { child, getDatabase, onValue, ref, remove } from "firebase/database";
 import React from "react";
-import { View, StyleSheet, Dimensions, Platform } from "react-native";
+import { View, StyleSheet, Dimensions, Platform, Button } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Solala from "../../../assets/solala_js";
@@ -8,6 +10,20 @@ import { Titles } from "../../components/Card.js";
 import { theme } from "../../constants";
 const { light, size } = theme;
 
+function setupHighscoreListener() {
+  const userId = getAuth().currentUser.uid;
+  const db = getDatabase();
+  const reference = ref(db, "users/" + userId);
+  onValue(reference, (snapshot) => {
+    const value = snapshot.val();
+    console.log(value);
+  });
+}
+
+function resetData() {
+  const database = getDatabase();
+  remove(child(ref(database), "users/" + getAuth().currentUser.uid));
+}
 export default function Homepage() {
   if (Platform.OS === "ios" || Platform.OS === "android") {
     return (
@@ -56,6 +72,18 @@ export default function Homepage() {
               <Components.Card title={Titles.Upcoming} />
             </View>
           </View>
+          <Button
+            title="Fetch Data"
+            onPress={() => {
+              setupHighscoreListener();
+            }}
+          />
+          <Button
+            title="Reset Data"
+            onPress={() => {
+              resetData();
+            }}
+          />
           <View style={styles.columnSolala}>
             <Components.AnimationManager
               faceType={Solala.Happy}

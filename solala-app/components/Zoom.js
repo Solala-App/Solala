@@ -21,14 +21,14 @@ const Zoom = (props) => {
   return (
     <View style={styles.zoomWindow}>
       {temp}
-      <Text style={styles.textBox}>{props.completion}</Text>
-      <Text style={styles.textBox}>{props.congratulation}</Text>
+      <Text style={styles.textBox}>t{props.completion}</Text>
+      <Text style={styles.textBox}>t{props.congratulation}</Text>
       <Pressable onPress={props.zoom}>
         <Image
           source={IconsLight.Cancel}
           style={{ width: RFValue(12), height: RFValue(12) }}
         />
-      </Pressable>{" "}
+      </Pressable>
     </View>
   );
 };

@@ -6,7 +6,7 @@ const { colorPalette, light, dark } = theme;
 
 const SvgScrollRight = (props) => {
   let svgColor = light.secondary;
-  switch (props.color) {
+  switch (props.iconColor) {
     case "dark":
       svgColor = dark.primary;
       break;

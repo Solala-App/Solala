@@ -123,34 +123,57 @@ export default function Login({ navigation }) {
             )}
             {isNewUser && (
               <View>
-                <Components.TextInputField
-                  placeholder="Create Password"
-                  color="accent"
-                  textContentType="password"
-                />
+                <View style={styles.textInput}>
+                  <TextInput
+                    onChangeText={(text) => setValue({ ...value, email: text })}
+                    value={value.email}
+                    placeholder="Email"
+                    placeholderTextColor={colorPalette.forest}
+                  />
+                </View>
+                <View style={styles.textInput}>
+                  <TextInput
+                    onChangeText={(text) =>
+                      setValue({ ...value, password: text })
+                    }
+                    value={value.password}
+                    secureTextEntry
+                    placeholder="Create Password"
+                    placeholderTextColor={colorPalette.forest}
+                  />
+                </View>
                 <Components.Button
                   title="Create Account"
                   color="light"
-                  onClick={() => setCreatingAccount(!isCreatingAccount)}
+                  onClick={() => signUp()}
                 />
               </View>
             )}
             {isLoggingIn && (
               <View>
-                <Components.TextInputField
-                  placeholder="Username"
-                  color="accent"
-                  textContentType="username"
-                />
-                <Components.TextInputField
-                  placeholder="Password"
-                  color="accent"
-                  textContentType="password"
-                />
+                <View style={styles.textInput}>
+                  <TextInput
+                    onChangeText={(text) => setValue({ ...value, email: text })}
+                    value={value.email}
+                    placeholder="Email"
+                    placeholderTextColor={colorPalette.forest}
+                  />
+                </View>
+                <View style={styles.textInput}>
+                  <TextInput
+                    onChangeText={(text) =>
+                      setValue({ ...value, password: text })
+                    }
+                    value={value.password}
+                    secureTextEntry
+                    placeholder="Password"
+                    placeholderTextColor={colorPalette.forest}
+                  />
+                </View>
                 <Components.Button
                   title="Login"
                   color="light"
-                  onClick={() => setLoggingIntoAccount(!isLoggingIntoAccount)}
+                  onClick={() => signIn()}
                 />
               </View>
             )}

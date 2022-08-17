@@ -38,19 +38,19 @@ const DATA = [
     title: "Second Item",
   },
   {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
+    id: "58694a0f-3da1-471f-bd96-145d571e29d72",
     title: "Third Item",
   },
   {
-    id: "58694a0f-3da1-471f-bd96-145571e29d73",
+    id: "58694a0f-3da1-d471f-bd96-145571e29d73",
     title: "Fourth Item",
   },
   {
-    id: "58694a0f-3da1-471f-bd96-145571e29d74",
+    id: "58694a0f-3da1-471f-bd96-145571e2d9d74",
     title: "Fifth Item",
   },
   {
-    id: "58694a0f-3da1-471f-bd96-145571e20d74",
+    id: "58694a0f-3da1-471f-bdd96-145571e20d74",
     title: "Sixth Item",
   },
   {
@@ -138,7 +138,7 @@ const Card = (props) => {
     ) {
       setScrollDownIndex(
         viewableItems.viewableItems[viewableItems.viewableItems.length - 1]
-          .index + 1
+          .index
       );
       setScrollUpIndex(viewableItems.viewableItems[0].index - 1);
       console.log(viewableItems.viewableItems[0].index);
@@ -205,11 +205,17 @@ const Card = (props) => {
       {!(props.title === Titles.BodyCheck) && (
         <View style={{ flexDirection: "row" }}>
           <Pressable onPress={scrollsDown}>
-            <Favicon.ScrollDown color="light" style={cardStyles.scrollButton} />
+            <Favicon.ScrollDown
+              iconColor="light"
+              style={cardStyles.scrollButton}
+            />
           </Pressable>
           {displayScrollUp === true && (
             <Pressable onPress={scrollUp}>
-              <Favicon.ScrollUp color="light" style={cardStyles.scrollButton} />
+              <Favicon.ScrollUp
+                iconColor="light"
+                style={cardStyles.scrollButton}
+              />
             </Pressable>
           )}
         </View>
@@ -241,7 +247,7 @@ const Card = (props) => {
             <View style={{ margin: size.innerPadding, flex: 1 }}>
               <Pressable onPress={scrollsDown}>
                 <Favicon.ScrollRight
-                  color="light"
+                  iconColor="light"
                   style={cardStyles.scrollButton}
                 />
               </Pressable>

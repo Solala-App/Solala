@@ -45,6 +45,18 @@ export default function Homepage() {
           <View style={styles.row}>
             <View style={styles.card}>
               <Components.Card title={Titles.BodyCheck} />
+              <Button
+                title="Fetch Data"
+                onPress={() => {
+                  setupHighscoreListener();
+                }}
+              />
+              <Button
+                title="Reset Data"
+                onPress={() => {
+                  resetData();
+                }}
+              />
               <View style={{ position: "absolute" }}>
                 <Components.AnimationManager
                   size={100}

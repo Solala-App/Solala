@@ -6,7 +6,7 @@ const { colorPalette, light, dark } = theme;
 
 const SvgScrollUp = (props) => {
   let svgColor = colorPalette.jade;
-  switch (props.color) {
+  switch (props.iconColor) {
     case "dark":
       svgColor = dark.primary;
       break;

@@ -76,23 +76,16 @@ export default function SelectionButton(props) {
   return (
     <View style={styles.textBubble}>
       <Pressable onPress={scrollLeft}>
-        <Favicon.ScrollLeft color="white" style={{ width: RFValue(5) }} />
-        {(Platform.OS === "ios" || Platform.OS === "android") && (
-          <ScrollLeft width={RFValue(5)} height={RFValue(5)} />
-        )}
+        <Favicon.ScrollLeft iconColor="white" style={{ width: RFValue(5) }} />
       </Pressable>
 
       <View style={styles.text}>
         <Text style={styles.text}>
-          {" "}
           {props.title} {dataType[repeatIndex]}{" "}
         </Text>
       </View>
       <Pressable onPress={scrollRight}>
-        <Favicon.ScrollRight color="white" style={{ width: RFValue(5) }} />
-        {(Platform.OS === "ios" || Platform.OS === "android") && (
-          <ScrollRight width={RFValue(5)} height={RFValue(5)} />
-        )}
+        <Favicon.ScrollRight iconColor="white" style={{ width: RFValue(5) }} />
       </Pressable>
     </View>
   );

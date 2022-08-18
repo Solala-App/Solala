@@ -46,15 +46,15 @@ const DATA = [
     title: "Sixth Item",
   },
   {
-    id: "1",
+    id: "31",
     title: "qwertyuio",
   },
   {
-    id: "1",
+    id: "13",
     title: "qwertyuio",
   },
   {
-    id: "1",
+    id: "12",
     title: "qwertyuio",
   },
 ];
@@ -125,7 +125,7 @@ const Card = (props) => {
     ) {
       setScrollDownIndex(
         viewableItems.viewableItems[viewableItems.viewableItems.length - 1]
-          .index + 1
+          .index
       );
       setScrollUpIndex(viewableItems.viewableItems[0].index - 1);
       console.log(viewableItems.viewableItems[0].index);
@@ -175,11 +175,17 @@ const Card = (props) => {
       </View>
       <View style={{ flexDirection: "row" }}>
         <Pressable onPress={scrollsDown}>
-          <Favicon.ScrollDown color="light" style={cardStyles.scrollButton} />
+          <Favicon.ScrollDown
+            iconColor="light"
+            style={cardStyles.scrollButton}
+          />
         </Pressable>
         {displayScrollUp === true && (
           <Pressable onPress={scrollUp}>
-            <Favicon.ScrollUp color="light" style={cardStyles.scrollButton} />
+            <Favicon.ScrollUp
+              iconColor="light"
+              style={cardStyles.scrollButton}
+            />
           </Pressable>
         )}
       </View>

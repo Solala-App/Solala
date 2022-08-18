@@ -19,9 +19,11 @@ const CheckBoxComponent = (props) => {
 
   const getFavicon = () => {
     if (checked) {
-      return <Favicon.Check color="light" style={{ width: RFValue(10) }} />;
+      return <Favicon.Check iconColor="light" style={{ width: RFValue(10) }} />;
     }
-    return <Favicon.CheckBox color="light" style={{ width: RFValue(10) }} />;
+    return (
+      <Favicon.CheckBox iconColor="light" style={{ width: RFValue(10) }} />
+    );
   };
   return (
     <Pressable onPress={handleImageChange}>

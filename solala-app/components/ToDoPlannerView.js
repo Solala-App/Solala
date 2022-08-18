@@ -50,7 +50,6 @@ const DATA = [
 
 const Item = ({ title, zoom }) => (
   <View style={styles.cardItem}>
-    {" "}
     <Pressable onPress={zoom}>
       <Text style={styles.cardObjectText}>{title}</Text>
     </Pressable>
@@ -165,11 +164,11 @@ const ToDoPlannerView = (props) => {
         </View>
         <View style={{ flexDirection: "row", alignSelf: "center" }}>
           <Pressable onPress={scrollsDown}>
-            <Favicon.ScrollDown color="dark" style={styles.scrollButton} />
+            <Favicon.ScrollDown iconColor="dark" style={styles.scrollButton} />
           </Pressable>
           {displayScrollUp === true && (
             <Pressable onPress={scrollUp}>
-              <Favicon.ScrollUp color="dark" style={styles.scrollButton} />
+              <Favicon.ScrollUp iconColor="dark" style={styles.scrollButton} />
             </Pressable>
           )}
         </View>

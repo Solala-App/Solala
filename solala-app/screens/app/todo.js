@@ -13,7 +13,7 @@ export default function Todo(props) {
       <View style={styles.mainView}>
         <View style={styles.topBar}>
           <View style={{ alignItems: "flex-start", flex: 1 }}>
-            <Components.SelectionButton title="Sort:" data="todo view" />
+            <Components.SelectionButton title={"Sort:"} data={"todo view"} />
           </View>
           <View style={{ alignItems: "flex-end", flex: 1 }}>
             <Components.SelectionButton title="Date:" data="Dates" />

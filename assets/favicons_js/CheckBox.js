@@ -7,7 +7,7 @@ const { colorPalette, light, dark } = theme;
 const SvgComponent = (props) => {
   let svgColor = light.secondary;
   let borderColor = light.secondary;
-  switch (props.color) {
+  switch (props.iconColor) {
     case "dark":
       svgColor = dark.primary;
       borderColor = dark.secondary;

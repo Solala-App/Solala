@@ -1,5 +1,7 @@
 import Slider from "@react-native-community/slider";
 import { Picker } from "@react-native-picker/picker";
+import { getAuth } from "firebase/auth";
+
 import React from "react";
 import {
   View,
@@ -11,6 +13,17 @@ import {
   Platform,
   Image,
 } from "react-native";
+import {
+  getDatabase,
+  ref,
+  set,
+  onValue,
+  push,
+  child,
+  update,
+  remove,
+} from "firebase/database";
+
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as IconsDark from "../../assets/favicons_dark";
@@ -18,18 +31,67 @@ import * as Favicon from "../../assets/favicons_js";
 import * as IconsLight from "../../assets/favicons_light";
 import { theme } from "../constants";
 import Calendar from "./Calendar";
+import { Titles } from "./Card";
+import { format } from "date-fns";
+
 const { light, size, text, colorPalette, shadowProp } = theme;
 
 // cmds
 // npm install @react-native-community/slider --save
 // yarn add react-native-element-dropdown
+function storeTask(task) {
+  const user = getAuth().currentUser;
+  //console.log(user.uid);
 
+  if (user != null) {
+    const database = getDatabase();
+
+    const newTaskKey = push(child(ref(database), "users")).key;
+    const taskData = {
+      priority: task.priority,
+      complexity: task.complexity,
+      category: task.category,
+      notes: task.notes,
+      repeat: task.repeat,
+      date: task.date,
+      id: newTaskKey,
+    };
+    const updates = {};
+    updates["/users/" + user.uid + "/tasks/" + newTaskKey] = taskData;
+    return update(ref(database), updates);
+    //remove(child(ref(database), "users/" + user.uid));
+  }
+}
+
+function storeEvent(event) {
+  const user = getAuth().currentUser;
+  //console.log(user.uid);
+
+  if (user != null) {
+    const database = getDatabase();
+
+    const newTaskKey = push(child(ref(database), "users")).key;
+    const taskData = {
+      notes: event.notes,
+      repeat: event.repeat,
+      date: event.date,
+      id: newTaskKey,
+    };
+    const updates = {};
+    updates["/users/" + user.uid + "/events/" + newTaskKey] = taskData;
+    return update(ref(database), updates);
+    //remove(child(ref(database), "users/" + user.uid + "/-N9_JnrCNMOet6P1HzO-"));
+  }
+}
 const CalendarPopup = (props) => {
   const [priorityValue, setPriorityValue] = React.useState(15);
   const [complexityValue, setComplexityValue] = React.useState(15);
   const [repeatIndex, setRepeatIndex] = React.useState(0);
   const [tempNotes, setTempNotes] = React.useState("");
   const [notes, setNotes] = React.useState("");
+  const [selectedDate, setSelectedDate] = React.useState(
+    format(new Date(), "yyy-MM-dd")
+  );
 
   const repeatOptions = ["None", "Daily", "Weekly", "Monthly"];
   const [category, setCategory] = React.useState("key0");
@@ -48,6 +110,10 @@ const CalendarPopup = (props) => {
     } else {
       setRepeatIndex(() => repeatIndex + 1);
     }
+  };
+
+  const changeDate = (date) => {
+    setSelectedDate(date);
   };
   return (
     <ScrollView>
@@ -71,7 +137,7 @@ const CalendarPopup = (props) => {
           </View>
 
           <View style={cardStyles.calendar}>
-            <Calendar />
+            <Calendar changeDate={changeDate} />
           </View>
           {props.displayRepeat === true && (
             <View style={cardStyles.popupLabel}>
@@ -196,11 +262,19 @@ const CalendarPopup = (props) => {
             <Pressable
               onPress={() => {
                 props.isModalVisible();
-                console.log("priority: ", priorityValue);
-                console.log("complexity: ", complexityValue);
-                console.log("category: ", category);
-                console.log("Notes: ", notes);
-                console.log("Repeat: ", repeatOptions[repeatIndex]);
+                const task = {
+                  priority: priorityValue,
+                  complexity: complexityValue,
+                  category: category,
+                  notes: notes,
+                  repeat: repeatOptions[repeatIndex],
+                  date: selectedDate,
+                };
+                if (props.type === "Task") {
+                  storeTask(task);
+                } else {
+                  storeEvent(task);
+                }
               }}>
               <Image
                 source={IconsDark.Check}

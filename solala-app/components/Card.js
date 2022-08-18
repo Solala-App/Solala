@@ -1,4 +1,7 @@
-import React, { useRef } from "react";
+import { format } from "date-fns";
+import { getAuth } from "firebase/auth";
+import { get, getDatabase, onValue, ref } from "firebase/database";
+import React, { useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -8,6 +11,7 @@ import {
   SafeAreaView,
   Modal,
   Image,
+  Platform,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -27,45 +31,6 @@ export const Titles = {
   TodayEvent: "Today's Events",
   HighPriority: "Priorities",
 };
-
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145d571e29d72",
-    title: "Third Item",
-  },
-  {
-    id: "58694a0f-3da1-d471f-bd96-145571e29d73",
-    title: "Fourth Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e2d9d74",
-    title: "Fifth Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bdd96-145571e20d74",
-    title: "Sixth Item",
-  },
-  {
-    id: "1",
-    title: "qwertyuio",
-  },
-  {
-    id: "13",
-    title: "qwertyuio",
-  },
-  {
-    id: "122",
-    title: "qwertyuio",
-  },
-];
 
 const Item = ({ title, type, zoom }) => (
   <View style={cardStyles.cardItem}>
@@ -108,15 +73,38 @@ const Card = (props) => {
   const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
   const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
   const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
+  const [DATA, setDATA] = React.useState([]);
+
   const flatList = useRef();
 
+  useEffect(() => {
+    const userId = getAuth().currentUser.uid;
+    const db = getDatabase();
+    const reference = ref(db, "users/" + userId + "/events");
+    let data = [];
+
+    return onValue(reference, (snapshot) => {
+      const value = snapshot.val();
+      data = [];
+      for (const n in value) {
+        if (
+          value[n]["date"] === format(new Date(), "yyy-MM-dd") &&
+          props.title === Titles.TodayEvent
+        ) {
+          data.push({ id: n, title: value[n]["notes"] });
+        } else if (props.title === Titles.HighPriority) {
+        } else if (props.title === Titles.Upcoming) {
+        }
+      }
+      setDATA(data);
+    });
+  }, []);
   const handleZoomVisible = () => {
     setZoomVisible(() => !isZoomVisible);
   };
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
   };
-
   const scrollsDown = () => {
     if (scrollDownIndex < DATA.length) {
       setScrollDownIndex(scrollDownIndex + 1);
@@ -167,7 +155,10 @@ const Card = (props) => {
             <>
               <Pressable onPress={handleAddObject}>
                 <Image
-                  style={{ width: RFValue(11), height: RFValue(11) }}
+                  style={{
+                    width: Platform.OS === "web" ? RFValue(11) : RFValue(25),
+                    height: Platform.OS === "web" ? RFValue(11) : RFValue(25),
+                  }}
                   source={Plus}
                 />
               </Pressable>
@@ -299,8 +290,16 @@ export const cardStyles = StyleSheet.create({
   },
 
   cardHeaderText: {
-    ...text.title,
+    ...Platform.select({
+      web: {
+        ...text.title,
+      },
+      default: {
+        ...text.mobileHeader,
+      },
+    }),
     color: light.textPrimary,
+    padding: size.innerPadding,
   },
 
   cardItem: {

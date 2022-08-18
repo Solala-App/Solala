@@ -77,6 +77,10 @@ export const theme = {
       fontSize: RFValue(25),
       fontFamily: "Courgette",
     },
+    mobileHeader: {
+      fontSize: RFValue(20),
+      fontFamily: "Courgette",
+    },
     h1Mobile: {
       fontSize: RFValue(25),
       fontFamily: "MontserratAltBlack",

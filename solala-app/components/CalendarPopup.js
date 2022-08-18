@@ -88,7 +88,7 @@ const CalendarPopup = (props) => {
   const [complexityValue, setComplexityValue] = React.useState(15);
   const [repeatIndex, setRepeatIndex] = React.useState(0);
   const [tempNotes, setTempNotes] = React.useState("");
-  const [notes, setNotes] = React.useState("");
+  const [notes, setNotes] = React.useState("no notes");
   const [selectedDate, setSelectedDate] = React.useState(
     format(new Date(), "yyy-MM-dd")
   );
@@ -121,7 +121,7 @@ const CalendarPopup = (props) => {
         <View style={cardStyles.modalView}>
           <View style={cardStyles.popupHeader}>
             <View style={cardStyles.cardHeaderLeft} />
-            <View style={cardStyles.cardHeaderCenter}>
+            <View style={cardStyles.centeredView}>
               <Text style={cardStyles.popupHeaderText}>
                 Create {props.type}
               </Text>
@@ -130,7 +130,10 @@ const CalendarPopup = (props) => {
               <Pressable onPress={props.isModalVisible}>
                 <Image
                   source={IconsLight.Cancel}
-                  style={{ width: RFValue(12), height: RFValue(12) }}
+                  style={{
+                    width: Platform.OS === "web" ? RFValue(11) : RFValue(25),
+                    height: Platform.OS === "web" ? RFValue(11) : RFValue(25),
+                  }}
                 />
               </Pressable>
             </View>
@@ -304,7 +307,7 @@ export const cardStyles = StyleSheet.create({
     flex: 1,
   },
   centeredView: {
-    flex: 1,
+    flex: 10,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
@@ -331,7 +334,14 @@ export const cardStyles = StyleSheet.create({
   },
   popupHeaderText: {
     color: colorPalette.white,
-    ...text.title,
+    ...Platform.select({
+      web: {
+        ...text.title,
+      },
+      default: {
+        ...text.mobileHeader,
+      },
+    }),
   },
   popupLabel: {
     marginHorizontal: size.margin,

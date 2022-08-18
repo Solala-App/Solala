@@ -1,11 +1,9 @@
 import React from "react";
 import { Text, View, StyleSheet, Image, Pressable } from "react-native";
-
-import { theme } from "../constants";
-
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as IconsLight from "../../assets/favicons_light";
+import { theme } from "../constants";
 
 const { colorPalette, size, text, light } = theme;
 

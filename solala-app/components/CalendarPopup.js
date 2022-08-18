@@ -1,7 +1,17 @@
 import Slider from "@react-native-community/slider";
 import { Picker } from "@react-native-picker/picker";
+import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
-
+import {
+  getDatabase,
+  ref,
+  set,
+  onValue,
+  push,
+  child,
+  update,
+  remove,
+} from "firebase/database";
 import React from "react";
 import {
   View,
@@ -13,17 +23,6 @@ import {
   Platform,
   Image,
 } from "react-native";
-import {
-  getDatabase,
-  ref,
-  set,
-  onValue,
-  push,
-  child,
-  update,
-  remove,
-} from "firebase/database";
-
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as IconsDark from "../../assets/favicons_dark";
@@ -32,7 +31,6 @@ import * as IconsLight from "../../assets/favicons_light";
 import { theme } from "../constants";
 import Calendar from "./Calendar";
 import { Titles } from "./Card";
-import { format } from "date-fns";
 
 const { light, size, text, colorPalette, shadowProp } = theme;
 
@@ -268,8 +266,8 @@ const CalendarPopup = (props) => {
                 const task = {
                   priority: priorityValue,
                   complexity: complexityValue,
-                  category: category,
-                  notes: notes,
+                  category,
+                  notes,
                   repeat: repeatOptions[repeatIndex],
                   date: selectedDate,
                 };

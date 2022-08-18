@@ -69,7 +69,7 @@ const Card = (props) => {
     let data = [];
 
     function addDays(days) {
-      var date = new Date();
+      const date = new Date();
       date.setDate(date.getDate() + days);
       return date;
     }
@@ -115,7 +115,7 @@ const Card = (props) => {
           .index
       );
       setScrollUpIndex(viewableItems.viewableItems[0].index - 1);
-      console.log(viewableItems.viewableItems[0].index);
+      //console.log(viewableItems.viewableItems[0].index);
       if (viewableItems.viewableItems[0].index === 0) {
         setDisplayScrollUp(false);
       } else {

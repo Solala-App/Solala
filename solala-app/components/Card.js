@@ -16,7 +16,7 @@ import {
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Favicon from "../../assets/favicons_js";
-import Plus from "../../assets/favicons_light/Plus.png";
+import * as Icons from "../../assets/favicons_light";
 import { theme } from "../constants";
 import CheckBoxComponent from "./CheckBoxComponent";
 import EventPopup from "./EventPopup.js";
@@ -80,19 +80,29 @@ const Card = (props) => {
   useEffect(() => {
     const userId = getAuth().currentUser.uid;
     const db = getDatabase();
-    const reference = ref(db, "users/" + userId + "/events");
+    let reference;
+    if (props.title === Titles.HighPriority) {
+      reference = ref(db, "users/" + userId + "/tasks");
+    } else {
+      reference = ref(db, "users/" + userId + "/events");
+    }
     let data = [];
 
     return onValue(reference, (snapshot) => {
       const value = snapshot.val();
       data = [];
       for (const n in value) {
+        console.log(value[n]);
         if (
           value[n]["date"] === format(new Date(), "yyy-MM-dd") &&
           props.title === Titles.TodayEvent
         ) {
           data.push({ id: n, title: value[n]["notes"] });
-        } else if (props.title === Titles.HighPriority) {
+        } else if (
+          props.title === Titles.HighPriority &&
+          value[n]["priority"] > 50
+        ) {
+          data.push({ id: n, title: value[n]["notes"] });
         } else if (props.title === Titles.Upcoming) {
         }
       }
@@ -159,7 +169,7 @@ const Card = (props) => {
                     width: Platform.OS === "web" ? RFValue(11) : RFValue(25),
                     height: Platform.OS === "web" ? RFValue(11) : RFValue(25),
                   }}
-                  source={Plus}
+                  source={Icons.Plus}
                 />
               </Pressable>
 

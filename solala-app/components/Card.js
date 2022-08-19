@@ -97,13 +97,17 @@ const Card = (props) => {
           value[n]["date"] === format(new Date(), "yyy-MM-dd") &&
           props.title === Titles.TodayEvent
         ) {
-          data.push({ id: n, title: value[n]["notes"] });
+          data.push({ id: n, title: value[n]["title"] });
         } else if (
           props.title === Titles.HighPriority &&
           value[n]["priority"] > 50
         ) {
-          data.push({ id: n, title: value[n]["notes"] });
-        } else if (props.title === Titles.Upcoming) {
+          data.push({ id: n, title: value[n]["title"] });
+        } else if (
+          props.title === Titles.Upcoming &&
+          value[n]["date"] !== format(new Date(), "yyy-MM-dd")
+        ) {
+          data.push({ id: n, title: value[n]["title"] });
         }
       }
       setDATA(data);

@@ -78,7 +78,7 @@ const Card = (props) => {
       data = [];
       for (const n in value) {
         if (value[n]["date"] === format(addDays(props.day), "yyy-MM-dd")) {
-          data.push({ id: n, title: value[n]["notes"] });
+          data.push({ id: n, title: value[n]["title"] });
         }
       }
       setDATA(data);

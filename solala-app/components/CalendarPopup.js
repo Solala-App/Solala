@@ -1,5 +1,5 @@
 import Slider from "@react-native-community/slider";
-import { Picker } from "@react-native-picker/picker";
+import { Picker, PickerIOS } from "@react-native-picker/picker";
 import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
 import {
@@ -53,6 +53,7 @@ function storeTask(task) {
       repeat: task.repeat,
       date: task.date,
       id: newTaskKey,
+      title: task.title,
     };
     const updates = {};
     updates["/users/" + user.uid + "/tasks/" + newTaskKey] = taskData;
@@ -74,6 +75,7 @@ function storeEvent(event) {
       repeat: event.repeat,
       date: event.date,
       id: newTaskKey,
+      title: event.title,
     };
     const updates = {};
     updates["/users/" + user.uid + "/events/" + newTaskKey] = taskData;
@@ -87,6 +89,7 @@ const CalendarPopup = (props) => {
   const [repeatIndex, setRepeatIndex] = React.useState(0);
   const [tempNotes, setTempNotes] = React.useState("");
   const [notes, setNotes] = React.useState("no notes");
+  const [title, setTitle] = React.useState("");
   const [selectedDate, setSelectedDate] = React.useState(
     format(new Date(), "yyy-MM-dd")
   );
@@ -139,6 +142,76 @@ const CalendarPopup = (props) => {
 
           <View style={cardStyles.calendar}>
             <Calendar changeDate={changeDate} />
+          </View>
+          {props.type === "Event" && (
+            <View style={cardStyles.popupLabel}>
+              <View style={cardStyles.centeredView}>
+                <Picker
+                  selectedValue={category}
+                  style={{
+                    flex: 1,
+                    height: "20%",
+                    justifyContent: "center",
+                  }}
+                  onValueChange={(v) => setCategory(v)}>
+                  <Picker.Item label="1" value="key0" />
+                  <Picker.Item label="2" value="key1" />
+                  <Picker.Item label="3" value="key2" />
+                  <Picker.Item label="3" value="key2" />
+                  <Picker.Item label="3" value="key2" />
+                  <Picker.Item label="3" value="key2" />
+                  <Picker.Item label="3" value="key2" />
+                  <Picker.Item label="3" value="key2" />
+                  <Picker.Item label="60" value="key2" />
+                </Picker>
+                <Picker
+                  selectedValue={category}
+                  style={{
+                    flex: 1,
+                    height: "20%",
+                    justifyContent: "center",
+                  }}
+                  onValueChange={(v) => setCategory(v)}>
+                  <Picker.Item label="1" value="key0" />
+                  <Picker.Item label="2" value="key1" />
+                  <Picker.Item label="3" value="key2" />
+                  <Picker.Item label="3" value="key2" />
+                  <Picker.Item label="3" value="key2" />
+                  <Picker.Item label="3" value="key2" />
+                  <Picker.Item label="3" value="key2" />
+                  <Picker.Item label="3" value="key2" />
+                  <Picker.Item label="12" value="key2" />
+                </Picker>
+                <PickerIOS
+                  selectedValue={category}
+                  //itemStyle={{ color: "red" }}
+                  style={{
+                    flex: 1,
+                    height: "20%",
+                    justifyContent: "center",
+                  }}
+                  onValueChange={(v) => setCategory(v)}>
+                  <PickerIOS.Item label="AM" value="key0" />
+                  <PickerIOS.Item label="PM" value="key1" />
+                </PickerIOS>
+              </View>
+            </View>
+          )}
+          <View style={cardStyles.popupLabel}>
+            <Text style={cardStyles.popupLabelText}> {props.type} Title: </Text>
+            <View style={cardStyles.centeredView}>
+              <TextInput
+                style={{
+                  color: light.accent,
+                  flex: 1,
+                  textAlign: "center",
+                  ...text.body,
+                }}
+                placeholder="(required)"
+                onChangeText={(newText) => setTitle(newText)}
+                defaultValue={title}
+              />
+            </View>
           </View>
           {props.displayRepeat === true && (
             <View style={cardStyles.popupLabel}>
@@ -240,7 +313,12 @@ const CalendarPopup = (props) => {
               <Text style={cardStyles.popupLabelText}> Notes: </Text>
               <View style={cardStyles.centeredView}>
                 <TextInput
-                  style={{ color: light.accent }}
+                  style={{
+                    color: light.accent,
+                    flex: 1,
+                    textAlign: "center",
+                    ...text.body,
+                  }}
                   placeholder="No Notes"
                   onChangeText={(newText) => setTempNotes(newText)}
                   defaultValue={tempNotes}
@@ -270,6 +348,7 @@ const CalendarPopup = (props) => {
                   notes,
                   repeat: repeatOptions[repeatIndex],
                   date: selectedDate,
+                  title,
                 };
                 if (props.type === "Task") {
                   storeTask(task);

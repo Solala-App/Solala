@@ -148,15 +148,15 @@ const styles = StyleSheet.create({
   },
 
   greetingMobile: {
-    padding: size.innerPadding,
+    padding: 0,
     flexDirection: "row",
     alignItems: "center",
-    flex: 1,
+    flex: 1.5,
   },
 
   announcementMobile: {
     padding: size.innerPadding,
-    flex: 2,
+    flex: 1,
     ...text.mobileBody,
   },
 

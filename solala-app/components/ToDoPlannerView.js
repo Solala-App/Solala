@@ -175,16 +175,16 @@ const ToDoPlannerView = (props) => {
       </View>
       <View style={styles.row}>
         <View style={styles.card}>
-          <ToDoCard title="Today's Priorities" />
+          <ToDoCard title="Today's Priorities" day={0} />
         </View>
         <View style={styles.card}>
-          <ToDoCard title={card2} />
+          <ToDoCard title={card2} day={1} />
         </View>
         <View style={styles.card}>
-          <ToDoCard title={card3} />
+          <ToDoCard title={card3} day={2} />
         </View>
         <View style={styles.card}>
-          <ToDoCard title="Upcoming" />
+          <ToDoCard title="Upcoming" day={3} />
         </View>
       </View>
     </View>

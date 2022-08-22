@@ -17,6 +17,13 @@ function setupHighscoreListener() {
   onValue(reference, (snapshot) => {
     const value = snapshot.val();
     console.log(value);
+    // for (const n in value) {
+    //   console.log("Event 1: ", value[n]["date"]);
+    //   console.log("ID: ", n);
+    //   for (const t in value[n]) {
+    //     console.log(value[n][t][0]);
+    //   }
+    // }
   });
 }
 

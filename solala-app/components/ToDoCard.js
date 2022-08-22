@@ -1,4 +1,7 @@
-import React, { useRef } from "react";
+import { format } from "date-fns";
+import { getAuth } from "firebase/auth";
+import { getDatabase, onValue, ref } from "firebase/database";
+import React, { useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -19,45 +22,6 @@ import TaskPopup from "./TaskPopup.js";
 import Zoom from "./Zoom.js";
 
 const { light, size, text, shadowProp } = theme;
-
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d73",
-    title: "Fourth Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d74",
-    title: "Fifth Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e20d74",
-    title: "Sixth Item",
-  },
-  {
-    id: "31",
-    title: "qwertyuio",
-  },
-  {
-    id: "13",
-    title: "qwertyuio",
-  },
-  {
-    id: "12",
-    title: "qwertyuio",
-  },
-];
 
 const Item = ({ title, zoom }) => (
   <View style={cardStyles.cardItem}>
@@ -95,8 +59,31 @@ const Card = (props) => {
   const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
   const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
   const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
-  const flatList = useRef();
+  const [DATA, setDATA] = React.useState([]);
 
+  const flatList = useRef();
+  useEffect(() => {
+    const userId = getAuth().currentUser.uid;
+    const db = getDatabase();
+    const reference = ref(db, "users/" + userId + "/tasks");
+    let data = [];
+
+    function addDays(days) {
+      const date = new Date();
+      date.setDate(date.getDate() + days);
+      return date;
+    }
+    return onValue(reference, (snapshot) => {
+      const value = snapshot.val();
+      data = [];
+      for (const n in value) {
+        if (value[n]["date"] === format(addDays(props.day), "yyy-MM-dd")) {
+          data.push({ id: n, title: value[n]["title"] });
+        }
+      }
+      setDATA(data);
+    });
+  }, []);
   const handleZoomVisible = () => {
     setZoomVisible(() => !isZoomVisible);
   };
@@ -128,7 +115,7 @@ const Card = (props) => {
           .index
       );
       setScrollUpIndex(viewableItems.viewableItems[0].index - 1);
-      console.log(viewableItems.viewableItems[0].index);
+      //console.log(viewableItems.viewableItems[0].index);
       if (viewableItems.viewableItems[0].index === 0) {
         setDisplayScrollUp(false);
       } else {

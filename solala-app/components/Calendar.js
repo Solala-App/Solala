@@ -85,7 +85,7 @@ const CalendarComponent = (props) => {
   const CalendarLeftNav = () => (
     <View style={cardStyles.centeredView}>
       <Pressable onPress={Calendar.onPressArrowLeft}>
-        <Favicon.ScrollLeft color="light" style={{ width: 10 }} />
+        <Favicon.ScrollLeft iconColor="light" style={{ width: 10 }} />
         {(Platform.OS === "ios" || Platform.OS === "android") && (
           <Image source={Light.ScrollLeft} style={{ width: 15, height: 15 }} />
         )}
@@ -96,7 +96,7 @@ const CalendarComponent = (props) => {
   const CalendarRightNav = () => (
     <View style={cardStyles.centeredView}>
       <Pressable onPress={Calendar.onPressArrowRight}>
-        <Favicon.ScrollRight color="light" style={{ width: 10 }} />
+        <Favicon.ScrollRight iconColor="light" style={{ width: 10 }} />
         {(Platform.OS === "ios" || Platform.OS === "android") && (
           <Image source={Light.ScrollRight} style={{ width: 15, height: 15 }} />
         )}

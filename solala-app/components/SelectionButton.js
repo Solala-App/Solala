@@ -76,7 +76,10 @@ export default function SelectionButton(props) {
   return (
     <View style={styles.textBubble}>
       <Pressable onPress={scrollLeft}>
-        <Favicon.ScrollLeft iconColor="white" style={{ width: RFValue(5) }} />
+        <Favicon.ScrollLeft
+          iconColor="light"
+          style={{ width: RFValue(10), height: RFValue(10) }}
+        />
       </Pressable>
 
       <View style={styles.text}>
@@ -85,7 +88,10 @@ export default function SelectionButton(props) {
         </Text>
       </View>
       <Pressable onPress={scrollRight}>
-        <Favicon.ScrollRight iconColor="white" style={{ width: RFValue(5) }} />
+        <Favicon.ScrollRight
+          iconColor="light"
+          style={{ width: RFValue(10), height: RFValue(10) }}
+        />
       </Pressable>
     </View>
   );

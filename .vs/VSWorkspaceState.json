@@ -1,11 +1,7 @@
 {
   "ExpandedNodes": [
     "",
-    "\\solala-app",
-    "\\solala-app\\components",
-    "\\solala-app\\constants",
-    "\\solala-app\\routes"
+    "\\solala-app"
   ],
-  "SelectedNode": "\\solala-app\\components\\Card.js",
   "PreviewInSolutionExplorer": false
 }

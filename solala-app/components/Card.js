@@ -1,4 +1,7 @@
-import React, { useRef } from "react";
+import { format } from "date-fns";
+import { getAuth } from "firebase/auth";
+import { getDatabase, onValue, ref } from "firebase/database";
+import React, { useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -8,11 +11,12 @@ import {
   SafeAreaView,
   Modal,
   Image,
+  Platform,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Favicon from "../../assets/favicons_js";
-import Plus from "../../assets/favicons_light/Plus.png";
+import * as Icons from "../../assets/favicons_light";
 import { theme } from "../constants";
 import CheckBoxComponent from "./CheckBoxComponent";
 import EventPopup from "./EventPopup.js";
@@ -28,65 +32,37 @@ export const Titles = {
   HighPriority: "Priorities",
 };
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145d571e29d72",
-    title: "Third Item",
-  },
-  {
-    id: "58694a0f-3da1-d471f-bd96-145571e29d73",
-    title: "Fourth Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e2d9d74",
-    title: "Fifth Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bdd96-145571e20d74",
-    title: "Sixth Item",
-  },
-  {
-    id: "1",
-    title: "qwertyuio",
-  },
-  {
-    id: "13",
-    title: "qwertyuio",
-  },
-  {
-    id: "122",
-    title: "qwertyuio",
-  },
-];
-
-const Item = ({ title, type, zoom }) => (
+const Item = ({ data, type, zoom, time }) => (
   <View style={cardStyles.cardItem}>
-    <View style={cardStyles.cardObjectLeft}>
-      {type === Titles.HighPriority && (
+    {type === Titles.HighPriority && (
+      <View style={cardStyles.cardObjectLeft}>
         <CheckBoxComponent
           onChange={(checked) => {
             // do stuff with checked
             console.log(
-              `Todo ${title} is ${checked ? "complete" : "incomplete"}`
+              `Todo ${data.title} is ${checked ? "complete" : "incomplete"}`
             );
           }}
         />
-      )}
-      {type === Titles.TodayEvent && (
-        <Text style={cardStyles.cardObjectText}>8 AM</Text>
-      )}
-    </View>
-    <View style={cardStyles.cardObjectRight}>
+      </View>
+    )}
+    {type === Titles.TodayEvent && (
+      <View style={cardStyles.cardObjectLeft}>
+        <Text style={cardStyles.cardObjectText}>
+          {new Date(data.time).toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </Text>
+      </View>
+    )}
+    <View style={cardStyles.centeredView}>
       <Pressable onPress={zoom}>
-        <Text style={cardStyles.cardObjectText}>{title}</Text>
+        <Text style={cardStyles.cardObjectText}>
+          {type === Titles.Upcoming && data.notes !== ""
+            ? data.notes
+            : data.title}
+        </Text>
       </Pressable>
     </View>
   </View>
@@ -101,22 +77,63 @@ const itemSeparator = () => {
 
 const Card = (props) => {
   const renderItem = ({ item }) => (
-    <Item title={item.title} type={props.title} zoom={handleZoomVisible} />
+    <Item
+      data={item.cardData}
+      type={props.title}
+      zoom={handleZoomVisible}
+      time={item.time}
+    />
   );
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [isZoomVisible, setZoomVisible] = React.useState(false);
   const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
   const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
   const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
+  const [DATA, setDATA] = React.useState([]);
+
   const flatList = useRef();
 
+  useEffect(() => {
+    const userId = getAuth().currentUser.uid;
+    const db = getDatabase();
+    let reference;
+    if (props.title === Titles.HighPriority) {
+      reference = ref(db, "users/" + userId + "/tasks");
+    } else {
+      reference = ref(db, "users/" + userId + "/events");
+    }
+    let data = [];
+
+    return onValue(reference, (snapshot) => {
+      const value = snapshot.val();
+      data = [];
+      for (const n in value) {
+        if (
+          value[n]["date"] === format(new Date(), "yyy-MM-dd") &&
+          props.title === Titles.TodayEvent
+        ) {
+          data.push({
+            id: n,
+            cardData: value[n],
+          });
+        } else if (
+          props.title === Titles.HighPriority &&
+          value[n]["priority"] > 50
+        ) {
+          data.push({ id: n, cardData: value[n] });
+        } else if (props.title === Titles.Upcoming) {
+          data.push({ id: n, cardData: value[n] });
+        }
+      }
+      setDATA(data);
+    });
+  }, []);
   const handleZoomVisible = () => {
     setZoomVisible(() => !isZoomVisible);
   };
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
   };
-
   const scrollsDown = () => {
     if (scrollDownIndex < DATA.length) {
       setScrollDownIndex(scrollDownIndex + 1);
@@ -167,8 +184,11 @@ const Card = (props) => {
             <>
               <Pressable onPress={handleAddObject}>
                 <Image
-                  style={{ width: RFValue(11), height: RFValue(11) }}
-                  source={Plus}
+                  style={{
+                    width: Platform.OS === "web" ? RFValue(11) : RFValue(25),
+                    height: Platform.OS === "web" ? RFValue(11) : RFValue(25),
+                  }}
+                  source={Icons.Plus}
                 />
               </Pressable>
 
@@ -299,8 +319,16 @@ export const cardStyles = StyleSheet.create({
   },
 
   cardHeaderText: {
-    ...text.title,
+    ...Platform.select({
+      web: {
+        ...text.title,
+      },
+      default: {
+        ...text.mobileHeader,
+      },
+    }),
     color: light.textPrimary,
+    padding: size.innerPadding,
   },
 
   cardItem: {
@@ -323,7 +351,7 @@ export const cardStyles = StyleSheet.create({
   },
 
   cardObjectRight: {
-    flex: 3,
+    flex: 1,
     alignItems: "flex-start",
     justifyContent: "center",
   },
@@ -340,7 +368,7 @@ export const cardStyles = StyleSheet.create({
   },
 
   centeredView: {
-    flex: 1,
+    flex: 3,
     justifyContent: "center",
     alignItems: "center",
   },

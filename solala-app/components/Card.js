@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
-import { get, getDatabase, onValue, ref } from "firebase/database";
+import { getDatabase, onValue, ref } from "firebase/database";
 import React, { useEffect, useRef } from "react";
 import {
   View,

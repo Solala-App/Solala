@@ -1,19 +1,9 @@
-import Slider from "@react-native-community/slider";
-import { Picker, PickerIOS } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
+import Slider from "@react-native-community/slider";
+import { Picker } from "@react-native-picker/picker";
 import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
-import {
-  getDatabase,
-  ref,
-  set,
-  onValue,
-  push,
-  child,
-  update,
-  remove,
-} from "firebase/database";
+import { getDatabase, ref, push, child, update } from "firebase/database";
 import React from "react";
 import {
   View,
@@ -24,6 +14,7 @@ import {
   Pressable,
   Platform,
   Image,
+  Alert,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -92,9 +83,10 @@ const CalendarPopup = (props) => {
     format(new Date(), "yyy-MM-dd")
   );
   const [selectedTime, setSelectedTime] = React.useState(new Date());
-  const [windowsTime, setWindowsTime] = React.useState([0, 0, 0]);
   const repeatOptions = ["None", "Daily", "Weekly", "Monthly"];
   const [category, setCategory] = React.useState("key0");
+
+  const [displayError, setDisplayError] = React.useState(false);
 
   const scrollLeft = () => {
     if (repeatIndex === 0) {
@@ -141,6 +133,10 @@ const CalendarPopup = (props) => {
           <View style={cardStyles.calendar}>
             <Calendar changeDate={changeDate} />
           </View>
+
+          {displayError && (
+            <Text style={{ color: "red" }}>{props.type} title required</Text>
+          )}
           <View style={cardStyles.popupLabel}>
             <Text style={cardStyles.popupLabelText}> {props.type} Title: </Text>
             <View style={cardStyles.centeredView}>
@@ -152,7 +148,10 @@ const CalendarPopup = (props) => {
                   ...text.body,
                 }}
                 placeholder="(required)"
-                onChangeText={(newText) => setTitle(newText)}
+                onChangeText={(newText) => {
+                  setTitle(newText);
+                  setDisplayError(false);
+                }}
                 defaultValue={title}
               />
             </View>
@@ -300,21 +299,25 @@ const CalendarPopup = (props) => {
           <View style={cardStyles.popupCheck}>
             <Pressable
               onPress={() => {
-                props.isModalVisible();
-                const task = {
-                  priority: priorityValue,
-                  complexity: complexityValue,
-                  category,
-                  notes,
-                  repeat: repeatOptions[repeatIndex],
-                  date: selectedDate,
-                  title,
-                  time: selectedTime.toISOString(),
-                };
-                if (props.type === "Task") {
-                  storeTask(task);
+                if (title === "") {
+                  setDisplayError(true);
                 } else {
-                  storeEvent(task);
+                  props.isModalVisible();
+                  const task = {
+                    priority: priorityValue,
+                    complexity: complexityValue,
+                    category,
+                    notes,
+                    repeat: repeatOptions[repeatIndex],
+                    date: selectedDate,
+                    title,
+                    time: selectedTime.toISOString(),
+                  };
+                  if (props.type === "Task") {
+                    storeTask(task);
+                  } else {
+                    storeEvent(task);
+                  }
                 }
               }}>
               <Image

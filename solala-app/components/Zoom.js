@@ -19,7 +19,10 @@ const Zoom = (props) => {
   return (
     <View style={styles.zoomWindow}>
       {temp}
-      <Text style={styles.textBox}>t{props.completion}</Text>
+      <Text style={styles.textBox}>
+        txt
+        {props.completion}
+      </Text>
       <Text style={styles.textBox}>t{props.congratulation}</Text>
       <Pressable onPress={props.zoom}>
         <Image
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     textAlign: "center",
-    flexDirection: "column",
+    flexDirection: "row",
     justifyContent: "space-evenly",
     width: "90%",
     height: "90%",

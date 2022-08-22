@@ -1,11 +1,9 @@
-import { Picker, PickerIOS } from "@react-native-picker/picker";
-
+import { Picker } from "@react-native-picker/picker";
 import React from "react";
 import { View, Text, StyleSheet, TextInput, Platform } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
 
 import { theme } from "../constants";
-const { light, size, text, colorPalette, shadowProp } = theme;
+const { light, text } = theme;
 
 const TimePickerWeb = (props) => {
   const [am_pm, setAM_PM] = React.useState("0");
@@ -60,7 +58,7 @@ const TimePickerWeb = (props) => {
             },
           ]}
           keyboardType="numeric"
-          placeholder={new Date().getMinutes()}
+          placeholder={new Date().getMinutes().toString().padStart(2, "0")}
           onChangeText={(newText) => {
             newText = newText.replace(/[^0-9]/, "");
             if (newText > 59) {
@@ -89,68 +87,6 @@ const TimePickerWeb = (props) => {
 };
 
 export const cardStyles = StyleSheet.create({
-  cardHeaderRight: {
-    flex: 1,
-    paddingTop: size.innerPadding,
-    paddingBottom: size.innerPadding,
-    paddingRight: size.innerPadding,
-    paddingLeft: size.innerPadding,
-    alignItems: "flex-end",
-  },
-  cardHeaderCenter: {
-    flex: 10,
-  },
-  cardHeaderLeft: {
-    flex: 1,
-  },
-  centeredView: {
-    flex: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  modalView: {
-    marginTop: RFValue(30),
-    backgroundColor: light.secondary,
-    borderRadius: size.borderRadius,
-    alignItems: "center",
-    width: Platform.OS === "web" ? RFValue(250) : RFValue(300),
-    elevation: RFValue(5),
-    ...shadowProp,
-  },
-  popupHeader: {
-    backgroundColor: light.accent,
-    borderRadius: size.borderRadius,
-    flexDirection: "row",
-    textAlign: "center",
-    alignSelf: "stretch",
-  },
-  calendar: {
-    marginTop: size.margin,
-    width: "100%",
-  },
-  popupHeaderText: {
-    color: colorPalette.white,
-    ...Platform.select({
-      web: {
-        ...text.title,
-      },
-      default: {
-        ...text.mobileHeader,
-      },
-    }),
-  },
-  popupLabel: {
-    flex: 1,
-    marginHorizontal: size.margin,
-    marginTop: size.margin,
-    padding: size.innerPadding,
-    backgroundColor: light.primary,
-    borderRadius: size.borderRadius,
-    flexDirection: "row",
-    textAlign: "center",
-    alignSelf: "stretch",
-  },
   popupLabelText: {
     textAlign: "center",
     justifyContent: "center",
@@ -163,21 +99,6 @@ export const cardStyles = StyleSheet.create({
         ...text.mobileBody,
       },
     }),
-  },
-  popupCheck: {
-    marginTop: size.margin,
-    marginBottom: size.margin,
-  },
-  dropdown: {
-    backgroundColor: colorPalette.white,
-    borderBottomColor: colorPalette.black,
-    borderWidth: 1,
-  },
-  repeatText: {
-    width: "50%",
-  },
-  slider: {
-    width: "100%",
   },
   textBox: {
     color: light.accent,

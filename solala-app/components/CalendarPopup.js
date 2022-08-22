@@ -1,5 +1,7 @@
 import Slider from "@react-native-community/slider";
 import { Picker, PickerIOS } from "@react-native-picker/picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
+
 import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
 import {
@@ -30,16 +32,12 @@ import * as Favicon from "../../assets/favicons_js";
 import * as IconsLight from "../../assets/favicons_light";
 import { theme } from "../constants";
 import Calendar from "./Calendar";
-import { Titles } from "./Card";
+import TimePickerWeb from "./TimePickerWeb";
 
 const { light, size, text, colorPalette, shadowProp } = theme;
 
-// cmds
-// npm install @react-native-community/slider --save
-// yarn add react-native-element-dropdown
 function storeTask(task) {
   const user = getAuth().currentUser;
-  //console.log(user.uid);
 
   if (user != null) {
     const database = getDatabase();
@@ -64,7 +62,6 @@ function storeTask(task) {
 
 function storeEvent(event) {
   const user = getAuth().currentUser;
-  //console.log(user.uid);
 
   if (user != null) {
     const database = getDatabase();
@@ -76,6 +73,7 @@ function storeEvent(event) {
       date: event.date,
       id: newTaskKey,
       title: event.title,
+      time: event.time,
     };
     const updates = {};
     updates["/users/" + user.uid + "/events/" + newTaskKey] = taskData;
@@ -88,12 +86,13 @@ const CalendarPopup = (props) => {
   const [complexityValue, setComplexityValue] = React.useState(15);
   const [repeatIndex, setRepeatIndex] = React.useState(0);
   const [tempNotes, setTempNotes] = React.useState("");
-  const [notes, setNotes] = React.useState("no notes");
+  const [notes, setNotes] = React.useState("");
   const [title, setTitle] = React.useState("");
   const [selectedDate, setSelectedDate] = React.useState(
     format(new Date(), "yyy-MM-dd")
   );
-
+  const [selectedTime, setSelectedTime] = React.useState(new Date());
+  const [windowsTime, setWindowsTime] = React.useState([0, 0, 0]);
   const repeatOptions = ["None", "Daily", "Weekly", "Monthly"];
   const [category, setCategory] = React.useState("key0");
 
@@ -139,64 +138,9 @@ const CalendarPopup = (props) => {
               </Pressable>
             </View>
           </View>
-
           <View style={cardStyles.calendar}>
             <Calendar changeDate={changeDate} />
           </View>
-          {props.type === "Event" && (
-            <View style={cardStyles.popupLabel}>
-              <View style={cardStyles.centeredView}>
-                <Picker
-                  selectedValue={category}
-                  style={{
-                    flex: 1,
-                    height: "20%",
-                    justifyContent: "center",
-                  }}
-                  onValueChange={(v) => setCategory(v)}>
-                  <Picker.Item label="1" value="key0" />
-                  <Picker.Item label="2" value="key1" />
-                  <Picker.Item label="3" value="key2" />
-                  <Picker.Item label="3" value="key2" />
-                  <Picker.Item label="3" value="key2" />
-                  <Picker.Item label="3" value="key2" />
-                  <Picker.Item label="3" value="key2" />
-                  <Picker.Item label="3" value="key2" />
-                  <Picker.Item label="60" value="key2" />
-                </Picker>
-                <Picker
-                  selectedValue={category}
-                  style={{
-                    flex: 1,
-                    height: "20%",
-                    justifyContent: "center",
-                  }}
-                  onValueChange={(v) => setCategory(v)}>
-                  <Picker.Item label="1" value="key0" />
-                  <Picker.Item label="2" value="key1" />
-                  <Picker.Item label="3" value="key2" />
-                  <Picker.Item label="3" value="key2" />
-                  <Picker.Item label="3" value="key2" />
-                  <Picker.Item label="3" value="key2" />
-                  <Picker.Item label="3" value="key2" />
-                  <Picker.Item label="3" value="key2" />
-                  <Picker.Item label="12" value="key2" />
-                </Picker>
-                <PickerIOS
-                  selectedValue={category}
-                  //itemStyle={{ color: "red" }}
-                  style={{
-                    flex: 1,
-                    height: "20%",
-                    justifyContent: "center",
-                  }}
-                  onValueChange={(v) => setCategory(v)}>
-                  <PickerIOS.Item label="AM" value="key0" />
-                  <PickerIOS.Item label="PM" value="key1" />
-                </PickerIOS>
-              </View>
-            </View>
-          )}
           <View style={cardStyles.popupLabel}>
             <Text style={cardStyles.popupLabelText}> {props.type} Title: </Text>
             <View style={cardStyles.centeredView}>
@@ -213,34 +157,55 @@ const CalendarPopup = (props) => {
               />
             </View>
           </View>
+          {props.type === "Event" && (
+            <View style={cardStyles.popupLabel}>
+              {Platform.OS === "web" && (
+                <TimePickerWeb
+                  changeTime={setSelectedTime}
+                  currentTime={selectedTime}
+                />
+              )}
+              <View style={cardStyles.centeredView}>
+                <DateTimePicker
+                  mode="time"
+                  display="spinner"
+                  textColor="black"
+                  value={selectedTime}
+                  style={{ flex: 1, height: 100 }}
+                  onChange={(event, time) => {
+                    setSelectedTime(time);
+                  }}
+                />
+              </View>
+            </View>
+          )}
           {props.displayRepeat === true && (
             <View style={cardStyles.popupLabel}>
-              <Text style={cardStyles.popupLabelText}> Repeat </Text>
-              <View style={cardStyles.centeredView}>
-                <Pressable onPress={scrollLeft}>
-                  <Favicon.ScrollLeft style={{ width: 10 }} />
-                  {(Platform.OS === "ios" || Platform.OS === "android") && (
-                    <Image
-                      source={IconsDark.ScrollLeft}
-                      style={{ width: 15, height: 15 }}
-                    />
-                  )}
+              <Text style={cardStyles.popupLabelText}> Repeat: </Text>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                }}>
+                <Pressable
+                  onPress={scrollLeft}
+                  style={{
+                    flex: 0.5,
+                    justifyContent: "center",
+                  }}>
+                  <Favicon.ScrollLeft style={{ height: 20 }} />
                 </Pressable>
 
-                <View style={cardStyles.repeatText}>
-                  <Text style={cardStyles.popupLabelText}>
-                    {" "}
-                    {repeatOptions[repeatIndex]}{" "}
-                  </Text>
-                </View>
-                <Pressable onPress={scrollRight}>
-                  <Favicon.ScrollRight style={{ width: 10 }} />
-                  {(Platform.OS === "ios" || Platform.OS === "android") && (
-                    <Image
-                      source={IconsDark.ScrollRight}
-                      style={{ width: 15, height: 15 }}
-                    />
-                  )}
+                <Text style={cardStyles.popupLabelText}>
+                  {repeatOptions[repeatIndex]}
+                </Text>
+                <Pressable
+                  onPress={scrollRight}
+                  style={{
+                    flex: 0.5,
+                    justifyContent: "center",
+                  }}>
+                  <Favicon.ScrollRight style={{ height: 20 }} />
                 </Pressable>
               </View>
             </View>
@@ -313,12 +278,7 @@ const CalendarPopup = (props) => {
               <Text style={cardStyles.popupLabelText}> Notes: </Text>
               <View style={cardStyles.centeredView}>
                 <TextInput
-                  style={{
-                    color: light.accent,
-                    flex: 1,
-                    textAlign: "center",
-                    ...text.body,
-                  }}
+                  style={[cardStyles.textBox, { flex: 1 }]}
                   placeholder="No Notes"
                   onChangeText={(newText) => setTempNotes(newText)}
                   defaultValue={tempNotes}
@@ -326,13 +286,13 @@ const CalendarPopup = (props) => {
               </View>
               <View>
                 <Pressable onPress={() => setNotes(tempNotes)}>
-                  <Favicon.Plus style={{ width: RFValue(12) }} />
-                  {(Platform.OS === "ios" || Platform.OS === "android") && (
-                    <Image
-                      source={IconsDark.Plus}
-                      style={{ width: RFValue(12), height: RFValue(12) }}
-                    />
-                  )}
+                  <Image
+                    source={IconsDark.Plus}
+                    style={{
+                      width: Platform.OS === "web" ? RFValue(11) : RFValue(25),
+                      height: Platform.OS === "web" ? RFValue(11) : RFValue(25),
+                    }}
+                  />
                 </Pressable>
               </View>
             </View>
@@ -349,6 +309,7 @@ const CalendarPopup = (props) => {
                   repeat: repeatOptions[repeatIndex],
                   date: selectedDate,
                   title,
+                  time: selectedTime.toISOString(),
                 };
                 if (props.type === "Task") {
                   storeTask(task);
@@ -394,7 +355,7 @@ export const cardStyles = StyleSheet.create({
     backgroundColor: light.secondary,
     borderRadius: size.borderRadius,
     alignItems: "center",
-    width: RFValue(250),
+    width: Platform.OS === "web" ? RFValue(250) : RFValue(300),
     elevation: RFValue(5),
     ...shadowProp,
   },
@@ -421,6 +382,7 @@ export const cardStyles = StyleSheet.create({
     }),
   },
   popupLabel: {
+    flex: 1,
     marginHorizontal: size.margin,
     marginTop: size.margin,
     padding: size.innerPadding,
@@ -433,8 +395,15 @@ export const cardStyles = StyleSheet.create({
   popupLabelText: {
     textAlign: "center",
     justifyContent: "center",
-    ...text.body,
     color: light.textSecondary,
+    ...Platform.select({
+      web: {
+        ...text.body,
+      },
+      default: {
+        ...text.mobileBody,
+      },
+    }),
   },
   popupCheck: {
     marginTop: size.margin,
@@ -450,6 +419,11 @@ export const cardStyles = StyleSheet.create({
   },
   slider: {
     width: "100%",
+  },
+  textBox: {
+    color: light.accent,
+    textAlign: "center",
+    ...text.body,
   },
 });
 

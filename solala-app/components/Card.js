@@ -32,26 +32,37 @@ export const Titles = {
   HighPriority: "Priorities",
 };
 
-const Item = ({ title, type, zoom }) => (
+const Item = ({ data, type, zoom, time }) => (
   <View style={cardStyles.cardItem}>
-    <View style={cardStyles.cardObjectLeft}>
-      {type === Titles.HighPriority && (
+    {type === Titles.HighPriority && (
+      <View style={cardStyles.cardObjectLeft}>
         <CheckBoxComponent
           onChange={(checked) => {
             // do stuff with checked
             console.log(
-              `Todo ${title} is ${checked ? "complete" : "incomplete"}`
+              `Todo ${data.title} is ${checked ? "complete" : "incomplete"}`
             );
           }}
         />
-      )}
-      {type === Titles.TodayEvent && (
-        <Text style={cardStyles.cardObjectText}>8 AM</Text>
-      )}
-    </View>
-    <View style={cardStyles.cardObjectRight}>
+      </View>
+    )}
+    {type === Titles.TodayEvent && (
+      <View style={cardStyles.cardObjectLeft}>
+        <Text style={cardStyles.cardObjectText}>
+          {new Date(data.time).toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </Text>
+      </View>
+    )}
+    <View style={cardStyles.centeredView}>
       <Pressable onPress={zoom}>
-        <Text style={cardStyles.cardObjectText}>{title}</Text>
+        <Text style={cardStyles.cardObjectText}>
+          {type === Titles.Upcoming && data.notes !== ""
+            ? data.notes
+            : data.title}
+        </Text>
       </Pressable>
     </View>
   </View>
@@ -66,7 +77,12 @@ const itemSeparator = () => {
 
 const Card = (props) => {
   const renderItem = ({ item }) => (
-    <Item title={item.title} type={props.title} zoom={handleZoomVisible} />
+    <Item
+      data={item.cardData}
+      type={props.title}
+      zoom={handleZoomVisible}
+      time={item.time}
+    />
   );
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [isZoomVisible, setZoomVisible] = React.useState(false);
@@ -92,22 +108,21 @@ const Card = (props) => {
       const value = snapshot.val();
       data = [];
       for (const n in value) {
-        console.log(value[n]);
         if (
           value[n]["date"] === format(new Date(), "yyy-MM-dd") &&
           props.title === Titles.TodayEvent
         ) {
-          data.push({ id: n, title: value[n]["title"] });
+          data.push({
+            id: n,
+            cardData: value[n],
+          });
         } else if (
           props.title === Titles.HighPriority &&
           value[n]["priority"] > 50
         ) {
-          data.push({ id: n, title: value[n]["title"] });
-        } else if (
-          props.title === Titles.Upcoming &&
-          value[n]["date"] !== format(new Date(), "yyy-MM-dd")
-        ) {
-          data.push({ id: n, title: value[n]["title"] });
+          data.push({ id: n, cardData: value[n] });
+        } else if (props.title === Titles.Upcoming) {
+          data.push({ id: n, cardData: value[n] });
         }
       }
       setDATA(data);
@@ -336,7 +351,7 @@ export const cardStyles = StyleSheet.create({
   },
 
   cardObjectRight: {
-    flex: 3,
+    flex: 1,
     alignItems: "flex-start",
     justifyContent: "center",
   },
@@ -353,7 +368,7 @@ export const cardStyles = StyleSheet.create({
   },
 
   centeredView: {
-    flex: 1,
+    flex: 3,
     justifyContent: "center",
     alignItems: "center",
   },

@@ -36,7 +36,7 @@ const TimePickerWeb = (props) => {
         <TextInput
           style={[cardStyles.textBox, { width: "10%", textAlign: "right" }]}
           keyboardType="numeric"
-          placeholder={new Date().toLocaleTimeString().split(":")[0]}
+          placeholder={props.currentTime.toLocaleTimeString().split(":")[0]}
           onChangeText={(newText) => {
             newText = newText.replace(/[^0-9]/, "");
             if (newText > 12) {
@@ -58,7 +58,10 @@ const TimePickerWeb = (props) => {
             },
           ]}
           keyboardType="numeric"
-          placeholder={new Date().getMinutes().toString().padStart(2, "0")}
+          placeholder={props.currentTime
+            .getMinutes()
+            .toString()
+            .padStart(2, "0")}
           onChangeText={(newText) => {
             newText = newText.replace(/[^0-9]/, "");
             if (newText > 59) {

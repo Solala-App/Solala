@@ -73,18 +73,41 @@ function storeEvent(event) {
   }
 }
 const CalendarPopup = (props) => {
-  const [priorityValue, setPriorityValue] = React.useState(15);
-  const [complexityValue, setComplexityValue] = React.useState(15);
-  const [repeatIndex, setRepeatIndex] = React.useState(0);
-  const [tempNotes, setTempNotes] = React.useState("");
-  const [notes, setNotes] = React.useState("");
-  const [title, setTitle] = React.useState("");
-  const [selectedDate, setSelectedDate] = React.useState(
-    format(new Date(), "yyy-MM-dd")
-  );
-  const [selectedTime, setSelectedTime] = React.useState(new Date());
   const repeatOptions = ["None", "Daily", "Weekly", "Monthly"];
-  const [category, setCategory] = React.useState("key0");
+
+  const [priorityValue, setPriorityValue] = React.useState(
+    props.presetData !== undefined ? props.presetData.priority : 15
+  );
+  const [complexityValue, setComplexityValue] = React.useState(
+    props.presetData !== undefined ? props.presetData.complexity : 15
+  );
+  const [repeatIndex, setRepeatIndex] = React.useState(
+    props.presetData !== undefined
+      ? repeatOptions.indexOf(props.presetData.repeat)
+      : 0
+  );
+  const [tempNotes, setTempNotes] = React.useState(
+    props.presetData !== undefined ? props.presetData.notes : ""
+  );
+  const [notes, setNotes] = React.useState(
+    props.presetData !== undefined ? props.presetData.notes : ""
+  );
+  const [title, setTitle] = React.useState(
+    props.presetData !== undefined ? props.presetData.title : ""
+  );
+  const [selectedDate, setSelectedDate] = React.useState(
+    props.presetData !== undefined
+      ? props.presetData.date
+      : format(new Date(), "yyy-MM-dd")
+  );
+  const [selectedTime, setSelectedTime] = React.useState(
+    props.presetData !== undefined
+      ? new Date(props.presetData.time)
+      : new Date()
+  );
+  const [category, setCategory] = React.useState(
+    props.presetData !== undefined ? props.presetData.category : "key0"
+  );
 
   const [displayError, setDisplayError] = React.useState(false);
 
@@ -302,6 +325,7 @@ const CalendarPopup = (props) => {
                 if (title === "") {
                   setDisplayError(true);
                 } else {
+                  console.log(selectedTime);
                   props.isModalVisible();
                   const task = {
                     priority: priorityValue,
@@ -311,12 +335,18 @@ const CalendarPopup = (props) => {
                     repeat: repeatOptions[repeatIndex],
                     date: selectedDate,
                     title,
-                    time: selectedTime.toISOString(),
+                    time:
+                      props.presetData.time === undefined
+                        ? ""
+                        : selectedTime.toISOString(),
                   };
                   if (props.type === "Task") {
                     storeTask(task);
                   } else {
                     storeEvent(task);
+                  }
+                  if (props.edit != null) {
+                    props.edit();
                   }
                 }
               }}>

@@ -32,41 +32,54 @@ export const Titles = {
   HighPriority: "Priorities",
 };
 
-const Item = ({ data, type, zoom, time }) => (
-  <View style={cardStyles.cardItem}>
-    {type === Titles.HighPriority && (
-      <View style={cardStyles.cardObjectLeft}>
-        <CheckBoxComponent
-          onChange={(checked) => {
-            // do stuff with checked
-            console.log(
-              `Todo ${data.title} is ${checked ? "complete" : "incomplete"}`
-            );
-          }}
+function Item({ data, type }) {
+  const [isZoomVisible, setZoomVisible] = React.useState(false);
+  const handleZoomVisible = () => {
+    setZoomVisible(() => !isZoomVisible);
+  };
+  return (
+    <View style={cardStyles.cardItem}>
+      {type === Titles.HighPriority && (
+        <View style={cardStyles.cardObjectLeft}>
+          <CheckBoxComponent
+            onChange={(checked) => {
+              // do stuff with checked
+              console.log(
+                `Todo ${data.title} is ${checked ? "complete" : "incomplete"}`
+              );
+            }}
+          />
+        </View>
+      )}
+      {type === Titles.TodayEvent && (
+        <View style={cardStyles.cardObjectLeft}>
+          <Text style={cardStyles.cardObjectText}>
+            {new Date(data.time).toLocaleTimeString("en-US", {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </Text>
+        </View>
+      )}
+      <View style={cardStyles.centeredView}>
+        <Pressable onPress={handleZoomVisible}>
+          <Text style={cardStyles.cardObjectText}>
+            {type === Titles.Upcoming && data.notes !== ""
+              ? data.notes
+              : data.title}
+          </Text>
+        </Pressable>
+      </View>
+      <Modal visible={isZoomVisible} transparent>
+        <Zoom
+          zoom={handleZoomVisible}
+          cardData={data}
+          type={type === Titles.HighPriority ? "Task" : "Event"}
         />
-      </View>
-    )}
-    {type === Titles.TodayEvent && (
-      <View style={cardStyles.cardObjectLeft}>
-        <Text style={cardStyles.cardObjectText}>
-          {new Date(data.time).toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
-        </Text>
-      </View>
-    )}
-    <View style={cardStyles.centeredView}>
-      <Pressable onPress={zoom}>
-        <Text style={cardStyles.cardObjectText}>
-          {type === Titles.Upcoming && data.notes !== ""
-            ? data.notes
-            : data.title}
-        </Text>
-      </Pressable>
+      </Modal>
     </View>
-  </View>
-);
+  );
+}
 
 const itemSeparator = () => {
   return (
@@ -77,15 +90,9 @@ const itemSeparator = () => {
 
 const Card = (props) => {
   const renderItem = ({ item }) => (
-    <Item
-      data={item.cardData}
-      type={props.title}
-      zoom={handleZoomVisible}
-      time={item.time}
-    />
+    <Item data={item.cardData} type={props.title} />
   );
   const [isModalVisible, setIsModalVisible] = React.useState(false);
-  const [isZoomVisible, setZoomVisible] = React.useState(false);
   const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
   const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
   const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
@@ -128,9 +135,7 @@ const Card = (props) => {
       setDATA(data);
     });
   }, []);
-  const handleZoomVisible = () => {
-    setZoomVisible(() => !isZoomVisible);
-  };
+
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
   };
@@ -275,7 +280,6 @@ const Card = (props) => {
           )}
         </View>
       </View>
-      {isZoomVisible === true && <Zoom zoom={handleZoomVisible} />}
     </SafeAreaView>
   );
 };

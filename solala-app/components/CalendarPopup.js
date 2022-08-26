@@ -23,6 +23,7 @@ import * as Favicon from "../../assets/favicons_js";
 import * as IconsLight from "../../assets/favicons_light";
 import { theme } from "../constants";
 import Calendar from "./Calendar";
+import { Titles } from "./Card";
 import TimePickerWeb from "./TimePickerWeb";
 
 const { light, size, text, colorPalette, shadowProp } = theme;
@@ -101,7 +102,7 @@ const CalendarPopup = (props) => {
       : format(new Date(), "yyy-MM-dd")
   );
   const [selectedTime, setSelectedTime] = React.useState(
-    props.presetData !== undefined
+    props.presetData !== undefined && props.type === "Event"
       ? new Date(props.presetData.time)
       : new Date()
   );
@@ -154,7 +155,7 @@ const CalendarPopup = (props) => {
             </View>
           </View>
           <View style={cardStyles.calendar}>
-            <Calendar changeDate={changeDate} />
+            <Calendar changeDate={changeDate} currentDate={selectedDate} />
           </View>
 
           {displayError && (
@@ -335,10 +336,7 @@ const CalendarPopup = (props) => {
                     repeat: repeatOptions[repeatIndex],
                     date: selectedDate,
                     title,
-                    time:
-                      props.presetData.time === undefined
-                        ? ""
-                        : selectedTime.toISOString(),
+                    time: selectedTime.toISOString(),
                   };
                   if (props.type === "Task") {
                     storeTask(task);

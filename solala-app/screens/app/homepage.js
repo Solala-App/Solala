@@ -52,7 +52,7 @@ export default function Homepage() {
           <View style={styles.row}>
             <View style={styles.card}>
               <Components.Card title={Titles.BodyCheck} />
-              <Button
+              {/* <Button
                 title="Fetch Data"
                 onPress={() => {
                   setupHighscoreListener();
@@ -63,7 +63,7 @@ export default function Homepage() {
                 onPress={() => {
                   resetData();
                 }}
-              />
+              /> */}
               <View style={{ position: "absolute" }}>
                 <Components.AnimationManager
                   size={100}

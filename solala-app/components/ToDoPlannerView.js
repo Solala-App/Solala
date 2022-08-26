@@ -1,60 +1,50 @@
 import { format } from "date-fns";
-import React, { useRef } from "react";
-import { View, StyleSheet, FlatList, Pressable, Text } from "react-native";
+import { getAuth } from "firebase/auth";
+import { getDatabase, onValue, ref } from "firebase/database";
+import React, { useEffect, useRef } from "react";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Pressable,
+  Text,
+  Modal,
+} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Favicon from "../../assets/favicons_js";
 import { theme } from "../constants";
+import { cardStyles } from "./CalendarPopup";
 import ToDoCard from "./ToDoCard";
 import Zoom from "./Zoom";
 const { size, light, text } = theme;
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d73",
-    title: "Fourth Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d74",
-    title: "Fifth Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e20d74",
-    title: "Sixth Item",
-  },
-  {
-    id: "1",
-    title: "qwertyuio",
-  },
-  {
-    id: "13",
-    title: "qwertyuio",
-  },
-  {
-    id: "122",
-    title: "qwertyuio",
-  },
-];
-
-const Item = ({ title, zoom }) => (
-  <View style={styles.cardItem}>
-    <Pressable onPress={zoom}>
-      <Text style={styles.cardObjectText}>{title}</Text>
-    </Pressable>
-  </View>
-);
+function Item({ cardData }) {
+  const [isZoomVisible, setZoomVisible] = React.useState(false);
+  const handleZoomVisible = () => {
+    setZoomVisible(() => !isZoomVisible);
+  };
+  return (
+    <View style={styles.cardItem}>
+      <Pressable onPress={handleZoomVisible}>
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <Text style={[styles.cardObjectText, { textAlign: "flex-start" }]}>
+            {cardData.title}
+          </Text>
+          <Text style={styles.cardObjectText}>{cardData.priority}</Text>
+          <Text style={styles.cardObjectText}>{cardData.complexity}</Text>
+          <Text style={styles.cardObjectText}>{cardData.category}</Text>
+          <Text style={styles.cardObjectText}>
+            {cardData.notes === "" ? "none" : cardData.notes}
+          </Text>
+        </View>
+      </Pressable>
+      <Modal visible={isZoomVisible} transparent>
+        <Zoom zoom={handleZoomVisible} cardData={cardData} type={"Task"} />
+      </Modal>
+    </View>
+  );
+}
 const itemSeparator = () => {
   return (
     <View style={{ height: RFValue(1), backgroundColor: light.secondary }} />
@@ -62,17 +52,13 @@ const itemSeparator = () => {
 };
 
 const ToDoPlannerView = (props) => {
-  const [isZoomVisible, setZoomVisible] = React.useState(false);
   const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
   const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
+  const [DATA, setDATA] = React.useState([]);
   const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
   const flatList = useRef();
-  const renderItem = ({ item }) => (
-    <Item title={item.title} type={props.title} zoom={handleZoomVisible} />
-  );
-  const handleZoomVisible = () => {
-    setZoomVisible(() => !isZoomVisible);
-  };
+  const renderItem = ({ item }) => <Item cardData={item.cardData} />;
+
   const scrollsDown = () => {
     if (scrollDownIndex < DATA.length) {
       setScrollDownIndex(scrollDownIndex + 1);
@@ -104,6 +90,22 @@ const ToDoPlannerView = (props) => {
       }
     }
   });
+
+  useEffect(() => {
+    const userId = getAuth().currentUser.uid;
+    const db = getDatabase();
+    const reference = ref(db, "users/" + userId + "/tasks");
+    let data = [];
+
+    return onValue(reference, (snapshot) => {
+      const value = snapshot.val();
+      data = [];
+      for (const n in value) {
+        data.push({ id: n, cardData: value[n] });
+      }
+      setDATA(data);
+    });
+  }, []);
   const currentTime = new Date();
   const dayOfWeek = format(currentTime, "EEEE");
   let card2 = "Loading";
@@ -145,7 +147,14 @@ const ToDoPlannerView = (props) => {
   return (
     <View style={styles.mainView}>
       <View style={{ flex: 1, alignItems: "stretch", width: "100%" }}>
-        {isZoomVisible === true && <Zoom />}
+        <View
+          style={{ flex: 0.15, flexDirection: "row", marginLeft: size.margin }}>
+          <Text style={styles.headerText}>Title</Text>
+          <Text style={styles.headerText}>Priority</Text>
+          <Text style={styles.headerText}>Complexity</Text>
+          <Text style={styles.headerText}>Category</Text>
+          <Text style={styles.headerText}>Notes</Text>
+        </View>
         <View
           style={{
             alignSelf: "stretch",
@@ -222,7 +231,14 @@ const styles = StyleSheet.create({
   cardObjectText: {
     ...text.body,
     color: light.textSecondary,
-    flexDirection: "row",
+    flex: 1,
+    textAlign: "center",
+  },
+  headerText: {
+    flex: 1,
+    ...text.title,
+    textAlign: "center",
+    color: light.secondary,
   },
 });
 export default ToDoPlannerView;

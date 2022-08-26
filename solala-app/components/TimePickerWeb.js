@@ -6,9 +6,17 @@ import { theme } from "../constants";
 const { light, text } = theme;
 
 const TimePickerWeb = (props) => {
-  const [am_pm, setAM_PM] = React.useState("0");
-  const [hour, setHour] = React.useState("");
-  const [min, setMin] = React.useState("");
+  const [am_pm, setAM_PM] = React.useState(
+    props.currentTime.getHours() > 12 ? "1" : "0"
+  );
+  const [hour, setHour] = React.useState(
+    props.currentTime === new Date()
+      ? ""
+      : props.currentTime.toLocaleTimeString().split(":")[0]
+  );
+  const [min, setMin] = React.useState(
+    props.currentTime === new Date() ? "" : props.currentTime.getMinutes()
+  );
   function updateTime(newHour, newMin, newAM_PM) {
     if (newHour < 12 && newAM_PM === "1") {
       newHour = parseInt(newHour) + 12;

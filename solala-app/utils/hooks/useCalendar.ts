@@ -55,13 +55,13 @@ export const useCalendar = (
     console.log("useCalendar.ts reloadCalendar", { accessToken });
     try {
       if (accessToken) {
-        //   gapi.client.setToken({
-        //     access_token: accessToken,
-        //   });
-        //   const request = gapi.client.request({
-        //     path: url,
-        //   });
-        //   console.log({ request, credential });
+        gapi.client.setToken({
+          access_token: accessToken,
+        });
+        const request = gapi.client.request({
+          path: url,
+        });
+        console.log({ request, credential });
         const getResponse = await fetch(url, {
           headers: {
             Authorization: `Bearer ${accessToken}`,

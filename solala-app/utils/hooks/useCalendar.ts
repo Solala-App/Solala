@@ -1,7 +1,31 @@
 import { useState, useEffect, useCallback } from "react";
 
+import "../../../config/gapi";
 import { AccountType, apiBaseUrl, FetchStatus } from "../../constants";
 import { useAuthentication } from "./useAuthentication";
+
+interface Event {
+  summary: string;
+  location: string;
+  description: string;
+  start: {
+    dateTime: string;
+    timeZone: string;
+  };
+  end: {
+    dateTime: string;
+    timeZone: string;
+  };
+  recurrence: [string];
+  attendees: [{ email: string }, { email: string }];
+  reminders: {
+    useDefault: false;
+    overrides: [
+      { method: string; minutes: number },
+      { method: string; minutes: number }
+    ];
+  };
+}
 
 export const useCalendar = (
   accountType: AccountType,

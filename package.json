@@ -41,6 +41,7 @@
     "expo-system-ui": "~1.2.0",
     "expo-web-browser": "~10.2.1",
     "firebase": "^9.9.2",
+    "gapi-script": "^1.2.0",
     "moment": "^2.29.4",
     "react": "17.0.2",
     "react-datepicker": "^4.8.0",
@@ -56,6 +57,7 @@
     "react-native-webview": "11.18.1"
   },
   "devDependencies": {
+    "@types/gapi": "^0.0.42",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.67.6",
     "@typescript-eslint/eslint-plugin": "^5.31.0",

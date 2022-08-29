@@ -8,6 +8,7 @@ import * as Solala from "../../../assets/solala_js";
 import * as Components from "../../components";
 import { Titles } from "../../components/Card.js";
 import { theme } from "../../constants";
+import { useCalendar } from "../../utils/hooks/useCalendar";
 const { light, size } = theme;
 
 function setupHighscoreListener() {
@@ -32,6 +33,8 @@ function resetData() {
   remove(child(ref(database), "users/" + getAuth().currentUser.uid));
 }
 export default function Homepage() {
+  const [calendar] = useCalendar();
+  console.log({ calendar });
   if (Platform.OS === "ios" || Platform.OS === "android") {
     return (
       <View style={styles.container}>

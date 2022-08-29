@@ -1,27 +1,68 @@
-import { getAuth, onAuthStateChanged, User } from "firebase/auth";
-import React from "react";
+import {
+  onAuthStateChanged,
+  User,
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  OAuthCredential,
+} from "firebase/auth";
+import { useCallback, useState, useEffect } from "react";
 
-const auth = getAuth();
+import app from "../../../config/firebase";
+
+const auth = getAuth(app);
+const googleAuthProvider = new GoogleAuthProvider();
+googleAuthProvider.addScope("https://www.googleapis.com/auth/calendar");
 
 export function useAuthentication() {
-  const [user, setUser] = React.useState<User>();
+  const [user, setUser] = useState<User>();
+  const [credential, setCredential] = useState<OAuthCredential | null>(null);
 
-  React.useEffect(() => {
-    const unsubscribeFromAuthStatuChanged = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        setUser(user);
-      } else {
-        // User is signed out
-        setUser(undefined);
+  useEffect(() => {
+    const unsubscribeFromAuthStatusChanged = onAuthStateChanged(
+      auth,
+      (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          setUser(user);
+        } else {
+          // User is signed out
+          setUser(undefined);
+        }
       }
-    });
+    );
 
-    return unsubscribeFromAuthStatuChanged;
+    return unsubscribeFromAuthStatusChanged;
   }, []);
+
+  useEffect(() => {
+    if (credential) {
+      sessionStorage.setItem("credential", JSON.stringify(credential));
+    }
+    if (credential?.accessToken) {
+      gapi.client.setToken({
+        access_token: credential.accessToken,
+      });
+    }
+  }, [credential]);
+
+  const signInWithGoogle = useCallback(async () => {
+    if (!user) {
+      try {
+        const result = await signInWithPopup(auth, googleAuthProvider);
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        setCredential(credential);
+        return result;
+      } catch (error) {
+        console.error({ error });
+      }
+    }
+  }, [user]);
 
   return {
     user,
+    signInWithGoogle,
+    credential,
   };
 }

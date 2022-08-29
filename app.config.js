@@ -38,6 +38,7 @@ export default {
       firebaseMessagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
       firebaseAppId: process.env.FIREBASE_APP_ID,
       openWeatherKey: process.env.OPEN_WEATHER_KEY,
+      googleClientId: process.env.GOOGLE_CLIENT_ID,
     },
   },
 };

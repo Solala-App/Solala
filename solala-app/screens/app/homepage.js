@@ -33,8 +33,7 @@ function resetData() {
   remove(child(ref(database), "users/" + getAuth().currentUser.uid));
 }
 export default function Homepage() {
-  const [calendar] = useCalendar();
-  console.log({ calendar });
+  const [calendar, fetchStatus, reloadCalendar] = useCalendar();
   if (Platform.OS === "ios" || Platform.OS === "android") {
     return (
       <View style={styles.container}>
@@ -98,6 +97,7 @@ export default function Homepage() {
             title="Fetch Data"
             onPress={() => {
               setupHighscoreListener();
+              reloadCalendar();
             }}
           />
           <Button

@@ -36,22 +36,18 @@ export function useAuthentication() {
     return unsubscribeFromAuthStatusChanged;
   }, []);
 
-  useEffect(() => {
-    if (credential) {
-      sessionStorage.setItem("credential", JSON.stringify(credential));
-    }
-    if (credential?.accessToken) {
-      gapi.client.setToken({
-        access_token: credential.accessToken,
-      });
-    }
-  }, [credential]);
-
   const signInWithGoogle = useCallback(async () => {
     if (!user) {
       try {
         const result = await signInWithPopup(auth, googleAuthProvider);
         const credential = GoogleAuthProvider.credentialFromResult(result);
+        console.log("useAuthentication", { result, credential });
+        if (credential?.accessToken) {
+          sessionStorage.setItem("credential", JSON.stringify(credential));
+          gapi.client.setToken({
+            access_token: credential.accessToken,
+          });
+        }
         setCredential(credential);
         return result;
       } catch (error) {

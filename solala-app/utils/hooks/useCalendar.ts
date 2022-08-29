@@ -15,7 +15,7 @@ export const useCalendar = (
   const [fetchStatus, setFetchStatus] = useState<FetchStatus>(FetchStatus.None);
 
   const credential = sessionStorage.getItem("credential");
-  const { accessToken } = JSON.parse(credential ?? "");
+  const { accessToken } = JSON.parse(credential ?? "{}");
 
   let baseUrl = "";
   switch (accountType) {
@@ -24,31 +24,31 @@ export const useCalendar = (
       baseUrl = apiBaseUrl.googleCalendar;
       break;
   }
-  const url = `${baseUrl}/users/me/calendars/${calendarId}`;
 
+  const url = `${baseUrl}/users/me/calendars/${calendarId}`;
   const reloadCalendar = useCallback(async () => {
     setFetchStatus(FetchStatus.Fetching);
     console.log("useCalendar.ts reloadCalendar", { accessToken });
     try {
       if (accessToken) {
-        gapi.client.setToken({
-          access_token: accessToken,
+        //   gapi.client.setToken({
+        //     access_token: accessToken,
+        //   });
+        //   const request = gapi.client.request({
+        //     path: url,
+        //   });
+        //   console.log({ request, credential });
+        const getResponse = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         });
-        const request = gapi.client.request({
-          path: url,
-        });
-        console.log({ request, credential });
+        if (getResponse.ok) {
+          setCalendar(await getResponse.json());
+          setFetchStatus(FetchStatus.Done);
+        }
+        console.log("useCalendar.ts reloadCalendar", { getResponse });
       }
-      // const getResponse = await fetch(url, {
-      //   method: "get",
-      //   headers: {
-      //     authorization: "", // TODO get token
-      //   },
-      // });
-      // if (getResponse.ok) {
-      //   setCalendar(await getResponse.json());
-      //   setFetchStatus(FetchStatus.Done);
-      // }
     } catch (error) {
       setFetchStatus(FetchStatus.Error);
       console.error(error);

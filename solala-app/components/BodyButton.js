@@ -6,17 +6,19 @@ import {
   Platform,
   View,
   Image,
+  Modal,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as BodyIcons from "../../assets/emotions";
 import { theme } from "../constants";
+import BodyGraphs from "./BodyGraphs";
 
 const { colorPalette, text, size } = theme;
 
 const BodyButton = (props) => {
   const [pressed, setPressed] = useState(!pressed);
-  const [longPressed, setLongPressed] = useState(!longPressed);
+  const [modalVisible, setModalVisible] = useState(false);
 
   if (Platform.OS === "ios" || Platform.OS === "android") {
     let buttonColor = colorPalette.forest;
@@ -54,17 +56,24 @@ const BodyButton = (props) => {
     }
 
     return (
-      <Pressable
-        style={{
-          padding: size.innerPadding,
-          margin: size.margin,
-          backgroundColor: buttonColor,
-          borderRadius: "100%",
-        }}
-        onPress={setPressed}
-        onLongPress={setLongPressed}>
-        <Image width={RFValue(50)} source={buttonIcon} />
-      </Pressable>
+      <View>
+        {" "}
+        <Modal visible={modalVisible}>
+          {" "}
+          <BodyGraphs />
+        </Modal>
+        <Pressable
+          style={{
+            padding: size.innerPadding,
+            margin: size.margin,
+            backgroundColor: buttonColor,
+            borderRadius: "100%",
+          }}
+          onPress={setPressed}
+          onLongPress={setModalVisible}>
+          <Image width={RFValue(50)} source={buttonIcon} />
+        </Pressable>
+      </View>
     );
   } else {
     let buttonColor = colorPalette.forest;
@@ -102,6 +111,10 @@ const BodyButton = (props) => {
     }
     return (
       <View>
+        <Modal visible={modalVisible}>
+          {" "}
+          <BodyGraphs />
+        </Modal>
         <Pressable
           style={{
             width: RFValue(20),
@@ -111,7 +124,7 @@ const BodyButton = (props) => {
             borderRadius: "100%",
           }}
           onPress={setPressed}
-          onLongPress={setLongPressed}>
+          onLongPress={setModalVisible}>
           {buttonIcon}
         </Pressable>
         <Text style={styles.textStyle}>{props.title}</Text>

@@ -1,5 +1,6 @@
 import AnimationManager from "./AnimationManager";
 import BodyButton from "./BodyButton";
+import BodyGraphs from "./BodyGraphs";
 import Button from "./Button";
 import Calendar from "./Calendar";
 import Card from "./Card";

@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import { getAuth } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
 import React, { useEffect, useRef } from "react";
@@ -17,6 +17,7 @@ import { theme } from "../constants";
 import { cardStyles } from "./CalendarPopup";
 import ToDoCard from "./ToDoCard";
 import Zoom from "./Zoom";
+import * as Utils from "../utils/CardSorting";
 const { size, light, text } = theme;
 
 function Item({ cardData }) {
@@ -95,11 +96,10 @@ const ToDoPlannerView = (props) => {
     const userId = getAuth().currentUser.uid;
     const db = getDatabase();
     const reference = ref(db, "users/" + userId + "/tasks");
-    let data = [];
 
     return onValue(reference, (snapshot) => {
       const value = snapshot.val();
-      data = [];
+      const data = [];
       for (const n in value) {
         data.push({ id: n, cardData: value[n] });
       }
@@ -149,10 +149,32 @@ const ToDoPlannerView = (props) => {
       <View style={{ flex: 1, alignItems: "stretch", width: "100%" }}>
         <View
           style={{ flex: 0.15, flexDirection: "row", marginLeft: size.margin }}>
-          <Text style={styles.headerText}>Title</Text>
-          <Text style={styles.headerText}>Priority</Text>
-          <Text style={styles.headerText}>Complexity</Text>
-          <Text style={styles.headerText}>Category</Text>
+          <Pressable
+            style={styles.headerText}
+            onPress={() => setDATA(Utils.SortData(DATA, Utils.SortType.DATE))}>
+            <Text style={styles.headerText}>Title</Text>
+          </Pressable>
+          <Pressable
+            style={styles.headerText}
+            onPress={() =>
+              setDATA(Utils.SortData(DATA, Utils.SortType.PRIORITY))
+            }>
+            <Text style={styles.headerText}>Priority</Text>
+          </Pressable>
+          <Pressable
+            style={styles.headerText}
+            onPress={() =>
+              setDATA(Utils.SortData(DATA, Utils.SortType.COMPLEXITY))
+            }>
+            <Text style={styles.headerText}>Complexity</Text>
+          </Pressable>
+          <Pressable
+            style={styles.headerText}
+            onPress={() =>
+              setDATA(Utils.SortData(DATA, Utils.SortType.CATEGORY))
+            }>
+            <Text style={styles.headerText}>Category</Text>
+          </Pressable>
           <Text style={styles.headerText}>Notes</Text>
         </View>
         <View
@@ -162,6 +184,7 @@ const ToDoPlannerView = (props) => {
           }}>
           <FlatList
             data={DATA}
+            extraData={DATA}
             ref={flatList}
             initialScrollIndex={0}
             onViewableItemsChanged={onViewRef.current}

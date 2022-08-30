@@ -23,11 +23,15 @@ import * as Favicon from "../../assets/favicons_js";
 import * as IconsLight from "../../assets/favicons_light";
 import { theme } from "../constants";
 import Calendar from "./Calendar";
-import { Titles } from "./Card";
 import TimePickerWeb from "./TimePickerWeb";
 
 const { light, size, text, colorPalette, shadowProp } = theme;
 
+const CATEGORIES = [
+  { label: "Cateogry One", value: "key0" },
+  { label: "Cateogry Two", value: "key1" },
+  { label: "Cateogry Three", value: "key2" },
+];
 function storeTask(task) {
   const user = getAuth().currentUser;
 
@@ -289,9 +293,11 @@ const CalendarPopup = (props) => {
                   }}
                   onValueChange={(v) => setCategory(v)}
                   accessibilityLabel="Styled Picker Accessibility Label">
-                  <Picker.Item label="Category One" value="key0" />
-                  <Picker.Item label="Category Two" value="key1" />
-                  <Picker.Item label="Category Three" value="key2" />
+                  {CATEGORIES.map((item) => {
+                    return (
+                      <Picker.Item label={item.label} value={item.value} />
+                    );
+                  })}
                 </Picker>
               </View>
             </View>

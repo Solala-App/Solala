@@ -22,6 +22,7 @@ import CheckBoxComponent from "./CheckBoxComponent";
 import EventPopup from "./EventPopup.js";
 import TaskPopup from "./TaskPopup.js";
 import Zoom from "./Zoom.js";
+import * as Utils from "../utils/CardSorting";
 
 const { light, size, text, shadowProp } = theme;
 
@@ -132,7 +133,16 @@ const Card = (props) => {
           data.push({ id: n, cardData: value[n] });
         }
       }
-      setDATA(data);
+      if (
+        props.title === Titles.TodayEvent ||
+        props.title === Titles.Upcoming
+      ) {
+        setDATA(Utils.SortData(data, Utils.SortType.TIME));
+      } else if (props.title === Titles.HighPriority) {
+        setDATA(Utils.SortData(data, Utils.SortType.PRIORITY));
+      } else {
+        setDATA(data);
+      }
     });
   }, []);
 

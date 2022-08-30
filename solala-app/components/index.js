@@ -1,4 +1,5 @@
 import AnimationManager from "./AnimationManager";
+import BodyButton from "./BodyButton";
 import Button from "./Button";
 import Calendar from "./Calendar";
 import Card from "./Card";
@@ -18,6 +19,7 @@ import ToDoPlannerView from "./ToDoPlannerView";
 import Zoom from "./Zoom";
 
 export {
+  BodyButton,
   Card,
   Calendar,
   CheckBoxComponent,

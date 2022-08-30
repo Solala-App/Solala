@@ -19,6 +19,7 @@ import * as Favicon from "../../assets/favicons_js";
 import * as Icons from "../../assets/favicons_light";
 import { theme } from "../constants";
 import CheckBoxComponent from "./CheckBoxComponent";
+import BodyButton from "./BodyButton";
 import EventPopup from "./EventPopup.js";
 import TaskPopup from "./TaskPopup.js";
 import Zoom from "./Zoom.js";
@@ -270,6 +271,12 @@ const Card = (props) => {
         <View>
           {props.title === Titles.BodyCheck && (
             <View style={{ margin: size.innerPadding, flex: 1 }}>
+              <BodyButton title="Joyful" />
+              <BodyButton title="Sad" />
+              <BodyButton title="Powerful" />
+              <BodyButton title="Peaceful" />
+              <BodyButton title="Mad" />
+              <BodyButton title="Scared" />
               <Pressable onPress={scrollsDown}>
                 <Favicon.ScrollRight
                   iconColor="light"

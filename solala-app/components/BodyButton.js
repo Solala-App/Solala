@@ -6,65 +6,78 @@ import {
   Platform,
   View,
   Image,
+  Modal,
+  TouchableOpacity,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import * as Icons from "../../assets/favicons_light";
 
 import * as BodyIcons from "../../assets/emotions";
 import { theme } from "../constants";
+import { cardStyles } from "./CalendarPopup";
+import BodyButtonPopup from "./BodyButtonPopup";
 
 const { colorPalette, text, size } = theme;
 
 const BodyButton = (props) => {
-  const [pressed, setPressed] = useState(!pressed);
-  const [longPressed, setLongPressed] = useState(!longPressed);
+  const [pressed, setPressed] = useState(false);
+  const [longPressed, setLongPressed] = useState(false);
 
   if (Platform.OS === "ios" || Platform.OS === "android") {
     let buttonColor = colorPalette.forest;
-    let buttonIcon = <BodyIcons.Emotions />;
+    let buttonIcon = BodyIcons.Emotions;
     switch (props.title) {
       case "Joyful":
         buttonColor = colorPalette.forest;
-        buttonIcon = <BodyIcons.Joyful />;
+        buttonIcon = BodyIcons.Joyful;
         break;
       case "Powerful":
         buttonColor = colorPalette.forest;
-        buttonIcon = <BodyIcons.Powerful />;
+        buttonIcon = BodyIcons.Powerful;
         break;
       case "Peaceful":
         buttonColor = colorPalette.forest;
-        buttonIcon = <BodyIcons.Peaceful />;
+        buttonIcon = BodyIcons.Peaceful;
         break;
       case "Sad":
         buttonColor = colorPalette.forest;
-        buttonIcon = <BodyIcons.Sad />;
+        buttonIcon = BodyIcons.Sad;
         break;
       case "Mad":
         buttonColor = colorPalette.forest;
-        buttonIcon = <BodyIcons.Mad />;
+        buttonIcon = BodyIcons.Mad;
         break;
       case "Scared":
         buttonColor = colorPalette.forest;
-        buttonIcon = <BodyIcons.Scared />;
+        buttonIcon = BodyIcons.Scared;
         break;
 
       default:
         buttonColor = colorPalette.forest;
-        buttonIcon = <BodyIcons.Emotions />;
+        buttonIcon = BodyIcons.Emotions;
         break;
     }
 
     return (
-      <Pressable
-        style={{
-          padding: size.innerPadding,
-          margin: size.margin,
-          backgroundColor: buttonColor,
-          borderRadius: "100%",
-        }}
-        onPress={setPressed}
-        onLongPress={setLongPressed}>
-        <Image width={RFValue(50)} source={buttonIcon} />
-      </Pressable>
+      <>
+        <Pressable
+          style={{
+            padding: size.innerPadding,
+            margin: size.margin,
+            backgroundColor: buttonColor,
+            borderRadius: "100%",
+          }}
+          onLongPress={() => setLongPressed(true)}
+          onPressOut={() => setLongPressed(false)}>
+          <Image
+            style={{ width: RFValue(25), height: RFValue(25) }}
+            source={buttonIcon}
+          />
+        </Pressable>
+        <Modal visible={longPressed} transparent>
+          <BodyButtonPopup />
+        </Modal>
+      </>
     );
   } else {
     let buttonColor = colorPalette.forest;
@@ -111,10 +124,15 @@ const BodyButton = (props) => {
             borderRadius: "100%",
           }}
           onPress={setPressed}
-          onLongPress={setLongPressed}>
+          onLongPress={() => setLongPressed(true)}
+          /*onMouseLeave={() => setLongPressed(false)}*/
+        >
           {buttonIcon}
         </Pressable>
         <Text style={styles.textStyle}>{props.title}</Text>
+        <Modal visible={longPressed} transparent>
+          <BodyButtonPopup />
+        </Modal>
       </View>
     );
   }

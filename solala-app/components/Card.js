@@ -24,6 +24,7 @@ import EventPopup from "./EventPopup.js";
 import TaskPopup from "./TaskPopup.js";
 import Zoom from "./Zoom.js";
 import * as Utils from "../utils/CardSorting";
+import BodyCheckList from "./BodyCheckList";
 
 const { light, size, text, shadowProp } = theme;
 
@@ -130,7 +131,10 @@ const Card = (props) => {
           value[n]["priority"] > 50
         ) {
           data.push({ id: n, cardData: value[n] });
-        } else if (props.title === Titles.Upcoming) {
+        } else if (
+          props.title === Titles.Upcoming ||
+          props.title == Titles.BodyCheck
+        ) {
           data.push({ id: n, cardData: value[n] });
         }
       }
@@ -264,36 +268,19 @@ const Card = (props) => {
               marginStart: size.margin,
               paddingBottom: size.margin,
             }}>
-            <FlatList
-              data={DATA}
-              ref={flatList}
-              horizontal
-              initialScrollIndex={0}
-              onViewableItemsChanged={onViewRef.current}
-              showsHorizontalScrollIndicator={false}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-              ItemSeparatorComponent={itemSeparator}
-            />
+            <BodyCheckList />
           </View>
         )}
 
-        <View>
+        <View
+          style={{
+            justifyContent: "center",
+            marginTop: -size.margin,
+          }}>
           {props.title === Titles.BodyCheck && (
-            <View style={{ margin: size.innerPadding, flex: 1 }}>
-              <BodyButton title="Joyful" />
-              <BodyButton title="Sad" />
-              <BodyButton title="Powerful" />
-              <BodyButton title="Peaceful" />
-              <BodyButton title="Mad" />
-              <BodyButton title="Scared" />
-              <Pressable onPress={scrollsDown}>
-                <Favicon.ScrollRight
-                  iconColor="light"
-                  style={cardStyles.scrollButton}
-                />
-              </Pressable>
-            </View>
+            <View
+              style={{ width: size.margin, backgroundColor: light.secondary }}
+            />
           )}
         </View>
       </View>

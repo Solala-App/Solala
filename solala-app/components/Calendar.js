@@ -15,7 +15,7 @@ const getDate = new Date();
 const INITIAL_DATE = format(getDate, "yyy-MM-dd");
 //  const [currentMonth, setCurrentMonth] = useState(INITIAL_DATE);
 const CalendarComponent = (props) => {
-  const [selected, setSelected] = useState(INITIAL_DATE);
+  const [selected, setSelected] = useState(props.currentDate);
 
   const onDayPress = useCallback((day) => {
     setSelected(day.dateString);

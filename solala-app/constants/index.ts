@@ -73,6 +73,10 @@ export const theme = {
       fontSize: RFValue(10),
       fontFamily: "MontserratAltRegular",
     },
+    bodyButton: {
+      fontSize: RFValue(5),
+      fontFamily: "MontserratAltRegular",
+    },
     mobileTitle: {
       fontSize: RFValue(25),
       fontFamily: "Courgette",

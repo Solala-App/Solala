@@ -54,7 +54,7 @@ export default function Homepage() {
           <View style={styles.row}>
             <View style={styles.card}>
               <Components.Card title={Titles.BodyCheck} />
-              <Button
+              {/* <Button
                 title="Fetch Data"
                 onPress={() => {
                   setupHighscoreListener();
@@ -65,7 +65,7 @@ export default function Homepage() {
                 onPress={() => {
                   resetData();
                 }}
-              />
+              /> */}
               <View style={{ position: "absolute" }}>
                 <Components.AnimationManager
                   size={100}
@@ -93,7 +93,7 @@ export default function Homepage() {
               <Components.Card title={Titles.Upcoming} />
             </View>
           </View>
-          <Button
+          {/* <Button
             title="Fetch Data"
             onPress={() => {
               setupHighscoreListener();
@@ -105,7 +105,7 @@ export default function Homepage() {
             onPress={() => {
               resetData();
             }}
-          />
+          /> */}
           <View style={styles.columnSolala}>
             <Components.AnimationManager
               faceType={Solala.Happy}

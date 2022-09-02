@@ -27,6 +27,11 @@ import TimePickerWeb from "./TimePickerWeb";
 
 const { light, size, text, colorPalette, shadowProp } = theme;
 
+const CATEGORIES = [
+  { label: "Cateogry One", value: "key0" },
+  { label: "Cateogry Two", value: "key1" },
+  { label: "Cateogry Three", value: "key2" },
+];
 function storeTask(task) {
   const user = getAuth().currentUser;
 
@@ -73,18 +78,41 @@ function storeEvent(event) {
   }
 }
 const CalendarPopup = (props) => {
-  const [priorityValue, setPriorityValue] = React.useState(15);
-  const [complexityValue, setComplexityValue] = React.useState(15);
-  const [repeatIndex, setRepeatIndex] = React.useState(0);
-  const [tempNotes, setTempNotes] = React.useState("");
-  const [notes, setNotes] = React.useState("");
-  const [title, setTitle] = React.useState("");
-  const [selectedDate, setSelectedDate] = React.useState(
-    format(new Date(), "yyy-MM-dd")
-  );
-  const [selectedTime, setSelectedTime] = React.useState(new Date());
   const repeatOptions = ["None", "Daily", "Weekly", "Monthly"];
-  const [category, setCategory] = React.useState("key0");
+
+  const [priorityValue, setPriorityValue] = React.useState(
+    props.presetData !== undefined ? props.presetData.priority : 15
+  );
+  const [complexityValue, setComplexityValue] = React.useState(
+    props.presetData !== undefined ? props.presetData.complexity : 15
+  );
+  const [repeatIndex, setRepeatIndex] = React.useState(
+    props.presetData !== undefined
+      ? repeatOptions.indexOf(props.presetData.repeat)
+      : 0
+  );
+  const [tempNotes, setTempNotes] = React.useState(
+    props.presetData !== undefined ? props.presetData.notes : ""
+  );
+  const [notes, setNotes] = React.useState(
+    props.presetData !== undefined ? props.presetData.notes : ""
+  );
+  const [title, setTitle] = React.useState(
+    props.presetData !== undefined ? props.presetData.title : ""
+  );
+  const [selectedDate, setSelectedDate] = React.useState(
+    props.presetData !== undefined
+      ? props.presetData.date
+      : format(new Date(), "yyy-MM-dd")
+  );
+  const [selectedTime, setSelectedTime] = React.useState(
+    props.presetData !== undefined && props.type === "Event"
+      ? new Date(props.presetData.time)
+      : new Date()
+  );
+  const [category, setCategory] = React.useState(
+    props.presetData !== undefined ? props.presetData.category : "key0"
+  );
 
   const [displayError, setDisplayError] = React.useState(false);
 
@@ -131,7 +159,7 @@ const CalendarPopup = (props) => {
             </View>
           </View>
           <View style={cardStyles.calendar}>
-            <Calendar changeDate={changeDate} />
+            <Calendar changeDate={changeDate} currentDate={selectedDate} />
           </View>
 
           {displayError && (
@@ -265,9 +293,11 @@ const CalendarPopup = (props) => {
                   }}
                   onValueChange={(v) => setCategory(v)}
                   accessibilityLabel="Styled Picker Accessibility Label">
-                  <Picker.Item label="Category One" value="key0" />
-                  <Picker.Item label="Category Two" value="key1" />
-                  <Picker.Item label="Category Three" value="key2" />
+                  {CATEGORIES.map((item) => {
+                    return (
+                      <Picker.Item label={item.label} value={item.value} />
+                    );
+                  })}
                 </Picker>
               </View>
             </View>
@@ -302,6 +332,7 @@ const CalendarPopup = (props) => {
                 if (title === "") {
                   setDisplayError(true);
                 } else {
+                  console.log(selectedTime);
                   props.isModalVisible();
                   const task = {
                     priority: priorityValue,
@@ -317,6 +348,9 @@ const CalendarPopup = (props) => {
                     storeTask(task);
                   } else {
                     storeEvent(task);
+                  }
+                  if (props.edit != null) {
+                    props.edit();
                   }
                 }
               }}>

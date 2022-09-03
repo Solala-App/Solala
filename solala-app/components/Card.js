@@ -24,7 +24,10 @@ import EventPopup from "./EventPopup.js";
 import TaskPopup from "./TaskPopup.js";
 import Zoom from "./Zoom.js";
 import * as Utils from "../utils/CardSorting";
+import * as CalendarUtil from "../utils/CalendarUtil";
+
 import BodyCheckList from "./BodyCheckList";
+import { gapi } from "gapi-script";
 
 const { light, size, text, shadowProp } = theme;
 
@@ -100,7 +103,7 @@ const Card = (props) => {
   const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
   const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
   const [DATA, setDATA] = React.useState([]);
-
+  const [googleEvents, setGoogleEvents] = React.useState(null);
   const flatList = useRef();
 
   useEffect(() => {
@@ -113,10 +116,11 @@ const Card = (props) => {
       reference = ref(db, "users/" + userId + "/events");
     }
     let data = [];
-
+    gapi.client.load("calendar", "v3", getEvents);
+    console.log(googleEvents);
     return onValue(reference, (snapshot) => {
       const value = snapshot.val();
-      data = [];
+      //data = [];
       for (const n in value) {
         if (
           value[n]["date"] === format(new Date(), "yyy-MM-dd") &&
@@ -150,6 +154,35 @@ const Card = (props) => {
       }
     });
   }, []);
+
+  const getEvents = () => {
+    try {
+      gapi.client.calendar.events
+        .list({
+          // Fetch events from user's primary calendar
+          calendarId: "primary",
+          showDeleted: false,
+          showCancelled: false,
+        })
+        .then(function (response) {
+          let events = response.result.items;
+
+          if (events.length > 0) {
+            setGoogleEvents(formatEvents(events));
+            console.log(formatEvents(events));
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const formatEvents = (list) => {
+    return list.map((item) => ({
+      title: item.summary,
+      //date: item.start.dateTime,
+      //start: item.start.dateTime || item.start.date,
+    }));
+  };
 
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);

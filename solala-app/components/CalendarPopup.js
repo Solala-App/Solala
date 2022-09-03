@@ -4,6 +4,7 @@ import { Picker } from "@react-native-picker/picker";
 import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
 import { getDatabase, ref, push, child, update } from "firebase/database";
+import { gapi } from "gapi-script";
 import React from "react";
 import {
   View,
@@ -15,6 +16,7 @@ import {
   Platform,
   Image,
   Alert,
+  Button,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -24,7 +26,7 @@ import * as IconsLight from "../../assets/favicons_light";
 import { theme } from "../constants";
 import Calendar from "./Calendar";
 import TimePickerWeb from "./TimePickerWeb";
-
+import * as Utils from "../utils/CalendarUtil";
 const { light, size, text, colorPalette, shadowProp } = theme;
 
 const CATEGORIES = [
@@ -134,6 +136,41 @@ const CalendarPopup = (props) => {
 
   const changeDate = (date) => {
     setSelectedDate(date);
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    var event = {
+      summary: "Google I/O 2015",
+      location: "800 Howard St., San Francisco, CA 94103",
+      description: "A chance to hear more about Google's developer products.",
+      start: {
+        dateTime: "2022-09-02T09:00:00-07:00",
+        timeZone: "America/Los_Angeles",
+      },
+      end: {
+        dateTime: "2022-09-02T17:00:00-07:30",
+        timeZone: "America/Los_Angeles",
+      },
+      recurrence: ["RRULE:FREQ=DAILY;COUNT=2"],
+      attendees: [
+        { email: "lpage@example.com" },
+        { email: "sbrin@example.com" },
+      ],
+      reminders: {
+        useDefault: false,
+        overrides: [
+          { method: "email", minutes: 24 * 60 },
+          { method: "popup", minutes: 10 },
+        ],
+      },
+    };
+    // try {
+    //   gapi.client.load("calendar", "v3", Utils.getEvents);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    Utils.publishTheCalenderEvent(event);
   };
   return (
     <ScrollView>
@@ -359,6 +396,12 @@ const CalendarPopup = (props) => {
                 style={{ width: RFValue(25), height: RFValue(25) }}
               />
             </Pressable>
+            <Button
+              title={"EVT"}
+              onPress={(e) => {
+                submit(e);
+              }}
+            />
           </View>
         </View>
       </View>

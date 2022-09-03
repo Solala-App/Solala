@@ -135,7 +135,7 @@ export function useWeather(): UseWeatherReturn {
       setForecast(current);
     }
 
-    console.log({ forecast });
+    //console.log({ forecast });
 
     setRefreshing(false);
   };
@@ -151,7 +151,7 @@ export function useWeather(): UseWeatherReturn {
   const weatherTemp = forecast?.temp?.day ? forecast?.temp.day : undefined;
   const weatherAdvice = getWeatherAdvice(weather?.main);
 
-  console.log({ forecast, weather, weatherIcon });
+  //console.log({ forecast, weather, weatherIcon });
 
   return {
     forecast,

@@ -26,7 +26,7 @@ export function SortData(data, sortType) {
       });
     case SortType.TIME:
       return [...data].sort((a, b) => {
-        if (a.cardData.time > b.cardData.time) {
+        if (new Date(a.cardData.time) > new Date(b.cardData.time)) {
           return 1;
         }
         return -1;

@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
+import { gapi } from "gapi-script";
 import React, { useEffect, useRef } from "react";
 import {
   View,
@@ -70,6 +71,8 @@ const Card = (props) => {
 
   const flatList = useRef();
   useEffect(() => {
+    window.gapi.client.load("calendar", "v3", getGapiTasks);
+
     const userId = getAuth().currentUser.uid;
     const db = getDatabase();
     const reference = ref(db, "users/" + userId + "/tasks");
@@ -91,6 +94,22 @@ const Card = (props) => {
       setDATA(data);
     });
   }, []);
+
+  const getGapiTasks = () => {
+    window.gapi.client.calendar.tasks
+      .list({
+        calendarId: "primary",
+      })
+      .then(function (response) {
+        const events = response.result.items;
+
+        if (events.length > 0) {
+          //setGoogleEvents(formatEvents(events));
+          //setDATA(formatEvents(events));
+          console.log(events);
+        }
+      });
+  };
   const handleZoomVisible = () => {
     setZoomVisible(() => !isZoomVisible);
   };

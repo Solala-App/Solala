@@ -83,7 +83,6 @@ export const useCalendar = (
   useEffect(() => {
     reloadCalendar();
   }, []);
-
   return [calendar, fetchStatus, reloadCalendar];
 };
 

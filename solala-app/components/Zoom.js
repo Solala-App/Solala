@@ -77,10 +77,8 @@ const Zoom = ({ zoom, cardData, type }) => {
             <Text style={cardStyles.popupLabelText}>
               Date/Time:{" "}
               {new Date(
-                new Date(cardData.date).getFullYear(),
-                new Date(cardData.date).getMonth(),
-                new Date(cardData.date).getDate() + 1
-              ).toDateString()}{" "}
+                cardData.date.substring(0, 10).split("-")
+              ).toDateString()}
               {type === "Event"
                 ? "at " +
                   new Date(cardData.time).toLocaleTimeString("en-US", {

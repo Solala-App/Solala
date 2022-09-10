@@ -103,10 +103,12 @@ const Card = (props) => {
   const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
   const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
   const [DATA, setDATA] = React.useState([]);
-  const [googleEvents, setGoogleEvents] = React.useState(null);
+  const [googleEvents, setGoogleEvents] = React.useState([]);
   const flatList = useRef();
 
   useEffect(() => {
+    window.gapi.client.load("calendar", "v3", getGapiEvents);
+
     const userId = getAuth().currentUser.uid;
     const db = getDatabase();
     let reference;
@@ -116,11 +118,10 @@ const Card = (props) => {
       reference = ref(db, "users/" + userId + "/events");
     }
     let data = [];
-    gapi.client.load("calendar", "v3", getEvents);
-    console.log(googleEvents);
+
     return onValue(reference, (snapshot) => {
       const value = snapshot.val();
-      //data = [];
+      data = [];
       for (const n in value) {
         if (
           value[n]["date"] === format(new Date(), "yyy-MM-dd") &&
@@ -142,48 +143,48 @@ const Card = (props) => {
           data.push({ id: n, cardData: value[n] });
         }
       }
-      if (
-        props.title === Titles.TodayEvent ||
-        props.title === Titles.Upcoming
-      ) {
-        setDATA(Utils.SortData(data, Utils.SortType.TIME));
-      } else if (props.title === Titles.HighPriority) {
-        setDATA(Utils.SortData(data, Utils.SortType.PRIORITY));
-      } else {
-        setDATA(data);
-      }
+      setDATA(data);
     });
   }, []);
+  const getGapiEvents = () => {
+    window.gapi.client.tasks.tasklists.list({}).then(function (response) {
+      const events = response.result.items;
 
-  const getEvents = () => {
-    try {
-      gapi.client.calendar.events
-        .list({
-          // Fetch events from user's primary calendar
-          calendarId: "primary",
-          showDeleted: false,
-          showCancelled: false,
-        })
-        .then(function (response) {
-          let events = response.result.items;
-
-          if (events.length > 0) {
-            setGoogleEvents(formatEvents(events));
-            console.log(formatEvents(events));
-          }
-        });
-    } catch (error) {
-      console.log(error);
-    }
+      if (events.length > 0) {
+        setGoogleEvents(formatEvents(events));
+        //console.log(events);
+      }
+    });
   };
   const formatEvents = (list) => {
-    return list.map((item) => ({
-      title: item.summary,
-      //date: item.start.dateTime,
-      //start: item.start.dateTime || item.start.date,
-    }));
+    const rval = [];
+    list.map((item) => {
+      if (typeof item != "undefined") {
+        rval.push({
+          id: item.id,
+          cardData: {
+            title: item.summary,
+            time: item.start.dateTime,
+            date: item.start.dateTime,
+            notes:
+              typeof item.description != "undefined" ? item.description : "",
+          },
+        });
+      }
+    });
+    return rval;
   };
 
+  const getAllEvents = () => {
+    const data = googleEvents.concat(DATA);
+    if (props.title === Titles.TodayEvent || props.title === Titles.Upcoming) {
+      return Utils.SortData(data, Utils.SortType.TIME);
+    } else if (props.title === Titles.HighPriority) {
+      return Utils.SortData(data, Utils.SortType.PRIORITY);
+    } else {
+      return data;
+    }
+  };
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
   };
@@ -211,7 +212,7 @@ const Card = (props) => {
           .index
       );
       setScrollUpIndex(viewableItems.viewableItems[0].index - 1);
-      console.log(viewableItems.viewableItems[0].index);
+      //console.log(viewableItems.viewableItems[0].index);
       if (viewableItems.viewableItems[0].index === 0) {
         setDisplayScrollUp(false);
       } else {
@@ -264,7 +265,7 @@ const Card = (props) => {
             flex: 1,
           }}>
           <FlatList
-            data={DATA}
+            data={getAllEvents()}
             ref={flatList}
             initialScrollIndex={0}
             onViewableItemsChanged={onViewRef.current}

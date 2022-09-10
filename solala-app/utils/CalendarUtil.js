@@ -17,31 +17,4 @@ export const publishTheCalenderEvent = (event) => {
   }
 };
 
-export function getEvents() {
-  try {
-    gapi.client.load("calendar", "v3", () => {
-      gapi.client.calendar.events
-        .list({
-          // Fetch events from user's primary calendar
-          calendarId: "primary",
-          showDeleted: false,
-        })
-        .then(function (response) {
-          let events = response.result.items;
 
-          if (events.length > 0) {
-            console.log(events);
-          }
-        });
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export const formatEvents = (list) => {
-  return list.map((item) => ({
-    title: item.summary,
-    start: item.start.dateTime || item.start.date,
-  }));
-};

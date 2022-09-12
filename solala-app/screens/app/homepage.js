@@ -9,6 +9,8 @@ import * as Components from "../../components";
 import { Titles } from "../../components/Card.js";
 import { theme } from "../../constants";
 import { useCalendar } from "../../utils/hooks/useCalendar";
+import ToDoCard from "../../components/ToDoCard";
+
 const { light, size } = theme;
 
 function setupHighscoreListener() {
@@ -116,7 +118,7 @@ export default function Homepage() {
           </View>
           <View style={styles.column}>
             <View style={styles.card}>
-              <Components.Card title={Titles.HighPriority} />
+              <ToDoCard title="Today's Priorities" />
             </View>
             <View style={styles.card}>
               <Components.Card title={Titles.BodyCheck} />

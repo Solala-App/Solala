@@ -4,7 +4,6 @@ import { Picker } from "@react-native-picker/picker";
 import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
 import { getDatabase, ref, push, child, update } from "firebase/database";
-import { gapi } from "gapi-script";
 import React from "react";
 import {
   View,
@@ -47,7 +46,7 @@ function storeTask(task) {
       category: task.category,
       notes: task.notes,
       repeat: task.repeat,
-      date: task.date,
+      dateTime: task.dateTime,
       id: newTaskKey,
       title: task.title,
     };
@@ -68,10 +67,9 @@ function storeEvent(event) {
     const taskData = {
       notes: event.notes,
       repeat: event.repeat,
-      date: event.date,
       id: newTaskKey,
       title: event.title,
-      time: event.time,
+      dateTime: event.dateTime,
     };
     const updates = {};
     updates["/users/" + user.uid + "/events/" + newTaskKey] = taskData;
@@ -104,12 +102,12 @@ const CalendarPopup = (props) => {
   );
   const [selectedDate, setSelectedDate] = React.useState(
     props.presetData !== undefined
-      ? props.presetData.date
+      ? format(new Date(props.presetData.dateTime), "yyy-MM-dd")
       : format(new Date(), "yyy-MM-dd")
   );
   const [selectedTime, setSelectedTime] = React.useState(
     props.presetData !== undefined && props.type === "Event"
-      ? new Date(props.presetData.time)
+      ? new Date(props.presetData.dateTime)
       : new Date()
   );
   const [category, setCategory] = React.useState(
@@ -138,25 +136,27 @@ const CalendarPopup = (props) => {
     setSelectedDate(date);
   };
 
-  const submit = (e) => {
-    e.preventDefault();
+  const submit = (e, task) => {
+    console.log(task.dateTime);
+    e.preventDefault(); //"2022-09-11T17:00:00-20:30"
     var event = {
-      summary: "Google I/O 2015",
-      location: "800 Howard St., San Francisco, CA 94103",
-      description: "A chance to hear more about Google's developer products.",
+      summary: task.title,
+      description: task.notes,
       start: {
-        dateTime: "2022-09-02T09:00:00-07:00",
+        dateTime: task.dateTime,
         timeZone: "America/Los_Angeles",
       },
       end: {
-        dateTime: "2022-09-02T17:00:00-07:30",
+        dateTime: new Date(
+          new Date(task.dateTime).getTime() + 30 * 60000
+        ).toISOString(),
         timeZone: "America/Los_Angeles",
       },
-      recurrence: ["RRULE:FREQ=DAILY;COUNT=2"],
-      attendees: [
-        { email: "lpage@example.com" },
-        { email: "sbrin@example.com" },
-      ],
+      recurrence:
+        task.repeat === "None"
+          ? []
+          : ["RRULE:FREQ=" + task.repeat.toUpperCase()],
+      status: "confirmed",
       reminders: {
         useDefault: false,
         overrides: [
@@ -165,11 +165,7 @@ const CalendarPopup = (props) => {
         ],
       },
     };
-    // try {
-    //   gapi.client.load("calendar", "v3", Utils.getEvents);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+
     Utils.publishTheCalenderEvent(event);
   };
   return (
@@ -365,43 +361,41 @@ const CalendarPopup = (props) => {
           )}
           <View style={cardStyles.popupCheck}>
             <Pressable
-              onPress={() => {
+              onPress={(e) => {
                 if (title === "") {
                   setDisplayError(true);
                 } else {
-                  console.log(selectedTime);
-                  props.isModalVisible();
+                  const dateTime = new Date(selectedDate + "T12:00:00");
+                  dateTime.setHours(selectedTime.getHours());
+                  dateTime.setMinutes(selectedTime.getMinutes());
+
+                  // dateTime.setMinutes(selectedTime.getMinutes());
+
                   const task = {
                     priority: priorityValue,
                     complexity: complexityValue,
                     category,
                     notes,
                     repeat: repeatOptions[repeatIndex],
-                    date: selectedDate,
                     title,
-                    time: selectedTime.toISOString(),
+                    dateTime: dateTime.toISOString(),
                   };
                   if (props.type === "Task") {
                     storeTask(task);
                   } else {
-                    storeEvent(task);
+                    submit(e, task);
                   }
                   if (props.edit != null) {
                     props.edit();
                   }
                 }
+                props.isModalVisible();
               }}>
               <Image
                 source={IconsDark.Check}
                 style={{ width: RFValue(25), height: RFValue(25) }}
               />
             </Pressable>
-            <Button
-              title={"EVT"}
-              onPress={(e) => {
-                submit(e);
-              }}
-            />
           </View>
         </View>
       </View>

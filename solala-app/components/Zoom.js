@@ -20,11 +20,13 @@ import { theme } from "../constants";
 import { cardStyles } from "./CalendarPopup";
 import EventPopup from "./EventPopup";
 import TaskPopup from "./TaskPopup";
+import * as Utils from "../utils/CalendarUtil";
 
 const { light, size, text, colorPalette, shadowProp } = theme;
 
 const Zoom = ({ zoom, cardData, type }) => {
   function deleteItem() {
+    Utils.deleteCalenderEvent(cardData.id);
     const user = getAuth().currentUser;
     if (user != null) {
       const database = getDatabase();
@@ -75,13 +77,10 @@ const Zoom = ({ zoom, cardData, type }) => {
           </View>
           <View style={cardStyles.popupLabel}>
             <Text style={cardStyles.popupLabelText}>
-              Date/Time:{" "}
-              {new Date(
-                cardData.date.substring(0, 10).split("-")
-              ).toDateString()}
+              Date/Time: {new Date(cardData.dateTime).toDateString()}
               {type === "Event"
-                ? "at " +
-                  new Date(cardData.time).toLocaleTimeString("en-US", {
+                ? " at " +
+                  new Date(cardData.dateTime).toLocaleTimeString("en-US", {
                     hour: "2-digit",
                     minute: "2-digit",
                   })

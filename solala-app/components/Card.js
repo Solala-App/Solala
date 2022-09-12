@@ -19,15 +19,12 @@ import * as Favicon from "../../assets/favicons_js";
 import * as Icons from "../../assets/favicons_light";
 import { theme } from "../constants";
 import CheckBoxComponent from "./CheckBoxComponent";
-import BodyButton from "./BodyButton";
 import EventPopup from "./EventPopup.js";
 import TaskPopup from "./TaskPopup.js";
 import Zoom from "./Zoom.js";
 import * as Utils from "../utils/CardSorting";
-import * as CalendarUtil from "../utils/CalendarUtil";
 
 import BodyCheckList from "./BodyCheckList";
-import { gapi } from "gapi-script";
 
 const { light, size, text, shadowProp } = theme;
 
@@ -38,10 +35,14 @@ export const Titles = {
   HighPriority: "Priorities",
 };
 
-function Item({ data, type }) {
+function Item({ data, type, updateCard }) {
   const [isZoomVisible, setZoomVisible] = React.useState(false);
   const handleZoomVisible = () => {
     setZoomVisible(() => !isZoomVisible);
+    setTimeout(() => {
+      console.log("UPDATE CLIENT");
+      window.gapi.client.load("calendar", "v3", updateCard);
+    }, 500);
   };
   return (
     <View style={cardStyles.cardItem}>
@@ -60,7 +61,7 @@ function Item({ data, type }) {
       {type === Titles.TodayEvent && (
         <View style={cardStyles.cardObjectLeft}>
           <Text style={cardStyles.cardObjectText}>
-            {new Date(data.time).toLocaleTimeString("en-US", {
+            {new Date(data.dateTime).toLocaleTimeString("en-US", {
               hour: "2-digit",
               minute: "2-digit",
             })}
@@ -96,7 +97,7 @@ const itemSeparator = () => {
 
 const Card = (props) => {
   const renderItem = ({ item }) => (
-    <Item data={item.cardData} type={props.title} />
+    <Item data={item.cardData} type={props.title} updateCard={getGapiEvents}/>
   );
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
@@ -109,65 +110,114 @@ const Card = (props) => {
   useEffect(() => {
     window.gapi.client.load("calendar", "v3", getGapiEvents);
 
-    const userId = getAuth().currentUser.uid;
-    const db = getDatabase();
-    let reference;
-    if (props.title === Titles.HighPriority) {
-      reference = ref(db, "users/" + userId + "/tasks");
-    } else {
-      reference = ref(db, "users/" + userId + "/events");
-    }
-    let data = [];
+    //const userId = getAuth().currentUser.uid;
+    //console.log(userId);
+    // const db = getDatabase();
+    // let reference;
+    // if (props.title === Titles.HighPriority) {
+    //   reference = ref(db, "users/" + userId + "/tasks");
+    // } else {
+    //   reference = ref(db, "users/" + userId + "/events");
+    // }
+    // let data = [];
 
-    return onValue(reference, (snapshot) => {
-      const value = snapshot.val();
-      data = [];
-      for (const n in value) {
-        if (
-          value[n]["date"] === format(new Date(), "yyy-MM-dd") &&
-          props.title === Titles.TodayEvent
-        ) {
-          data.push({
-            id: n,
-            cardData: value[n],
-          });
-        } else if (
-          props.title === Titles.HighPriority &&
-          value[n]["priority"] > 50
-        ) {
-          data.push({ id: n, cardData: value[n] });
-        } else if (
-          props.title === Titles.Upcoming ||
-          props.title == Titles.BodyCheck
-        ) {
-          data.push({ id: n, cardData: value[n] });
-        }
-      }
-      setDATA(data);
-    });
-  }, []);
+    // return onValue(reference, (snapshot) => {
+    //   const value = snapshot.val();
+    //   data = [];
+    //   for (const n in value) {
+    //     console.log(
+    //       new Date(value[n]["dateTime"]).toLocaleDateString() +
+    //         ":" +
+    //         new Date(value[n]["dateTime"]).toLocaleTimeString()
+    //     );
+    //     if (
+    //       value[n]["dateTime"].substring(0, 10) ===
+    //         format(new Date(), "yyy-MM-dd") &&
+    //       new Date(value[n]["dateTime"]) > new Date() &&
+    //       props.title === Titles.TodayEvent
+    //     ) {
+    //       data.push({
+    //         id: n,
+    //         cardData: value[n],
+    //       });
+    //     } else if (
+    //       props.title === Titles.HighPriority &&
+    //       value[n]["priority"] > 50
+    //     ) {
+    //       data.push({ id: n, cardData: value[n] });
+    //     } else if (props.title === Titles.Upcoming) {
+    //       data.push({ id: n, cardData: value[n] });
+    //     }
+    //   }
+    //   setDATA(data);
+    // });
+  });
   const getGapiEvents = () => {
-    window.gapi.client.tasks.tasklists.list({}).then(function (response) {
-      const events = response.result.items;
+    const today = new Date();
+    const endDate = new Date(today);
+    endDate.setDate(
+      endDate.getDate() + (props.title === Titles.TodayEvent ? 1 : 3)
+    );
+    window.gapi.client.calendar.events
+      .list({
+        calendarId: "primary",
+        showDeleted: false,
+        singleEvents: true,
+        timeMin: today.toISOString(),
+        timeMax: endDate.toISOString(),
+      })
+      .then(function (response) {
+        const events = response.result.items;
 
-      if (events.length > 0) {
-        setGoogleEvents(formatEvents(events));
-        //console.log(events);
-      }
-    });
+        if (events.length > 0) {
+          setGoogleEvents(formatEvents(events));
+          //console.log(events);
+        }
+      });
   };
   const formatEvents = (list) => {
+    //console.log(list);
     const rval = [];
     list.map((item) => {
       if (typeof item != "undefined") {
+        let repeat = "None";
+        // const repeat = async () => {
+        //   r = "none";
+        //   await (() => {
+        //     const reccuringEventID = item.recurringEventId;
+        //     if (typeof reccuringEventID != "undefined") {
+        //       //console.log(reccuringEventID)
+        //       const requestRecurringEvent =
+        //         window.gapi.client.calendar.events.get({
+        //           calendarId: "primary",
+        //           eventId: reccuringEventID,
+        //         });
+        //       requestRecurringEvent.execute(function (resp) {
+        //         const recurrence = resp.recurrence;
+
+        //         //console.log(recurrence[0]);
+        //         r = recurrence[0];
+        //         //console.log(r);
+        //         //repeat = repeat.charAt(0).toUpperCase() + repeat.slice(1);
+        //         return r;
+        //       });
+        //       //repeat = "E";
+        //     }
+        //   });
+        //   return r;
+        // };
+        // repeat();
+        // console.log(r);
         rval.push({
           id: item.id,
           cardData: {
+            id: item.id,
             title: item.summary,
             time: item.start.dateTime,
-            date: item.start.dateTime,
+            dateTime: item.start.dateTime,
             notes:
               typeof item.description != "undefined" ? item.description : "",
+            repeat: repeat,
           },
         });
       }
@@ -176,17 +226,26 @@ const Card = (props) => {
   };
 
   const getAllEvents = () => {
-    const data = googleEvents.concat(DATA);
+    const data = [];
+    googleEvents.concat(DATA).map((item) => {
+      if (new Date(item.cardData.dateTime) > new Date()) {
+        data.push(item);
+      }
+    })
     if (props.title === Titles.TodayEvent || props.title === Titles.Upcoming) {
       return Utils.SortData(data, Utils.SortType.TIME);
     } else if (props.title === Titles.HighPriority) {
-      return Utils.SortData(data, Utils.SortType.PRIORITY);
+      return Utils.SortData(DATA, Utils.SortType.PRIORITY);
     } else {
       return data;
     }
   };
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
+    setTimeout(() => {
+      console.log("UPDATE CLIENT");
+      window.gapi.client.load("calendar", "v3", getGapiEvents);
+    }, 500);
   };
   const scrollsDown = () => {
     if (scrollDownIndex < DATA.length) {

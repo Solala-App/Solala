@@ -18,7 +18,7 @@ export function SortData(data, sortType) {
       );
     case SortType.DATE:
       return [...data].sort((a, b) => {
-        if (new Date(a.cardData.date) > new Date(b.cardData.date)) {
+        if (new Date(a.cardData.dateTime) > new Date(b.cardData.dateTime)) {
           return 1;
         } else {
           return -1;
@@ -26,7 +26,7 @@ export function SortData(data, sortType) {
       });
     case SortType.TIME:
       return [...data].sort((a, b) => {
-        if (a.cardData.time > b.cardData.time) {
+        if (new Date(a.cardData.dateTime) > new Date(b.cardData.dateTime)) {
           return 1;
         }
         return -1;

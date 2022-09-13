@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import { Titles } from "../../components/Card";
 
 import * as Components from "../../components";
 import { theme } from "../../constants";
@@ -11,19 +12,34 @@ export default function Calendar() {
       <View style={styles.mainView}>
         <View style={styles.column1}>
           <View style={styles.card}>
-            <Components.Card />
+            <Components.Card title={Titles.TodayEvent} />
           </View>
           <View style={styles.card}>
-            <Components.Card />
+            <Components.Card title={Titles.TodayEvent} />
           </View>
         </View>
-        <View style={styles.column2} />
-        <View style={styles.column3}>
+        <View style={styles.column2}>
           <View style={styles.card}>
-            <Components.Card />
+            <Components.Card title={Titles.TodayEvent} />
           </View>
           <View style={styles.card}>
-            <Components.Card />
+            <Components.Card title={Titles.TodayEvent} />
+          </View>
+        </View>
+        <View style={styles.column3}>
+          <View style={styles.card}>
+            <Components.Card title={Titles.TodayEvent} />
+          </View>
+          <View style={styles.card}>
+            <Components.Card title={Titles.TodayEvent} />
+          </View>
+        </View>
+        <View style={styles.column3}>
+          <View style={styles.card}>
+            <Components.Card title={Titles.TodayEvent} />
+          </View>
+          <View style={styles.card}>
+            <Components.Card title={Titles.TodayEvent} />
           </View>
         </View>
       </View>

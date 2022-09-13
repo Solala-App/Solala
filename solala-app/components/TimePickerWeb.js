@@ -12,6 +12,12 @@ const TimePickerWeb = (props) => {
   const [hour, setHour] = React.useState("");
   const [min, setMin] = React.useState("");
   function updateTime(newHour, newMin, newAM_PM) {
+    if (newHour === "") {
+      newHour = new Date().getHours();
+    }
+    if (newMin === "") {
+      newMin = new Date().getMinutes();
+    }
     if (newHour < 12 && newAM_PM === "1") {
       newHour = parseInt(newHour) + 12;
     } else if (newHour >= 12 && newAM_PM === "0") {

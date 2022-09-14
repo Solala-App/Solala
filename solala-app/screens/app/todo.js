@@ -8,6 +8,8 @@ const { light, size } = theme;
 
 //<Components.SelectionButton title="Date:" data="Dates" />
 export default function Todo(props) {
+  const [viewDate, changeViewDate] = React.useState(new Date());
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
@@ -16,10 +18,15 @@ export default function Todo(props) {
             <Components.SelectionButton title="Sort:" data="todo view" />
           </View>
           <View style={{ alignItems: "flex-end", flex: 1 }}>
-            <Components.SelectionButton title="Date:" data="Dates" />
+            <Components.SelectionButton
+              title="Date:"
+              data={viewDate}
+              updateVariable={changeViewDate}
+              numCards={3}
+            />
           </View>
         </View>
-        <Components.ToDoPlannerView />
+        <Components.ToDoPlannerView viewDate={viewDate} />
       </View>
       <Components.Footer />
     </SafeAreaView>

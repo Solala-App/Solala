@@ -15,6 +15,7 @@ import {
   Platform,
   Image,
   Alert,
+  Button,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -24,7 +25,7 @@ import * as IconsLight from "../../assets/favicons_light";
 import { theme } from "../constants";
 import Calendar from "./Calendar";
 import TimePickerWeb from "./TimePickerWeb";
-
+import * as Utils from "../utils/CalendarUtil";
 const { light, size, text, colorPalette, shadowProp } = theme;
 
 const CATEGORIES = [
@@ -45,7 +46,7 @@ function storeTask(task) {
       category: task.category,
       notes: task.notes,
       repeat: task.repeat,
-      date: task.date,
+      dateTime: task.dateTime,
       id: newTaskKey,
       title: task.title,
     };
@@ -56,27 +57,6 @@ function storeTask(task) {
   }
 }
 
-function storeEvent(event) {
-  const user = getAuth().currentUser;
-
-  if (user != null) {
-    const database = getDatabase();
-
-    const newTaskKey = push(child(ref(database), "users")).key;
-    const taskData = {
-      notes: event.notes,
-      repeat: event.repeat,
-      date: event.date,
-      id: newTaskKey,
-      title: event.title,
-      time: event.time,
-    };
-    const updates = {};
-    updates["/users/" + user.uid + "/events/" + newTaskKey] = taskData;
-    return update(ref(database), updates);
-    //remove(child(ref(database), "users/" + user.uid + "/-N9_JnrCNMOet6P1HzO-"));
-  }
-}
 const CalendarPopup = (props) => {
   const repeatOptions = ["None", "Daily", "Weekly", "Monthly"];
 
@@ -102,12 +82,12 @@ const CalendarPopup = (props) => {
   );
   const [selectedDate, setSelectedDate] = React.useState(
     props.presetData !== undefined
-      ? props.presetData.date
-      : format(new Date(), "yyy-MM-dd")
+      ? format(new Date(props.presetData.dateTime), "yyy-MM-dd")
+      : format(new Date(props.currentDay), "yyy-MM-dd")
   );
   const [selectedTime, setSelectedTime] = React.useState(
     props.presetData !== undefined && props.type === "Event"
-      ? new Date(props.presetData.time)
+      ? new Date(props.presetData.dateTime)
       : new Date()
   );
   const [category, setCategory] = React.useState(
@@ -134,6 +114,39 @@ const CalendarPopup = (props) => {
 
   const changeDate = (date) => {
     setSelectedDate(date);
+  };
+
+  const submit = (e, task) => {
+    console.log(task.dateTime);
+    e.preventDefault(); //"2022-09-11T17:00:00-20:30"
+    var event = {
+      summary: task.title,
+      description: task.notes,
+      start: {
+        dateTime: task.dateTime,
+        timeZone: "America/Los_Angeles",
+      },
+      end: {
+        dateTime: new Date(
+          new Date(task.dateTime).getTime() + 30 * 60000
+        ).toISOString(),
+        timeZone: "America/Los_Angeles",
+      },
+      recurrence:
+        task.repeat === "None"
+          ? []
+          : ["RRULE:FREQ=" + task.repeat.toUpperCase()],
+      status: "confirmed",
+      reminders: {
+        useDefault: false,
+        overrides: [
+          { method: "email", minutes: 24 * 60 },
+          { method: "popup", minutes: 10 },
+        ],
+      },
+    };
+
+    Utils.publishTheCalenderEvent(event);
   };
   return (
     <ScrollView>
@@ -328,30 +341,34 @@ const CalendarPopup = (props) => {
           )}
           <View style={cardStyles.popupCheck}>
             <Pressable
-              onPress={() => {
+              onPress={(e) => {
                 if (title === "") {
                   setDisplayError(true);
                 } else {
-                  console.log(selectedTime);
-                  props.isModalVisible();
+                  const dateTime = new Date(selectedDate + "T12:00:00");
+                  dateTime.setHours(selectedTime.getHours());
+                  dateTime.setMinutes(selectedTime.getMinutes());
+
+                  // dateTime.setMinutes(selectedTime.getMinutes());
+
                   const task = {
                     priority: priorityValue,
                     complexity: complexityValue,
                     category,
                     notes,
                     repeat: repeatOptions[repeatIndex],
-                    date: selectedDate,
                     title,
-                    time: selectedTime.toISOString(),
+                    dateTime: dateTime.toISOString(),
                   };
                   if (props.type === "Task") {
                     storeTask(task);
                   } else {
-                    storeEvent(task);
+                    submit(e, task);
                   }
                   if (props.edit != null) {
                     props.edit();
                   }
+                  props.isModalVisible();
                 }
               }}>
               <Image

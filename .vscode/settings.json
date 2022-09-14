@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["Pressable", "Solala"],
+  "cSpell.words": ["gapi", "Pressable", "Solala"],
   "editor.formatOnSaveMode": "modificationsIfAvailable",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

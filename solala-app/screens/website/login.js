@@ -21,12 +21,14 @@ import LogoMobile from "../../../assets/logo/SolalaLogoLg.png";
 import * as Logo from "../../../assets/logo_js";
 import * as Components from "../../components";
 import { theme } from "../../constants";
+import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 const { light, size, text, colorPalette, shadowProp } = theme;
 const auth = getAuth();
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Login({ navigation }) {
+  const { signInWithGoogle } = useAuthentication();
   const [value, setValue] = React.useState({
     email: "",
     password: "",
@@ -205,6 +207,11 @@ export default function Login({ navigation }) {
                   title="Login"
                   color="dark"
                   onClick={() => setLoggingIn(!isLoggingIn)}
+                />
+                <Components.Button
+                  title="Login with Google"
+                  color="dark"
+                  onClick={signInWithGoogle}
                 />
               </View>
             )}

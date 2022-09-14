@@ -17,34 +17,41 @@ import { RFValue } from "react-native-responsive-fontsize";
 import * as Favicon from "../../assets/favicons_js";
 import Plus from "../../assets/favicons_light/Plus.png";
 import { theme } from "../constants";
+import { Titles } from "./Card";
 import CheckBoxComponent from "./CheckBoxComponent";
 import TaskPopup from "./TaskPopup.js";
 import Zoom from "./Zoom.js";
 
 const { light, size, text, shadowProp } = theme;
 
-const Item = ({ data, handleZoom, isZoomVisible }) => (
-  <View style={cardStyles.cardItem}>
-    <View style={cardStyles.cardObjectLeft}>
-      <CheckBoxComponent
-        onChange={(checked) => {
-          // do stuff with checked
-          console.log(
-            `Todo ${data.title} is ${checked ? "complete" : "incomplete"}`
-          );
-        }}
-      />
+function Item({ data, handleZoom }) {
+  const [isZoomVisible, setZoomVisible] = React.useState(false);
+  const handleZoomVisible = () => {
+    setZoomVisible(() => !isZoomVisible);
+  };
+  return (
+    <View style={cardStyles.cardItem}>
+      <View style={cardStyles.cardObjectLeft}>
+        <CheckBoxComponent
+          onChange={(checked) => {
+            // do stuff with checked
+            console.log(
+              `Todo ${data.title} is ${checked ? "complete" : "incomplete"}`
+            );
+          }}
+        />
+      </View>
+      <View style={cardStyles.cardObjectRight}>
+        <Pressable onPress={handleZoomVisible}>
+          <Text style={cardStyles.cardObjectText}>{data.title}</Text>
+        </Pressable>
+      </View>
+      <Modal visible={isZoomVisible} transparent>
+        <Zoom zoom={handleZoomVisible} cardData={data} type={"Task"} />
+      </Modal>
     </View>
-    <View style={cardStyles.cardObjectRight}>
-      <Pressable onPress={handleZoom}>
-        <Text style={cardStyles.cardObjectText}>{data.title}</Text>
-      </Pressable>
-    </View>
-    <Modal visible={isZoomVisible} transparent>
-      <Zoom zoom={handleZoom} cardData={data} type={"Task"} />
-    </Modal>
-  </View>
-);
+  );
+}
 
 const itemSeparator = () => {
   return (
@@ -54,15 +61,8 @@ const itemSeparator = () => {
 /* green bubble for menus */
 
 const Card = (props) => {
-  const renderItem = ({ item }) => (
-    <Item
-      data={item.cardData}
-      handleZoom={handleZoomVisible}
-      isZoomVisible={isZoomVisible}
-    />
-  );
+  const renderItem = ({ item }) => <Item data={item.cardData} />;
   const [isModalVisible, setIsModalVisible] = React.useState(false);
-  const [isZoomVisible, setZoomVisible] = React.useState(false);
   const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
   const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
   const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
@@ -75,24 +75,32 @@ const Card = (props) => {
     const reference = ref(db, "users/" + userId + "/tasks");
     let data = [];
 
-    function addDays(days) {
-      const date = new Date();
-      date.setDate(date.getDate() + days);
-      return date;
-    }
     return onValue(reference, (snapshot) => {
       const value = snapshot.val();
       data = [];
       for (const n in value) {
-        if (value[n]["date"] === format(addDays(props.day), "yyy-MM-dd")) {
-          data.push({ id: n, cardData: value[n] });
-        }
+        data.push({ id: n, cardData: value[n] });
       }
       setDATA(data);
     });
   }, []);
-  const handleZoomVisible = () => {
-    setZoomVisible(() => !isZoomVisible);
+
+  const getFilteredTasks = () => {
+    const data = [];
+    DATA.map((item) => {
+      if (props.title === Titles.HighPriority) {
+        if (item.cardData.priority > 50) {
+          data.push(item);
+        }
+      } else {
+        if (
+          props.day.getDate() === new Date(item.cardData.dateTime).getDate()
+        ) {
+          data.push(item);
+        }
+      }
+    });
+    return data;
   };
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
@@ -147,7 +155,10 @@ const Card = (props) => {
           </Pressable>
 
           <Modal visible={isModalVisible} transparent>
-            <TaskPopup isModalVisible={handleAddObject} />
+            <TaskPopup
+              isModalVisible={handleAddObject}
+              currentDay={props.day}
+            />
           </Modal>
         </View>
       </View>
@@ -157,7 +168,7 @@ const Card = (props) => {
           flex: 1,
         }}>
         <FlatList
-          data={DATA}
+          data={getFilteredTasks()}
           ref={flatList}
           initialScrollIndex={0}
           onViewableItemsChanged={onViewRef.current}

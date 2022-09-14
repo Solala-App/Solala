@@ -20,6 +20,7 @@ import { theme } from "../constants";
 import { cardStyles } from "./CalendarPopup";
 import EventPopup from "./EventPopup";
 import TaskPopup from "./TaskPopup";
+import * as Utils from "../utils/CalendarUtil";
 
 const { light, size, text, colorPalette, shadowProp } = theme;
 
@@ -38,6 +39,7 @@ const Zoom = ({ zoom, cardData, type }) => {
         );
       }
     }
+    Utils.deleteCalenderEvent(cardData.id);
   }
   const [showDeleteWarning, setShowDeleteWarning] = React.useState(false);
   const [showEditScreen, setShowEditScreen] = React.useState(false);
@@ -75,15 +77,10 @@ const Zoom = ({ zoom, cardData, type }) => {
           </View>
           <View style={cardStyles.popupLabel}>
             <Text style={cardStyles.popupLabelText}>
-              Date/Time:{" "}
-              {new Date(
-                new Date(cardData.date).getFullYear(),
-                new Date(cardData.date).getMonth(),
-                new Date(cardData.date).getDate() + 1
-              ).toDateString()}{" "}
+              Date/Time: {new Date(cardData.dateTime).toDateString()}
               {type === "Event"
-                ? "at " +
-                  new Date(cardData.time).toLocaleTimeString("en-US", {
+                ? " at " +
+                  new Date(cardData.dateTime).toLocaleTimeString("en-US", {
                     hour: "2-digit",
                     minute: "2-digit",
                   })

@@ -409,6 +409,7 @@ const CalendarPopup = (props) => {
                   }
                   props.isModalVisible();
                 }
+                props.isModalVisible();
               }}>
               <Image
                 source={IconsDark.Check}

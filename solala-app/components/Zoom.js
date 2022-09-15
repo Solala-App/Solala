@@ -26,6 +26,7 @@ const { light, size, text, colorPalette, shadowProp } = theme;
 
 const Zoom = ({ zoom, cardData, type }) => {
   function deleteItem() {
+    Utils.deleteCalenderEvent(cardData.id);
     const user = getAuth().currentUser;
     if (user != null) {
       const database = getDatabase();

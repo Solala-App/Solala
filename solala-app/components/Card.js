@@ -40,6 +40,10 @@ function Item({ data, type, updateCard }) {
   const [isZoomVisible, setZoomVisible] = React.useState(false);
   const handleZoomVisible = () => {
     setZoomVisible(() => !isZoomVisible);
+    setTimeout(() => {
+      console.log("UPDATE CLIENT");
+      window.gapi.client.load("calendar", "v3", updateCard);
+    }, 500);
   };
   return (
     <View style={cardStyles.cardItem}>
@@ -250,6 +254,10 @@ const Card = (props) => {
   };
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
+    setTimeout(() => {
+      console.log("UPDATE CLIENT");
+      window.gapi.client.load("calendar", "v3", getGapiEvents);
+    }, 500);
   };
   const scrollsDown = () => {
     if (scrollDownIndex < DATA.length) {

@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 import { getAuth } from "firebase/auth";
 import { child, getDatabase, push, ref, update } from "firebase/database";
-=======
->>>>>>> main
 import { gapi } from "gapi-script";
 
 export const publishTheCalenderEvent = (event) => {
@@ -14,7 +11,6 @@ export const publishTheCalenderEvent = (event) => {
       });
 
       request.execute(function (event) {
-<<<<<<< HEAD
         const user = getAuth().currentUser;
 
         if (user != null) {
@@ -33,9 +29,6 @@ export const publishTheCalenderEvent = (event) => {
           update(ref(database), updates);
         }
         console.log(event.htmlLink);
-=======
-        console.log("Event created: " + event.htmlLink);
->>>>>>> main
       });
     });
   } catch (error) {
@@ -43,11 +36,7 @@ export const publishTheCalenderEvent = (event) => {
   }
 };
 
-<<<<<<< HEAD
 export const deleteCalenderEvent = (eventId) => {
-=======
-export const deleteCalenderEvent = (eventId, updateClient) => {
->>>>>>> main
   //console.log(eventId);
   try {
     gapi.client.load("calendar", "v3", () => {
@@ -64,8 +53,3 @@ export const deleteCalenderEvent = (eventId, updateClient) => {
     console.log(error);
   }
 };
-<<<<<<< HEAD
-=======
-
-
->>>>>>> main

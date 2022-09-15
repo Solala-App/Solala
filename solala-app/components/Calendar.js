@@ -129,7 +129,7 @@ const CalendarComponent = (props) => {
           monthFormat="MMMM yyyy"
           // Handler which gets executed when visible month changes in calendar. Default = undefined
           onMonthChange={(month) => {
-            console.log("month changed", month);
+            //console.log("month changed", month);
           }}
           // Hide month navigation arrows. Default = false
           hideArrows

@@ -2,6 +2,7 @@ import * as SplashScreen from "expo-splash-screen";
 import React, { useState, useCallback, useEffect } from "react";
 
 import "./config/firebase";
+import "./config/gapi";
 import fonts from "./solala-app/constants";
 import RootNavigation from "./solala-app/routes";
 

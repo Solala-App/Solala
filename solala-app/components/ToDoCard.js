@@ -84,13 +84,19 @@ const Card = (props) => {
       const value = snapshot.val();
       data = [];
       for (const n in value) {
-        if (value[n]["date"] === format(addDays(props.day), "yyy-MM-dd")) {
+        if (props.day === undefined && value[n]["priority"] > 50) {
+          data.push({ id: n, cardData: value[n] });
+        } else if (
+          new Date(value[n]["dateTime"]).getDate() ===
+          addDays(props.day).getDate()
+        ) {
           data.push({ id: n, cardData: value[n] });
         }
       }
       setDATA(data);
     });
   }, []);
+
   const handleZoomVisible = () => {
     setZoomVisible(() => !isZoomVisible);
   };

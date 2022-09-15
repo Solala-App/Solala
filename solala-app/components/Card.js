@@ -33,6 +33,7 @@ export const Titles = {
   Upcoming: "Upcoming",
   TodayEvent: "Today's Events",
   HighPriority: "Priorities",
+  Past: "Past Events",
 };
 
 function Item({ data, type, updateCard }) {
@@ -97,7 +98,7 @@ const itemSeparator = () => {
 
 const Card = (props) => {
   const renderItem = ({ item }) => (
-    <Item data={item.cardData} type={props.title} updateCard={getGapiEvents}/>
+    <Item data={item.cardData} type={props.title} updateCard={getGapiEvents} />
   );
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
@@ -108,63 +109,59 @@ const Card = (props) => {
   const flatList = useRef();
 
   useEffect(() => {
-    window.gapi.client.load("calendar", "v3", getGapiEvents);
-
-    //const userId = getAuth().currentUser.uid;
+    const userId = getAuth().currentUser.uid;
     //console.log(userId);
-    // const db = getDatabase();
-    // let reference;
-    // if (props.title === Titles.HighPriority) {
-    //   reference = ref(db, "users/" + userId + "/tasks");
-    // } else {
-    //   reference = ref(db, "users/" + userId + "/events");
-    // }
+    const db = getDatabase();
+    let reference;
+    if (props.title === Titles.HighPriority) {
+      reference = ref(db, "users/" + userId + "/tasks");
+    } else {
+      reference = ref(db, "users/" + userId + "/events");
+    }
     // let data = [];
 
-    // return onValue(reference, (snapshot) => {
-    //   const value = snapshot.val();
-    //   data = [];
-    //   for (const n in value) {
-    //     console.log(
-    //       new Date(value[n]["dateTime"]).toLocaleDateString() +
-    //         ":" +
-    //         new Date(value[n]["dateTime"]).toLocaleTimeString()
-    //     );
-    //     if (
-    //       value[n]["dateTime"].substring(0, 10) ===
-    //         format(new Date(), "yyy-MM-dd") &&
-    //       new Date(value[n]["dateTime"]) > new Date() &&
-    //       props.title === Titles.TodayEvent
-    //     ) {
-    //       data.push({
-    //         id: n,
-    //         cardData: value[n],
-    //       });
-    //     } else if (
-    //       props.title === Titles.HighPriority &&
-    //       value[n]["priority"] > 50
-    //     ) {
-    //       data.push({ id: n, cardData: value[n] });
-    //     } else if (props.title === Titles.Upcoming) {
-    //       data.push({ id: n, cardData: value[n] });
-    //     }
-    //   }
-    //   setDATA(data);
-    // });
-  });
+    return onValue(reference, (snapshot) => {
+      setTimeout(() => {
+        window.gapi.client.load("calendar", "v3", getGapiEvents);
+      }, 500);
+      // const value = snapshot.val();
+      // data = [];
+      // for (const n in value) {
+      //   console.log(
+      //     new Date(value[n]["dateTime"]).toLocaleDateString() +
+      //       ":" +
+      //       new Date(value[n]["dateTime"]).toLocaleTimeString()
+      //   );
+      //   if (
+      //     value[n]["dateTime"].substring(0, 10) ===
+      //       format(new Date(), "yyy-MM-dd") &&
+      //     new Date(value[n]["dateTime"]) > new Date() &&
+      //     props.title === Titles.TodayEvent
+      //   ) {
+      //     data.push({
+      //       id: n,
+      //       cardData: value[n],
+      //     });
+      //   } else if (
+      //     props.title === Titles.HighPriority &&
+      //     value[n]["priority"] > 50
+      //   ) {
+      //     data.push({ id: n, cardData: value[n] });
+      //   } else if (props.title === Titles.Upcoming) {
+      //     data.push({ id: n, cardData: value[n] });
+      //   }
+      // }
+      // setDATA(data);
+    });
+  }, []);
   const getGapiEvents = () => {
     const today = new Date();
-    const endDate = new Date(today);
-    endDate.setDate(
-      endDate.getDate() + (props.title === Titles.TodayEvent ? 1 : 3)
-    );
     window.gapi.client.calendar.events
       .list({
         calendarId: "primary",
         showDeleted: false,
         singleEvents: true,
-        timeMin: today.toISOString(),
-        timeMax: endDate.toISOString(),
+        orderBy: "startTime",
       })
       .then(function (response) {
         const events = response.result.items;
@@ -181,33 +178,23 @@ const Card = (props) => {
     list.map((item) => {
       if (typeof item != "undefined") {
         let repeat = "None";
-        // const repeat = async () => {
-        //   r = "none";
-        //   await (() => {
-        //     const reccuringEventID = item.recurringEventId;
-        //     if (typeof reccuringEventID != "undefined") {
-        //       //console.log(reccuringEventID)
-        //       const requestRecurringEvent =
-        //         window.gapi.client.calendar.events.get({
-        //           calendarId: "primary",
-        //           eventId: reccuringEventID,
-        //         });
-        //       requestRecurringEvent.execute(function (resp) {
-        //         const recurrence = resp.recurrence;
-
-        //         //console.log(recurrence[0]);
-        //         r = recurrence[0];
-        //         //console.log(r);
-        //         //repeat = repeat.charAt(0).toUpperCase() + repeat.slice(1);
-        //         return r;
-        //       });
-        //       //repeat = "E";
-        //     }
+        // const reccuringEventID = item.recurringEventId;
+        // if (typeof reccuringEventID != "undefined") {
+        //   //console.log(reccuringEventID)
+        //   const requestRecurringEvent = window.gapi.client.calendar.events.get({
+        //     calendarId: "primary",
+        //     eventId: reccuringEventID,
         //   });
-        //   return r;
-        // };
-        // repeat();
-        // console.log(r);
+        //   requestRecurringEvent.execute(function (resp) {
+        //     const recurrence = resp.recurrence;
+
+        //     //console.log(recurrence[0]);
+        //     repeat = recurrence[0];
+        //     //console.log("Function: " + repeat);
+        //     //repeat = repeat.charAt(0).toUpperCase() + repeat.slice(1);
+        //     return repeat;
+        //   });
+        // }
         rval.push({
           id: item.id,
           cardData: {
@@ -228,16 +215,41 @@ const Card = (props) => {
   const getAllEvents = () => {
     const data = [];
     googleEvents.concat(DATA).map((item) => {
-      if (new Date(item.cardData.dateTime) > new Date()) {
-        data.push(item);
+      switch (props.title) {
+        case Titles.Upcoming:
+          if (new Date(item.cardData.dateTime) > new Date()) {
+            data.push(item);
+          }
+          break;
+        case Titles.TodayEvent:
+          if (
+            item.cardData.dateTime != undefined &&
+            format(props.day, "YYY-MM-dd") ===
+              format(new Date(item.cardData.dateTime), "YYY-MM-dd") &&
+            new Date(item.cardData.dateTime) > new Date()
+          ) {
+            data.push(item);
+          }
+          break;
+        case Titles.Past:
+          if (new Date(item.cardData.dateTime) < new Date()) {
+            data.push(item);
+          }
+          break;
+        default:
+          break;
       }
-    })
-    if (props.title === Titles.TodayEvent || props.title === Titles.Upcoming) {
-      return Utils.SortData(data, Utils.SortType.TIME);
-    } else if (props.title === Titles.HighPriority) {
-      return Utils.SortData(DATA, Utils.SortType.PRIORITY);
-    } else {
-      return data;
+    });
+
+    switch (props.title) {
+      case Titles.Upcoming:
+        return data.slice(0, Math.min(data.length, 5));
+      case Titles.HighPriority:
+        return Utils.SortData(DATA, Utils.SortType.PRIORITY);
+      case Titles.Past:
+        return data.reverse().slice(0, Math.min(data.length, 5));
+      default:
+        return data;
     }
   };
   const handleAddObject = () => {
@@ -289,7 +301,12 @@ const Card = (props) => {
         <View style={cardStyles.cardHeaderLeft} />
 
         <View style={cardStyles.centeredView}>
-          <Text style={cardStyles.cardHeaderText}>{props.title}</Text>
+          <Text style={cardStyles.cardHeaderText}>
+            {props.day != undefined &&
+            props.day.getDate() != new Date().getDate()
+              ? props.day.getDate()
+              : props.title}
+          </Text>
         </View>
         <View style={cardStyles.cardHeaderRight}>
           {(props.title === Titles.TodayEvent ||
@@ -306,12 +323,10 @@ const Card = (props) => {
               </Pressable>
 
               <Modal visible={isModalVisible} transparent>
-                {props.title === Titles.TodayEvent && (
-                  <EventPopup isModalVisible={handleAddObject} />
-                )}
-                {props.title === Titles.HighPriority && (
-                  <TaskPopup isModalVisible={handleAddObject} />
-                )}
+                <EventPopup
+                  isModalVisible={handleAddObject}
+                  currentDay={props.day}
+                />
               </Modal>
             </>
           )}

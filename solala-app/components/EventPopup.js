@@ -14,6 +14,7 @@ const EventPopup = (props) => {
       displayCategory={false}
       displayComplexity={false}
       displayNotes
+      currentDay={props.currentDay}
     />
   );
 };

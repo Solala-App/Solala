@@ -14,6 +14,7 @@ const TaskPopup = (props) => {
       displayCategory
       displayComplexity
       displayNotes
+      currentDay={props.currentDay}
     />
   );
 };

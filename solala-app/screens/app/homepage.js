@@ -89,7 +89,7 @@ export default function Homepage() {
         <View style={styles.mainView}>
           <View style={styles.column}>
             <View style={styles.card}>
-              <Components.Card title={Titles.TodayEvent} />
+              <Components.Card title={Titles.TodayEvent} day={new Date()} />
             </View>
             <View style={styles.card}>
               <Components.Card title={Titles.Upcoming} />
@@ -118,7 +118,7 @@ export default function Homepage() {
           </View>
           <View style={styles.column}>
             <View style={styles.card}>
-              <ToDoCard title="Today's Priorities" />
+              <ToDoCard title={Titles.HighPriority} day={new Date()} />
             </View>
             <View style={styles.card}>
               <Components.Card title={Titles.BodyCheck} />

@@ -23,23 +23,26 @@ import Zoom from "./Zoom.js";
 
 const { light, size, text, shadowProp } = theme;
 
-const Item = ({ title, zoom }) => (
+const Item = ({ data, handleZoom, isZoomVisible }) => (
   <View style={cardStyles.cardItem}>
     <View style={cardStyles.cardObjectLeft}>
       <CheckBoxComponent
         onChange={(checked) => {
           // do stuff with checked
           console.log(
-            `Todo ${title} is ${checked ? "complete" : "incomplete"}`
+            `Todo ${data.title} is ${checked ? "complete" : "incomplete"}`
           );
         }}
       />
     </View>
     <View style={cardStyles.cardObjectRight}>
-      <Pressable onPress={zoom}>
-        <Text style={cardStyles.cardObjectText}>{title}</Text>
+      <Pressable onPress={handleZoom}>
+        <Text style={cardStyles.cardObjectText}>{data.title}</Text>
       </Pressable>
     </View>
+    <Modal visible={isZoomVisible} transparent>
+      <Zoom zoom={handleZoom} cardData={data} type={"Task"} />
+    </Modal>
   </View>
 );
 
@@ -52,7 +55,11 @@ const itemSeparator = () => {
 
 const Card = (props) => {
   const renderItem = ({ item }) => (
-    <Item title={item.title} type={props.title} zoom={handleZoomVisible} />
+    <Item
+      data={item.cardData}
+      handleZoom={handleZoomVisible}
+      isZoomVisible={isZoomVisible}
+    />
   );
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [isZoomVisible, setZoomVisible] = React.useState(false);
@@ -77,13 +84,19 @@ const Card = (props) => {
       const value = snapshot.val();
       data = [];
       for (const n in value) {
-        if (value[n]["date"] === format(addDays(props.day), "yyy-MM-dd")) {
-          data.push({ id: n, title: value[n]["title"] });
+        if (props.day === undefined && value[n]["priority"] > 50) {
+          data.push({ id: n, cardData: value[n] });
+        } else if (
+          new Date(value[n]["dateTime"]).getDate() ===
+          addDays(props.day).getDate()
+        ) {
+          data.push({ id: n, cardData: value[n] });
         }
       }
       setDATA(data);
     });
   }, []);
+
   const handleZoomVisible = () => {
     setZoomVisible(() => !isZoomVisible);
   };
@@ -176,7 +189,6 @@ const Card = (props) => {
           </Pressable>
         )}
       </View>
-      {isZoomVisible === true && <Zoom zoom={handleZoomVisible} />}
     </SafeAreaView>
   );
 };

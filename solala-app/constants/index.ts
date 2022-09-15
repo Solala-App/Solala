@@ -108,3 +108,19 @@ export const theme = {
     elevation: 4,
   },
 };
+
+export enum AccountType {
+  Google,
+  Outlook,
+}
+
+export enum FetchStatus {
+  None = "None",
+  Fetching = "Fetching",
+  Done = "Done",
+  Error = "Error",
+}
+
+export const apiBaseUrl = {
+  googleCalendar: "https://googleapis.com/calendar/v3",
+};

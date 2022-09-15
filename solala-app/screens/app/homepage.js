@@ -8,6 +8,9 @@ import * as Solala from "../../../assets/solala_js";
 import * as Components from "../../components";
 import { Titles } from "../../components/Card.js";
 import { theme } from "../../constants";
+import { useCalendar } from "../../utils/hooks/useCalendar";
+import ToDoCard from "../../components/ToDoCard";
+
 const { light, size } = theme;
 
 function setupHighscoreListener() {
@@ -32,6 +35,7 @@ function resetData() {
   remove(child(ref(database), "users/" + getAuth().currentUser.uid));
 }
 export default function Homepage() {
+  const [calendar, fetchStatus, reloadCalendar] = useCalendar();
   if (Platform.OS === "ios" || Platform.OS === "android") {
     return (
       <View style={styles.container}>
@@ -52,7 +56,7 @@ export default function Homepage() {
           <View style={styles.row}>
             <View style={styles.card}>
               <Components.Card title={Titles.BodyCheck} />
-              <Button
+              {/* <Button
                 title="Fetch Data"
                 onPress={() => {
                   setupHighscoreListener();
@@ -63,7 +67,7 @@ export default function Homepage() {
                 onPress={() => {
                   resetData();
                 }}
-              />
+              /> */}
               <View style={{ position: "absolute" }}>
                 <Components.AnimationManager
                   size={100}
@@ -91,10 +95,11 @@ export default function Homepage() {
               <Components.Card title={Titles.Upcoming} />
             </View>
           </View>
-          <Button
+          {/* <Button
             title="Fetch Data"
             onPress={() => {
               setupHighscoreListener();
+              reloadCalendar();
             }}
           />
           <Button
@@ -102,7 +107,7 @@ export default function Homepage() {
             onPress={() => {
               resetData();
             }}
-          />
+          /> */}
           <View style={styles.columnSolala}>
             <Components.AnimationManager
               faceType={Solala.Happy}
@@ -113,7 +118,7 @@ export default function Homepage() {
           </View>
           <View style={styles.column}>
             <View style={styles.card}>
-              <Components.Card title={Titles.HighPriority} />
+              <ToDoCard title="Today's Priorities" />
             </View>
             <View style={styles.card}>
               <Components.Card title={Titles.BodyCheck} />

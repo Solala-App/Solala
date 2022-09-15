@@ -15,6 +15,7 @@ import {
   Platform,
   Image,
   Alert,
+  Button,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -24,9 +25,14 @@ import * as IconsLight from "../../assets/favicons_light";
 import { theme } from "../constants";
 import Calendar from "./Calendar";
 import TimePickerWeb from "./TimePickerWeb";
-
+import * as Utils from "../utils/CalendarUtil";
 const { light, size, text, colorPalette, shadowProp } = theme;
 
+const CATEGORIES = [
+  { label: "Cateogry One", value: "key0" },
+  { label: "Cateogry Two", value: "key1" },
+  { label: "Cateogry Three", value: "key2" },
+];
 function storeTask(task) {
   const user = getAuth().currentUser;
 
@@ -40,7 +46,7 @@ function storeTask(task) {
       category: task.category,
       notes: task.notes,
       repeat: task.repeat,
-      date: task.date,
+      dateTime: task.dateTime,
       id: newTaskKey,
       title: task.title,
     };
@@ -61,10 +67,9 @@ function storeEvent(event) {
     const taskData = {
       notes: event.notes,
       repeat: event.repeat,
-      date: event.date,
       id: newTaskKey,
       title: event.title,
-      time: event.time,
+      dateTime: event.dateTime,
     };
     const updates = {};
     updates["/users/" + user.uid + "/events/" + newTaskKey] = taskData;
@@ -73,18 +78,41 @@ function storeEvent(event) {
   }
 }
 const CalendarPopup = (props) => {
-  const [priorityValue, setPriorityValue] = React.useState(15);
-  const [complexityValue, setComplexityValue] = React.useState(15);
-  const [repeatIndex, setRepeatIndex] = React.useState(0);
-  const [tempNotes, setTempNotes] = React.useState("");
-  const [notes, setNotes] = React.useState("");
-  const [title, setTitle] = React.useState("");
-  const [selectedDate, setSelectedDate] = React.useState(
-    format(new Date(), "yyy-MM-dd")
-  );
-  const [selectedTime, setSelectedTime] = React.useState(new Date());
   const repeatOptions = ["None", "Daily", "Weekly", "Monthly"];
-  const [category, setCategory] = React.useState("key0");
+
+  const [priorityValue, setPriorityValue] = React.useState(
+    props.presetData !== undefined ? props.presetData.priority : 15
+  );
+  const [complexityValue, setComplexityValue] = React.useState(
+    props.presetData !== undefined ? props.presetData.complexity : 15
+  );
+  const [repeatIndex, setRepeatIndex] = React.useState(
+    props.presetData !== undefined
+      ? repeatOptions.indexOf(props.presetData.repeat)
+      : 0
+  );
+  const [tempNotes, setTempNotes] = React.useState(
+    props.presetData !== undefined ? props.presetData.notes : ""
+  );
+  const [notes, setNotes] = React.useState(
+    props.presetData !== undefined ? props.presetData.notes : ""
+  );
+  const [title, setTitle] = React.useState(
+    props.presetData !== undefined ? props.presetData.title : ""
+  );
+  const [selectedDate, setSelectedDate] = React.useState(
+    props.presetData !== undefined
+      ? format(new Date(props.presetData.dateTime), "yyy-MM-dd")
+      : format(new Date(), "yyy-MM-dd")
+  );
+  const [selectedTime, setSelectedTime] = React.useState(
+    props.presetData !== undefined && props.type === "Event"
+      ? new Date(props.presetData.dateTime)
+      : new Date()
+  );
+  const [category, setCategory] = React.useState(
+    props.presetData !== undefined ? props.presetData.category : "key0"
+  );
 
   const [displayError, setDisplayError] = React.useState(false);
 
@@ -106,6 +134,39 @@ const CalendarPopup = (props) => {
 
   const changeDate = (date) => {
     setSelectedDate(date);
+  };
+
+  const submit = (e, task) => {
+    console.log(task.dateTime);
+    e.preventDefault(); //"2022-09-11T17:00:00-20:30"
+    var event = {
+      summary: task.title,
+      description: task.notes,
+      start: {
+        dateTime: task.dateTime,
+        timeZone: "America/Los_Angeles",
+      },
+      end: {
+        dateTime: new Date(
+          new Date(task.dateTime).getTime() + 30 * 60000
+        ).toISOString(),
+        timeZone: "America/Los_Angeles",
+      },
+      recurrence:
+        task.repeat === "None"
+          ? []
+          : ["RRULE:FREQ=" + task.repeat.toUpperCase()],
+      status: "confirmed",
+      reminders: {
+        useDefault: false,
+        overrides: [
+          { method: "email", minutes: 24 * 60 },
+          { method: "popup", minutes: 10 },
+        ],
+      },
+    };
+
+    Utils.publishTheCalenderEvent(event);
   };
   return (
     <ScrollView>
@@ -131,7 +192,7 @@ const CalendarPopup = (props) => {
             </View>
           </View>
           <View style={cardStyles.calendar}>
-            <Calendar changeDate={changeDate} />
+            <Calendar changeDate={changeDate} currentDate={selectedDate} />
           </View>
 
           {displayError && (
@@ -265,9 +326,11 @@ const CalendarPopup = (props) => {
                   }}
                   onValueChange={(v) => setCategory(v)}
                   accessibilityLabel="Styled Picker Accessibility Label">
-                  <Picker.Item label="Category One" value="key0" />
-                  <Picker.Item label="Category Two" value="key1" />
-                  <Picker.Item label="Category Three" value="key2" />
+                  {CATEGORIES.map((item) => {
+                    return (
+                      <Picker.Item label={item.label} value={item.value} />
+                    );
+                  })}
                 </Picker>
               </View>
             </View>
@@ -298,27 +361,35 @@ const CalendarPopup = (props) => {
           )}
           <View style={cardStyles.popupCheck}>
             <Pressable
-              onPress={() => {
+              onPress={(e) => {
                 if (title === "") {
                   setDisplayError(true);
                 } else {
-                  props.isModalVisible();
+                  const dateTime = new Date(selectedDate + "T12:00:00");
+                  dateTime.setHours(selectedTime.getHours());
+                  dateTime.setMinutes(selectedTime.getMinutes());
+
+                  // dateTime.setMinutes(selectedTime.getMinutes());
+
                   const task = {
                     priority: priorityValue,
                     complexity: complexityValue,
                     category,
                     notes,
                     repeat: repeatOptions[repeatIndex],
-                    date: selectedDate,
                     title,
-                    time: selectedTime.toISOString(),
+                    dateTime: dateTime.toISOString(),
                   };
                   if (props.type === "Task") {
                     storeTask(task);
                   } else {
-                    storeEvent(task);
+                    submit(e, task);
+                  }
+                  if (props.edit != null) {
+                    props.edit();
                   }
                 }
+                props.isModalVisible();
               }}>
               <Image
                 source={IconsDark.Check}

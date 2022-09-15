@@ -15,7 +15,7 @@ const getDate = new Date();
 const INITIAL_DATE = format(getDate, "yyy-MM-dd");
 //  const [currentMonth, setCurrentMonth] = useState(INITIAL_DATE);
 const CalendarComponent = (props) => {
-  const [selected, setSelected] = useState(INITIAL_DATE);
+  const [selected, setSelected] = useState(props.currentDate);
 
   const onDayPress = useCallback((day) => {
     setSelected(day.dateString);
@@ -129,7 +129,7 @@ const CalendarComponent = (props) => {
           monthFormat="MMMM yyyy"
           // Handler which gets executed when visible month changes in calendar. Default = undefined
           onMonthChange={(month) => {
-            console.log("month changed", month);
+            //console.log("month changed", month);
           }}
           // Hide month navigation arrows. Default = false
           hideArrows

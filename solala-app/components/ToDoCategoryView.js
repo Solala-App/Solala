@@ -1,81 +1,91 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
+import { format, set } from "date-fns";
+import { getAuth } from "firebase/auth";
+import { getDatabase, onValue, ref } from "firebase/database";
+import React, { useEffect, useRef } from "react";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Pressable,
+  Text,
+  Modal,
+  ScrollView,
+  Dimensions,
+} from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 
+import * as Favicon from "../../assets/favicons_js";
 import { theme } from "../constants";
+import { cardStyles } from "./CalendarPopup";
 import ToDoCard from "./ToDoCard";
-const { size } = theme;
+import Zoom from "./Zoom";
+import * as Utils from "../utils/CardSorting";
+const { size, light, text } = theme;
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Category",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Category",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Category",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d73",
-    title: "Fourth Category",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d74",
-    title: "Fifth Category",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e20d74",
-    title: "Sixth Category",
-  },
-  {
-    id: "1",
-    title: "Seventh Category",
-  },
-  {
-    id: "13",
-    title: "Eighth Category",
-  },
-  {
-    id: "122",
-    title: "Ninth Category",
-  },
-];
+const formatData = (data, numColumns) => {
+  const numberOfFullRows = Math.floor(data.length / numColumns);
 
-const ToDoDateView = (props) => {
+  let numberOfElementsLastRow = data.length - numberOfFullRows * numColumns;
+  while (
+    numberOfElementsLastRow !== numColumns &&
+    numberOfElementsLastRow !== 0
+  ) {
+    data.push({ title: `blank-${numberOfElementsLastRow}`, empty: true });
+    numberOfElementsLastRow++;
+  }
+
+  return data;
+};
+const ToDoCategoryView = (props) => {
+  const [CATEGORIES, setCategories] = React.useState([]);
+  const NUM_COL = 4;
+
+  function Item({ data }) {
+    return (
+      <View style={styles.card}>
+        <ToDoCard title={"category"} category={data.value} day={new Date()} />
+      </View>
+    );
+  }
+
+  const renderItem = ({ item }) => {
+    if (item.empty === true) {
+      return <View style={[styles.card, styles.itemInvisible]} />;
+    }
+    return <Item data={item} />;
+  };
+  useEffect(() => {
+    const userId = getAuth().currentUser.uid;
+    const db = getDatabase();
+    const reference = ref(db, "users/" + userId + "/categories");
+    let data = [];
+
+    return onValue(reference, (snapshot) => {
+      data = [];
+      const value = snapshot.val();
+      for (const n in value) {
+        data.push(value[n]);
+      }
+      data.push({ label: "Other", value: "None" });
+      setCategories(data);
+    });
+  }, []);
   return (
-    <View style={styles.mainView}>
-      <View style={[styles.row]}>
-        <View style={styles.card}>
-          <ToDoCard title="Today's Priorities" />
-        </View>
-        <View style={styles.card}>
-          <ToDoCard title={DATA} />
-        </View>
-        <View style={styles.card}>
-          <ToDoCard title={DATA} />
-        </View>
-        <View style={styles.card}>
-          <ToDoCard title={DATA} />
-        </View>
+    <ScrollView
+      showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
+      style={{ width: "100%" }}>
+      <View style={styles.mainView}>
+        <FlatList
+          data={formatData(CATEGORIES, NUM_COL)}
+          style={styles.container}
+          renderItem={renderItem}
+          numColumns={NUM_COL}
+          keyExtractor={(item) => item.id}
+          listKey={(item) => item.id}
+        />
       </View>
-      <View style={styles.row}>
-        <View style={styles.card}>
-          <ToDoCard title={DATA} />
-        </View>
-        <View style={styles.card}>
-          <ToDoCard title={DATA} />
-        </View>
-        <View style={styles.card}>
-          <ToDoCard title={DATA} />
-        </View>
-        <View style={styles.card}>
-          <ToDoCard title="Next Week" />
-        </View>
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -87,6 +97,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
+  container: {
+    flex: 1,
+    width: "100%",
+    marginVertical: 20,
+  },
   row: {
     flexDirection: "row",
     alignSelf: "stretch",
@@ -95,6 +110,35 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     margin: size.margin,
+    height: RFValue(100),
+    width: "100%",
+    alignItems: "stretch",
+  },
+  cardItem: {
+    flex: 1,
+    margin: size.margin,
+    alignItems: "stretch",
+    width: "100%",
+  },
+  scrollButton: {
+    width: RFValue(12),
+    height: RFValue(12),
+    marginEnd: size.margin,
+  },
+  cardObjectText: {
+    ...text.body,
+    color: light.textSecondary,
+    flex: 1,
+    textAlign: "center",
+  },
+  headerText: {
+    flex: 1,
+    ...text.title,
+    textAlign: "center",
+    color: light.secondary,
+  },
+  itemInvisible: {
+    backgroundColor: "transparent",
   },
 });
-export default ToDoDateView;
+export default ToDoCategoryView;

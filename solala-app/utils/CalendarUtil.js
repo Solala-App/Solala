@@ -36,7 +36,7 @@ export const publishTheCalenderEvent = (event) => {
   }
 };
 
-export const deleteCalenderEvent = (eventId, updateClient) => {
+export const deleteCalenderEvent = (eventId) => {
   //console.log(eventId);
   try {
     gapi.client.load("calendar", "v3", () => {

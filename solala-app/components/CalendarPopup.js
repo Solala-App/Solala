@@ -3,8 +3,15 @@ import Slider from "@react-native-community/slider";
 import { Picker } from "@react-native-picker/picker";
 import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
-import { getDatabase, ref, push, child, update } from "firebase/database";
-import React from "react";
+import {
+  getDatabase,
+  ref,
+  push,
+  child,
+  update,
+  onValue,
+} from "firebase/database";
+import React, { useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -14,8 +21,7 @@ import {
   Pressable,
   Platform,
   Image,
-  Alert,
-  Button,
+  Modal,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -26,13 +32,9 @@ import { theme } from "../constants";
 import Calendar from "./Calendar";
 import TimePickerWeb from "./TimePickerWeb";
 import * as Utils from "../utils/CalendarUtil";
+import CategoryPopup from "./CategoryPopup";
 const { light, size, text, colorPalette, shadowProp } = theme;
 
-const CATEGORIES = [
-  { label: "Cateogry One", value: "key0" },
-  { label: "Cateogry Two", value: "key1" },
-  { label: "Cateogry Three", value: "key2" },
-];
 function storeTask(task) {
   const user = getAuth().currentUser;
 
@@ -59,6 +61,7 @@ function storeTask(task) {
 
 const CalendarPopup = (props) => {
   const repeatOptions = ["None", "Daily", "Weekly", "Monthly"];
+  const [CATEGORIES, setCategories] = React.useState([]);
 
   const [priorityValue, setPriorityValue] = React.useState(
     props.presetData !== undefined ? props.presetData.priority : 15
@@ -91,10 +94,15 @@ const CalendarPopup = (props) => {
       : new Date()
   );
   const [category, setCategory] = React.useState(
-    props.presetData !== undefined ? props.presetData.category : "key0"
+    props.presetData !== undefined ? props.presetData.category : "None"
   );
 
   const [displayError, setDisplayError] = React.useState(false);
+  const [showCategoryPopup, setShowCategoryPopup] = React.useState(false);
+
+  const handleCategoryPopup = () => {
+    setShowCategoryPopup(() => !showCategoryPopup);
+  };
 
   const scrollLeft = () => {
     if (repeatIndex === 0) {
@@ -118,7 +126,7 @@ const CalendarPopup = (props) => {
 
   const submit = (e, task) => {
     console.log(task.dateTime);
-    e.preventDefault(); //"2022-09-11T17:00:00-20:30"
+    e.preventDefault();
     var event = {
       summary: task.title,
       description: task.notes,
@@ -148,6 +156,21 @@ const CalendarPopup = (props) => {
 
     Utils.publishTheCalenderEvent(event);
   };
+  useEffect(() => {
+    const userId = getAuth().currentUser.uid;
+    const db = getDatabase();
+    const reference = ref(db, "users/" + userId + "/categories");
+    let data = [];
+
+    return onValue(reference, (snapshot) => {
+      data = [{ label: "None", value: "None" }];
+      const value = snapshot.val();
+      for (const n in value) {
+        data.push(value[n]);
+      }
+      setCategories(data);
+    });
+  }, []);
   return (
     <ScrollView>
       <View style={cardStyles.centeredView}>
@@ -312,6 +335,22 @@ const CalendarPopup = (props) => {
                     );
                   })}
                 </Picker>
+                <Pressable onPress={handleCategoryPopup}>
+                  <View
+                    style={{
+                      backgroundColor: light.secondary,
+                      borderRadius: size.borderRadius,
+                      marginLeft: size.innerPadding,
+                    }}>
+                    <Text style={cardStyles.popupLabelText}> Add/Remove </Text>
+                  </View>
+                </Pressable>
+                <Modal transparent visible={showCategoryPopup}>
+                  <CategoryPopup
+                    closePopup={handleCategoryPopup}
+                    categories={CATEGORIES.slice(1, CATEGORIES.length)}
+                  />
+                </Modal>
               </View>
             </View>
           )}

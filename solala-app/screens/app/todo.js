@@ -8,14 +8,22 @@ const { light, size } = theme;
 
 //<Components.SelectionButton title="Date:" data="Dates" />
 export default function Todo(props) {
+  const ToDoView = ["Planner", "Category"];
+
   const [viewDate, changeViewDate] = React.useState(new Date());
+  const [sortViewIndex, setSortViewIndex] = React.useState(0);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
         <View style={styles.topBar}>
           <View style={{ alignItems: "flex-start", flex: 1 }}>
-            <Components.SelectionButton title="Sort:" data="todo view" />
+            <Components.SelectionButton
+              title="Sort:"
+              data={sortViewIndex}
+              updateVariable={setSortViewIndex}
+              sortTypes={ToDoView}
+            />
           </View>
           <View style={{ alignItems: "flex-end", flex: 1 }}>
             <Components.SelectionButton
@@ -26,7 +34,12 @@ export default function Todo(props) {
             />
           </View>
         </View>
-        <Components.ToDoPlannerView viewDate={viewDate} />
+        {ToDoView[sortViewIndex] === "Planner" && (
+          <Components.ToDoPlannerView viewDate={viewDate} />
+        )}
+        {ToDoView[sortViewIndex] === "Category" && (
+          <Components.ToDoCategoryView viewDate={viewDate} />
+        )}
       </View>
       <Components.Footer />
     </SafeAreaView>

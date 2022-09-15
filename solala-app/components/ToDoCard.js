@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
 import React, { useEffect, useRef } from "react";
@@ -11,6 +10,7 @@ import {
   SafeAreaView,
   Modal,
   Image,
+  ScrollView,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -21,6 +21,7 @@ import { Titles } from "./Card";
 import CheckBoxComponent from "./CheckBoxComponent";
 import TaskPopup from "./TaskPopup.js";
 import Zoom from "./Zoom.js";
+import * as Utils from "../utils/CardSorting";
 
 const { light, size, text, shadowProp } = theme;
 
@@ -88,35 +89,57 @@ const Card = (props) => {
   const getFilteredTasks = () => {
     const data = [];
     DATA.map((item) => {
-      if (props.title === Titles.HighPriority) {
-        if (item.cardData.priority > 50) {
-          data.push(item);
-        }
-      } else {
-        if (
-          props.day.getDate() === new Date(item.cardData.dateTime).getDate()
-        ) {
-          data.push(item);
-        }
+      switch (props.title) {
+        case Titles.HighPriority:
+          if (item.cardData.priority > 50) {
+            data.push(item);
+          }
+          break;
+        case "category":
+          if (
+            props.category === item.cardData.category &&
+            (new Date(item.cardData.dateTime).getDate() >=
+              new Date().getDate() ||
+              new Date(item.cardData.dateTime).getMonth() >=
+                new Date().getMonth())
+          ) {
+            data.push(item);
+          }
+          break;
+        default:
+          if (
+            props.day.getDate() === new Date(item.cardData.dateTime).getDate()
+          ) {
+            data.push(item);
+          }
+          break;
       }
     });
-    return data;
+
+    switch (props.title) {
+      case Titles.HighPriority:
+        return Utils.SortData(data, Utils.SortType.PRIORITY);
+      case "category":
+        return Utils.SortData(data, Utils.SortType.DATE);
+      default:
+        return data;
+    }
   };
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
   };
 
   const scrollsDown = () => {
-    if (scrollDownIndex < DATA.length) {
-      setScrollDownIndex(scrollDownIndex + 1);
-      flatList.current.scrollToIndex({ index: scrollDownIndex });
-    }
+    // if (scrollDownIndex < DATA.length) {
+    //   setScrollDownIndex(scrollDownIndex + 1);
+    //   flatList.current.scrollToIndex({ index: scrollDownIndex });
+    // }
   };
   const scrollUp = () => {
-    if (scrollUpIndex >= 0) {
-      setScrollUpIndex(scrollUpIndex - 1);
-      flatList.current.scrollToIndex({ index: scrollUpIndex });
-    }
+    // if (scrollUpIndex >= 0) {
+    //   setScrollUpIndex(scrollUpIndex - 1);
+    //   flatList.current.scrollToIndex({ index: scrollUpIndex });
+    // }
   };
 
   const onViewRef = React.useRef((viewableItems) => {
@@ -144,7 +167,9 @@ const Card = (props) => {
         <View style={cardStyles.cardHeaderLeft} />
 
         <View style={cardStyles.centeredView}>
-          <Text style={cardStyles.cardHeaderText}>{props.title}</Text>
+          <Text style={cardStyles.cardHeaderText}>
+            {props.title != "category" ? props.title : props.category}
+          </Text>
         </View>
         <View style={cardStyles.cardHeaderRight}>
           <Pressable onPress={handleAddObject}>
@@ -167,16 +192,20 @@ const Card = (props) => {
           alignSelf: "stretch",
           flex: 1,
         }}>
-        <FlatList
-          data={getFilteredTasks()}
-          ref={flatList}
-          initialScrollIndex={0}
-          onViewableItemsChanged={onViewRef.current}
-          showsVerticalScrollIndicator={false}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          ItemSeparatorComponent={itemSeparator}
-        />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <FlatList
+            style={{ flex: 1 }}
+            data={getFilteredTasks()}
+            ref={flatList}
+            initialScrollIndex={0}
+            onViewableItemsChanged={onViewRef.current}
+            showsVerticalScrollIndicator={false}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            ItemSeparatorComponent={itemSeparator}
+            listKey={(item) => item.id}
+          />
+        </ScrollView>
       </View>
       <View style={{ flexDirection: "row" }}>
         <Pressable onPress={scrollsDown}>

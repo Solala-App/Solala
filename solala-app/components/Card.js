@@ -174,33 +174,23 @@ const Card = (props) => {
     list.map((item) => {
       if (typeof item != "undefined") {
         let repeat = "None";
-        // const repeat = async () => {
-        //   r = "none";
-        //   await (() => {
-        //     const reccuringEventID = item.recurringEventId;
-        //     if (typeof reccuringEventID != "undefined") {
-        //       //console.log(reccuringEventID)
-        //       const requestRecurringEvent =
-        //         window.gapi.client.calendar.events.get({
-        //           calendarId: "primary",
-        //           eventId: reccuringEventID,
-        //         });
-        //       requestRecurringEvent.execute(function (resp) {
-        //         const recurrence = resp.recurrence;
-
-        //         //console.log(recurrence[0]);
-        //         r = recurrence[0];
-        //         //console.log(r);
-        //         //repeat = repeat.charAt(0).toUpperCase() + repeat.slice(1);
-        //         return r;
-        //       });
-        //       //repeat = "E";
-        //     }
+        // const reccuringEventID = item.recurringEventId;
+        // if (typeof reccuringEventID != "undefined") {
+        //   //console.log(reccuringEventID)
+        //   const requestRecurringEvent = window.gapi.client.calendar.events.get({
+        //     calendarId: "primary",
+        //     eventId: reccuringEventID,
         //   });
-        //   return r;
-        // };
-        // repeat();
-        // console.log(r);
+        //   requestRecurringEvent.execute(function (resp) {
+        //     const recurrence = resp.recurrence;
+
+        //     //console.log(recurrence[0]);
+        //     repeat = recurrence[0];
+        //     //console.log("Function: " + repeat);
+        //     //repeat = repeat.charAt(0).toUpperCase() + repeat.slice(1);
+        //     return repeat;
+        //   });
+        // }
         rval.push({
           id: item.id,
           cardData: {
@@ -248,8 +238,8 @@ const Card = (props) => {
     });
 
     switch (props.title) {
-      case Titles.TodayEvent || Titles.Upcoming:
-        return Utils.SortData(data, Utils.SortType.TIME);
+      case Titles.Upcoming:
+        return data.slice(0, Math.min(data.length, 5));
       case Titles.HighPriority:
         return Utils.SortData(DATA, Utils.SortType.PRIORITY);
       case Titles.Past:

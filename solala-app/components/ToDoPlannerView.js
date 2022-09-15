@@ -53,10 +53,21 @@ const itemSeparator = () => {
 };
 
 const ToDoPlannerView = (props) => {
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
   const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
   const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
   const [DATA, setDATA] = React.useState([]);
   const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
+
   const flatList = useRef();
   const renderItem = ({ item }) => <Item cardData={item.cardData} />;
 
@@ -83,7 +94,7 @@ const ToDoPlannerView = (props) => {
           .index + 1
       );
       setScrollUpIndex(viewableItems.viewableItems[0].index - 1);
-      console.log(viewableItems.viewableItems[0].index);
+      //console.log(viewableItems.viewableItems[0].index);
       if (viewableItems.viewableItems[0].index === 0) {
         setDisplayScrollUp(false);
       } else {
@@ -92,6 +103,11 @@ const ToDoPlannerView = (props) => {
     }
   });
 
+  function addDays(days) {
+    const date = new Date(props.viewDate);
+    date.setDate(props.viewDate.getDate() + days);
+    return date;
+  }
   useEffect(() => {
     const userId = getAuth().currentUser.uid;
     const db = getDatabase();
@@ -106,44 +122,6 @@ const ToDoPlannerView = (props) => {
       setDATA(data);
     });
   }, []);
-  const currentTime = new Date();
-  const dayOfWeek = format(currentTime, "EEEE");
-  let card2 = "Loading";
-  let card3 = "Loading";
-
-  switch (dayOfWeek) {
-    case "Monday":
-      card2 = "Tuesday";
-      card3 = "Wednesday";
-      break;
-    case "Tuesday":
-      card2 = "Wednesday";
-      card3 = "Thursday";
-      break;
-    case "Wednesday":
-      card2 = "Thursday";
-      card3 = "Friday";
-      break;
-    case "Thursday":
-      card2 = "Friday";
-      card3 = "Saturday";
-      break;
-    case "Friday":
-      card2 = "Saturday";
-      card3 = "Sunday";
-      break;
-    case "Saturday":
-      card2 = "Sunday";
-      card3 = "Monday";
-      break;
-    case "Sunday":
-      card2 = "Monday";
-      card3 = "Tuesday";
-      break;
-
-    default:
-      break;
-  }
   return (
     <View style={styles.mainView}>
       <View style={{ flex: 1, alignItems: "stretch", width: "100%" }}>
@@ -207,16 +185,23 @@ const ToDoPlannerView = (props) => {
       </View>
       <View style={styles.row}>
         <View style={styles.card}>
-          <ToDoCard title="Today's Priorities" day={0} />
+          <ToDoCard
+            title={
+              addDays(0).getDate() === new Date().getDate()
+                ? "Today's Priorities"
+                : weekday[addDays(0).getDay()]
+            }
+            day={addDays(0)}
+          />
         </View>
         <View style={styles.card}>
-          <ToDoCard title={card2} day={1} />
+          <ToDoCard title={weekday[addDays(1).getDay()]} day={addDays(1)} />
         </View>
         <View style={styles.card}>
-          <ToDoCard title={card3} day={2} />
+          <ToDoCard title={weekday[addDays(2).getDay()]} day={addDays(2)} />
         </View>
         <View style={styles.card}>
-          <ToDoCard title="Upcoming" day={3} />
+          <ToDoCard title="Upcoming" day={addDays(3)} />
         </View>
       </View>
     </View>

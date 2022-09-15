@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
 import React, { useEffect, useRef } from "react";
@@ -11,40 +10,49 @@ import {
   SafeAreaView,
   Modal,
   Image,
+  ScrollView,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import * as Favicon from "../../assets/favicons_js";
 import Plus from "../../assets/favicons_light/Plus.png";
 import { theme } from "../constants";
+import { Titles } from "./Card";
 import CheckBoxComponent from "./CheckBoxComponent";
 import TaskPopup from "./TaskPopup.js";
 import Zoom from "./Zoom.js";
+import * as Utils from "../utils/CardSorting";
 
 const { light, size, text, shadowProp } = theme;
 
-const Item = ({ data, handleZoom, isZoomVisible }) => (
-  <View style={cardStyles.cardItem}>
-    <View style={cardStyles.cardObjectLeft}>
-      <CheckBoxComponent
-        onChange={(checked) => {
-          // do stuff with checked
-          console.log(
-            `Todo ${data.title} is ${checked ? "complete" : "incomplete"}`
-          );
-        }}
-      />
+function Item({ data, handleZoom }) {
+  const [isZoomVisible, setZoomVisible] = React.useState(false);
+  const handleZoomVisible = () => {
+    setZoomVisible(() => !isZoomVisible);
+  };
+  return (
+    <View style={cardStyles.cardItem}>
+      <View style={cardStyles.cardObjectLeft}>
+        <CheckBoxComponent
+          onChange={(checked) => {
+            // do stuff with checked
+            console.log(
+              `Todo ${data.title} is ${checked ? "complete" : "incomplete"}`
+            );
+          }}
+        />
+      </View>
+      <View style={cardStyles.cardObjectRight}>
+        <Pressable onPress={handleZoomVisible}>
+          <Text style={cardStyles.cardObjectText}>{data.title}</Text>
+        </Pressable>
+      </View>
+      <Modal visible={isZoomVisible} transparent>
+        <Zoom zoom={handleZoomVisible} cardData={data} type={"Task"} />
+      </Modal>
     </View>
-    <View style={cardStyles.cardObjectRight}>
-      <Pressable onPress={handleZoom}>
-        <Text style={cardStyles.cardObjectText}>{data.title}</Text>
-      </Pressable>
-    </View>
-    <Modal visible={isZoomVisible} transparent>
-      <Zoom zoom={handleZoom} cardData={data} type={"Task"} />
-    </Modal>
-  </View>
-);
+  );
+}
 
 const itemSeparator = () => {
   return (
@@ -54,15 +62,8 @@ const itemSeparator = () => {
 /* green bubble for menus */
 
 const Card = (props) => {
-  const renderItem = ({ item }) => (
-    <Item
-      data={item.cardData}
-      handleZoom={handleZoomVisible}
-      isZoomVisible={isZoomVisible}
-    />
-  );
+  const renderItem = ({ item }) => <Item data={item.cardData} />;
   const [isModalVisible, setIsModalVisible] = React.useState(false);
-  const [isZoomVisible, setZoomVisible] = React.useState(false);
   const [scrollDownIndex, setScrollDownIndex] = React.useState(0);
   const [scrollUpIndex, setScrollUpIndex] = React.useState(0);
   const [displayScrollUp, setDisplayScrollUp] = React.useState(false);
@@ -75,46 +76,70 @@ const Card = (props) => {
     const reference = ref(db, "users/" + userId + "/tasks");
     let data = [];
 
-    function addDays(days) {
-      const date = new Date();
-      date.setDate(date.getDate() + days);
-      return date;
-    }
     return onValue(reference, (snapshot) => {
       const value = snapshot.val();
       data = [];
       for (const n in value) {
-        if (props.day === undefined && value[n]["priority"] > 50) {
-          data.push({ id: n, cardData: value[n] });
-        } else if (
-          new Date(value[n]["dateTime"]).getDate() ===
-          addDays(props.day).getDate()
-        ) {
-          data.push({ id: n, cardData: value[n] });
-        }
+        data.push({ id: n, cardData: value[n] });
       }
       setDATA(data);
     });
   }, []);
 
-  const handleZoomVisible = () => {
-    setZoomVisible(() => !isZoomVisible);
+  const getFilteredTasks = () => {
+    const data = [];
+    DATA.map((item) => {
+      switch (props.title) {
+        case Titles.HighPriority:
+          if (item.cardData.priority > 50) {
+            data.push(item);
+          }
+          break;
+        case "category":
+          if (
+            props.category === item.cardData.category &&
+            (new Date(item.cardData.dateTime).getDate() >=
+              new Date().getDate() ||
+              new Date(item.cardData.dateTime).getMonth() >=
+                new Date().getMonth())
+          ) {
+            data.push(item);
+          }
+          break;
+        default:
+          if (
+            props.day.getDate() === new Date(item.cardData.dateTime).getDate()
+          ) {
+            data.push(item);
+          }
+          break;
+      }
+    });
+
+    switch (props.title) {
+      case Titles.HighPriority:
+        return Utils.SortData(data, Utils.SortType.PRIORITY);
+      case "category":
+        return Utils.SortData(data, Utils.SortType.DATE);
+      default:
+        return data;
+    }
   };
   const handleAddObject = () => {
     setIsModalVisible(() => !isModalVisible);
   };
 
   const scrollsDown = () => {
-    if (scrollDownIndex < DATA.length) {
-      setScrollDownIndex(scrollDownIndex + 1);
-      flatList.current.scrollToIndex({ index: scrollDownIndex });
-    }
+    // if (scrollDownIndex < DATA.length) {
+    //   setScrollDownIndex(scrollDownIndex + 1);
+    //   flatList.current.scrollToIndex({ index: scrollDownIndex });
+    // }
   };
   const scrollUp = () => {
-    if (scrollUpIndex >= 0) {
-      setScrollUpIndex(scrollUpIndex - 1);
-      flatList.current.scrollToIndex({ index: scrollUpIndex });
-    }
+    // if (scrollUpIndex >= 0) {
+    //   setScrollUpIndex(scrollUpIndex - 1);
+    //   flatList.current.scrollToIndex({ index: scrollUpIndex });
+    // }
   };
 
   const onViewRef = React.useRef((viewableItems) => {
@@ -142,7 +167,9 @@ const Card = (props) => {
         <View style={cardStyles.cardHeaderLeft} />
 
         <View style={cardStyles.centeredView}>
-          <Text style={cardStyles.cardHeaderText}>{props.title}</Text>
+          <Text style={cardStyles.cardHeaderText}>
+            {props.title != "category" ? props.title : props.category}
+          </Text>
         </View>
         <View style={cardStyles.cardHeaderRight}>
           <Pressable onPress={handleAddObject}>
@@ -153,7 +180,10 @@ const Card = (props) => {
           </Pressable>
 
           <Modal visible={isModalVisible} transparent>
-            <TaskPopup isModalVisible={handleAddObject} />
+            <TaskPopup
+              isModalVisible={handleAddObject}
+              currentDay={props.day}
+            />
           </Modal>
         </View>
       </View>
@@ -162,16 +192,20 @@ const Card = (props) => {
           alignSelf: "stretch",
           flex: 1,
         }}>
-        <FlatList
-          data={DATA}
-          ref={flatList}
-          initialScrollIndex={0}
-          onViewableItemsChanged={onViewRef.current}
-          showsVerticalScrollIndicator={false}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          ItemSeparatorComponent={itemSeparator}
-        />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <FlatList
+            style={{ flex: 1 }}
+            data={getFilteredTasks()}
+            ref={flatList}
+            initialScrollIndex={0}
+            onViewableItemsChanged={onViewRef.current}
+            showsVerticalScrollIndicator={false}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            ItemSeparatorComponent={itemSeparator}
+            listKey={(item) => item.id}
+          />
+        </ScrollView>
       </View>
       <View style={{ flexDirection: "row" }}>
         <Pressable onPress={scrollsDown}>

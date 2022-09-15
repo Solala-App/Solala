@@ -40,6 +40,7 @@ const Zoom = ({ zoom, cardData, type }) => {
         );
       }
     }
+    Utils.deleteCalenderEvent(cardData.id);
   }
   const [showDeleteWarning, setShowDeleteWarning] = React.useState(false);
   const [showEditScreen, setShowEditScreen] = React.useState(false);

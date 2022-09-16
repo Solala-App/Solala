@@ -1,3 +1,12 @@
+import { getAuth } from "firebase/auth";
+import {
+  getDatabase,
+  ref,
+  push,
+  child,
+  update,
+  onValue,
+} from "firebase/database";
 import React, { useState } from "react";
 import {
   Pressable,
@@ -10,18 +19,60 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import * as Icons from "../../assets/favicons_light";
 
 import * as BodyIcons from "../../assets/emotions";
+import * as Icons from "../../assets/favicons_light";
 import { theme } from "../constants";
-import { cardStyles } from "./CalendarPopup";
 import BodyButtonPopup from "./BodyButtonPopup";
 
 const { colorPalette, text, size } = theme;
 
+function storeBodyCheck(task) {
+  const user = getAuth().currentUser;
+
+  if (user != null) {
+    const database = getDatabase();
+
+    const newTaskKey = push(child(ref(database), "users")).key;
+    const taskData = {
+      joyful: task.joyful,
+      sad: task.sad,
+      powerful: task.powerful,
+      peaceful: task.peaceful,
+      mad: task.mad,
+      scared: task.scared,
+    };
+    const updates = {};
+    updates["/users/" + user.uid + "/tasks/" + newTaskKey] = taskData;
+    return update(ref(database), updates);
+    //remove(child(ref(database), "users/" + user.uid));
+  }
+}
+
 const BodyButton = (props) => {
   const [pressed, setPressed] = useState(false);
   const [longPressed, setLongPressed] = useState(false);
+
+  const [newBodyCheck, setNewBodyCheck] = React.useState("");
+
+  function addBodyCheck() {
+    const user = getAuth().currentUser;
+
+    if (user != null && newBodyCheck != "") {
+      const database = getDatabase();
+
+      const newBodyKey = push(child(ref(database), "users")).key;
+
+      const updates = {};
+      updates["/users/" + user.uid + "/categories/" + newBodyKey] = {
+        label: newBodyCheck,
+        value: newBodyCheck,
+        id: newBodyKey,
+      };
+      setNewBodyCheck("");
+      return update(ref(database), updates);
+    }
+  }
 
   if (Platform.OS === "ios" || Platform.OS === "android") {
     let buttonColor = colorPalette.forest;

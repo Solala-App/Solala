@@ -8105,6 +8105,11 @@ react-shallow-renderer@16.14.1:
     object-assign "^4.1.1"
     react-is "^16.12.0 || ^17.0.0"
 
+react-svg-radar-chart@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-svg-radar-chart/-/react-svg-radar-chart-1.4.0.tgz#9c47a9def325c9727364a60d9b4ac870d546630a"
+  integrity sha512-flOJQrVOq7SqNMooWPrsgJqN8Lx/BedQoGHDIgdmmpJS0i2P7WJK6u8JeDA8Sjbobxh9QqvFFSxLdFn6Aua8Zg==
+
 react@17.0.2:
   version "17.0.2"
   resolved "https://registry.npmjs.org/react/-/react-17.0.2.tgz"

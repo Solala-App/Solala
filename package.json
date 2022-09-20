@@ -17,7 +17,8 @@
     "eject": "expo eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx solala-app",
     "lint:fix": "yarn lint --fix",
-    "prettier": "prettier --write solala-app"
+    "prettier": "prettier --write solala-app",
+    "deploy:web": "expo build:web && gh-pages -d web-build -b pages"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.9",
@@ -67,6 +68,7 @@
     "babel-cli": "^6.26.0",
     "eslint": "^8.20.0",
     "eslint-config-universe": "^11.0.0",
+    "gh-pages": "^4.0.0",
     "prettier": "^2.7.1",
     "react-native-svg-transformer": "^1.0.0",
     "typescript": "^4.7.4"

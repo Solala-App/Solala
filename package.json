@@ -2,6 +2,7 @@
   "name": "solala-app",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
+  "homepage": "https://solala.app",
   "license": "UNLICENSED",
   "engines": {
     "npm": "please-use-yarn",

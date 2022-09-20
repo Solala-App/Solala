@@ -1,0 +1,9 @@
+{
+  "background_color": "#E3FFEB",
+  "display": "standalone",
+  "lang": "en",
+  "name": "Solala",
+  "short_name": "Solala",
+  "start_url": "/?utm_source=web_app_manifest",
+  "orientation": "portrait"
+}
